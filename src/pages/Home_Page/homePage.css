@@ -1,0 +1,124 @@
+@media screen and (max-width: 800px) {
+    .home-page {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .home-page_user_settings {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        margin-top: 10px;
+    }
+
+    .home-page_settings svg {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        margin-right: 20px;
+        margin-top: 20px;
+        color: white;
+    }
+
+    .home-page_user {
+        margin-left:  10px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+    }
+    .home-page_user .home-page_user_icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 25%;
+        margin-right: 10px;
+        background: #535bf2;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        padding: 10px;
+    }
+    .home-page_user_icon svg{
+        width: 100%;
+        height: 100%;
+    }
+
+    .tap_ball {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        margin-top: 50px;
+        width: 100%;
+
+    }
+    .tap_ball img{
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: #191919;
+        box-shadow:  -5px -5px 15px #131313,
+        5px 5px 15px #1f1f1f;
+    }
+    .ball-content{
+        position: absolute;
+        top: 10%;
+        bottom: 0;
+
+        width: 100%;
+        display: flex;
+        /*justify-content: center;*/
+        align-items: center;
+        background: #191919;
+        margin-top: 40px;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+        -webkit-box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
+        -moz-box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
+        box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
+        flex-direction: column;
+    }
+    .ball-score-container{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+    }
+    @keyframes ball-appear {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(-2px);
+        }
+    }
+
+    .ball-animation {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: transparent; /* Rangni olib tashladik */
+        border-radius: 50%;
+        animation: ball-appear 0.5s forwards;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 14px;
+    }
+
+    .ball-animation span {
+        font-size: 12px;
+    }
+
+}
+
+
+

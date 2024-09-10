@@ -1,0 +1,46 @@
+.collapse-container {
+    overflow: hidden;
+    width: 95vw;
+}
+
+.collapse-item {
+    margin: 10px 0;
+    width: 100%;
+}
+
+.collapse-header {
+    height: 50px;
+    padding: 5px 15px;
+    cursor: pointer;
+    background: #191919;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    transition: background-color 0.3s ease;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
+.collapse-icon {
+    font-size: 14px;
+    color: white;
+}
+
+.collapse-content {
+    padding: 10px 15px;
+    background: #191919;
+    color: white;
+    overflow: hidden;
+    max-height: 0; /* Boshlang'ich balandlik 0 */
+    transition: max-height 0.5s ease; /* Animatsiya */
+    width: 100%;
+}
+
+/* Collapse ochiq bo'lganda */
+.collapse-item.open .collapse-content {
+    max-height: 500px; /* Maksimal balandlikni tahminiy qiymat belgilang */
+    width: 100%;
+}

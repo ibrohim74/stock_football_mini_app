@@ -1,0 +1,95 @@
+.peredacha {
+    padding: 10px 10px 0 10px;
+    margin-bottom: 100px;
+}
+
+.peredacha_time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.peredacha_time h1, .peredacha_time p {
+    margin: 0;
+    padding: 0;
+}
+
+.peredacha_list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.table-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.table-row p {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.table-row p span{
+    margin-bottom: 7px;}
+
+.team1, .team2 {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.team1 img, .team2 img {
+    width: 30px;
+    height: 30px;
+}
+
+.team1 h1, .team2 h1 {
+    font-size: 16px;
+}
+
+.team1 h1 {
+    margin-right: 10px;
+}
+
+.team2 h1 {
+    margin-left: 10px;
+}
+
+
+
+.peredacha_tabs{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #191919;
+    border-radius: 15px;
+}
+.peredacha__tab_item.active{
+    background: white;
+    color: #191919;
+}
+
+.peredacha__tab_item{
+    background: transparent;
+    color: #fff;
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    border-radius: 15px;
+}
