@@ -1,15 +1,14 @@
-
-import IndexRouter from "./utils/indexRouter.jsx";
-
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import IndexRouter from "./utils/IndexRouter.jsx";
+import Layout from "./pages/layout.jsx";
 
 function App() {
-    const tg = window.Telegram.WebApp
     return (
         <>
-            <IndexRouter/>
-
+            <IndexRouter />
         </>
-    )
+    );
 }
 
-export default App
+export default App;

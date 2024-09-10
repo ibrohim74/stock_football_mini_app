@@ -5,7 +5,7 @@ import { SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { SETTINGS } from "../../utils/const.jsx";
 
-const HomePage = () => {
+const HomePageTap = () => {
     const [score, setScore] = useState(665);
     const [dailyBonus, setDailyBonus] = useState(0);
     const [animations, setAnimations] = useState([]);
@@ -94,4 +94,4 @@ const HomePage = () => {
     );
 }
 
-export default HomePage;
+export default HomePageTap;

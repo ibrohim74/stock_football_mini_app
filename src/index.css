@@ -24,3 +24,20 @@ body {
     box-sizing: border-box;
 }
 
+.Index_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+.Index_page a{
+    width: 50%;
+    background: #535bf2;
+    color: white;
+    text-align: center;
+    border-radius: 15px;
+    padding: 16px 20px;
+    margin: 20px;
+
+}

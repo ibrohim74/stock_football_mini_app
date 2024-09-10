@@ -8,6 +8,7 @@
     left: 0;
     right: 0;
     border-top-left-radius: 25px;
+    z-index: 99;
     border-top-right-radius: 25px;
 }
 .app_bar_content{
