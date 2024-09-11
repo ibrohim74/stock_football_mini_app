@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse_Stock } from "../../../component/collapse/collapse_stock.jsx";
 import ball from "../../../assets/icons/icons8-football-50.svg"
+
 const PeredachaToday = () => {
     const items = [
         {
