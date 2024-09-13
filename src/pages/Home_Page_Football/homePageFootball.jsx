@@ -27,6 +27,14 @@ const HomePageFootball = () => {
 
     useEffect(() => {
         getData();
+
+        // 5 daqiqada bir marta malumotni yangilash uchun interval o'rnatamiz
+        const intervalId = setInterval(() => {
+            getData();
+        }, 300000); // 300000 millisekund = 5 daqiqa
+
+        // Komponent demontaj bo'lganda intervalni tozalaymiz
+        return () => clearInterval(intervalId);
     }, []);
 
     // Function to format date to Tashkent time
@@ -50,7 +58,7 @@ const HomePageFootball = () => {
                 </div>
                 <p><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</p>
                 <div className="team2">
-                    <img src={game.teams.away.logo || ball} alt={game.teams.away.name} />
+                    <img src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball} alt={game.teams.away.name} />
                     <h1>{game.teams.away.name}</h1>
                 </div>
             </div>
@@ -65,7 +73,7 @@ const HomePageFootball = () => {
     }));
 
     return (
-        <div>
+        <div style={{margin:"15px 0 100px 0" , display:'flex' , justifyContent:"center" , alignItems:"center"}}>
             <Collapse_Stock items={items} />
         </div>
     );

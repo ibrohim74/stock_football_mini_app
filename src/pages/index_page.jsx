@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { FOOTBALL, HOME_PAGE_FOOTBALL, TAP, HOME_PAGE_TAP } from "../utils/const.jsx";
-
 const IndexPage = () => {
     return (
         <div className="index_page">
