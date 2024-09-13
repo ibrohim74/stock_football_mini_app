@@ -45,12 +45,9 @@ const PeredachaYesterday = () => {
                     <h1>{game.teams.home.name}</h1>
                     <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
                 </div>
-                <p><span>Soat</span> {new Intl.DateTimeFormat('en-US', {
-                    timeZone: 'Asia/Tashkent',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                }).format(new Date(game.fixture.date))}</p>
+                <p><span>Score</span>
+                    {game.goals.home} - {game.goals.away}
+                </p>
                 <div className="team2">
                     <img src={game.teams.away.logo || ball} alt={game.teams.away.name} />
                     <h1>{game.teams.away.name}</h1>
