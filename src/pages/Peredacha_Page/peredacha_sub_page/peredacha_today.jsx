@@ -38,7 +38,7 @@ getData()
         return () => clearInterval(intervalId);
     }, []);
 
-    // Bugungi o‘yinlar uchun Collapse_Stock elementlarini yaratish
+    // Bugungi o‘yinlar uchun Collapse_stock_leg elementlarini yaratish
     const items = todayGames.map((game, index) => ({
         key: index.toString(),
         label: (

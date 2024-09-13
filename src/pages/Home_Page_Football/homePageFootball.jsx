@@ -47,7 +47,7 @@ const HomePageFootball = () => {
         }).format(new Date(dateString));
     };
 
-    // Mapping over the liveGames to create items for Collapse_Stock
+    // Mapping over the liveGames to create items for Collapse_stock_leg
     const items = liveGames.map((game, index) => ({
         key: index.toString(),
         label: (

@@ -1,10 +1,11 @@
 import React from 'react';
+import LeagueScroll from './component/league_scroll.jsx';
 
 const League = () => {
     return (
-        <div>
-            League
-        </div>
+        <>
+            <LeagueScroll />
+        </>
     );
 };
 
