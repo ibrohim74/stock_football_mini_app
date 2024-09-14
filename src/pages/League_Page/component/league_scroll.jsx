@@ -1,45 +1,55 @@
-import React, {useState, useEffect} from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import React, { useState, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import {Pagination, Navigation} from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 import './league_component.css';
 import axios from 'axios';
 import ball from "../../../assets/icons/icons8-football-50.svg";
-import {Collapse_Stock} from "../../../component/collapse/collapse_stock.jsx";
-import {Collapse_stock_leg} from "./collapse/collapse_stock_leg.jsx";
+import { Collapse_stock_leg } from "./collapse/collapse_stock_leg.jsx";
+import {
+    uzbekistan_league,
+    england_league,
+    spain_league,
+    portugal_league,
+    france_league,
+    germany_league,
+    italy_league
+} from "./leagueList.jsx";
+
+
+const monthNames = [
+    'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
+    'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'
+];
+
+
 
 const LeagueScroll = () => {
     const [leagues, setLeagues] = useState([]);
-    const [selectedLeague, setSelectedLeague] = useState(null);
+    const [selectedLeagues, setSelectedLeagues] = useState([]); // Tanlangan ligalar uchun
     const [fixtures, setFixtures] = useState([]);
     const [openKeyItem, setOpenKeyItem] = useState(null);
+
     useEffect(() => {
-        const fetchLeagues = async () => {
-            const options = {
-                method: 'GET',
-                url: 'https://api-football-v1.p.rapidapi.com/v3/leagues',
-                headers: {
-                    'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669', // Replace with your actual RapidAPI key
-                    'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
-                },
-                params: {season: new Date().getFullYear(), current: true, type: "league"}
-            };
-
-            try {
-                const response = await axios.request(options);
-                setLeagues(response.data.response); // Adjust based on the actual API response structure
-            } catch (error) {
-                console.error('Error fetching leagues:', error);
-            }
-        };
-
-        fetchLeagues();
+        setLeagues([...uzbekistan_league, ...england_league, ...spain_league, ...portugal_league, ...france_league, ...germany_league, ...italy_league]);
     }, []);
 
     const handleSelect = async (league) => {
-        setSelectedLeague(league.league.id);
-        await fetchFixtures(league.league.id);
+        const leagueId = league.id;
+        const isSelected = selectedLeagues.includes(leagueId);
+
+        if (isSelected) {
+            // Liga o'chirilsa
+            const updatedSelectedLeagues = selectedLeagues.filter(id => id !== leagueId);
+            setSelectedLeagues(updatedSelectedLeagues);
+            // O'chirilgan liga o'yinlarini filtrlab olib tashlash
+            setFixtures(prevFixtures => prevFixtures.filter(fixture => fixture.league.id !== leagueId));
+        } else {
+            // Liga tanlansa
+            setSelectedLeagues([...selectedLeagues, leagueId]);
+            await fetchFixtures(leagueId); // Ma'lumotlarni darhol olish
+        }
     };
 
     const fetchFixtures = async (leagueId) => {
@@ -58,17 +68,12 @@ const LeagueScroll = () => {
 
         try {
             const response = await axios.request(options);
-            setFixtures(response.data.response); // Adjust this based on the actual API response structure
             console.log(response)
+            setFixtures(prevFixtures => [...prevFixtures, ...response.data.response]); // Yangi o'yinlarni qo'shish
         } catch (error) {
             console.error('Error fetching fixtures:', error);
         }
     };
-
-    const monthNames = [
-        'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
-        'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'
-    ];
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -77,13 +82,14 @@ const LeagueScroll = () => {
         const year = date.getFullYear();
         return `${day} ${month} ${year}`;
     };
+
     const formatDuration = (startTime, periods) => {
         if (!startTime || !periods || !periods.second) {
             return 'Ma\'lumot yo\'q';
         }
 
-        const start = new Date(startTime * 1000);
-        const end = new Date(periods.second * 1000); // Periods sekundlarni millisekundlarga aylantirish
+        const start = new Date(startTime * 1000); // Boshlanish vaqti (sekundda, UTC)
+        const end = new Date(periods.second * 1000); // Tugash vaqti (sekundda, UTC)
 
         if (isNaN(start.getTime()) || isNaN(end.getTime()) || end < start) {
             return 'Sanalar noto\'g\'ri';
@@ -91,17 +97,17 @@ const LeagueScroll = () => {
 
         const duration = (end - start) / (1000 * 60); // Millisekundlarni minutlarga aylantirish
 
-        // 45 daqiqadan kam o'yinlar uchun aniq vaqtni qaytarish
+        // 45 daqiqadan kam bo'lgan o'yinlar uchun aniq vaqtni qaytarish
         if (duration <= 45) {
             return `${Math.round(duration)} minut`;
         }
 
-        // Agar vaqt 90 daqiqadan kam bo'lsa, tugatilganini hisoblash
+        // 90 daqiqagacha bo'lgan o'yinlar uchun tanaffus (half time) qo'shiladi
         if (duration <= 90) {
             return `${Math.round(duration)} minut (tanaffus)`;
         }
 
-        // Agar 90 minutdan ko'p bo'lsa, extra time deb hisoblash
+        // 90 minutdan ko'p bo'lsa, extra time deb qaytariladi
         return `${Math.round(duration)} minut (extra time)`;
     };
 
@@ -120,7 +126,7 @@ const LeagueScroll = () => {
                         <> {game.goals.home} : {game.goals.away} </>
                     }
                 </span>
-                   <span style={{fontSize:"12px"}}>{formatDate(game.fixture.date)}</span>
+                    <span style={{ fontSize: "12px" }}>{formatDate(game.fixture.date)}</span>
                 </p>
                 <div className="team2">
                     <img src={game.teams.away.logo || ball} alt={game.teams.away.name} />
@@ -130,7 +136,8 @@ const LeagueScroll = () => {
         ),
         children: (
             <div className="league_collapseChildren">
-                {game.fixture.status.short === "NS" && <p style={{textAlign:'center', margin:0 , padding:0}}>OYIN boshlanmadi</p>}
+                {game.fixture.status.short === "NS" &&
+                    <p style={{ textAlign: 'center', margin: 0, padding: 0 }}>O'yin boshlanmadi</p>}
                 <div className="league_collapseChildren_box">
                     <div className="league_collapseChildren_item">
                         <div className="league_collapseChildren_item_logo">
@@ -168,7 +175,7 @@ const LeagueScroll = () => {
             </div>
         ),
     }));
-    console.log(openKeyItem)
+
 
     return (
         <div className="swiper_league_scroll">
@@ -178,24 +185,23 @@ const LeagueScroll = () => {
                 loop={true}
                 pagination={{clickable: true}}
                 navigation
-                modules={[Pagination, Navigation]}
                 className="mySwiper"
             >
                 {leagues.map((league) => (
                     <SwiperSlide
-                        key={league.league.id}
+                        key={league.id}
                         onClick={() => handleSelect(league)}
-                        className={selectedLeague === league.league.id ? 'active' : ''}
+                        className={selectedLeagues.includes(league.id) ? 'active' : ''}
                     >
-                        <img src={league.league.logo} alt={`${league.league.name} Logo`}/>
-                        <p>{league.league.name}</p>
+                        <img src={league.logo} alt={`${league.name} Logo`} />
+                        <p>{league.name}</p>
                     </SwiperSlide>
                 ))}
             </Swiper>
 
             {fixtures.length > 0 && (
                 <div className="fixtures">
-                    <Collapse_stock_leg items={collapseItem} setOpenKeyItem={setOpenKeyItem}/>
+                    <Collapse_stock_leg items={collapseItem} setOpenKeyItem={setOpenKeyItem} />
                 </div>
             )}
         </div>
@@ -203,3 +209,4 @@ const LeagueScroll = () => {
 };
 
 export default LeagueScroll;
+

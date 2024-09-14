@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './peredacha.css';
 import PeredachaToday from "./peredacha_sub_page/peredacha_today.jsx";
 import PeredachaTomorrow from "./peredacha_sub_page/peredacha_tomorrow.jsx";
 import PeredachaYesterday from "./peredacha_sub_page/peredacha_yesterday.jsx";
+import {
+    england_league, france_league, germany_league, italy_league,
+    portugal_league, spain_league, uzbekistan_league
+} from "../League_Page/component/leagueList.jsx";
 
 const Peredacha = () => {
     const [time, setTime] = useState(new Date());
-    const [activeTab, setActiveTab] = useState('today'); // 'today' default aktiv tab
+    const [leagues, setLeagues] = useState([]);
+    const [activeTab, setActiveTab] = useState('today');
+
+    useEffect(() => {
+        setLeagues([
+            ...uzbekistan_league,
+            ...england_league,
+            ...spain_league,
+            ...portugal_league,
+            ...france_league,
+            ...germany_league,
+            ...italy_league
+        ]);
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -30,6 +48,8 @@ const Peredacha = () => {
         year: 'numeric',
         timeZone: 'Asia/Tashkent'
     }).format(time);
+
+    const leagueIds = leagues.map(league => league.id).join(',');
 
     return (
         <div className="peredacha">
@@ -60,9 +80,9 @@ const Peredacha = () => {
             </div>
 
             <div className="peredacha_list">
-                {activeTab === 'today' && <PeredachaToday />}
-                {activeTab === 'tomorrow' && <PeredachaTomorrow />}
-                {activeTab === 'yesterday' && <PeredachaYesterday />}
+                {activeTab === 'today' && <PeredachaToday leagueList={leagueIds} />}
+                {activeTab === 'tomorrow' && <PeredachaTomorrow leagueList={leagueIds} />}
+                {activeTab === 'yesterday' && <PeredachaYesterday leagueList={leagueIds} />}
             </div>
         </div>
     );

@@ -74,3 +74,6 @@
     width: 30px;
     height: 30px;
 }
+.swiper-wrapper{
+    height: 95%;
+}

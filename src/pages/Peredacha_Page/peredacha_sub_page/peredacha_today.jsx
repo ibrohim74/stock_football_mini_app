@@ -3,42 +3,44 @@ import { Collapse_Stock } from "../../../component/collapse/collapse_stock.jsx";
 import ball from "../../../assets/icons/icons8-football-50.svg";
 import axios from 'axios';
 
-const PeredachaToday = () => {
+const PeredachaToday = ({ leagueList }) => {
     const [todayGames, setTodayGames] = useState([]);
 
-    // Bugungi kunni olish uchun parametrlar
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-        params: { date: new Date().toISOString().split('T')[0] }, // Bugungi sana
+        params: { date: new Date().toISOString().split('T')[0] },
         headers: {
             'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
             'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
         }
     };
 
-    // Ma'lumotlarni olish funksiyasi
     const getData = async () => {
         try {
             const response = await axios.request(options);
+            // Faqat tanlangan ligalarni filterlash
+            const filteredGames = response.data.response.filter(game =>
+                leagueList.includes(game.league.id)
+            );
+            setTodayGames(filteredGames); // Filtrlangan o‘yinlarni saqlash
             console.log(response)
-            setTodayGames(response.data.response); // Bugungi o‘yinlarni saqlash
+            console.log(filteredGames)
         } catch (error) {
             console.error(error);
         }
     };
-    // Komponent yuklanganida ma'lumotlarni olish
+
     useEffect(() => {
-getData()
+        getData();
+
         const intervalId = setInterval(() => {
-            getData(); // Har 15 daqiqada chaqiruv
-        }, 900000); // 900000 millisekund = 15 daqiqa
+            getData();
+        }, 900000);
 
-        // Komponent unmount bo'lganda intervalni tozalash
         return () => clearInterval(intervalId);
-    }, []);
+    }, [leagueList]);
 
-    // Bugungi o‘yinlar uchun Collapse_stock_leg elementlarini yaratish
     const items = todayGames.map((game, index) => ({
         key: index.toString(),
         label: (

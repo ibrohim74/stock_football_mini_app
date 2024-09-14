@@ -3,44 +3,48 @@ import { Collapse_Stock } from "../../../component/collapse/collapse_stock.jsx";
 import ball from "../../../assets/icons/icons8-football-50.svg";
 import axios from 'axios';
 
-const PeredachaYesterday = () => {
+const PeredachaYesterday = ({ leagueList }) => {
     const [yesterdayGames, setYesterdayGames] = useState([]);
 
-    // Kechagi kunni olish uchun parametrlar
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-        params: { date: new Date(Date.now() - 86400000).toISOString().split('T')[0] }, // Kechagi sana
+        params: { date: new Date(Date.now() - 86400000).toISOString().split('T')[0] },
         headers: {
             'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
             'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
         }
     };
 
+
     const getData = async () => {
         try {
             const response = await axios.request(options);
+            const filteredGames = response.data.response.filter(game =>
+                leagueList.includes(game.league.id)
+            );
+            setYesterdayGames(filteredGames);
             console.log(response)
-            setYesterdayGames(response.data.response); // Kechagi o‘yinlarni saqlash
+            console.log(filteredGames)
         } catch (error) {
             console.error(error);
         }
     };
 
     useEffect(() => {
-        getData(); // Dastlabki chaqiruv
+        getData();
 
         const intervalId = setInterval(() => {
-            getData(); // Har 15 daqiqada chaqiruv
-        }, 900000); // 900000 millisekund = 15 daqiqa
+            getData();
+        }, 900000);
 
         return () => clearInterval(intervalId);
-    }, []);
+    }, [leagueList]);
 
     const items = yesterdayGames.map((game, index) => ({
         key: index.toString(),
         label: (
-            <div className="table-row">
+            <div className="table-row" key={index}>
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
                     <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
