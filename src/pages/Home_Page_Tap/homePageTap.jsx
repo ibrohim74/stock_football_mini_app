@@ -3,7 +3,8 @@ import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { SETTINGS } from "../../utils/const.jsx";
+import { INDEX, SETTINGS } from "../../utils/const.jsx";
+import BackTab from "../../component/backTab/BackTab.jsx";
 
 const HomePageTap = () => {
     const [score, setScore] = useState(665);
@@ -20,11 +21,9 @@ const HomePageTap = () => {
             setLastTouch(Date.now());
         }
 
-
         const rect = event.currentTarget.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-
 
         const newAnimations = Array.from({ length: touchCount }).map((_, index) => ({
             id: Date.now() + index,
@@ -37,8 +36,30 @@ const HomePageTap = () => {
 
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
-        }, 500);     
+        }, 500);
     }, [lastTouch]);
+
+    const handleTouchMove = useCallback((event) => {
+        const touchCount = event.touches.length;
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = event.touches[0].clientX - rect.left;
+        const y = event.touches[0].clientY - rect.top;
+
+        setScore(prevScore => prevScore + touchCount);
+
+        const newAnimations = Array.from({ length: touchCount }).map((_, index) => ({
+            id: Date.now() + index,
+            x: x + Math.random() * 10 - 5,
+            y: y + Math.random() * 10 - 5,
+            value: touchCount
+        }));
+
+        setAnimations(prev => [...prev, ...newAnimations]);
+
+        setTimeout(() => {
+            setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
+        }, 500);
+    }, []);
 
     const handleTouchStart = (event) => {
         if (!isTouching) {
@@ -53,6 +74,7 @@ const HomePageTap = () => {
 
     return (
         <div className="home-page">
+            <BackTab back_url={INDEX} />
             <div className="home-page_user_settings">
                 <div className="home-page_user">
                     <span className={"home-page_user_icon"}><UserOutlined /></span>
@@ -74,8 +96,9 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onClick={handleBallClick}
                      onTouchStart={handleTouchStart}
-                     onTouchEnd={handleTouchEnd}>
-                    <img src={ball} alt="ball" className="ball-image"/>
+                     onTouchEnd={handleTouchEnd}
+                     onTouchMove={handleTouchMove}>
+                    <img src={ball} alt="ball" className="ball-image" />
                     {animations.map(animation => (
                         <div
                             key={animation.id}

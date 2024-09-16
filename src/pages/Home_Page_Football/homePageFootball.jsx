@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ball from "../../assets/icons/icons8-football-50.svg";
 import {Collapse_Stock} from "../../component/collapse/collapse_stock.jsx";
 import axios from 'axios';
@@ -11,6 +11,8 @@ import {
     spain_league,
     portugal_league
 } from "../League_Page/component/leagueList.jsx";
+import {INDEX} from "../../utils/const.jsx";
+import BackTab from "../../component/backTab/BackTab.jsx";
 
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
@@ -100,9 +102,13 @@ const HomePageFootball = () => {
     }));
 
     return (
-        <div style={{margin: "15px 0 100px 0", display: 'flex', justifyContent: "center", alignItems: "center"}}>
-            <Collapse_Stock items={items}/>
-        </div>
+        <>
+            <BackTab back_url={INDEX}/>
+            <div style={{margin: "15px 0 100px 0", display: 'flex', justifyContent: "center", alignItems: "center"}}>
+                <Collapse_Stock items={items}/>
+            </div>
+        </>
+
     );
 };
 

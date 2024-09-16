@@ -35,6 +35,8 @@ const LeagueScroll = () => {
         setLeagues([...uzbekistan_league, ...england_league, ...spain_league, ...portugal_league, ...france_league, ...germany_league, ...italy_league]);
     }, []);
 
+
+
     const handleSelect = async (league) => {
         const leagueId = league.id;
         const isSelected = selectedLeagues.includes(leagueId);
@@ -53,6 +55,7 @@ const LeagueScroll = () => {
     };
 
     const fetchFixtures = async (leagueId) => {
+
         const options = {
             method: 'GET',
             url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
