@@ -13,6 +13,8 @@ import {
 } from "../League_Page/component/leagueList.jsx";
 import {INDEX} from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
+import "./footballHomePage.css"
+
 
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
@@ -103,7 +105,19 @@ const HomePageFootball = () => {
 
     return (
         <>
-            <BackTab back_url={INDEX}/>
+            <h1 className={"footballTitle"}>
+                <BackTab back_url={INDEX}/>
+                <span>
+                   LIVE
+
+             <div className="livenow">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+             </div>
+            </span>
+            </h1>
+
             <div style={{margin: "15px 0 100px 0", display: 'flex', justifyContent: "center", alignItems: "center"}}>
                 <Collapse_Stock items={items}/>
             </div>
