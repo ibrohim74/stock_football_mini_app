@@ -1,14 +1,33 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <script>
+    // O'ng tugma (contextmenu) ni o'chirish
+    document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+    // Zoom funksiyasini o'chirish (Ctrl + sichqoncha g'ildiragi)
+    document.addEventListener('wheel', (event) => {
+      if (event.ctrlKey) {
+        event.preventDefault(); // Zoomni bloklash
+      }
+    }, { passive: false });
+
+    // Zoomni klaviatura bilan (Ctrl + "+" yoki Ctrl + "-") o'chirish
+    document.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && (event.key === '=' || event.key === '-' || event.key === '0')) {
+        event.preventDefault(); // Zoomni bloklash
+      }
+    });
+  </script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
