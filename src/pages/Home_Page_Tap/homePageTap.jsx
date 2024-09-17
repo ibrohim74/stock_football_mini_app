@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
@@ -10,17 +10,16 @@ const HomePageTap = () => {
     const [score, setScore] = useState(665);
     const [dailyBonus, setDailyBonus] = useState(0);
     const [animations, setAnimations] = useState([]);
-    const [touchCount, setTouchCount] = useState(0); // Bosilgan barmoqlar sonini saqlash uchun state
+    const [touchCount, setTouchCount] = useState(0);
 
     const handleTouchStart = (event) => {
-        const touchLength = event.touches.length; // Nechta barmoq bilan bosilganini olish
-        setTouchCount(touchLength); // Touch countni saqlash
+        const touchLength = event.touches.length;
+        setTouchCount(touchLength);
 
         const rect = event.currentTarget.getBoundingClientRect();
         const x = event.touches[0].clientX - rect.left;
         const y = event.touches[0].clientY - rect.top;
 
-        // Animatsiyani yaratish uchun barmoq pozitsiyalarini saqlab qo'yish
         const newAnimations = Array.from({ length: touchLength }).map((_, index) => ({
             id: Date.now() + index,
             x: x + Math.random() * 10 - 5,
@@ -36,9 +35,8 @@ const HomePageTap = () => {
     };
 
     const handleTouchEnd = () => {
-        // Bosim tugagandan so'ng ballarni qo'shish
-        setScore(prevScore => prevScore + touchCount); // Barmoq soniga qarab ballarni qo'shish
-        setTouchCount(0); // Barmoq sonini nolga tushirish
+        setScore(prevScore => prevScore + touchCount);
+        setTouchCount(0);
     };
 
     return (
@@ -64,8 +62,14 @@ const HomePageTap = () => {
                 </div>
                 <div className="tap_ball"
                      onTouchStart={handleTouchStart}
-                     onTouchEnd={handleTouchEnd}>
-                    <img src={ball} alt="ball" className="ball-image" draggable={false}/>
+                     onTouchEnd={handleTouchEnd}
+                     onContextMenu={(e) => e.preventDefault()} // O'ng tugma menyusini bloklash
+                >
+                    <img src={ball}
+                         alt="ball"
+                         className="ball-image"
+                         draggable="false" // Rasmdagi yuklab olishni o'chirish
+                    />
                     {animations.map(animation => (
                         <div
                             key={animation.id}
