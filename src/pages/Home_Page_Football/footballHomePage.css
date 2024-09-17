@@ -9,6 +9,12 @@
     justify-content: center;
     align-items: center;
 }
+.footballContent{
+    margin: 15px 0 100px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .livenow {
     width: 18px;
     display: flex;
@@ -58,3 +64,4 @@
           -webkit-transform: scale(1.0);
       }
 }
+

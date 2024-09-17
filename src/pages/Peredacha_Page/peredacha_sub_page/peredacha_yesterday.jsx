@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const PeredachaYesterday = ({ leagueList }) => {
     const [yesterdayGames, setYesterdayGames] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const options = {
         method: 'GET',
@@ -16,30 +17,34 @@ const PeredachaYesterday = ({ leagueList }) => {
         }
     };
 
-
     const getData = async () => {
+        setLoading(true);
         try {
             const response = await axios.request(options);
             const filteredGames = response.data.response.filter(game =>
                 leagueList.includes(game.league.id)
             );
             setYesterdayGames(filteredGames);
-            console.log(response)
-            console.log(filteredGames)
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         getData();
-
         const intervalId = setInterval(() => {
             getData();
         }, 900000);
-
         return () => clearInterval(intervalId);
     }, [leagueList]);
+
+    const retryImage = (event) => {
+        setTimeout(() => {
+            event.target.src = event.target.src; // Retry loading the image
+        }, 2000);
+    };
 
     const items = yesterdayGames.map((game, index) => ({
         key: index.toString(),
@@ -47,13 +52,19 @@ const PeredachaYesterday = ({ leagueList }) => {
             <div className="table-row" key={index}>
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
-                    <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
+                    <img
+                        src={game.teams.home.logo || ball}
+                        alt={game.teams.home.name}
+                        onError={retryImage}
+                    />
                 </div>
-                <p><span>Score</span>
-                    {game.goals.home} - {game.goals.away}
-                </p>
+                <p><span>Score</span> {game.goals.home} - {game.goals.away}</p>
                 <div className="team2">
-                    <img src={game.teams.away.logo || ball} alt={game.teams.away.name} />
+                    <img
+                        src={game.teams.away.logo || ball}
+                        alt={game.teams.away.name}
+                        onError={retryImage}
+                    />
                     <h1>{game.teams.away.name}</h1>
                 </div>
             </div>
@@ -69,7 +80,15 @@ const PeredachaYesterday = ({ leagueList }) => {
 
     return (
         <div>
-            <Collapse_Stock items={items} />
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                yesterdayGames.length > 0 ? (
+                    <Collapse_Stock items={items} />
+                ) : (
+                    <p>Kecha mavjud o'yinlar yo'q</p>
+                )
+            )}
         </div>
     );
 };

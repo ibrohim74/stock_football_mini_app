@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ball from "../../assets/icons/icons8-football-50.svg";
-import {Collapse_Stock} from "../../component/collapse/collapse_stock.jsx";
+import { Collapse_Stock } from "../../component/collapse/collapse_stock.jsx";
 import axios from 'axios';
 import {
     uzbekistan_league,
@@ -11,13 +11,13 @@ import {
     spain_league,
     portugal_league
 } from "../League_Page/component/leagueList.jsx";
-import {INDEX} from "../../utils/const.jsx";
+import { INDEX } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 import "./footballHomePage.css"
 
-
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading holatini qo'shish
 
     // Barcha ligalarni bir joyda to'plab olish
     const allLeagues = [
@@ -33,7 +33,7 @@ const HomePageFootball = () => {
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-        params: {live: 'all'},
+        params: { live: 'all' },
         headers: {
             'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
             'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
@@ -42,6 +42,7 @@ const HomePageFootball = () => {
 
     const getData = async () => {
         try {
+            setLoading(true); // Ma'lumotlarni olishdan oldin loading holatini `true` ga o'zgartirish
             const response = await axios.request(options);
             const liveGamesData = response.data.response;
 
@@ -53,6 +54,8 @@ const HomePageFootball = () => {
             setLiveGames(filteredLiveGames); // Filtrlangan jonli o'yinlarni set qilamiz
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false); // Ma'lumotlar yuklanganidan so'ng loading holatini `false` ga o'zgartirish
         }
     };
 
@@ -85,11 +88,11 @@ const HomePageFootball = () => {
             <div className="table-row">
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
-                    <img src={game.teams.home.logo || ball} alt={game.teams.home.name}/>
+                    <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
                 </div>
                 <p><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</p>
                 <div className="team2">
-                    <img src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball} alt={game.teams.away.name}/>
+                    <img src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball} alt={game.teams.away.name} />
                     <h1>{game.teams.away.name}</h1>
                 </div>
             </div>
@@ -106,7 +109,7 @@ const HomePageFootball = () => {
     return (
         <>
             <h1 className={"footballTitle"}>
-                <BackTab back_url={INDEX}/>
+                <BackTab back_url={INDEX} />
                 <span>
                    LIVE
 
@@ -118,11 +121,10 @@ const HomePageFootball = () => {
             </span>
             </h1>
 
-            <div style={{margin: "15px 0 100px 0", display: 'flex', justifyContent: "center", alignItems: "center"}}>
-                <Collapse_Stock items={items}/>
+            <div className={"footballContent"}>
+                {loading ? <p>Loading...</p> : (liveGames.length > 0 ? <Collapse_Stock items={items} /> : "Hozirda mavjud o'yinlar yo'q")}
             </div>
         </>
-
     );
 };
 

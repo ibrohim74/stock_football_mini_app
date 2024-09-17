@@ -3,8 +3,10 @@ import { Collapse_Stock } from "../../../component/collapse/collapse_stock.jsx";
 import ball from "../../../assets/icons/icons8-football-50.svg";
 import axios from 'axios';
 
-const PeredachaToday = ({ leagueList }) => {
+const PeredashaToday = ({ leagueList }) => {
     const [todayGames, setTodayGames] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [imageCache, setImageCache] = useState({});
 
     const options = {
         method: 'GET',
@@ -17,17 +19,18 @@ const PeredachaToday = ({ leagueList }) => {
     };
 
     const getData = async () => {
+        setLoading(true);
         try {
             const response = await axios.request(options);
-            // Faqat tanlangan ligalarni filterlash
-            const filteredGames = response.data.response.filter(game =>
-                leagueList.includes(game.league.id)
+            const filteredGames = response?.data?.response.filter(async game =>
+               await leagueList.includes(game.league.id)
             );
-            setTodayGames(filteredGames); // Filtrlangan o‘yinlarni saqlash
             console.log(response)
-            console.log(filteredGames)
+            setTodayGames(filteredGames);
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -41,13 +44,48 @@ const PeredachaToday = ({ leagueList }) => {
         return () => clearInterval(intervalId);
     }, [leagueList]);
 
+    const loadImage = (url) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(img.src);
+            img.onerror = () => {
+                // Agar rasm olishda xato bo'lsa, 2 sekunddan keyin yana qayta yuklashga harakat qilish
+                setTimeout(() => {
+                    img.src = url;
+                }, 2000);
+                resolve(ball);
+            };
+            img.src = url;
+        });
+    };
+
+    // Create a mapping of images
+    useEffect(() => {
+        const fetchImages = async () => {
+            for (const game of todayGames) {
+                if (game.teams.home.logo) {
+                    await loadImage(game.teams.home.logo).then(src => {
+                        setImageCache(prevCache => ({ ...prevCache, [game.teams.home.logo]: src }));
+                    });
+                }
+                if (game.teams.away.logo) {
+                    await loadImage(game.teams.away.logo).then(src => {
+                        setImageCache(prevCache => ({ ...prevCache, [game.teams.away.logo]: src }));
+                    });
+                }
+            }
+        };
+
+        fetchImages();
+    }, [todayGames]);
+
     const items = todayGames.map((game, index) => ({
         key: index.toString(),
         label: (
-            <div className="table-row">
+            <div className="table-row" key={index}>
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
-                    <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
+                    <img src={imageCache[game.teams.home.logo] || ball} alt={game.teams.home.name} />
                 </div>
                 <p><span>Soat</span> {new Intl.DateTimeFormat('en-US', {
                     timeZone: 'Asia/Tashkent',
@@ -56,7 +94,7 @@ const PeredachaToday = ({ leagueList }) => {
                     hour12: false,
                 }).format(new Date(game.fixture.date))}</p>
                 <div className="team2">
-                    <img src={game.teams.away.logo || ball} alt={game.teams.away.name} />
+                    <img src={imageCache[game.teams.away.logo] || ball} alt={game.teams.away.name} />
                     <h1>{game.teams.away.name}</h1>
                 </div>
             </div>
@@ -72,9 +110,17 @@ const PeredachaToday = ({ leagueList }) => {
 
     return (
         <div>
-            <Collapse_Stock items={items} />
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                todayGames.length > 0 ? (
+                    <Collapse_Stock items={items} />
+                ) : (
+                    <p>Bugun mavjud o'yinlar yo'q</p>
+                )
+            )}
         </div>
     );
 };
 
-export default PeredachaToday;
+export default PeredashaToday;

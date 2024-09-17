@@ -17,25 +17,22 @@ import {
     italy_league
 } from "./leagueList.jsx";
 
-
 const monthNames = [
     'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
     'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'
 ];
-
-
 
 const LeagueScroll = () => {
     const [leagues, setLeagues] = useState([]);
     const [selectedLeagues, setSelectedLeagues] = useState([]); // Tanlangan ligalar uchun
     const [fixtures, setFixtures] = useState([]);
     const [openKeyItem, setOpenKeyItem] = useState(null);
+    const [loadingFixtures, setLoadingFixtures] = useState(false); // Track loading state for fixtures
+    const [loadingImages, setLoadingImages] = useState({}); // Track loading state for images
 
     useEffect(() => {
         setLeagues([...uzbekistan_league, ...england_league, ...spain_league, ...portugal_league, ...france_league, ...germany_league, ...italy_league]);
     }, []);
-
-
 
     const handleSelect = async (league) => {
         const leagueId = league.id;
@@ -50,12 +47,12 @@ const LeagueScroll = () => {
         } else {
             // Liga tanlansa
             setSelectedLeagues([...selectedLeagues, leagueId]);
+            setLoadingFixtures(true); // Set loading to true
             await fetchFixtures(leagueId); // Ma'lumotlarni darhol olish
         }
     };
 
     const fetchFixtures = async (leagueId) => {
-
         const options = {
             method: 'GET',
             url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
@@ -71,10 +68,11 @@ const LeagueScroll = () => {
 
         try {
             const response = await axios.request(options);
-            console.log(response)
             setFixtures(prevFixtures => [...prevFixtures, ...response.data.response]); // Yangi o'yinlarni qo'shish
         } catch (error) {
             console.error('Error fetching fixtures:', error);
+        } finally {
+            setLoadingFixtures(false); // Set loading to false after fetching
         }
     };
 
@@ -114,6 +112,19 @@ const LeagueScroll = () => {
         return `${Math.round(duration)} minut (extra time)`;
     };
 
+    const retryImage = (event) => {
+        setTimeout(() => {
+            event.target.src = event.target.src; // Retry loading the image
+        }, 2000);
+    };
+
+    const handleImageLoadStart = (key) => {
+        setLoadingImages(prev => ({ ...prev, [key]: true }));
+    };
+
+    const handleImageLoadEnd = (key) => {
+        setLoadingImages(prev => ({ ...prev, [key]: false }));
+    };
 
     const collapseItem = fixtures.map((game, index) => ({
         key: index,
@@ -121,18 +132,32 @@ const LeagueScroll = () => {
             <div className="table-row">
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
-                    <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
+                    {loadingImages[`${game.teams.home.logo}-${index}`] && <div className="image-loader">Loading...</div>}
+                    <img
+                        src={game.teams.home.logo || ball}
+                        alt={game.teams.home.name}
+                        onError={retryImage}
+                        onLoad={() => handleImageLoadEnd(`${game.teams.home.logo}-${index}`)}
+                        onLoadStart={() => handleImageLoadStart(`${game.teams.home.logo}-${index}`)}
+                    />
                 </div>
                 <p style={game.goals.home !== null && game.goals.away !== null ? { marginTop: "25px" } : {}}>
-                <span>
-                    {game.goals.home !== null && game.goals.away !== null &&
-                        <> {game.goals.home} : {game.goals.away} </>
-                    }
-                </span>
+                    <span>
+                        {game.goals.home !== null && game.goals.away !== null &&
+                            <> {game.goals.home} : {game.goals.away} </>
+                        }
+                    </span>
                     <span style={{ fontSize: "12px" }}>{formatDate(game.fixture.date)}</span>
                 </p>
                 <div className="team2">
-                    <img src={game.teams.away.logo || ball} alt={game.teams.away.name} />
+                    {loadingImages[`${game.teams.away.logo}-${index}`] && <div className="image-loader">Loading...</div>}
+                    <img
+                        src={game.teams.away.logo || ball}
+                        alt={game.teams.away.name}
+                        onError={retryImage}
+                        onLoad={() => handleImageLoadEnd(`${game.teams.away.logo}-${index}`)}
+                        onLoadStart={() => handleImageLoadStart(`${game.teams.away.logo}-${index}`)}
+                    />
                     <h1>{game.teams.away.name}</h1>
                 </div>
             </div>
@@ -145,7 +170,14 @@ const LeagueScroll = () => {
                     <div className="league_collapseChildren_item">
                         <div className="league_collapseChildren_item_logo">
                             <h1>HOME</h1>
-                            <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
+                            {loadingImages[`${game.teams.home.logo}-${index}`] && <div className="image-loader">Loading...</div>}
+                            <img
+                                src={game.teams.home.logo || ball}
+                                alt={game.teams.home.name}
+                                onError={retryImage}
+                                onLoad={() => handleImageLoadEnd(`${game.teams.home.logo}-${index}`)}
+                                onLoadStart={() => handleImageLoadStart(`${game.teams.home.logo}-${index}`)}
+                            />
                         </div>
                         <div className="league_collapseChildren_item_score">
                             <p>ExtraTime: {game.score.extratime.home !== null ? game.score.extratime.home : "null"}</p>
@@ -156,7 +188,14 @@ const LeagueScroll = () => {
                     </div>
                     <div className="league_collapseChildren_item">
                         <div className="league_collapseChildren_item_logo">
-                            <img src={game.teams.away.logo || ball} alt={game.teams.away.name} />
+                            {loadingImages[`${game.teams.away.logo}-${index}`] && <div className="image-loader">Loading...</div>}
+                            <img
+                                src={game.teams.away.logo || ball}
+                                alt={game.teams.away.name}
+                                onError={retryImage}
+                                onLoad={() => handleImageLoadEnd(`${game.teams.away.logo}-${index}`)}
+                                onLoadStart={() => handleImageLoadStart(`${game.teams.away.logo}-${index}`)}
+                            />
                             <h1>AWAY</h1>
                         </div>
                         <div className="league_collapseChildren_item_score">
@@ -179,14 +218,13 @@ const LeagueScroll = () => {
         ),
     }));
 
-
     return (
         <div className="swiper_league_scroll">
             <Swiper
                 slidesPerView={3}
                 spaceBetween={30}
                 loop={true}
-                pagination={{clickable: true}}
+                pagination={{ clickable: true }}
                 navigation
                 className="mySwiper"
             >
@@ -196,20 +234,30 @@ const LeagueScroll = () => {
                         onClick={() => handleSelect(league)}
                         className={selectedLeagues.includes(league.id) ? 'active' : ''}
                     >
-                        <img src={league.logo} alt={`${league.name} Logo`} />
+                        {loadingImages[league.logo] && <div className="image-loader">Loading...</div>}
+                        <img
+                            src={league.logo}
+                            alt={`${league.name} Logo`}
+                            onError={retryImage}
+                            onLoad={() => handleImageLoadEnd(league.logo)}
+                            onLoadStart={() => handleImageLoadStart(league.logo)}
+                        />
                         <p>{league.name}</p>
                     </SwiperSlide>
                 ))}
             </Swiper>
 
-            {fixtures.length > 0 && (
+            {loadingFixtures ? (
+                <div className="loading-indicator">Loading fixtures...</div>
+            ) : fixtures.length > 0 ? (
                 <div className="fixtures">
                     <Collapse_stock_leg items={collapseItem} setOpenKeyItem={setOpenKeyItem} />
                 </div>
+            ) : (
+                <p>No fixtures available</p>
             )}
         </div>
     );
 };
 
 export default LeagueScroll;
-
