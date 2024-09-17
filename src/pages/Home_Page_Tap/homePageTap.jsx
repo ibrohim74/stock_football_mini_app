@@ -10,48 +10,27 @@ const HomePageTap = () => {
     const [score, setScore] = useState(665);
     const [dailyBonus, setDailyBonus] = useState(0);
     const [animations, setAnimations] = useState([]);
-    const [lastTouch, setLastTouch] = useState(null);
-    const [isTouching, setIsTouching] = useState(false);
+    const [touchData, setTouchData] = useState({ touchCount: 0, x: 0, y: 0 });
 
-    const handleBallClick = useCallback((event) => {
-        const touchCount = event.touches ? event.touches.length : 1;
-
-        if (!lastTouch || Date.now() - lastTouch > 100) {
-            setScore(prevScore => prevScore + touchCount);
-            setLastTouch(Date.now());
-        }
-
-        const rect = event.currentTarget.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-        const newAnimations = Array.from({ length: touchCount }).map((_, index) => ({
-            id: Date.now() + index,
-            x: x + Math.random() * 10 - 5,
-            y: y + Math.random() * 10 - 5,
-            value: touchCount
-        }));
-
-        setAnimations(prev => [...prev, ...newAnimations]);
-
-        setTimeout(() => {
-            setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
-        }, 500);
-    }, [lastTouch]);
-
-    const handleTouchMove = useCallback((event) => {
+    const handleTouchStart = (event) => {
         const touchCount = event.touches.length;
         const rect = event.currentTarget.getBoundingClientRect();
         const x = event.touches[0].clientX - rect.left;
         const y = event.touches[0].clientY - rect.top;
 
-        setScore(prevScore => prevScore + touchCount);
+        // Touch ma'lumotlarini saqlab qolish
+        setTouchData({ touchCount, x, y });
+    };
 
-        const newAnimations = Array.from({ length: touchCount }).map((_, index) => ({
+    const handleTouchEnd = () => {
+        // Bosimni tugatganda ballarni qo'shish
+        setScore(prevScore => prevScore + touchData.touchCount);
+
+        const newAnimations = Array.from({ length: touchData.touchCount }).map((_, index) => ({
             id: Date.now() + index,
-            x: x + Math.random() * 10 - 5,
-            y: y + Math.random() * 10 - 5,
-            value: touchCount
+            x: touchData.x + Math.random() * 10 - 5,
+            y: touchData.y + Math.random() * 10 - 5,
+            value: touchData.touchCount
         }));
 
         setAnimations(prev => [...prev, ...newAnimations]);
@@ -59,17 +38,6 @@ const HomePageTap = () => {
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
         }, 500);
-    }, []);
-
-    const handleTouchStart = (event) => {
-        if (!isTouching) {
-            setIsTouching(true);
-            handleBallClick(event);
-        }
-    };
-
-    const handleTouchEnd = () => {
-        setIsTouching(false);
     };
 
     return (
@@ -94,10 +62,8 @@ const HomePageTap = () => {
                     </div>
                 </div>
                 <div className="tap_ball"
-                     onClick={handleBallClick}
                      onTouchStart={handleTouchStart}
-                     onTouchEnd={handleTouchEnd}
-                     onTouchMove={handleTouchMove}>
+                     onTouchEnd={handleTouchEnd}>
                     <img src={ball} alt="ball" className="ball-image" />
                     {animations.map(animation => (
                         <div
