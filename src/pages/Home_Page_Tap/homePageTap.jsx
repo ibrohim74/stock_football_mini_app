@@ -65,7 +65,7 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onTouchStart={handleTouchStart}
                      onTouchEnd={handleTouchEnd}>
-                    <img src={ball} alt="ball" className="ball-image" />
+                    <img src={ball} alt="ball" className="ball-image" draggable={false}/>
                     {animations.map(animation => (
                         <div
                             key={animation.id}
