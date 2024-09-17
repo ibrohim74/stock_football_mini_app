@@ -55,9 +55,10 @@ const HomePageTap = () => {
 
     return (
         <div className="home-page">
-            <BackTab back_url={INDEX} />
+
             <div className="home-page_user_settings">
                 <div className="home-page_user">
+                    <BackTab back_url={INDEX} />
                     <span className={"home-page_user_icon"}><UserOutlined /></span>
                     Xasanov Ibroxim
                 </div>

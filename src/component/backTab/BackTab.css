@@ -1,7 +1,4 @@
-.back-tab{
-    width: 100%;
-    height: 40px;
-    background-color: #000;
+.back-tab {
+    display: inline-block;
     font-size: 40px;
-    padding: 10px;
 }
