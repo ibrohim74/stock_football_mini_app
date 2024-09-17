@@ -69,6 +69,8 @@ const HomePageTap = () => {
                          alt="ball"
                          className="ball-image"
                          draggable="false" // Rasmdagi yuklab olishni o'chirish
+                         onContextMenu={(e) => e.preventDefault()} // O'ng tugma menyusini bloklash
+
                     />
                     {animations.map(animation => (
                         <div
