@@ -54,7 +54,11 @@
         align-content: center;
         margin-top: 50px;
         width: 100%;
-
+        -webkit-touch-callout: none; /* Mobil qurilmalarda yuklab olish menyusini bloklaydi */
+        -webkit-user-select: none; /* Matnni tanlashni o'chiradi */
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
     .tap_ball img{
         width: 250px;
@@ -63,6 +67,8 @@
         background: #191919;
         box-shadow:  -5px -5px 15px #131313,
         5px 5px 15px #1f1f1f;
+        user-select: none; /* Rasmni tanlashni oldini oladi */
+        pointer-events: none; /* Bosish va yuklab olishni bloklaydi */
     }
     .ball-content{
         position: absolute;
