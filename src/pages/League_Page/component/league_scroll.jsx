@@ -248,13 +248,13 @@ const LeagueScroll = () => {
             </Swiper>
 
             {loadingFixtures ? (
-                <div className="loading-indicator">Loading fixtures...</div>
+                <div className="loading-indicator">Loading...</div>
             ) : fixtures.length > 0 ? (
                 <div className="fixtures">
                     <Collapse_stock_leg items={collapseItem} setOpenKeyItem={setOpenKeyItem} />
                 </div>
             ) : (
-                <p>No fixtures available</p>
+                <p>Ma'lumot yo'q</p>
             )}
         </div>
     );
