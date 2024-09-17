@@ -10,27 +10,22 @@ const HomePageTap = () => {
     const [score, setScore] = useState(665);
     const [dailyBonus, setDailyBonus] = useState(0);
     const [animations, setAnimations] = useState([]);
-    const [touchData, setTouchData] = useState({ touchCount: 0, x: 0, y: 0 });
+    const [touchCount, setTouchCount] = useState(0); // Bosilgan barmoqlar sonini saqlash uchun state
 
     const handleTouchStart = (event) => {
-        const touchCount = event.touches.length;
+        const touchLength = event.touches.length; // Nechta barmoq bilan bosilganini olish
+        setTouchCount(touchLength); // Touch countni saqlash
+
         const rect = event.currentTarget.getBoundingClientRect();
         const x = event.touches[0].clientX - rect.left;
         const y = event.touches[0].clientY - rect.top;
 
-        // Touch ma'lumotlarini saqlab qolish
-        setTouchData({ touchCount, x, y });
-    };
-
-    const handleTouchEnd = () => {
-        // Bosimni tugatganda ballarni qo'shish
-        setScore(prevScore => prevScore + touchData.touchCount);
-
-        const newAnimations = Array.from({ length: touchData.touchCount }).map((_, index) => ({
+        // Animatsiyani yaratish uchun barmoq pozitsiyalarini saqlab qo'yish
+        const newAnimations = Array.from({ length: touchLength }).map((_, index) => ({
             id: Date.now() + index,
-            x: touchData.x + Math.random() * 10 - 5,
-            y: touchData.y + Math.random() * 10 - 5,
-            value: touchData.touchCount
+            x: x + Math.random() * 10 - 5,
+            y: y + Math.random() * 10 - 5,
+            value: touchLength
         }));
 
         setAnimations(prev => [...prev, ...newAnimations]);
@@ -38,6 +33,12 @@ const HomePageTap = () => {
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
         }, 500);
+    };
+
+    const handleTouchEnd = () => {
+        // Bosim tugagandan so'ng ballarni qo'shish
+        setScore(prevScore => prevScore + touchCount); // Barmoq soniga qarab ballarni qo'shish
+        setTouchCount(0); // Barmoq sonini nolga tushirish
     };
 
     return (
