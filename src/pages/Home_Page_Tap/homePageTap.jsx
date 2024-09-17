@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
@@ -6,11 +6,14 @@ import { Link } from "react-router-dom";
 import { INDEX, SETTINGS } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 
+const MAX_ENERGY = 200;
+
 const HomePageTap = () => {
     const [score, setScore] = useState(665);
     const [dailyBonus, setDailyBonus] = useState(0);
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
+    const [energy, setEnergy] = useState(MAX_ENERGY); // Max energy is 200
 
     const handleTouchStart = (event) => {
         const touchLength = event.touches.length;
@@ -36,8 +39,19 @@ const HomePageTap = () => {
 
     const handleTouchEnd = () => {
         setScore(prevScore => prevScore + touchCount);
+        setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
         setTouchCount(0);
     };
+
+    useEffect(() => {
+        // Energy regeneration every 3 seconds
+        const intervalId = setInterval(() => {
+            setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Increase energy by 1
+        }, 3000);
+
+        // Clean up interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
         <div className="home-page">
@@ -63,14 +77,13 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onTouchStart={handleTouchStart}
                      onTouchEnd={handleTouchEnd}
-                     onContextMenu={(e) => e.preventDefault()} // O'ng tugma menyusini bloklash
+                     onContextMenu={(e) => e.preventDefault()} // Disable right-click menu
                 >
                     <img src={ball}
                          alt="ball"
                          className="ball-image"
-                         draggable="false" // Rasmdagi yuklab olishni o'chirish
-                         onContextMenu={(e) => e.preventDefault()} // O'ng tugma menyusini bloklash
-
+                         draggable="false"
+                         onContextMenu={(e) => e.preventDefault()} // Disable right-click menu
                     />
                     {animations.map(animation => (
                         <div
@@ -85,6 +98,7 @@ const HomePageTap = () => {
                         </div>
                     ))}
                 </div>
+                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Display energy */}
             </div>
         </div>
     );
