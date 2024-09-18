@@ -92,6 +92,7 @@ const HomePageTap = () => {
                      onTouchStart={handleTouchStart}
                      onTouchEnd={handleTouchEnd}
                      onContextMenu={(e) => e.preventDefault()} // O'ng bosishni bloklash
+                     style={{ position: "relative", overflow: "hidden" }} // Koptokdan tashqariga chiqmaslik uchun
                 >
                     <img src={ball}
                          alt="ball"
@@ -103,7 +104,7 @@ const HomePageTap = () => {
                         <div
                             key={animation.id}
                             className="ball-animation"
-
+                            style={{ left: `${animation.x}px`, top: `${animation.y}px` }} // Animatsiya barmoq bosilgan joyda boshlansin
                         >
                             <div className="small-ball"></div> {/* Kichik koptok */}
                         </div>
