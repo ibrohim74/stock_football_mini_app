@@ -14,13 +14,12 @@ const HomePageTap = () => {
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
     const [energy, setEnergy] = useState(MAX_ENERGY);
-    const [isCooldown, setIsCooldown] = useState(false);
 
     const handleTouchStart = (event) => {
         const touchLength = event.touches.length;
 
-        // If energy is zero or cooldown is active, no tapping is allowed
-        if (isCooldown || energy <= 0) return;
+        // If energy is zero, no tapping is allowed
+        if (energy <= 0) return;
 
         // Calculate how many touches are allowed based on remaining energy
         const allowedTouches = Math.min(touchLength, energy);
@@ -43,19 +42,13 @@ const HomePageTap = () => {
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
         }, 90);
-
-        // Start cooldown for 0.5s regardless of the number of touches
-        setIsCooldown(true);
-        setTimeout(() => {
-            setIsCooldown(false);
-        }, 90);
     };
 
     const handleTouchEnd = async () => {
         // Add score and decrease energy based on the number of allowed taps
-       await setScore(prevScore => prevScore + touchCount);
-      await  setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
-       await setTouchCount(0);
+        await setScore(prevScore => prevScore + touchCount);
+        await setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
+        await setTouchCount(0);
     };
 
     useEffect(() => {
