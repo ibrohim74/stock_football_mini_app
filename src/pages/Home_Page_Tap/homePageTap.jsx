@@ -14,8 +14,11 @@ const HomePageTap = () => {
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
     const [energy, setEnergy] = useState(MAX_ENERGY); // Max energy is 200
+    const [isCooldown, setIsCooldown] = useState(false); // Cooldown state
 
     const handleTouchStart = (event) => {
+        if (isCooldown) return; // Prevent touch if cooldown is active
+
         const touchLength = event.touches.length;
         setTouchCount(touchLength);
 
@@ -38,9 +41,17 @@ const HomePageTap = () => {
     };
 
     const handleTouchEnd = () => {
+        if (isCooldown) return; // Prevent scoring if cooldown is active
+
         setScore(prevScore => prevScore + touchCount);
         setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
         setTouchCount(0);
+        setIsCooldown(true); // Activate cooldown
+
+        // Set cooldown for 1 second
+        setTimeout(() => {
+            setIsCooldown(false); // Deactivate cooldown after 1 second
+        }, 1000);
     };
 
     useEffect(() => {
