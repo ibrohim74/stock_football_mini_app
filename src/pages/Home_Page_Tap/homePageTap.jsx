@@ -13,13 +13,13 @@ const HomePageTap = () => {
     const [dailyBonus, setDailyBonus] = useState(0);
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
-    const [energy, setEnergy] = useState(MAX_ENERGY); // Max energy is 200
-    const [isCooldown, setIsCooldown] = useState(false); // Cooldown state
+    const [energy, setEnergy] = useState(MAX_ENERGY);
+    const [isCooldown, setIsCooldown] = useState(false);
 
     const handleTouchStart = (event) => {
         const touchLength = event.touches.length;
 
-        // Cooldown bo'lsa, barmoq bosishiga ruxsat bermaymiz
+        // Prevent interaction if cooldown is active
         if (isCooldown) return;
 
         setTouchCount(touchLength);
@@ -37,30 +37,30 @@ const HomePageTap = () => {
 
         setAnimations(prev => [...prev, ...newAnimations]);
 
+        // Remove animations after 0.5s
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
         }, 500);
 
-        // Cooldownni yoqish (0.5 soniya davomida boshqa bosishlar amalga oshmaydi)
+        // Start cooldown for 0.5s regardless of the number of touches
         setIsCooldown(true);
         setTimeout(() => {
-            setIsCooldown(false); // Cooldownni 0.5 soniyadan keyin o'chirish
+            setIsCooldown(false);
         }, 500);
     };
 
     const handleTouchEnd = () => {
         setScore(prevScore => prevScore + touchCount);
-        setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Energiya kamayadi
+        setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
         setTouchCount(0);
     };
 
     useEffect(() => {
-        // Har 3 soniyada energiyani qayta tiklash
+        // Regenerate energy every 3 seconds
         const intervalId = setInterval(() => {
-            setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Energiya 1 ga ortadi
+            setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Increase energy by 1
         }, 3000);
 
-        // Komponent demontaj qilinganda intervalni tozalash
         return () => clearInterval(intervalId);
     }, []);
 
@@ -88,13 +88,13 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onTouchStart={handleTouchStart}
                      onTouchEnd={handleTouchEnd}
-                     onContextMenu={(e) => e.preventDefault()} // O'ng bosishni o'chirish
+                     onContextMenu={(e) => e.preventDefault()} // Disable right-click
                 >
                     <img src={ball}
                          alt="ball"
                          className="ball-image"
                          draggable="false"
-                         onContextMenu={(e) => e.preventDefault()} // O'ng bosishni o'chirish
+                         onContextMenu={(e) => e.preventDefault()} // Disable right-click
                     />
                     {animations.map(animation => (
                         <div
@@ -109,10 +109,10 @@ const HomePageTap = () => {
                         </div>
                     ))}
                 </div>
-                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Energiya ko'rsatiladi */}
+                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Display energy */}
             </div>
         </div>
     );
-}
+};
 
 export default HomePageTap;
