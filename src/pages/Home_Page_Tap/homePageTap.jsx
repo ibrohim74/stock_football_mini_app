@@ -14,6 +14,7 @@ const HomePageTap = () => {
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
     const [energy, setEnergy] = useState(MAX_ENERGY);
+    const [ballPressed, setBallPressed] = useState(false); // Yangi state - animatsiya uchun
 
     const handleTouchStart = (event) => {
         const touchLength = event.touches.length;
@@ -41,10 +42,12 @@ const HomePageTap = () => {
         });
 
         setAnimations(prev => [...prev, ...newAnimations]);
+        setBallPressed(true); // Ball bosilganda animatsiya boshlansin
 
         // Animatsiyalarni 0.5 sekunddan so'ng olib tashlang
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
+            setBallPressed(false); // Animatsiya tugadi
         }, 500);
     };
 
@@ -92,7 +95,7 @@ const HomePageTap = () => {
                 >
                     <img src={ball}
                          alt="ball"
-                         className="ball-image"
+                         className={`ball-image ${ballPressed ? 'pressed' : ''}`} // Animatsiya qo'shildi
                          draggable="false"
                          onContextMenu={(e) => e.preventDefault()} // O'ng bosishni bloklash
                     />
