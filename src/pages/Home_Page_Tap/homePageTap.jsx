@@ -19,20 +19,22 @@ const HomePageTap = () => {
     const handleTouchStart = (event) => {
         const touchLength = event.touches.length;
 
-        // Prevent interaction if cooldown is active
-        if (isCooldown) return;
+        // If energy is zero or cooldown is active, no tapping is allowed
+        if (isCooldown || energy <= 0) return;
 
-        setTouchCount(touchLength);
+        // Calculate how many touches are allowed based on remaining energy
+        const allowedTouches = Math.min(touchLength, energy);
+        setTouchCount(allowedTouches);
 
         const rect = event.currentTarget.getBoundingClientRect();
         const x = event.touches[0].clientX - rect.left;
         const y = event.touches[0].clientY - rect.top;
 
-        const newAnimations = Array.from({ length: touchLength }).map((_, index) => ({
+        const newAnimations = Array.from({ length: allowedTouches }).map((_, index) => ({
             id: Date.now() + index,
             x: x + Math.random() * 10 - 5,
             y: y + Math.random() * 10 - 5,
-            value: touchLength
+            value: allowedTouches
         }));
 
         setAnimations(prev => [...prev, ...newAnimations]);
@@ -40,16 +42,17 @@ const HomePageTap = () => {
         // Remove animations after 0.5s
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
-        }, 100);
+        }, 500);
 
         // Start cooldown for 0.5s regardless of the number of touches
         setIsCooldown(true);
         setTimeout(() => {
             setIsCooldown(false);
-        }, 100);
+        }, 500);
     };
 
     const handleTouchEnd = () => {
+        // Add score and decrease energy based on the number of allowed taps
         setScore(prevScore => prevScore + touchCount);
         setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
         setTouchCount(0);
@@ -113,6 +116,6 @@ const HomePageTap = () => {
             </div>
         </div>
     );
-};
+}
 
 export default HomePageTap;
