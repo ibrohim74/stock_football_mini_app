@@ -103,10 +103,7 @@ const HomePageTap = () => {
                         <div
                             key={animation.id}
                             className="ball-animation"
-                            style={{
-                                left: `${animation.x}px`,
-                                top: `${animation.y}px`,
-                            }}
+
                         >
                             <div className="small-ball"></div> {/* Kichik koptok */}
                         </div>
