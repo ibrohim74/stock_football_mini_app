@@ -18,43 +18,47 @@ const HomePageTap = () => {
     const handleTouchStart = (event) => {
         const touchLength = event.touches.length;
 
-        // If energy is zero, no tapping is allowed
+        // Agar energiya tugagan bo'lsa, bosishni taqiqlash
         if (energy <= 0) return;
 
-        // Calculate how many touches are allowed based on remaining energy
+        // Qolgan energiya asosida nechta barmoq ruxsat etilishini hisoblang
         const allowedTouches = Math.min(touchLength, energy);
         setTouchCount(allowedTouches);
 
         const rect = event.currentTarget.getBoundingClientRect();
-        const x = event.touches[0].clientX - rect.left;
-        const y = event.touches[0].clientY - rect.top;
 
-        const newAnimations = Array.from({ length: allowedTouches }).map((_, index) => ({
-            id: Date.now() + index,
-            x: x + Math.random() * 10 - 5,
-            y: y + Math.random() * 10 - 5,
-            value: allowedTouches
-        }));
+        // Har bir barmoq uchun animatsiyalar yarating
+        const newAnimations = Array.from({ length: allowedTouches }).map((_, index) => {
+            const touch = event.touches[index];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+
+            return {
+                id: Date.now() + index,
+                x: x,
+                y: y,
+            };
+        });
 
         setAnimations(prev => [...prev, ...newAnimations]);
 
-        // Remove animations after 0.5s
+        // Animatsiyalarni 0.5 sekunddan so'ng olib tashlang
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
-        }, 200);
+        }, 500);
     };
 
     const handleTouchEnd = async () => {
-        // Add score and decrease energy based on the number of allowed taps
+        // Ballarni qo'shish va energiyani kamaytirish
         await setScore(prevScore => prevScore + touchCount);
-        await setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
+        await setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Energiyani kamaytirish
         await setTouchCount(0);
     };
 
     useEffect(() => {
-        // Regenerate energy every 3 seconds
+        // Har 3 soniyada energiya regeneratsiyasi
         const intervalId = setInterval(() => {
-            setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Increase energy by 1
+            setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Har 3 soniyada 1 energiya qo'shiladi
         }, 3000);
 
         return () => clearInterval(intervalId);
@@ -84,13 +88,13 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onTouchStart={handleTouchStart}
                      onTouchEnd={handleTouchEnd}
-                     onContextMenu={(e) => e.preventDefault()} // Disable right-click
+                     onContextMenu={(e) => e.preventDefault()} // O'ng bosishni bloklash
                 >
                     <img src={ball}
                          alt="ball"
                          className="ball-image"
                          draggable="false"
-                         onContextMenu={(e) => e.preventDefault()} // Disable right-click
+                         onContextMenu={(e) => e.preventDefault()} // O'ng bosishni bloklash
                     />
                     {animations.map(animation => (
                         <div
@@ -101,11 +105,11 @@ const HomePageTap = () => {
                                 top: `${animation.y}px`,
                             }}
                         >
-                            <span>+{animation.value}</span>
+                            <div className="small-ball"></div> {/* Kichik koptok */}
                         </div>
                     ))}
                 </div>
-                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Display energy */}
+                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Energiyani ko'rsatish */}
             </div>
         </div>
     );

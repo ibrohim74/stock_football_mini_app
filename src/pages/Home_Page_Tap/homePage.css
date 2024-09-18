@@ -128,3 +128,27 @@
 
 
 
+@keyframes ball-move {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+.ball-animation {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    animation: ball-move 0.5s ease-in-out forwards;
+}
+
+.small-ball {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
