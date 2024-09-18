@@ -41,7 +41,7 @@ const HomePageTap = () => {
         // Remove animations after 0.5s
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
-        }, 90);
+        }, 200);
     };
 
     const handleTouchEnd = async () => {
