@@ -17,9 +17,11 @@ const HomePageTap = () => {
     const [isCooldown, setIsCooldown] = useState(false); // Cooldown state
 
     const handleTouchStart = (event) => {
-        if (isCooldown) return; // Prevent touch if cooldown is active
-
         const touchLength = event.touches.length;
+
+        // Cooldown bo'lsa, barmoq bosishiga ruxsat bermaymiz
+        if (isCooldown) return;
+
         setTouchCount(touchLength);
 
         const rect = event.currentTarget.getBoundingClientRect();
@@ -38,35 +40,32 @@ const HomePageTap = () => {
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
         }, 500);
+
+        // Cooldownni yoqish (0.5 soniya davomida boshqa bosishlar amalga oshmaydi)
+        setIsCooldown(true);
+        setTimeout(() => {
+            setIsCooldown(false); // Cooldownni 0.5 soniyadan keyin o'chirish
+        }, 500);
     };
 
     const handleTouchEnd = () => {
-        if (isCooldown) return; // Prevent scoring if cooldown is active
-
         setScore(prevScore => prevScore + touchCount);
-        setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Decrease energy
+        setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Energiya kamayadi
         setTouchCount(0);
-        setIsCooldown(true); // Activate cooldown
-
-        // Set cooldown for 1 second
-        setTimeout(() => {
-            setIsCooldown(false); // Deactivate cooldown after 1 second
-        }, 1000);
     };
 
     useEffect(() => {
-        // Energy regeneration every 3 seconds
+        // Har 3 soniyada energiyani qayta tiklash
         const intervalId = setInterval(() => {
-            setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Increase energy by 1
+            setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Energiya 1 ga ortadi
         }, 3000);
 
-        // Clean up interval on component unmount
+        // Komponent demontaj qilinganda intervalni tozalash
         return () => clearInterval(intervalId);
     }, []);
 
     return (
         <div className="home-page">
-
             <div className="home-page_user_settings">
                 <div className="home-page_user">
                     <BackTab back_url={INDEX} />
@@ -89,13 +88,13 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onTouchStart={handleTouchStart}
                      onTouchEnd={handleTouchEnd}
-                     onContextMenu={(e) => e.preventDefault()} // Disable right-click menu
+                     onContextMenu={(e) => e.preventDefault()} // O'ng bosishni o'chirish
                 >
                     <img src={ball}
                          alt="ball"
                          className="ball-image"
                          draggable="false"
-                         onContextMenu={(e) => e.preventDefault()} // Disable right-click menu
+                         onContextMenu={(e) => e.preventDefault()} // O'ng bosishni o'chirish
                     />
                     {animations.map(animation => (
                         <div
@@ -110,7 +109,7 @@ const HomePageTap = () => {
                         </div>
                     ))}
                 </div>
-                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Display energy */}
+                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Energiya ko'rsatiladi */}
             </div>
         </div>
     );
