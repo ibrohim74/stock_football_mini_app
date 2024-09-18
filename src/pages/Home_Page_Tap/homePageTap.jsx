@@ -40,13 +40,13 @@ const HomePageTap = () => {
         // Remove animations after 0.5s
         setTimeout(() => {
             setAnimations(prev => prev.filter(animation => !newAnimations.find(newAnim => newAnim.id === animation.id)));
-        }, 500);
+        }, 100);
 
         // Start cooldown for 0.5s regardless of the number of touches
         setIsCooldown(true);
         setTimeout(() => {
             setIsCooldown(false);
-        }, 500);
+        }, 100);
     };
 
     const handleTouchEnd = () => {
