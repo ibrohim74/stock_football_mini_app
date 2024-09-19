@@ -9,16 +9,21 @@ function App() {
 
     useEffect(() => {
         tg.expand()
-    },[])
+    }, [])
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={INDEX} element={<IndexPage />} />
-                <Route path={`${FOOTBALL}/*`} element={<Layout path="football" />} />
-                <Route path={`${TAP}/*`} element={<Layout path="tap" />} />
+                {/* Index page route */}
+                <Route path={`${INDEX}:user_id`} element={<IndexPage />} />
+
+                {/* Football route with dynamic user ID */}
+                <Route path={`${FOOTBALL}:user_id/*`} element={<Layout path="football" />} />
+
+                {/* Tap route with dynamic user ID */}
+                <Route path={`${TAP}:user_id/*`} element={<Layout path="tap" />} />
             </Routes>
         </BrowserRouter>
-
     );
 }
 

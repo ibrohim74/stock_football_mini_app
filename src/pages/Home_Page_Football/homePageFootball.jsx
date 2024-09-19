@@ -14,10 +14,12 @@ import {
 import { INDEX } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 import "./footballHomePage.css"
+import {useParams} from "react-router-dom";
 
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
     const [loading, setLoading] = useState(true); // Loading holatini qo'shish
+    const {user_id} = useParams();
 
     // Barcha ligalarni bir joyda to'plab olish
     const allLeagues = [
@@ -105,11 +107,10 @@ const HomePageFootball = () => {
             </div>
         ),
     }));
-
     return (
         <>
             <h1 className={"footballTitle"}>
-                <BackTab back_url={INDEX} />
+                <BackTab back_url={`${INDEX}${user_id}`} />
                 <span>
                    LIVE
 

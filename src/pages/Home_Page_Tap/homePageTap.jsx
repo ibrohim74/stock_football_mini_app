@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import { INDEX, SETTINGS } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 
@@ -15,7 +15,7 @@ const HomePageTap = () => {
     const [touchCount, setTouchCount] = useState(0);
     const [energy, setEnergy] = useState(MAX_ENERGY);
     const [ballPressed, setBallPressed] = useState(false); // Yangi state - animatsiya uchun
-
+    const {user_id} = useParams();
     const handleTouchStart = (event) => {
         const touchLength = event.touches.length;
 
@@ -71,7 +71,7 @@ const HomePageTap = () => {
         <div className="home-page">
             <div className="home-page_user_settings">
                 <div className="home-page_user">
-                    <BackTab back_url={INDEX} />
+                    <BackTab back_url={`${INDEX}${user_id}`} />
                     <span className={"home-page_user_icon"}><UserOutlined /></span>
                     Xasanov Ibroxim
                 </div>

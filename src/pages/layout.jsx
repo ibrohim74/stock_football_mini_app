@@ -1,12 +1,14 @@
 import React from 'react';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import { RouterFootballData, RouterTapFootballData } from "../utils/const.jsx";
 import AppBar from "../component/App_bar/app_bar.jsx";
 
 const Layout = ({ path }) => {
+    const { user_id } = useParams();  // Capture userId from the URL
+
     return (
         <div>
-            <AppBar path={path} />
+            <AppBar path={path} userId={user_id} /> {/* Pass userId as a prop */}
             <Routes>
                 {path === "tap" &&
                     RouterTapFootballData.map(({ Path, Component }, index) => (
