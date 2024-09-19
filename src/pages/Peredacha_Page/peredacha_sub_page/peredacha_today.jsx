@@ -53,7 +53,6 @@ const PeredashaToday = ({ leagueList }) => {
         const intervalId = setInterval(() => {
             getData();
         }, 900000); // 15 daqiqa
-
         return () => clearInterval(intervalId);
     }, [leagueList.length]);
 
