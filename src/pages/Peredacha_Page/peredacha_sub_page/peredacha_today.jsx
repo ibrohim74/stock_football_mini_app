@@ -18,15 +18,28 @@ const PeredashaToday = ({ leagueList }) => {
         }
     };
 
+    const isSameGameData = (newGames, oldGames) => {
+        // Ikkala o'yinlar to'plamining idlarini solishtiramiz
+        const newGameIds = newGames.map(game => game.fixture.id).sort();
+        const oldGameIds = oldGames.map(game => game.fixture.id).sort();
+        return JSON.stringify(newGameIds) === JSON.stringify(oldGameIds);
+    };
+
     const getData = async () => {
         setLoading(true);
         try {
             const response = await axios.request(options);
-            const filteredGames = response?.data?.response.filter(async game =>
-               await leagueList.includes(game.league.id)
-            );
             console.log(response)
-            setTodayGames(filteredGames);
+            const filteredGames = Array.isArray(leagueList)
+                ? response?.data?.response.filter(game =>
+                    leagueList.map(Number).includes(Number(game.league.id))
+                )
+                : response?.data?.response;
+
+            // Agar o'yinlar o'zgarmagan bo'lsa, yangi ma'lumotlarni yangilamaymiz
+            if (!isSameGameData(filteredGames, todayGames)) {
+                setTodayGames(filteredGames);
+            }
         } catch (error) {
             console.error(error);
         } finally {
@@ -39,17 +52,16 @@ const PeredashaToday = ({ leagueList }) => {
 
         const intervalId = setInterval(() => {
             getData();
-        }, 900000);
+        }, 900000); // 15 daqiqa
 
         return () => clearInterval(intervalId);
-    }, [leagueList]);
+    }, [leagueList.length]);
 
     const loadImage = (url) => {
         return new Promise((resolve) => {
             const img = new Image();
             img.onload = () => resolve(img.src);
             img.onerror = () => {
-                // Agar rasm olishda xato bo'lsa, 2 sekunddan keyin yana qayta yuklashga harakat qilish
                 setTimeout(() => {
                     img.src = url;
                 }, 2000);
@@ -59,7 +71,6 @@ const PeredashaToday = ({ leagueList }) => {
         });
     };
 
-    // Create a mapping of images
     useEffect(() => {
         const fetchImages = async () => {
             for (const game of todayGames) {

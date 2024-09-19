@@ -38,7 +38,7 @@ const PeredachaTomorrow = ({ leagueList }) => {
             getData();
         }, 900000);
         return () => clearInterval(intervalId);
-    }, [leagueList]);
+    }, []);
 
     const retryImage = (event) => {
         setTimeout(() => {

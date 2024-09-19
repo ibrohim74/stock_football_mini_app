@@ -49,7 +49,8 @@ const Peredacha = () => {
         timeZone: 'Asia/Tashkent'
     }).format(time);
 
-    const leagueIds = leagues.map(league => league.id).join(',');
+    // Endi leagueIds string emas, array holatida
+    const leagueIds = leagues.map(league => league.id);
 
     return (
         <div className="peredacha">
