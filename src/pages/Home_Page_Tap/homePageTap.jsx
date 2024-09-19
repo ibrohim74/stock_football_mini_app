@@ -3,7 +3,7 @@ import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
 import {Link, useParams} from "react-router-dom";
-import { INDEX, SETTINGS } from "../../utils/const.jsx";
+import {INDEX, SETTINGS, TAP} from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 
 const MAX_ENERGY = 200;
@@ -75,7 +75,7 @@ const HomePageTap = () => {
                     <span className={"home-page_user_icon"}><UserOutlined /></span>
                     Xasanov Ibroxim
                 </div>
-                <Link to={SETTINGS} className="home-page_settings"><SettingOutlined /></Link>
+                <Link to={`${TAP}${user_id}/${SETTINGS}`} className="home-page_settings"><SettingOutlined /></Link>
             </div>
             <div className="ball-content">
                 <div className="ball-score-container">
