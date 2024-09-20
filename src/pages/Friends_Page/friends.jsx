@@ -4,8 +4,9 @@ import gift from "../../assets/imgs/perspective_matte-87-128x128.png";
 import ball from "../../assets/icons/soccer_ball.png";
 import user_img from "../../assets/imgs/perspective_matte-59-128x128.png";
 import reload from "../../assets/imgs/reload.png";
-import copy_img from "../../assets/imgs/Copy-128x128.png";
-import {CopyOutlined} from "@ant-design/icons";
+import { CopyOutlined } from "@ant-design/icons";
+import {message, notification} from "antd";
+
 // ref_users malumotlari
 const ref_users = [
     { id: 1, username: "khasanov_ibroxim1", status: "junior" },
@@ -22,12 +23,35 @@ const ref_users = [
 
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
-
-    // Foydalanuvchilar sonini boshqarish
+    const shareLink = "https://example.com"; // Ulashish uchun havola
+    const [messageApi, contextHolder] = message.useMessage();
     const displayedUsers = showAll ? ref_users : ref_users.slice(0, 3);
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(shareLink).then(() => {
+            messageApi.success("Havola nusxalandi!");
+        });
+    };
+
+    const openShareLink = () => {
+        const shareData = {
+            title: 'Do\'stni taklif qilish',
+            text: 'Do\'stni taklif qilish uchun havola:',
+            url: shareLink,
+        };
+
+        if (navigator.share) {
+            navigator.share(shareData)
+                .then(() => console.log('Havola muvaffaqiyatli ulashildi!'))
+                .catch((error) => console.log('Ulashishda xato:', error));
+        } else {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`, '_blank');
+        }
+    };
 
     return (
         <div className="friends">
+            {contextHolder}
             <div className="content_friends">
                 <div className="friends_content">
                     <div className="friends_title">
@@ -49,7 +73,7 @@ const Friends = () => {
                                 <h1>Do'stlar ro'yxati ({ref_users.length})</h1>
                                 <img src={reload} alt="Ball" />
                             </div>
-                            <p>{ref_users.length >0 ? '' : 'Siz hali hech kimni taklif qilmagansiz'}</p>
+                            <p>{ref_users.length > 0 ? '' : 'Siz hali hech kimni taklif qilmagansiz'}</p>
                         </div>
 
                         <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
@@ -70,10 +94,11 @@ const Friends = () => {
                             )}
                         </div>
 
-
                         <div className="ref_link_box">
-                            <div className="ref_button">Do`stni taklif qilish</div>
-                            <div className="ref_link"><CopyOutlined /></div>
+                            <div className="ref_button" onClick={openShareLink}>Do`stni taklif qilish</div>
+                            <div className="ref_link" onClick={copyToClipboard}>
+                                <CopyOutlined />
+                            </div>
                         </div>
                     </div>
                 </div>
