@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import "./app_bar.css";
-import ball from "../../assets/icons/icons8-football-50.svg";
-import peredacha from "../../assets/icons/football-game-plan-on-field.svg";
-import liga from "../../assets/icons/trophy-football-cup.svg";
-import users from "../../assets/icons/group.svg";
-import gift from "../../assets/icons/gift-box.svg";
+import ball from "../../assets/icons/soccer_ball.png";
+import peredacha from "../../assets/imgs/perspective_matte-57-128x128.png";
+import liga from "../../assets/imgs/perspective_matte-38-128x128.png";
+import users from "../../assets/imgs/Discussion-128x128.png";
+import gift from "../../assets/imgs/perspective_matte-87-128x128.png";
 import { FRIENDS, GIFT, HOME_PAGE_TAP, LEAGUE, PEREDACHA, HOME_PAGE_FOOTBALL, FOOTBALL, TAP } from "../../utils/const.jsx";
 
 const AppBar = ({ path, userId }) => {

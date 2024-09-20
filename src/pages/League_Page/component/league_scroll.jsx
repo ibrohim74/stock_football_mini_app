@@ -221,7 +221,7 @@ const LeagueScroll = () => {
     return (
         <div className="swiper_league_scroll">
             <Swiper
-                slidesPerView={3}
+                slidesPerView={3.5}
                 spaceBetween={30}
                 loop={true}
                 pagination={{ clickable: true }}

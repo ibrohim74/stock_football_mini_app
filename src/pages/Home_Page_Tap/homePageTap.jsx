@@ -7,7 +7,7 @@ import { INDEX, SETTINGS, TAP } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 import volteg from "../../assets/icons/high-voltage.png";
 import $API from "../../utils/https.jsx";
-
+import user_img from "../../assets/imgs/perspective_matte-59-128x128.png"
 const HomePageTap = () => {
     const [score, setScore] = useState(0);
     const [dailyBonus, setDailyBonus] = useState(0);
@@ -124,7 +124,7 @@ const HomePageTap = () => {
                 <BackTab back_url={`${INDEX}${user_id}`} />
                 <div className="home-page_user">
                     {username}
-                    <span className="home-page_user_icon"><UserOutlined/></span>
+                    <span className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </div>
             </div>
             <div className="ball-content">
