@@ -7,9 +7,16 @@ import {useEffect} from "react";
 function App() {
     const tg = window.Telegram.WebApp;
     useEffect(() => {
+        // Ekranni to'liq ochish
         tg.expand();
-    }, []);
 
+        // WebView'da bounce (sakrash) harakatini o'chirish
+        tg.disableWebViewBounce();
+
+        // Sarlavha rangini o'rnatish (mos rangni tanlashingiz mumkin)
+        tg.setHeaderColor("#191919");
+
+    }, [tg]);
     return (
         <HashRouter>
             <Routes>
