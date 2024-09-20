@@ -13,10 +13,8 @@ function App() {
         // WebView'da bounce (sakrash) harakatini o'chirish
         tg.disableWebViewBounce();
 
-        // Sarlavha rangini o'rnatish (mos rangni tanlashingiz mumkin)
-        tg.setHeaderColor("#191919");
 
-    }, [tg]);
+    }, []);
     return (
         <HashRouter>
             <Routes>
