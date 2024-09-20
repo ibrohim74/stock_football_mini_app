@@ -166,10 +166,9 @@
     flex-direction: column;
 }
 
-.friends_ref{
-
+.show_all .friends_ref_item:last-child {
+    margin-bottom: 150px; /* Show All yoqilganda qo'llanadigan pastki bo'sh joy */
 }
-
 .ref_link_box{
     position: fixed;
     width: 100%;

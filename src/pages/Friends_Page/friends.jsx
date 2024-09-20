@@ -52,7 +52,7 @@ const Friends = () => {
                             <p>{ref_users.length >0 ? '' : 'Siz hali hech kimni taklif qilmagansiz'}</p>
                         </div>
 
-                        <div className="friends_ref_box">
+                        <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
                             {displayedUsers.map(user => (
                                 <div key={user.id} className="friends_ref_item">
                                     <img src={user_img} alt="User" />
