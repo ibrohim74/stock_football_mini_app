@@ -96,8 +96,8 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onTouchStart={handleStart}
                      onTouchEnd={handleEnd}
-                     onMouseDown={handleStart}    // Sichqoncha bosilganda
-                     onMouseUp={handleEnd}        // Sichqoncha qo'yilganda
+                     // onMouseDown={handleStart}    // Sichqoncha bosilganda
+                     // onMouseUp={handleEnd}        // Sichqoncha qo'yilganda
                      onContextMenu={(e) => e.preventDefault()} // O'ng bosishni bloklash
                      style={{ position: "relative", overflow: "hidden" }} // Koptokdan tashqariga chiqmaslik uchun
                 >
