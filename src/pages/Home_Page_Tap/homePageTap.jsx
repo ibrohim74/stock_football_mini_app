@@ -61,6 +61,7 @@ const HomePageTap = () => {
             clearTimeout(timerRef.current); // Avvalgi timer to'xtatiladi
         }
         timerRef.current = setTimeout(() => {
+            console.log(newScore , newEnergy)
             updateServer(newScore, newEnergy);
         }, 1000); // 1 sekund davomida tap qilinmasa, serverga update boradi
     };
@@ -120,12 +121,11 @@ const HomePageTap = () => {
     return (
         <div className="home-page">
             <div className="home-page_user_settings">
+                <BackTab back_url={`${INDEX}${user_id}`} />
                 <div className="home-page_user">
-                    <BackTab back_url={`${INDEX}${user_id}`} />
-                    <span className="home-page_user_icon"><UserOutlined /></span>
                     {username}
+                    <span className="home-page_user_icon"><UserOutlined/></span>
                 </div>
-                <Link to={`${TAP}${user_id}/${SETTINGS}`} className="home-page_settings"><SettingOutlined /></Link>
             </div>
             <div className="ball-content">
                 <div className="ball-score-container">

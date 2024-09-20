@@ -3,7 +3,7 @@ import React from 'react';
 const Gift = () => {
     return (
         <div>
-            Gift
+            <div className="content"></div>
         </div>
     );
 };

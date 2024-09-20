@@ -1,0 +1,11 @@
+.friends{
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
+.friends_content{
+    padding: 10px;
+}
+.friends_title h1{text-align: center}
+.friends_title p{font-size:18px;}
