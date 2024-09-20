@@ -42,20 +42,8 @@ body {
 
 }
 
-.content{
-    position: absolute;
-    top: 10%;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    /*justify-content: center;*/
-    align-items: center;
-    background: #191919;
-    margin-top: 15px;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    -webkit-box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
-    -moz-box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
-    box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
-    flex-direction: column;
+
+a:hover {
+    color: white;
+    outline: none;
 }
