@@ -20,7 +20,7 @@ const Settings = () => {
 
     return (
         <div>
-
+settings  {user_id}
         </div>
     );
 };
