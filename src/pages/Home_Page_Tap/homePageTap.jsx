@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
-import {Link, useParams} from "react-router-dom";
-import {INDEX, SETTINGS, TAP} from "../../utils/const.jsx";
+import { Link, useParams } from "react-router-dom";
+import { INDEX, SETTINGS, TAP } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 
-const MAX_ENERGY = 200;
+const MAX_ENERGY = 200; // Energiyaning maksimum qiymati
 
 const HomePageTap = () => {
     const [score, setScore] = useState(665);
@@ -14,12 +14,14 @@ const HomePageTap = () => {
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
     const [energy, setEnergy] = useState(MAX_ENERGY);
-    const [ballPressed, setBallPressed] = useState(false); // Yangi state - animatsiya uchun
-    const {user_id} = useParams();
-    const handleTouchStart = (event) => {
-        const touchLength = event.touches.length;
+    const [ballPressed, setBallPressed] = useState(false); // Animatsiya uchun state
+    const { user_id } = useParams();
 
-        // Agar energiya tugagan bo'lsa, bosishni taqiqlash
+    const handleStart = (event) => {
+        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
+        const touchLength = touches.length;
+
+        // Agar energiya tugagan bo'lsa, bosishni to'xtatish
         if (energy <= 0) return;
 
         // Qolgan energiya asosida nechta barmoq ruxsat etilishini hisoblang
@@ -28,9 +30,9 @@ const HomePageTap = () => {
 
         const rect = event.currentTarget.getBoundingClientRect();
 
-        // Har bir barmoq uchun animatsiyalar yarating
+        // Animatsiyalar uchun yangi joylar
         const newAnimations = Array.from({ length: allowedTouches }).map((_, index) => {
-            const touch = event.touches[index];
+            const touch = touches[index];
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
 
@@ -51,18 +53,21 @@ const HomePageTap = () => {
         }, 500);
     };
 
-    const handleTouchEnd = async () => {
-        // Ballarni qo'shish va energiyani kamaytirish
-        await setScore(prevScore => prevScore + touchCount);
-        await setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Energiyani kamaytirish
-        await setTouchCount(0);
+    const handleEnd = async () => {
+        try {
+            await setScore(prevScore => prevScore + touchCount);
+            await setEnergy(prevEnergy => Math.max(0, prevEnergy - touchCount)); // Energiyani kamaytirish
+            await setTouchCount(0);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     useEffect(() => {
         // Har 3 soniyada energiya regeneratsiyasi
         const intervalId = setInterval(() => {
             setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Har 3 soniyada 1 energiya qo'shiladi
-        }, 3000);
+        }, 1500);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -89,8 +94,10 @@ const HomePageTap = () => {
                     </div>
                 </div>
                 <div className="tap_ball"
-                     onTouchStart={handleTouchStart}
-                     onTouchEnd={handleTouchEnd}
+                     onTouchStart={handleStart}
+                     onTouchEnd={handleEnd}
+                     onMouseDown={handleStart}    // Sichqoncha bosilganda
+                     onMouseUp={handleEnd}        // Sichqoncha qo'yilganda
                      onContextMenu={(e) => e.preventDefault()} // O'ng bosishni bloklash
                      style={{ position: "relative", overflow: "hidden" }} // Koptokdan tashqariga chiqmaslik uchun
                 >
@@ -110,7 +117,15 @@ const HomePageTap = () => {
                         </div>
                     ))}
                 </div>
-                <div className="tap_ball_energy">{energy}/{MAX_ENERGY}</div> {/* Energiyani ko'rsatish */}
+                <div className="tap_ball_energy">
+                    <p>{energy}/{MAX_ENERGY}</p>
+                    <div className="energy_line">
+                        <span style={{
+                            width: `${(energy / MAX_ENERGY) * 100}%`
+                        } // Energiyani to'g'ri hisoblash
+                        }></span>
+                    </div>
+                </div>
             </div>
         </div>
     );
