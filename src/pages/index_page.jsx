@@ -1,9 +1,9 @@
 import React from 'react';
-import {Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FOOTBALL, HOME_PAGE_FOOTBALL, TAP, HOME_PAGE_TAP } from "../utils/const.jsx";
 
 const IndexPage = () => {
-    let {user_id } = useParams()
+    const { user_id } = useParams();  // Extract user_id from the path
 
     return (
         <div className="index_page">
