@@ -13,7 +13,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Navigate to={`${INDEX}123456`} />} />
+                {/*<Route path="/" element={<Navigate to={`${INDEX}123456`} />} />*/}
                 {/* Index page route */}
                 <Route path={`${INDEX}:user_id`} element={<IndexPage />} />
 
