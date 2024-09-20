@@ -9,12 +9,13 @@ function App() {
     useEffect(() => {
         // Ekranni to'liq ochish
         tg.expand();
+        const stableHeight = tg.viewportStableHeight;
+        if (stableHeight) {
+            // Telegram tomonidan berilgan `stableHeight`ni o'rnatamiz
+            document.documentElement.style.setProperty('--stable-height', `${stableHeight}px`);
+        }
 
-        // WebView'da bounce (sakrash) harakatini o'chirish
-        tg.disableWebViewBounce();
-
-
-    }, []);
+    }, [tg]);
     return (
         <HashRouter>
             <Routes>
