@@ -5,7 +5,7 @@ import { SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
 import { INDEX, SETTINGS, TAP } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
-
+import volteg from "../../assets/icons/high-voltage.png"
 const MAX_ENERGY = 200; // Energiyaning maksimum qiymati
 
 const HomePageTap = () => {
@@ -67,7 +67,7 @@ const HomePageTap = () => {
         // Har 3 soniyada energiya regeneratsiyasi
         const intervalId = setInterval(() => {
             setEnergy(prevEnergy => Math.min(MAX_ENERGY, prevEnergy + 1)); // Har 3 soniyada 1 energiya qo'shiladi
-        }, 1500);
+        }, 800);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -118,7 +118,11 @@ const HomePageTap = () => {
                     ))}
                 </div>
                 <div className="tap_ball_energy">
-                    <p>{energy}/{MAX_ENERGY}</p>
+                    <div className="energy_info">
+                        <img src={volteg} alt="volteg"  />
+                        <p>{energy}/{MAX_ENERGY}</p>
+                    </div>
+
                     <div className="energy_line">
                         <span style={{
                             width: `${(energy / MAX_ENERGY) * 100}%`

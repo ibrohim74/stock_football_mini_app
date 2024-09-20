@@ -133,24 +133,26 @@
         transform: translateY(0);
     }
     to {
-        transform: translateY(-5px);
+        transform: translateY(-100px);
     }
 }
 
 .ball-animation {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background: url("../../assets/icons/soccer_ball.png");
-    animation: ball-move 0.5s ease-in-out forwards;
+    background-size: cover;
+    animation: ball-move 0.8s ease-in-out forwards;
 }
 
 .small-ball {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background: url("../../assets/icons/soccer_ball.png");
+    background-size: cover;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    /*box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);*/
 }
 
 /* Ball bosilgandagi animatsiya */
@@ -167,7 +169,7 @@
 }
 
 .ball-image {
-    transition: transform 0.3s;
+    transition: transform 0.7s;
 }
 
 .ball-image.pressed {
@@ -185,10 +187,22 @@
     justify-content: center;
     align-items: center;
 }
+.energy_info{
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+.energy_info img{
+    width: 30px;
+    height: 30px;
+}
 .energy_line{
     width: 80%;
     height: 15px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     border-radius: 10px;
     background: #191919;
@@ -198,7 +212,9 @@
 .energy_line span{
     position: absolute;
     left: 0;
-    height: 100%;
-    background: linear-gradient(90deg ,red 0%, blueviolet 100%);
+    bottom: 0;
+    top: 0;
+    height: 90%;
+    background: linear-gradient(90deg ,rgba(49, 230, 247, 0.26) 10%, blueviolet 90%);
     border-radius: 10px;
 }
