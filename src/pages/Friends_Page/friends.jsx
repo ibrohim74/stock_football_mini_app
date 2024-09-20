@@ -8,16 +8,16 @@ import copy_img from "../../assets/imgs/Copy-128x128.png";
 import {CopyOutlined} from "@ant-design/icons";
 // ref_users malumotlari
 const ref_users = [
-    // { id: 1, username: "khasanov_ibroxim1", status: "junior" },
-    // { id: 2, username: "khasanov_ibroxim2", status: "junior" },
-    // { id: 3, username: "khasanov_ibroxim3", status: "junior" },
-    // { id: 4, username: "khasanov_ibroxim4", status: "junior" },
-    // { id: 5, username: "khasanov_ibroxim5", status: "junior" },
-    // { id: 6, username: "khasanov_ibroxim6", status: "junior" },
-    // { id: 7, username: "khasanov_ibroxim7", status: "junior" },
-    // { id: 8, username: "khasanov_ibroxim8", status: "junior" },
-    // { id: 9, username: "khasanov_ibroxim9", status: "junior" },
-    // { id: 10, username: "khasanov_ibroxim10", status: "junior" },
+    { id: 1, username: "khasanov_ibroxim1", status: "junior" },
+    { id: 2, username: "khasanov_ibroxim2", status: "junior" },
+    { id: 3, username: "khasanov_ibroxim3", status: "junior" },
+    { id: 4, username: "khasanov_ibroxim4", status: "junior" },
+    { id: 5, username: "khasanov_ibroxim5", status: "junior" },
+    { id: 6, username: "khasanov_ibroxim6", status: "junior" },
+    { id: 7, username: "khasanov_ibroxim7", status: "junior" },
+    { id: 8, username: "khasanov_ibroxim8", status: "junior" },
+    { id: 9, username: "khasanov_ibroxim9", status: "junior" },
+    { id: 10, username: "khasanov_ibroxim10", status: "junior" },
 ];
 
 const Friends = () => {
