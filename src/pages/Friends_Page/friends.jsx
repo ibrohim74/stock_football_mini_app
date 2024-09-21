@@ -23,7 +23,7 @@ const ref_users = [
 
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
-    const shareLink = "https://t.me/stock_football_bot"; // Ulashish uchun havola
+    const shareLink = "https://t.me/share?url=https://t.me/stock_football_bot&text=asdsadasd"; // Ulashish uchun havola
     const [messageApi, contextHolder] = message.useMessage();
     const displayedUsers = showAll ? ref_users : ref_users.slice(0, 3);
 
