@@ -23,7 +23,7 @@ const ref_users = [
 
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
-    const shareLink = "https://t.me/share?url=https%3A%2F%2Fyoutu.be%2FL3wKzyIN1yk%3Fsi%3DeV1ufOydLk2ODY2L&text=asdsadasd"; // Ulashish uchun havola
+    const shareLink = "https://t.me/share?url=https://youtu.be/v5PZw1Wr-l0?si=iVtyRjowHzdntacq&text=asdsadasd"; // Ulashish uchun havola
     const [messageApi, contextHolder] = message.useMessage();
     const displayedUsers = showAll ? ref_users : ref_users.slice(0, 3);
 
