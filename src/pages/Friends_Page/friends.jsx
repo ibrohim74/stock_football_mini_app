@@ -23,7 +23,7 @@ const ref_users = [
 
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
-    const shareLink = "https://example.com"; // Ulashish uchun havola
+    const shareLink = "https://t.me/share?url=https%3A%2F%2Fyoutu.be%2FL3wKzyIN1yk%3Fsi%3DeV1ufOydLk2ODY2L&text=asdsadasd"; // Ulashish uchun havola
     const [messageApi, contextHolder] = message.useMessage();
     const displayedUsers = showAll ? ref_users : ref_users.slice(0, 3);
 
@@ -34,18 +34,16 @@ const Friends = () => {
     };
 
     const openShareLink = () => {
-        const shareData = {
-            title: 'Do\'stni taklif qilish',
-            text: 'Do\'stni taklif qilish uchun havola:',
-            url: shareLink,
-        };
-
         if (navigator.share) {
-            navigator.share(shareData)
+            navigator.share({
+                title: 'Do\'stni taklif qilish',
+                text: 'Do\'stni taklif qilish uchun havola:',
+                url: shareLink
+            })
                 .then(() => console.log('Havola muvaffaqiyatli ulashildi!'))
                 .catch((error) => console.log('Ulashishda xato:', error));
         } else {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`, '_blank');
+            window.open(shareLink, '_blank');
         }
     };
 
