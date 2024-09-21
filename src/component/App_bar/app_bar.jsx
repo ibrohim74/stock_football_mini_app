@@ -6,7 +6,18 @@ import peredacha from "../../assets/imgs/perspective_matte-57-128x128.png";
 import liga from "../../assets/imgs/perspective_matte-38-128x128.png";
 import users from "../../assets/imgs/Discussion-128x128.png";
 import gift from "../../assets/imgs/perspective_matte-87-128x128.png";
-import { FRIENDS, GIFT, HOME_PAGE_TAP, LEAGUE, PEREDACHA, HOME_PAGE_FOOTBALL, FOOTBALL, TAP } from "../../utils/const.jsx";
+import event from "../../assets/imgs/Event-128x128.png";
+import {
+    FRIENDS,
+    GIFT,
+    HOME_PAGE_TAP,
+    LEAGUE,
+    PEREDACHA,
+    HOME_PAGE_FOOTBALL,
+    FOOTBALL,
+    TAP,
+    EVENTS
+} from "../../utils/const.jsx";
 
 const AppBar = ({ path, userId }) => {
     return (
@@ -37,6 +48,10 @@ const AppBar = ({ path, userId }) => {
                         <Link to={`${TAP}${userId}/${FRIENDS}`} className="app_bar_content_item">
                             <span><img src={users} alt="Friends" /></span>
                             <p>Do'stlar</p>
+                        </Link>
+                        <Link to={`${TAP}${userId}/${EVENTS}`} className="app_bar_content_item">
+                            <span><img src={event} alt="Friends" /></span>
+                            <p>Vazifalar</p>
                         </Link>
                         <Link to={`${TAP}${userId}/${GIFT}`} className="app_bar_content_item">
                             <span><img src={gift} alt="Gifts" /></span>

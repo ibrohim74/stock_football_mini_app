@@ -6,6 +6,7 @@ import Gift from "../pages/Gift_Page/gift.jsx";
 import Settings from "../pages/Settings_Page/settings.jsx";
 import HomePageFootball from "../pages/Home_Page_Football/homePageFootball.jsx";
 import HomePageTap from "../pages/Home_Page_Tap/homePageTap.jsx";
+import Events from "../pages/Events_Page/events.jsx";
 
 export const INDEX = "/";
 export const TAP = "/homeTap/";
@@ -17,12 +18,14 @@ export const LEAGUE = "league";
 export const FRIENDS = "friends";
 export const GIFT = "gift";
 export const SETTINGS = "setting";
+export const EVENTS = "Events_Page";
 
 export const RouterTapFootballData = [
     { Path: HOME_PAGE_TAP, Component: <HomePageTap /> },
     { Path: FRIENDS, Component: <Friends /> },
     { Path: GIFT, Component: <Gift /> },
     { Path: SETTINGS, Component: <Settings /> },
+    { Path: EVENTS, Component: <Events /> },
 ];
 
 export const RouterFootballData = [
