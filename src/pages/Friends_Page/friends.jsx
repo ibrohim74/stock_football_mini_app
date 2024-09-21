@@ -34,7 +34,8 @@ const Friends = () => {
     };
 
     const openShareLink = () => {
-        const shareLink = "https://t.me/share?url=https://t.me/stock_football_bot&text=Do'stingizni taklif qiling va bonuslarni qo'lga kiriting!";
+        const shareLink = "https://t.me/share/url?url=https://t.me/stock_football_bot&text=Do'stingizni taklif qiling va bonuslarni qo'lga kiriting!";
+
 
         // Telegram orqali to'g'ridan-to'g'ri ulashish havolasi ochiladi
         window.open(shareLink, '_blank');
