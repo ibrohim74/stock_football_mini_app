@@ -126,7 +126,7 @@
 .friends_ref_item_info h1 {
     margin: 0;
     text-overflow: ellipsis;
-    font-size: 25px;
+    font-size: 19px;
     overflow: hidden;
     white-space: nowrap; /* Matn bitta qatorda qoladi */
 
@@ -134,7 +134,7 @@
 
 .friends_ref_item_info p {
     margin: 5px 0 0 0;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .show_more_button {
