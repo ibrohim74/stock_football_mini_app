@@ -34,18 +34,12 @@ const Friends = () => {
     };
 
     const openShareLink = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Do\'stni taklif qilish',
-                text: 'Do\'stni taklif qilish uchun havola:',
-                url: shareLink
-            })
-                .then(() => console.log('Havola muvaffaqiyatli ulashildi!'))
-                .catch((error) => console.log('Ulashishda xato:', error));
-        } else {
-            window.open(shareLink, '_blank');
-        }
+        const shareLink = "https://t.me/share?url=https://t.me/stock_football_bot&text=Do'stingizni taklif qiling va bonuslarni qo'lga kiriting!";
+
+        // Telegram orqali to'g'ridan-to'g'ri ulashish havolasi ochiladi
+        window.open(shareLink, '_blank');
     };
+
 
     return (
         <div className="friends">
