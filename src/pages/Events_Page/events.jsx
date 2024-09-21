@@ -1,8 +1,70 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Modal, Button} from 'antd';
 import "./events.css"
 import gift from "../../assets/imgs/perspective_matte-87-128x128.png";
 import ball from "../../assets/icons/soccer_ball.png";
+
+import ready from "../../assets/imgs/perspective_matte-95-128x128.png"
+import ongoing from "../../assets/imgs/reload.png"
+import active from "../../assets/imgs/perspective_matte-136-128x128.png"
+
 const Events = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [eventsData, setEventsData] = useState([
+        {
+            id: 1,
+            event: "event task obuna boling1 sad asdas dsa d sadasdasd ",
+            event_bonus: "+5M",
+            event_link: "https://test.uz",
+            status: "active"
+        },
+        {
+            id: 2,
+            event: "event task obuna boling2",
+            event_bonus: "+5M",
+            event_link: "https://test.uz",
+            status: "ongoing"
+        },
+        {id: 3, event: "event task obuna boling3", event_bonus: "+5M", event_link: "https://test.uz", status: "ready"},
+        {
+            id: 4,
+            event: "stock football ga obuna boling4",
+            event_bonus: "+5M",
+            event_link: "https://test.uz",
+            status: "ready"
+        },
+        // Qolgan eventlar...
+    ]);
+
+    const showModal = (item) => {
+        // "ready" statusida modal ochilmasin
+        if (item.status !== "ready") {
+            setSelectedEvent(item);
+            setIsModalVisible(true);
+        }
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const startTask = () => {
+        // Statusni "ongoing" ga o'zgartirish
+        setEventsData(eventsData.map(event =>
+            event.id === selectedEvent.id ? {...event, status: "ongoing"} : event
+        ));
+        setIsModalVisible(false);
+    };
+
+    const cancelTask = () => {
+        // Statusni "active" ga qaytarish (bekor qilish)
+        setEventsData(eventsData.map(event =>
+            event.id === selectedEvent.id ? {...event, status: "active"} : event
+        ));
+        setIsModalVisible(false);
+    };
+
     return (
         <div className="events">
             <div className="content_events">
@@ -17,40 +79,53 @@ const Events = () => {
                         </div>
                         {
                             eventsData.map((item, i) => {
-                                return(
-                                    <div className="events_item" key={i}>
-                                        <img src={gift} alt="logo" className={"events_item_logo"}/>
+                                return (
+                                    <div className="events_item" key={i} onClick={() => showModal(item)}>
+                                        <img src={gift} alt="logo" className="events_item_logo"/>
                                         <div className="events_item_text">
                                             <p>{item.event}</p>
                                             <span>
-                                                <img src={ball} alt=""/>
+                                                <img src={ball} alt="ball"/>
                                                 <p>{item.event_bonus}</p>
                                             </span>
                                         </div>
-                                        <span className={"events_item_status"}>{item.status}</span>
+                                        <span className="events_item_status">
+                                            {item.status === "active" && <img src={active} alt=""/>}
+                                            {item.status === "ready" && <img src={ready} alt=""/>}
+                                            {item.status === "ongoing" && <img src={ongoing} alt=""/>}
+                                        </span>
                                     </div>
                                 )
                             })
                         }
                     </div>
-
                 </div>
             </div>
+
+            {/* Modal for task details */}
+            <Modal title="Vazifa tafsilotlari" visible={isModalVisible} onCancel={handleCancel} footer={null}>
+                {selectedEvent && (
+                    <>
+                        <p><strong>Vazifa:</strong> {selectedEvent.event}</p>
+                        <p><strong>Bonus:</strong> {selectedEvent.event_bonus}</p>
+                        <p><strong>Status:</strong> {selectedEvent.status}</p>
+
+                        {/* Tugmalarni statusga qarab ko'rsatamiz */}
+                        {selectedEvent.status === "active" && (
+                            <Button type="primary" onClick={startTask}>
+                                Vazifani boshlash
+                            </Button>
+                        )}
+                        {selectedEvent.status === "ongoing" && (
+                            <Button type="primary" onClick={cancelTask}>
+                                Vazifani bekor qilish
+                            </Button>
+                        )}
+                    </>
+                )}
+            </Modal>
         </div>
     );
 };
 
 export default Events;
-
-const eventsData = [
-    { id: 1, event: "event task obuna boling1", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-    { id: 2, event: "event task obuna boling2", event_bonus: "+5M" , event_link:"https://test.uz" , status:"ongoing"},
-    { id: 3, event: "event task obuna boling3", event_bonus: "+5M" , event_link:"https://test.uz" , status:"ready"},
-    { id: 4, event: "event task obuna boling4", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-    { id: 5, event: "event task obuna boling5", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-    { id: 6, event: "event task obuna boling6", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-    { id: 7, event: "event task obuna boling7", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-    { id: 8, event: "event task obuna boling8", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-    { id: 9, event: "event task obuna boling9", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-    { id: 10, event: "event task obuna boling10", event_bonus: "+5M" , event_link:"https://test.uz" , status:"active"},
-];
