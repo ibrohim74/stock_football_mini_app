@@ -123,8 +123,8 @@ const HomePageTap = () => {
             <div className="home-page_user_settings">
                 <BackTab back_url={`${INDEX}${user_id}`} />
                 <div className="home-page_user">
-                    {/*{username}*/}
-                    <h1>Khasanov_ibroxim</h1>
+
+                    <h1>{username}</h1>
                     <span className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </div>
             </div>
