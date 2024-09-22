@@ -49,6 +49,9 @@ const AppBar = ({ path, userId }) => {
                             <span><img src={users} alt="Friends" /></span>
                             <p>Do'stlar</p>
                         </Link>
+                        <Link to={`${TAP}${userId}/${FRIENDS}`} className="app_bar_content_item app_live_button">
+                            <span><img src={ball} alt="Friends" /></span>
+                        </Link>
                         <Link to={`${TAP}${userId}/${EVENTS}`} className="app_bar_content_item">
                             <span><img src={event} alt="Friends" /></span>
                             <p>Vazifalar</p>
