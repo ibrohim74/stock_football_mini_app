@@ -14,7 +14,7 @@ import {
     portugal_league,
     france_league,
     germany_league,
-    italy_league
+    italy_league, russian_league
 } from "./leagueList.jsx";
 
 const monthNames = [
@@ -31,7 +31,7 @@ const LeagueScroll = () => {
     const [loadingImages, setLoadingImages] = useState({}); // Track loading state for images
 
     useEffect(() => {
-        setLeagues([...uzbekistan_league, ...england_league, ...spain_league, ...portugal_league, ...france_league, ...germany_league, ...italy_league]);
+        setLeagues([...uzbekistan_league, ...england_league, ...spain_league, ...portugal_league, ...france_league, ...germany_league, ...italy_league , ...russian_league]);
     }, []);
 
     const handleSelect = async (league) => {

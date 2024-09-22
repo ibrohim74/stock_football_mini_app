@@ -9,7 +9,7 @@ import gift from "../../assets/imgs/perspective_matte-87-128x128.png";
 import event from "../../assets/imgs/Event-128x128.png";
 import {
     FRIENDS,
-    GIFT,
+    RATING,
     HOME_PAGE_TAP,
     LEAGUE,
     PEREDACHA,
@@ -53,9 +53,9 @@ const AppBar = ({ path, userId }) => {
                             <span><img src={event} alt="Friends" /></span>
                             <p>Vazifalar</p>
                         </Link>
-                        <Link to={`${TAP}${userId}/${GIFT}`} className="app_bar_content_item">
-                            <span><img src={gift} alt="Gifts" /></span>
-                            <p>Sovg'alar</p>
+                        <Link to={`${TAP}${userId}/${RATING}`} className="app_bar_content_item">
+                            <span><img src={liga} alt="Gifts" /></span>
+                            <p>Reyting</p>
                         </Link>
                     </>
                 )}

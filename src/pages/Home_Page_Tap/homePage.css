@@ -26,13 +26,24 @@
     }
 
     .home-page_user {
-
+        float: right;
+        width: 95%;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: right;
         font-size: 20px;
         margin-right: 20px;
+
     }
+    .home-page_user h1{
+        font-size: 20px;
+        width: 70%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: right;
+    }
+
     .home-page_user .home-page_user_icon {
         width: 30px;
         height: 30px;
@@ -48,6 +59,9 @@
         width: 100%;
         height: 100%;
     }
+
+    .ball-score h1{
+        font-size: 25px;}
 
     .tap_ball {
         display: flex;

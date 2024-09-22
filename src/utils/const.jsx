@@ -2,7 +2,7 @@ import React from 'react';
 import Peredacha from "../pages/Peredacha_Page/peredacha.jsx";
 import League from "../pages/League_Page/league.jsx";
 import Friends from "../pages/Friends_Page/friends.jsx";
-import Gift from "../pages/Gift_Page/gift.jsx";
+import Rating from "../pages/Rating_Page/rating.jsx";
 import Settings from "../pages/Settings_Page/settings.jsx";
 import HomePageFootball from "../pages/Home_Page_Football/homePageFootball.jsx";
 import HomePageTap from "../pages/Home_Page_Tap/homePageTap.jsx";
@@ -16,14 +16,14 @@ export const HOME_PAGE_FOOTBALL = "Football";
 export const PEREDACHA = "peredacha";
 export const LEAGUE = "league";
 export const FRIENDS = "friends";
-export const GIFT = "gift";
+export const RATING = "rating";
 export const SETTINGS = "setting";
 export const EVENTS = "Events_Page";
 
 export const RouterTapFootballData = [
     { Path: HOME_PAGE_TAP, Component: <HomePageTap /> },
     { Path: FRIENDS, Component: <Friends /> },
-    { Path: GIFT, Component: <Gift /> },
+    { Path: RATING, Component: <Rating /> },
     { Path: SETTINGS, Component: <Settings /> },
     { Path: EVENTS, Component: <Events /> },
 ];

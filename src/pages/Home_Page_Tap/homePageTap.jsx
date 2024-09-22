@@ -123,7 +123,8 @@ const HomePageTap = () => {
             <div className="home-page_user_settings">
                 <BackTab back_url={`${INDEX}${user_id}`} />
                 <div className="home-page_user">
-                    {username}
+                    {/*{username}*/}
+                    <h1>Khasanov_ibroxim</h1>
                     <span className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </div>
             </div>
@@ -134,8 +135,8 @@ const HomePageTap = () => {
                         <h1>{score}</h1>
                     </div>
                     <div className="ball-score">
-                        <p>Bugungi sovg'alar</p>
-                        <h1>{dailyBonus}/20</h1>
+                        <p>Darajangiz</p>
+                        <h1>Oddiy Yigit</h1>
                     </div>
                 </div>
                 <div className="tap_ball"

@@ -130,3 +130,90 @@
             'logo': 'https://media.api-sports.io/football/leagues/143.png',
         }
     ]
+
+    export const russian_league = [
+        {
+            'id': 236,
+            'name': 'First League',
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/236.png",
+        },
+        {
+            'id': 235,
+            'name': 'Premier League',
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/235.png",
+        },
+        {
+            'id': 237,
+            'name': 'Cup',
+            'type': "Cup",
+            'logo': "https://media.api-sports.io/football/leagues/237.png",
+        },
+        {
+            'id': 238,
+            'name': "Youth Championship",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/238.png",
+        },
+        {
+            'id': 653,
+            'name': "Second League - Group 4",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/653.png",
+        },
+        {
+            'id': 663,
+            'name': "Super Cup",
+            'type': "Cup",
+            'logo': "https://media.api-sports.io/football/leagues/663.png",
+        },
+        {
+            'id': 652,
+            'name': "Second League - Group 2",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/652.png",
+        },
+        {
+            'id': 651,
+            'name': "Second League - Group 1",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/651.png",
+        },
+        {
+            'id': 650,
+            'name': "Second League - Group 3",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/650.png",
+        },
+        {
+            'id': 1026,
+            'name': "Second League A - Fall Season Silver",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/1026.png",
+        },
+        {
+            'id': 1121,
+            'name': "Second League A - Promotion Play-offs",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/1121.png",
+        },
+        {
+            'id': 1064,
+            'name': "Second League A - Spring Season Silver",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/1064.png",
+        },
+        {
+            'id': 1061,
+            'name': "Second League A - Spring Season Gold",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/1061.png",
+        },
+        {
+            'id': 1025,
+            'name': "Second League A - Fall Season Gold",
+            'type': "League",
+            'logo': "https://media.api-sports.io/football/leagues/1025.png",
+        },
+    ]

@@ -50,7 +50,7 @@ const Friends = () => {
                     </div>
 
                     <div className="friends_gift_card">
-                        <img src={gift} alt="Gift" />
+                        <img src={gift} alt="Rating" />
                         <div className="friends_gift_card_text">
                             <h1>Do'st taklif qilish</h1>
                             <p><img src={ball} alt="Ball" />+5K taklif uchun</p>
