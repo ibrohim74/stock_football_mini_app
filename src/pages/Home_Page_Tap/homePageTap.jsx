@@ -41,6 +41,28 @@ const HomePageTap = () => {
         getCoinData();
     }, [user_id]);
 
+    useEffect(() => {
+        // Load vibration and sound settings from localStorage
+        const savedVibration = localStorage.getItem('settings_vibr');
+        const savedSound = localStorage.getItem('settings_mute');
+
+        if (savedVibration === null) {
+            // Default to true if not set
+            setVibrationEnabled(true);
+            localStorage.setItem('settings_vibr', 'true');
+        } else {
+            setVibrationEnabled(savedVibration === 'true');
+        }
+
+        if (savedSound === null) {
+            // Default to true if not set
+            setSoundEnabled(true);
+            localStorage.setItem('settings_mute', 'true');
+        } else {
+            setSoundEnabled(savedSound === 'true');
+        }
+    }, []);
+
     // Load vibration and sound settings from localStorage
     useEffect(() => {
         const savedVibration = localStorage.getItem('settings_vibr') === 'true';

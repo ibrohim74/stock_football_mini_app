@@ -2,14 +2,25 @@ import React, { useState, useEffect } from 'react';
 import "./settings.css";
 
 const Settings = () => {
-    const [vibrationEnabled, setVibrationEnabled] = useState(true);
-    const [soundEnabled, setSoundEnabled] = useState(true);
+    // Load settings from localStorage with default values
+    const [vibrationEnabled, setVibrationEnabled] = useState(() => {
+        const storedVibration = localStorage.getItem('settings_vibr');
+        return storedVibration !== null ? storedVibration === 'true' : true; // Default to true
+    });
+
+    const [soundEnabled, setSoundEnabled] = useState(() => {
+        const storedSound = localStorage.getItem('settings_mute');
+        return storedSound !== null ? storedSound === 'true' : true; // Default to true
+    });
 
     // Save settings to localStorage when they are updated
     useEffect(() => {
         localStorage.setItem('settings_vibr', vibrationEnabled);
+    }, [vibrationEnabled]);
+
+    useEffect(() => {
         localStorage.setItem('settings_mute', soundEnabled);
-    }, [vibrationEnabled, soundEnabled]);
+    }, [soundEnabled]);
 
     const toggleVibration = () => setVibrationEnabled(prev => !prev);
     const toggleSound = () => setSoundEnabled(prev => !prev);
