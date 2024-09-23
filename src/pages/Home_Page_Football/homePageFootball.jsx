@@ -11,7 +11,6 @@ import {
     spain_league,
     portugal_league, russian_league
 } from "../League_Page/component/leagueList.jsx";
-import { INDEX } from "../../utils/const.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 import "./footballHomePage.css"
 import {useParams} from "react-router-dom";
@@ -111,7 +110,7 @@ const HomePageFootball = () => {
     return (
         <>
             <h1 className={"footballTitle"}>
-                <BackTab back_url={`${INDEX}${user_id}`} />
+                <BackTab back_url={`/${user_id}`} />
                 <span>
                    LIVE
 

@@ -5,11 +5,12 @@
 
 .peredacha_time {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
 }
-
+.peredacha_time_box{
+    text-align: center;
+}
 .peredacha_time h1, .peredacha_time p {
     margin: 0;
     padding: 0;

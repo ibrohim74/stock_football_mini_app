@@ -27,7 +27,7 @@
     font-size: 12px;
 }
 
-.swiper_league_scroll .swiper-slide.active {
+.mySwiperLig .swiper-slide.active {
     border: 2px solid #007bff; /* Example styling */
     background-color: rgba(0, 123, 255, 0.1);
     transition: background-color 0.3s ease;

@@ -8,12 +8,14 @@ import {
     england_league, france_league, germany_league, italy_league,
     portugal_league, russian_league, spain_league, uzbekistan_league
 } from "../League_Page/component/leagueList.jsx";
+import {useParams} from "react-router-dom";
+import BackTab from "../../component/backTab/BackTab.jsx";
 
 const Peredacha = () => {
     const [time, setTime] = useState(new Date());
     const [leagues, setLeagues] = useState([]);
     const [activeTab, setActiveTab] = useState('today');
-
+    const {user_id} = useParams();
     useEffect(() => {
         setLeagues([
             ...uzbekistan_league,
@@ -55,11 +57,15 @@ const Peredacha = () => {
 
     return (
         <div className="peredacha">
-            <div className="peredacha_time">
-                <h1>{formattedTime}</h1>
-                <p>{formattedDate}</p>
-            </div>
 
+            <div className="peredacha_time">
+                <BackTab back_url={`/${user_id}`} />
+                <div className="peredacha_time_box">
+                    <h1>{formattedTime}</h1>
+                    <p>{formattedDate}</p>
+                </div>
+
+            </div>
             <div className="peredacha_tabs">
                 <div
                     className={`peredacha__tab_item ${activeTab === 'yesterday' ? 'active' : ''}`}

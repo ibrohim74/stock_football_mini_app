@@ -1,34 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
-import { SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
-import { INDEX, SETTINGS, TAP } from "../../utils/const.jsx";
-import BackTab from "../../component/backTab/BackTab.jsx";
-import volteg from "../../assets/icons/high-voltage.png";
 import $API from "../../utils/https.jsx";
-import user_img from "../../assets/imgs/perspective_matte-59-128x128.png"
+import user_img from "../../assets/imgs/perspective_matte-59-128x128.png";
+import AppBar from "../../component/App_bar/app_bar.jsx";
+import clickSound from "../../assets/ui-click-43196.mp3"; // Add your click sound file
+import volteg from "../../assets/icons/high-voltage.png";
+
 const HomePageTap = () => {
     const [score, setScore] = useState(0);
     const [dailyBonus, setDailyBonus] = useState(0);
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
-    const [energy, setEnergy] = useState(0); // Energiyani 0 ga boshlaymiz
-    const [maxEnergy, setMaxEnergy] = useState(200); // Maksimal energiyani boshqarish uchun
+    const [energy, setEnergy] = useState(0);
+    const [maxEnergy, setMaxEnergy] = useState(200);
     const [ballPressed, setBallPressed] = useState(false);
     const [username, setUsername] = useState('');
+    const [vibrationEnabled, setVibrationEnabled] = useState(true);
+    const [soundEnabled, setSoundEnabled] = useState(true);
     const { user_id } = useParams();
-    const timerRef = useRef(null); // Timer debouncing uchun
+    const clickAudio = useRef(new Audio(clickSound));
+    const timerRef = useRef(null);
 
     // Fetch user data from API
     const getCoinData = async () => {
         try {
             const res = await $API.get(`http://84.247.160.205/users/${user_id}`);
-            console.log(res);
             setScore(res.data.detail.coins);
             setDailyBonus(res.data.detail.bonus);
-            setEnergy(res.data.detail.energy); // Serverdan olgan energiya
-            setMaxEnergy(res.data.detail.max_energy); // Serverdan olgan maksimal energiya
+            setEnergy(res.data.detail.energy);
+            setMaxEnergy(res.data.detail.max_energy);
             setUsername(res.data.detail.username);
         } catch (e) {
             console.log(e);
@@ -36,48 +38,60 @@ const HomePageTap = () => {
     };
 
     useEffect(() => {
-        getCoinData(); // Component yuklanishi bilan ma'lumotlarni olish
+        getCoinData();
     }, [user_id]);
 
-    // Serverga PUT yoki PATCH so'rovini yuborish funksiyasi
+    // Load vibration and sound settings from localStorage
+    useEffect(() => {
+        const savedVibration = localStorage.getItem('settings_vibr') === 'true';
+        const savedSound = localStorage.getItem('settings_mute') === 'true';
+        setVibrationEnabled(savedVibration);
+        setSoundEnabled(savedSound);
+    }, []);
+
+    // Server update function with debounce
     const updateServer = async (newScore, newEnergy) => {
         try {
             const res = await $API.patch(`http://84.247.160.205/users/${user_id}`, {
                 coins: newScore,
                 energy: newEnergy
             });
-            console.log(res);
-
-            // PATCH muvaffaqiyatli bo‘lgandan so'ng yana ma'lumotlarni olib kelish
             getCoinData();
         } catch (e) {
             console.log(e);
         }
     };
 
-    // Debouncing orqali serverga so'rov yuborish uchun
     const debounceUpdate = (newScore, newEnergy) => {
         if (timerRef.current) {
-            clearTimeout(timerRef.current); // Avvalgi timer to'xtatiladi
+            clearTimeout(timerRef.current);
         }
         timerRef.current = setTimeout(() => {
-            console.log(newScore , newEnergy)
             updateServer(newScore, newEnergy);
-        }, 1000); // 1 sekund davomida tap qilinmasa, serverga update boradi
+        }, 1000);
     };
 
     // Handle tapping the ball
     const handleStart = (event) => {
-        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
-        const touchLength = touches.length;
-
         if (energy <= 0) return;
 
+        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
+        const touchLength = touches.length;
         const allowedTouches = Math.min(touchLength, energy);
         setTouchCount(allowedTouches);
 
-        const rect = event.currentTarget.getBoundingClientRect();
+        // Vibration effect
+        if (vibrationEnabled && navigator.vibrate) {
+            navigator.vibrate(100); // 100ms vibration
+        }
 
+        // Play sound effect for each tap
+        if (soundEnabled) {
+            const newClickAudio = new Audio(clickSound);
+            newClickAudio.play(); // Play sound on tap
+        }
+
+        const rect = event.currentTarget.getBoundingClientRect();
         const newAnimations = Array.from({ length: allowedTouches }).map((_, index) => {
             const touch = touches[index];
             const x = touch.clientX - rect.left;
@@ -99,6 +113,7 @@ const HomePageTap = () => {
         }, 500);
     };
 
+
     // Handle end of tapping
     const handleEnd = () => {
         const newScore = score + touchCount;
@@ -112,21 +127,20 @@ const HomePageTap = () => {
     // Energy regeneration every 3 seconds
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setEnergy(prevEnergy => Math.min(maxEnergy, prevEnergy + 1)); // Energiyani maksimal limitga yetguncha oshirish
-        }, 3000);
+            setEnergy(prevEnergy => Math.min(maxEnergy, prevEnergy + 1));
+        }, 100);
 
         return () => clearInterval(intervalId);
     }, [maxEnergy]);
 
     return (
         <div className="home-page">
+            <AppBar />
             <div className="home-page_user_settings">
-                <BackTab back_url={`${INDEX}${user_id}`} />
-                <div className="home-page_user">
-
+                <Link to={`/${user_id}/settings`} className="home-page_user">
                     <h1>{username}</h1>
                     <span className="home-page_user_icon"><img src={user_img} alt=""/></span>
-                </div>
+                </Link>
             </div>
             <div className="ball-content">
                 <div className="ball-score-container">
@@ -166,10 +180,10 @@ const HomePageTap = () => {
                 <div className="tap_ball_energy">
                     <div className="energy_info">
                         <img src={volteg} alt="volteg" />
-                        <p>{energy}/{maxEnergy}</p> {/* Dynamic energy and maxEnergy */}
+                        <p>{energy}/{maxEnergy}</p>
                     </div>
                     <div className="energy_line">
-                        <span style={{ width: `${(energy / maxEnergy) * 100}%` }}></span> {/* Progress bar */}
+                        <span style={{ width: `${(energy / maxEnergy) * 100}%` }}></span>
                     </div>
                 </div>
             </div>

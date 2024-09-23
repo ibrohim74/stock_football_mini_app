@@ -6,6 +6,7 @@ import user_img from "../../assets/imgs/perspective_matte-59-128x128.png";
 import reload from "../../assets/imgs/reload.png";
 import { CopyOutlined } from "@ant-design/icons";
 import {message, notification} from "antd";
+import AppBar from "../../component/App_bar/app_bar.jsx";
 
 // ref_users malumotlari
 const ref_users = [
@@ -41,6 +42,7 @@ const Friends = () => {
 
     return (
         <div className="friends">
+            <AppBar  />
             {contextHolder}
             <div className="content_friends">
                 <div className="friends_content">

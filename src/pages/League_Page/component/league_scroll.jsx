@@ -24,31 +24,30 @@ const monthNames = [
 
 const LeagueScroll = () => {
     const [leagues, setLeagues] = useState([]);
-    const [selectedLeagues, setSelectedLeagues] = useState([]); // Tanlangan ligalar uchun
+    const [selectedLeague, setSelectedLeague] = useState(null); // Faqat bitta liga tanlash uchun
     const [fixtures, setFixtures] = useState([]);
     const [openKeyItem, setOpenKeyItem] = useState(null);
     const [loadingFixtures, setLoadingFixtures] = useState(false); // Track loading state for fixtures
     const [loadingImages, setLoadingImages] = useState({}); // Track loading state for images
-
+    console.log(selectedLeague)
     useEffect(() => {
         setLeagues([...uzbekistan_league, ...england_league, ...spain_league, ...portugal_league, ...france_league, ...germany_league, ...italy_league , ...russian_league]);
     }, []);
 
     const handleSelect = async (league) => {
         const leagueId = league.id;
-        const isSelected = selectedLeagues.includes(leagueId);
+        const isSameLeagueSelected = selectedLeague === leagueId;
 
-        if (isSelected) {
-            // Liga o'chirilsa
-            const updatedSelectedLeagues = selectedLeagues.filter(id => id !== leagueId);
-            setSelectedLeagues(updatedSelectedLeagues);
-            // O'chirilgan liga o'yinlarini filtrlab olib tashlash
-            setFixtures(prevFixtures => prevFixtures.filter(fixture => fixture.league.id !== leagueId));
+        if (isSameLeagueSelected) {
+            // Agar tanlangan liga qayta tanlansa, tanlovni o'chirish
+            setSelectedLeague(null);
+            setFixtures([]);
         } else {
-            // Liga tanlansa
-            setSelectedLeagues([...selectedLeagues, leagueId]);
+            // Eski ligani o'chirish va yangisini tanlash
+            setSelectedLeague(leagueId);
+            setFixtures([]); // Eski liganing o'yinlarini tozalash
             setLoadingFixtures(true); // Set loading to true
-            await fetchFixtures(leagueId); // Ma'lumotlarni darhol olish
+            await fetchFixtures(leagueId); // Yangi ligani darhol olish
         }
     };
 
@@ -68,7 +67,7 @@ const LeagueScroll = () => {
 
         try {
             const response = await axios.request(options);
-            setFixtures(prevFixtures => [...prevFixtures, ...response.data.response]); // Yangi o'yinlarni qo'shish
+            setFixtures(response.data.response); // Faqat yangi o'yinlarni qo'shish
         } catch (error) {
             console.error('Error fetching fixtures:', error);
         } finally {
@@ -98,17 +97,14 @@ const LeagueScroll = () => {
 
         const duration = (end - start) / (1000 * 60); // Millisekundlarni minutlarga aylantirish
 
-        // 45 daqiqadan kam bo'lgan o'yinlar uchun aniq vaqtni qaytarish
         if (duration <= 45) {
             return `${Math.round(duration)} minut`;
         }
 
-        // 90 daqiqagacha bo'lgan o'yinlar uchun tanaffus (half time) qo'shiladi
         if (duration <= 90) {
             return `${Math.round(duration)} minut (tanaffus)`;
         }
 
-        // 90 minutdan ko'p bo'lsa, extra time deb qaytariladi
         return `${Math.round(duration)} minut (extra time)`;
     };
 
@@ -206,47 +202,33 @@ const LeagueScroll = () => {
                         </div>
                     </div>
                 </div>
-
-                <div className="league_collapseChildren_item_stadion">
-                    Shahar: <img src={game.league.flag} alt="" /> {game.league.country}, {game.fixture.venue.city}
-                    <br />
-                    Stadion: {game.fixture.venue.name}
-                    <br />
-                    O'yin vaqti: {openKeyItem === index && formatDuration(game.fixture.timestamp, game.fixture.periods)}
-                </div>
             </div>
         ),
     }));
 
     return (
-        <div className="swiper_league_scroll">
+        <div className="league-wrapper">
             <Swiper
-                slidesPerView={3.5}
-                spaceBetween={30}
-                loop={true}
+                slidesPerView={5}
+                spaceBetween={10}
+                loop={false}
+                navigation={true}
                 pagination={{ clickable: true }}
-                navigation
-                className="mySwiper"
+                modules={[Pagination, Navigation]}
+                className="mySwiperLig"
             >
                 {leagues.map((league) => (
-                    <SwiperSlide
-                        key={league.id}
-                        onClick={() => handleSelect(league)}
-                        className={selectedLeagues.includes(league.id) ? 'active' : ''}
+                    <SwiperSlide key={league.id} onClick={() => handleSelect(league)}
+                    className={selectedLeague === league.id ? "active" : ""}
                     >
-                        {loadingImages[league.logo] && <div className="image-loader">Loading...</div>}
                         <img
-                            src={league.logo}
-                            alt={`${league.name} Logo`}
-                            onError={retryImage}
-                            onLoad={() => handleImageLoadEnd(league.logo)}
-                            onLoadStart={() => handleImageLoadStart(league.logo)}
+                            src={league.logo || ball}
+                            alt={league.name}
+                            className={selectedLeague === league.id ? 'selected' : ''}
                         />
-                        <p>{league.name}</p>
                     </SwiperSlide>
                 ))}
             </Swiper>
-
             {loadingFixtures ? (
                 <div className="loading-indicator">Loading...</div>
             ) : fixtures.length > 0 ? (
