@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import "./settings.css";
+import phone from "../../assets/imgs/perspective_matte-51-128x128.png"
+import sound from "../../assets/imgs/perspective_matte-109-128x128.png"
+import day from "../../assets/imgs/perspective_matte-169-128x128.png"
+import night from "../../assets/imgs/Moon-128x128.png"
 
 const Settings = () => {
     // Load settings from localStorage with default values
@@ -29,11 +33,19 @@ const Settings = () => {
         <div className="settings">
             <div className="settings_box">
                 <div className="settings_vibr settings_item" onClick={toggleVibration}>
-                    Vibration: {vibrationEnabled ? "On" : "Off"}
+                    <img src={phone} alt=""/>
+                     {vibrationEnabled ? "On" : "Off"}
                 </div>
                 <div className="settings_mute settings_item" onClick={toggleSound}>
-                    Sound: {soundEnabled ? "On" : "Off"}
+                    <img src={sound} alt=""/>
+                    {soundEnabled ? "On" : "Off"}
                 </div>
+                <div className="settings_mute settings_item">
+
+                </div>
+            </div>
+            <div className="settings_lang">
+
             </div>
         </div>
     );

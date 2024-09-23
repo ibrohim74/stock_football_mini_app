@@ -7,6 +7,7 @@ import user_img from "../../assets/imgs/perspective_matte-59-128x128.png";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 import clickSound from "../../assets/ui-click-43196.mp3"; // Add your click sound file
 import volteg from "../../assets/icons/high-voltage.png";
+import {useTranslation} from "react-i18next";
 
 const HomePageTap = () => {
     const [score, setScore] = useState(0);
@@ -22,7 +23,7 @@ const HomePageTap = () => {
     const { user_id } = useParams();
     const clickAudio = useRef(new Audio(clickSound));
     const timerRef = useRef(null);
-
+    const {t} = useTranslation();
     // Fetch user data from API
     const getCoinData = async () => {
         try {
@@ -158,6 +159,7 @@ const HomePageTap = () => {
     return (
         <div className="home-page">
             <AppBar />
+            {t('test')}
             <div className="home-page_user_settings">
                 <Link to={`/${user_id}/settings`} className="home-page_user">
                     <h1>{username}</h1>
