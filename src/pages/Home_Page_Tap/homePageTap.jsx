@@ -20,6 +20,7 @@ const HomePageTap = () => {
     const [username, setUsername] = useState('');
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     const [soundEnabled, setSoundEnabled] = useState(true);
+    const [dayState, nightState] = useState(false);
     const { user_id } = useParams();
     const clickAudio = useRef(new Audio(clickSound));
     const timerRef = useRef(null);
@@ -46,6 +47,7 @@ const HomePageTap = () => {
         // Load vibration and sound settings from localStorage
         const savedVibration = localStorage.getItem('settings_vibr');
         const savedSound = localStorage.getItem('settings_mute');
+        const saveDayNight = localStorage.getItem('daynightStore');
 
         if (savedVibration === null) {
             // Default to true if not set
@@ -61,6 +63,14 @@ const HomePageTap = () => {
             localStorage.setItem('settings_mute', 'true');
         } else {
             setSoundEnabled(savedSound === 'true');
+        }
+
+        if (saveDayNight === null) {
+
+            nightState(false);
+            localStorage.setItem('daynightStore', 'false');
+        } else {
+            nightState(dayState === 'false');
         }
     }, []);
 
