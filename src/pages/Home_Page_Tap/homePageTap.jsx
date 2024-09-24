@@ -116,7 +116,7 @@ const HomePageTap = () => {
 
 
         if (vibrationEnabled && navigator.vibrate) {
-            navigator.vibrate(50);
+            navigator.vibrate(10);
         }
 
 
