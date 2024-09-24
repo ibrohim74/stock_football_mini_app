@@ -116,7 +116,7 @@ const HomePageTap = () => {
 
 
         if (vibrationEnabled && navigator.vibrate) {
-            navigator.vibrate(100);
+            navigator.vibrate(300);
         }
 
 
@@ -253,29 +253,29 @@ const HomePageTap = () => {
                     <h1>{score}</h1>
                 </div>
                 <div className="tap_ball"
-                     onTouchStart={handleStart}
-                     onTouchEnd={handleEnd}
-                     // onMouseDown={handleStart}
-                     // onMouseUp={handleEnd}
                      onContextMenu={(e) => e.preventDefault()}
                      style={{position: "relative", overflow: "hidden"}}
                      ref={ballRef}
                 >
                     <img src={ball}
+                         onTouchStart={handleStart}
+                         onTouchEnd={handleEnd}
+                         onMouseDown={handleStart}
+                         onMouseUp={handleEnd}
                          alt="ball"
                          className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                          draggable="false"
                          onContextMenu={(e) => e.preventDefault()}
                     />
-                    {animations.map(animation => (
-                        <div
-                            key={animation.id}
-                            className="ball-animation"
-                            style={{left: `${animation.x}px`, top: `${animation.y}px`}}
-                        >
-                            <div className="small-ball"></div>
-                        </div>
-                    ))}
+                    {/*{animations.map(animation => (*/}
+                    {/*    <div*/}
+                    {/*        key={animation.id}*/}
+                    {/*        className="ball-animation"*/}
+                    {/*        style={{left: `${animation.x}px`, top: `${animation.y}px`}}*/}
+                    {/*    >*/}
+                    {/*        <div className="small-ball"></div>*/}
+                    {/*    </div>*/}
+                    {/*))}*/}
                 </div>
                 <div className="tap_ball_energy">
                     <div className="energy_info">

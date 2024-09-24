@@ -244,3 +244,10 @@
     width: 25px;
     height: 25px;
 }
+.tap_ball img {
+    pointer-events: auto;
+}
+
+.ball-animation {
+    pointer-events: none;
+}
