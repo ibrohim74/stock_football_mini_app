@@ -7,6 +7,7 @@ import Settings from "../pages/Settings_Page/settings.jsx";
 import HomePageFootball from "../pages/Home_Page_Football/homePageFootball.jsx";
 import Events from "../pages/Events_Page/events.jsx";
 import ExpShop from "../pages/Exp_Page/exp_shop.jsx";
+import Quiz from "../pages/Quiz_Page/quiz.jsx";
 
 export const HOME_PAGE_TAP = "/:user_id";
 export const HOME_PAGE_FOOTBALL = "/:user_id/Football";
@@ -17,6 +18,7 @@ export const RATING = "/:user_id/rating";
 export const SETTINGS = "/:user_id/settings";
 export const EVENTS = "/:user_id/Events_Page";
 export const EXP_SHOP = "/:user_id/exp_shop";
+export const QUIZ = "/:user_id/quiz";
 
 export const RouterTapFootballData = [
     { Path: HOME_PAGE_TAP, Component: HomePageTap },
@@ -25,6 +27,7 @@ export const RouterTapFootballData = [
     { Path: SETTINGS, Component: Settings },
     { Path: EVENTS, Component: Events },
     { Path: EXP_SHOP, Component: ExpShop },
+    { Path: QUIZ, Component: Quiz },
 ];
 
 export const RouterFootballData = [

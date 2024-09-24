@@ -8,10 +8,12 @@ import ready from "../../assets/imgs/perspective_matte-95-128x128.png"
 import ongoing from "../../assets/imgs/reload.png"
 import active from "../../assets/imgs/perspective_matte-136-128x128.png"
 import AppBar from "../../component/App_bar/app_bar.jsx";
+import {Link, useParams} from "react-router-dom";
 
 const Events = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const {user_id} = useParams();
     const [eventsData, setEventsData] = useState([{
         id: 1,
         event: "event task obuna boling1 sad asdas dsa d sadasdasd ",
@@ -65,7 +67,7 @@ const Events = () => {
                     <div className="events_box_content_title">
                         <h1>Kundalik vazifalar</h1>
                     </div>
-                    <div className="events_item">
+                    <Link className="events_item"  to={`/${user_id}/quiz`}>
                         <img src={gift} alt="logo" className="events_item_logo"/>
                         <div className="events_item_text">
                             <p>asdsad</p>
@@ -78,7 +80,7 @@ const Events = () => {
                                             <img src={active} alt=""/>
 
                                         </span>
-                    </div>
+                    </Link>
                     <div className="events_box_content_title">
                         <h1>Vazifalar ro'yxati</h1>
                     </div>
