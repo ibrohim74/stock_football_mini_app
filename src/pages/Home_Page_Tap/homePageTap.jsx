@@ -12,7 +12,7 @@ import {Tour} from "antd";
 
 const HomePageTap = () => {
     const [score, setScore] = useState(0);
-    const [dailyBonus, setDailyBonus] = useState(0);
+    const [tapBonus, setTapBonus] = useState(1);
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
     const [energy, setEnergy] = useState(0);
@@ -26,16 +26,23 @@ const HomePageTap = () => {
     const timerRef = useRef(null);
     const {t} = useTranslation();
     const [openTour, setOpenTour] = useState(false);
+    const [statusUser, setStatusUser] = useState("");
+    const [limitCoin, setLimitCoin] = useState("");
+    const [expUser, setExpUser] = useState("");
 
 
     const getCoinData = async () => {
         try {
-            const res = await $API.get(`http://84.247.160.205/users/${user_id}`);
-            setScore(res.data.detail.coins);
-            setDailyBonus(res.data.detail.bonus);
-            setEnergy(res.data.detail.energy);
-            setMaxEnergy(res.data.detail.max_energy);
-            setUsername(res.data.detail.username);
+            console.log("kirdi")
+            const res = await $API.get(`/users/${user_id}`);
+            console.log(res)
+            setScore(res.data.user_data.coins);
+            setTapBonus(res.data.user_data.bonus);
+            setEnergy(res.data.user_data.energy);
+            setMaxEnergy(res.data.user_data.max_energy);
+            setUsername(res.data.user_data.username);
+            setStatusUser(res.data.status.name);
+            setLimitCoin(res.data.status.limit_coin)
         } catch (e) {
             console.log(e);
         }
@@ -43,13 +50,13 @@ const HomePageTap = () => {
 
     useEffect(() => {
         getCoinData();
+        updateServer()
     }, [user_id]);
 
     useEffect(() => {
 
         const savedVibration = localStorage.getItem('settings_vibr');
         const savedSound = localStorage.getItem('settings_mute');
-        const saveDayNight = localStorage.getItem('daynightStore');
 
         if (savedVibration === null) {
 
@@ -66,13 +73,6 @@ const HomePageTap = () => {
             setSoundEnabled(savedSound === 'true');
         }
 
-        if (saveDayNight === null) {
-
-            nightState(false);
-            localStorage.setItem('daynightStore', 'false');
-        } else {
-            nightState(dayState === 'false');
-        }
     }, []);
 
 
@@ -85,11 +85,13 @@ const HomePageTap = () => {
 
 
     const updateServer = async (newScore, newEnergy) => {
+        console.log(newEnergy , newScore)
         try {
-            const res = await $API.patch(`http://84.247.160.205/users/${user_id}`, {
+            const res = await $API.patch(`/users/${user_id}`, {
                 coins: newScore,
                 energy: newEnergy
             });
+            console.log(res)
             getCoinData();
         } catch (e) {
             console.log(e);
@@ -161,7 +163,7 @@ const HomePageTap = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setEnergy(prevEnergy => Math.min(maxEnergy, prevEnergy + 1));
-        }, 100);
+        }, 300);
 
         return () => clearInterval(intervalId);
     }, [maxEnergy]);
@@ -222,6 +224,16 @@ const HomePageTap = () => {
         }
     ];
 
+    const formatNumber = (num) => {
+        if (num >= 1e9) {
+            return (num / 1e9).toFixed(1) + 'B'; // Billion
+        } else if (num >= 1e6) {
+            return (num / 1e6).toFixed(1) + 'M'; // Million
+        } else if (num >= 1e3) {
+            return (num / 1e3).toFixed(1) + 'k'; // Thousand
+        }
+        return num.toString(); // Less than 1000
+    };
     return (
         <div className="home-page">
             <AppBar
@@ -240,17 +252,26 @@ const HomePageTap = () => {
             <div className="ball-content">
                 <div className="ball-score-container">
                     <div className="ball-score">
-                        <p>Darajangiz</p>
-                        <h1>Oddiy Yigit</h1>
+                        <p>Tap Bonus</p>
+                        <h1>+{tapBonus}</h1>
                     </div>
-                    <div className="ball-score">
+                    <Link className="ball-score" to={`/${user_id}/exp_shop`}>
                         <p>Tajriba</p>
-                        <h1>400k/soat</h1>
-                    </div>
+                        <h1>400k</h1>
+                    </Link>
                 </div>
                 <div className="tap_coin">
                     <img src={ball} alt=""/>
                     <h1>{score}</h1>
+                </div>
+                <div className="tap_ball_energy">
+
+                    <div className="energy_line">
+                        <p>{formatNumber(limitCoin)}</p>
+                        <p>{statusUser}</p>
+                        <span style={{width: `${(score / limitCoin) * 100}%`}}></span>
+                    </div>
+
                 </div>
                 <div className="tap_ball"
                      onContextMenu={(e) => e.preventDefault()}
@@ -276,18 +297,14 @@ const HomePageTap = () => {
                     {/*        <div className="small-ball"></div>*/}
                     {/*    </div>*/}
                     {/*))}*/}
+
                 </div>
-                <div className="tap_ball_energy">
-                    <div className="energy_info">
-                        <img src={volteg} alt="volteg"/>
-                        <p>{energy}/{maxEnergy}</p>
-                    </div>
-                    <div className="energy_line">
-                        <span style={{width: `${(energy / maxEnergy) * 100}%`}}></span>
-                    </div>
+                <div className="energy_info">
+                    <img src={volteg} alt="volteg"/>
+                    <p>{energy}/{maxEnergy}</p>
                 </div>
             </div>
-            <Tour open={openTour} onClose={() => setOpenTour(false)} steps={stepsTour} />
+            <Tour open={openTour} onClose={() => setOpenTour(false)} steps={stepsTour}/>
         </div>
     );
 };
