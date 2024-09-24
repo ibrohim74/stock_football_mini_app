@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
-import { Link, useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import $API from "../../utils/https.jsx";
 import user_img from "../../assets/imgs/perspective_matte-59-128x128.png";
 import AppBar from "../../component/App_bar/app_bar.jsx";
-import clickSound from "../../assets/ui-click-43196.mp3"; // Add your click sound file
+import clickSound from "../../assets/ui-click-43196.mp3";
 import volteg from "../../assets/icons/high-voltage.png";
 import {useTranslation} from "react-i18next";
+import {Tour} from "antd";
 
 const HomePageTap = () => {
     const [score, setScore] = useState(0);
@@ -21,11 +22,12 @@ const HomePageTap = () => {
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     const [soundEnabled, setSoundEnabled] = useState(true);
     const [dayState, nightState] = useState(false);
-    const { user_id } = useParams();
-    const clickAudio = useRef(new Audio(clickSound));
+    const {user_id} = useParams();
     const timerRef = useRef(null);
     const {t} = useTranslation();
-    // Fetch user data from API
+    const [openTour, setOpenTour] = useState(false);
+
+
     const getCoinData = async () => {
         try {
             const res = await $API.get(`http://84.247.160.205/users/${user_id}`);
@@ -44,13 +46,13 @@ const HomePageTap = () => {
     }, [user_id]);
 
     useEffect(() => {
-        // Load vibration and sound settings from localStorage
+
         const savedVibration = localStorage.getItem('settings_vibr');
         const savedSound = localStorage.getItem('settings_mute');
         const saveDayNight = localStorage.getItem('daynightStore');
 
         if (savedVibration === null) {
-            // Default to true if not set
+
             setVibrationEnabled(true);
             localStorage.setItem('settings_vibr', 'true');
         } else {
@@ -58,7 +60,6 @@ const HomePageTap = () => {
         }
 
         if (savedSound === null) {
-            // Default to true if not set
             setSoundEnabled(true);
             localStorage.setItem('settings_mute', 'true');
         } else {
@@ -74,7 +75,7 @@ const HomePageTap = () => {
         }
     }, []);
 
-    // Load vibration and sound settings from localStorage
+
     useEffect(() => {
         const savedVibration = localStorage.getItem('settings_vibr') === 'true';
         const savedSound = localStorage.getItem('settings_mute') === 'true';
@@ -82,7 +83,7 @@ const HomePageTap = () => {
         setSoundEnabled(savedSound);
     }, []);
 
-    // Server update function with debounce
+
     const updateServer = async (newScore, newEnergy) => {
         try {
             const res = await $API.patch(`http://84.247.160.205/users/${user_id}`, {
@@ -104,28 +105,28 @@ const HomePageTap = () => {
         }, 1000);
     };
 
-    // Handle tapping the ball
+
     const handleStart = (event) => {
         if (energy <= 0) return;
 
-        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
+        const touches = event.touches || [{clientX: event.clientX, clientY: event.clientY}];
         const touchLength = touches.length;
         const allowedTouches = Math.min(touchLength, energy);
         setTouchCount(allowedTouches);
 
-        // Vibration effect
+
         if (vibrationEnabled && navigator.vibrate) {
-            navigator.vibrate(100); // 100ms vibration
+            navigator.vibrate(300);
         }
 
-        // Play sound effect for each tap
+
         if (soundEnabled) {
             const newClickAudio = new Audio(clickSound);
-            newClickAudio.play(); // Play sound on tap
+            newClickAudio.play();
         }
 
         const rect = event.currentTarget.getBoundingClientRect();
-        const newAnimations = Array.from({ length: allowedTouches }).map((_, index) => {
+        const newAnimations = Array.from({length: allowedTouches}).map((_, index) => {
             const touch = touches[index];
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
@@ -147,7 +148,6 @@ const HomePageTap = () => {
     };
 
 
-    // Handle end of tapping
     const handleEnd = () => {
         const newScore = score + touchCount;
         const newEnergy = Math.max(0, energy - touchCount);
@@ -157,7 +157,7 @@ const HomePageTap = () => {
         debounceUpdate(newScore, newEnergy);
     };
 
-    // Energy regeneration every 3 seconds
+
     useEffect(() => {
         const intervalId = setInterval(() => {
             setEnergy(prevEnergy => Math.min(maxEnergy, prevEnergy + 1));
@@ -166,12 +166,73 @@ const HomePageTap = () => {
         return () => clearInterval(intervalId);
     }, [maxEnergy]);
 
+    useEffect(() => {
+        const isTourShown = localStorage.getItem('tourShown');
+
+        if (!isTourShown) {
+            setOpenTour(true);
+            localStorage.setItem('tourShown', 'true');
+        }
+    }, []);
+
+    const profileRef = useRef(null);
+    const ballRef = useRef(null);
+    const boshSahifaRef = useRef(null);
+    const friendsRef = useRef(null);
+    const peredachaRef = useRef(null);
+    const eventsRef = useRef(null);
+    const ratingRef = useRef(null);
+
+    const stepsTour = [
+        {
+            title: 'Profile',
+            description: 'Bu yerda sizning sozlamalaringiz saqlanadi',
+            target: () => profileRef.current,
+        },
+        {
+            title: 'Koptok',
+            description: 'Koptokni bosib ballar ishlang! ' +
+                'Darajangizga qarab energiya beriladi va shu energiya tugamaguncham ballar ishlasangiz boladi',
+            target: () => ballRef.current,
+        },
+        {
+            title: 'Bosh sahifa',
+            description: 'Bu yerda asosiy sahifani ochasiz',
+            target: () => boshSahifaRef.current,
+        },
+        {
+            title: 'Do\'stlar',
+            description: 'Bu yerda do\'stlaringizni taklif qilishingiz mumkin',
+            target: () => friendsRef.current,
+        },
+        {
+            title: 'Live',
+            description: 'Bu yerda futbol o\'yinlarini kuzatishingiz mumkin',
+            target: () => peredachaRef.current,
+        },
+        {
+            title: 'Vazifalar',
+            description: 'Bu yerda vazifalar ro\'yxatini ko\'rishingiz mumkin',
+            target: () => eventsRef.current,
+        },
+        {
+            title: 'Reyting',
+            description: 'Bu yerda reyting sahifasini ochasiz',
+            target: () => ratingRef.current,
+        }
+    ];
+
     return (
         <div className="home-page">
-            <AppBar />
-            {t('test')}
+            <AppBar
+                boshSahifaRef={boshSahifaRef}
+                friendsRef={friendsRef}
+                peredachaRef={peredachaRef}
+                eventsRef={eventsRef}
+                ratingRef={ratingRef}
+            />
             <div className="home-page_user_settings">
-                <Link to={`/${user_id}/settings`} className="home-page_user">
+                <Link to={`/${user_id}/settings`} className="home-page_user" ref={profileRef}>
                     <h1>{username}</h1>
                     <span className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </Link>
@@ -179,21 +240,26 @@ const HomePageTap = () => {
             <div className="ball-content">
                 <div className="ball-score-container">
                     <div className="ball-score">
-                        <p>Ballaringiz</p>
-                        <h1>{score}</h1>
-                    </div>
-                    <div className="ball-score">
                         <p>Darajangiz</p>
                         <h1>Oddiy Yigit</h1>
                     </div>
+                    <div className="ball-score">
+                        <p>Tajriba</p>
+                        <h1>400k/soat</h1>
+                    </div>
+                </div>
+                <div className="tap_coin">
+                    <img src={ball} alt=""/>
+                    <h1>{score}</h1>
                 </div>
                 <div className="tap_ball"
                      onTouchStart={handleStart}
                      onTouchEnd={handleEnd}
-                     onMouseDown={handleStart}
-                     onMouseUp={handleEnd}
+                     // onMouseDown={handleStart}
+                     // onMouseUp={handleEnd}
                      onContextMenu={(e) => e.preventDefault()}
-                     style={{ position: "relative", overflow: "hidden" }}
+                     style={{position: "relative", overflow: "hidden"}}
+                     ref={ballRef}
                 >
                     <img src={ball}
                          alt="ball"
@@ -205,7 +271,7 @@ const HomePageTap = () => {
                         <div
                             key={animation.id}
                             className="ball-animation"
-                            style={{ left: `${animation.x}px`, top: `${animation.y}px` }}
+                            style={{left: `${animation.x}px`, top: `${animation.y}px`}}
                         >
                             <div className="small-ball"></div>
                         </div>
@@ -213,14 +279,15 @@ const HomePageTap = () => {
                 </div>
                 <div className="tap_ball_energy">
                     <div className="energy_info">
-                        <img src={volteg} alt="volteg" />
+                        <img src={volteg} alt="volteg"/>
                         <p>{energy}/{maxEnergy}</p>
                     </div>
                     <div className="energy_line">
-                        <span style={{ width: `${(energy / maxEnergy) * 100}%` }}></span>
+                        <span style={{width: `${(energy / maxEnergy) * 100}%`}}></span>
                     </div>
                 </div>
             </div>
+            <Tour open={openTour} onClose={() => setOpenTour(false)} steps={stepsTour} />
         </div>
     );
 };

@@ -67,7 +67,6 @@
         display: flex;
         justify-content: center;
         align-content: center;
-        margin-top: 50px;
         width: 100%;
         -webkit-touch-callout: none; /* Mobil qurilmalarda yuklab olish menyusini bloklaydi */
         -webkit-user-select: none; /* Matnni tanlashni o'chiradi */
@@ -232,4 +231,16 @@
     height: 90%;
     background: linear-gradient(90deg ,rgba(49, 230, 247, 0.26) 10%, blueviolet 90%);
     border-radius: 10px;
+}
+
+.tap_coin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+.tap_coin img{
+    width: 25px;
+    height: 25px;
 }
