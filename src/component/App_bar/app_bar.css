@@ -12,7 +12,7 @@
 
     backdrop-filter: blur(30px);
     /*box-shadow: 0 0 30px rgba(49, 230, 247, 0.26);*/
-    border: 2px solid rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .app_bar_content{
     position: relative;
