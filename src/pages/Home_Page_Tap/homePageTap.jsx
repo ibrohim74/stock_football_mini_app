@@ -288,15 +288,15 @@ const HomePageTap = () => {
                          draggable="false"
                          onContextMenu={(e) => e.preventDefault()}
                     />
-                    {/*{animations.map(animation => (*/}
-                    {/*    <div*/}
-                    {/*        key={animation.id}*/}
-                    {/*        className="ball-animation"*/}
-                    {/*        style={{left: `${animation.x}px`, top: `${animation.y}px`}}*/}
-                    {/*    >*/}
-                    {/*        <div className="small-ball"></div>*/}
-                    {/*    </div>*/}
-                    {/*))}*/}
+                    {animations.map(animation => (
+                        <div
+                            key={animation.id}
+                            className="ball-animation"
+                            style={{left: `${animation.x}px`, top: `${animation.y}px`}}
+                        >
+                           +{tapBonus}
+                        </div>
+                    ))}
 
                 </div>
                 <div className="energy_info">

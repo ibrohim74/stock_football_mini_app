@@ -1,7 +1,6 @@
 .app_bar{
     width: 99%;
     height: 60px;
-    background: #202020;
     padding: 5px;
     position: fixed;
     bottom: 5px;
@@ -10,6 +9,10 @@
     border-top-left-radius: 25px;
     z-index: 99;
     border-top-right-radius: 25px;
+
+    backdrop-filter: blur(30px);
+    /*box-shadow: 0 0 30px rgba(49, 230, 247, 0.26);*/
+    border: 2px solid rgba(0, 0, 0, 0.18);
 }
 .app_bar_content{
     position: relative;
@@ -22,18 +25,19 @@
 
 .app_live_button{
     position: absolute;
-    top: -38px;
+    top: -25px;
     width: 80px !important;
     height: 80px !important;
-    background: #202020;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    background: red;
+    /*padding-top: 15px;*/
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
     border-radius: 50%;
 }
-.app_live_button span img{
-    width: 100%;
-    height: 100%;
+.app_live_button span {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 20px;
 }
 .app_bar_content_item{
     display: flex;

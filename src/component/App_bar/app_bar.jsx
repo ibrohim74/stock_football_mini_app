@@ -24,7 +24,7 @@ const AppBar = ({boshSahifaRef , friendsRef , eventsRef , peredachaRef , ratingR
                     <p>Do'stlar</p>
                 </Link>
                 <Link to={`/${user_id}/peredacha`} className="app_bar_content_item app_live_button" ref={peredachaRef}>
-                    <span><img src={ball} alt="Football" /></span>
+                    <span>live</span>
                 </Link>
                 <Link to={`/${user_id}/Events_Page`} className="app_bar_content_item" ref={eventsRef}>
                     <span><img src={event} alt="Events" /></span>

@@ -1,10 +1,14 @@
 @media screen and (max-width: 800px) {
     .home-page {
         display: flex;
-        justify-content: center;
+        /*justify-content: center;*/
         flex-direction: column;
         align-items: center;
         width: 100%;
+        height: 100vh;
+        background: rgb(3,3,3);
+        background: radial-gradient(circle, rgba(3,3,3,0.8576680672268908) 7%, rgba(70,252,72,1) 100%);
+
     }
 
     .home-page_user_settings {
@@ -78,29 +82,18 @@
         width: 250px;
         height: 250px;
         border-radius: 50%;
-        background: #191919;
-        box-shadow:  -5px -5px 15px #131313,
-        5px 5px 15px #1f1f1f;
+
         user-select: none; /* Rasmni tanlashni oldini oladi */
         pointer-events: none; /* Bosish va yuklab olishni bloklaydi */
     }
     .ball-content{
-        position: absolute;
-        top: 10%;
-        bottom: 0;
-
         width: 100%;
         display: flex;
         /*justify-content: center;*/
         align-items: center;
-        background: #191919;
         margin-top: 15px;
-        border-top-left-radius: 25px;
-        border-top-right-radius: 25px;
-        -webkit-box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
-        -moz-box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
-        box-shadow: -2px -5px 20px 5px rgba(49, 230, 247, 0.26);
         flex-direction: column;
+
     }
     .ball-score-container{
         width: 100%;
@@ -127,7 +120,7 @@
         height: 20px;
         background-color: transparent; /* Rangni olib tashladik */
         border-radius: 50%;
-        animation: ball-appear 0.5s forwards;
+        animation: ball-appear 1s forwards;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -156,8 +149,8 @@
     position: absolute;
     width: 30px;
     height: 30px;
-    background: url("../../assets/icons/soccer_ball.png");
     background-size: cover;
+    font-size: 20px;
     animation: ball-move 0.8s ease-in-out forwards;
 }
 
