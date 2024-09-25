@@ -3,10 +3,10 @@ import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { Link, useParams } from "react-router-dom";
 import $API from "../../utils/https.jsx";
-import user_img from "../../assets/imgs/perspective_matte-59-128x128.png";
+import user_img from "../../assets/icon/xsxxa.png";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 import clickSound from "../../assets/ui-click-43196.mp3";
-import volteg from "../../assets/icons/high-voltage.png";
+import volteg from "../../assets/icon/spark.png";
 import { useTranslation } from "react-i18next";
 import { Tour } from "antd";
 
@@ -218,7 +218,7 @@ const HomePageTap = () => {
             />
             <div className="home-page_user_settings">
                 <Link to={`/${user_id}/settings`} className="home-page_user" ref={profileRef}>
-                    <h1>{userData.username}sadsadasdasdasdasdasdasdasd</h1>
+                    <h1>{userData.username}Khasanov_ibroxim</h1>
                     <span className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </Link>
             </div>

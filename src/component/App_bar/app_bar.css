@@ -25,9 +25,9 @@
 
 .app_live_button{
     position: absolute;
-    top: -25px;
-    width: 80px !important;
-    height: 80px !important;
+    top: -20px;
+    width: 75px !important;
+    height: 75px !important;
     background: red;
     /*padding-top: 15px;*/
     /*padding-left: 15px;*/
