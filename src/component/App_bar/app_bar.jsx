@@ -3,9 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import "./app_bar.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import peredacha from "../../assets/imgs/perspective_matte-57-128x128.png";
-import liga from "../../assets/imgs/perspective_matte-38-128x128.png";
-import users from "../../assets/imgs/Discussion-128x128.png";
-import event from "../../assets/imgs/Event-128x128.png";
+import liga from "../../assets/icon/kobek.png";
+import users from "../../assets/icon/omixta.png";
+import event from "../../assets/icon/clandar.png";
 import { HOME_PAGE_FOOTBALL, FRIENDS, RATING, SETTINGS, EVENTS, PEREDACHA, LEAGUE } from "../../utils/const.jsx";
 
 const AppBar = ({boshSahifaRef , friendsRef , eventsRef , peredachaRef , ratingRef}) => {

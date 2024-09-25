@@ -6,7 +6,7 @@
         align-items: center;
         width: 100%;
         height: 100vh;
-        background: linear-gradient(180deg , #191919 0%, #378805 100%) ;
+        background: linear-gradient(180deg, #191919 0%, #378805 100%);
     }
 
     .home-page_user_settings {
@@ -37,7 +37,8 @@
         margin-right: 20px;
         color: white;
     }
-    .home-page_user h1{
+
+    .home-page_user h1 {
         font-size: 20px;
         width: 70%;
         text-overflow: ellipsis;
@@ -57,13 +58,15 @@
         align-content: center;
         padding: 10px;
     }
-    .home-page_user_icon svg{
+
+    .home-page_user_icon svg {
         width: 100%;
         height: 100%;
     }
 
-    .ball-score h1{
-        font-size: 18px;}
+    .ball-score h1 {
+        font-size: 18px;
+    }
 
     .tap_ball {
         display: flex;
@@ -76,14 +79,16 @@
         -ms-user-select: none;
         user-select: none;
     }
-    .tap_ball img{
+
+    .tap_ball img {
         width: 250px;
         height: 250px;
         border-radius: 50%;
         user-select: none; /* Rasmni tanlashni oldini oladi */
         pointer-events: none; /* Bosish va yuklab olishni bloklaydi */
     }
-    .ball-content{
+
+    .ball-content {
         width: 100%;
         display: flex;
         /*justify-content: center;*/
@@ -92,46 +97,49 @@
         flex-direction: column;
 
     }
-    .ball-score-container{
-        width: 100%;
+
+    .ball-score-container {
+        width: 90%;
+        border-radius: 20px;
         display: flex;
         justify-content: space-around;
         align-items: center;
         text-align: center;
-    }
-    .ball-score{color: white}
-    @keyframes ball-appear {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(-2px);
-        }
+        backdrop-filter: blur(30px);
+        /*box-shadow: 0 0 30px rgba(49, 230, 247, 0.26);*/
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-    .ball-animation {
+    .ball-score h1, .ball-score, .ball-score p {
+        color: #fff
+    }
+
+    .ball-score-line , .ball-score-line2 {
         position: absolute;
-        width: 20px;
-        height: 20px;
-        background-color: transparent; /* Rangni olib tashladik */
-        border-radius: 50%;
-        animation: ball-appear 1s forwards;
+        width: 2px;
+        height: 80%;
+        background: rgba(255, 255, 255, 0.1);
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
+        left: 29%;
+    }
+    .ball-score-line2 {
+        left: 78%;
+    }
+    .ball-score-status h1{
         font-size: 14px;
     }
-
-    .ball-animation span {
-        font-size: 12px;
-    }
-
+    .ball-score-status p {margin: 0}
 }
 
 
+.ball-animation {
+    position: absolute;
+    font-size: 30px;
+    animation: ball-move 0.8s ease-in-out forwards;
+}
 
 @keyframes ball-move {
     from {
@@ -140,15 +148,6 @@
     to {
         transform: translateY(-100px);
     }
-}
-
-.ball-animation {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-size: cover;
-    font-size: 20px;
-    animation: ball-move 0.8s ease-in-out forwards;
 }
 
 .small-ball {
@@ -182,7 +181,7 @@
 }
 
 
-.tap_ball_energy{
+.tap_ball_energy {
     width: 100%;
     height: auto;
     margin: 10px 0 25px 0;
@@ -191,68 +190,81 @@
     justify-content: center;
     align-items: center;
 }
-.energy_info{
+
+.energy_info {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.energy_info img{
+
+.energy_info img {
     width: 30px;
     height: 30px;
 }
-.energy_line{
+
+.energy_line {
     width: 80%;
     height: 15px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    overflow: hidden;
     border-radius: 10px;
-    background: #191919;
+    background: transparent;
     box-shadow: inset -5px 5px 19px #0f0f0f,
     inset 5px -5px 19px #232323;
 }
-.energy_line p{
+
+.energy_line p {
     color: white !important;
     z-index: 22;
-    right: 0;
+    right: 5px;
+
     position: absolute;
 }
-.energy_line p:nth-child(2){
+
+.energy_line p:first-child {
+    font-size: 14px;
+}
+
+.energy_line p:nth-child(2) {
     color: white !important;
     z-index: 22;
     left: 0;
     top: -40px;
+    font-size: 14px;
     position: absolute;
+
 }
-.energy_line span{
+
+.energy_line span {
     position: absolute;
     left: 0;
     bottom: 0;
     top: 0;
     height: 90%;
-    background: linear-gradient(90deg ,rgba(49, 230, 247, 0.26) 10%, blueviolet 90%);
+    background: linear-gradient(90deg, rgba(0,0,0 , 0.01) 0%, #378805 100%);
     border-radius: 10px;
 }
 
-.tap_coin{
+.tap_coin {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 50px;
 }
-.tap_coin img{
+
+.tap_coin img {
     width: 25px;
     height: 25px;
     margin-right: 5px;
 }
+
 .tap_ball img {
     pointer-events: auto;
 }
 
-.ball-animation {
-    pointer-events: none;
-}
+
