@@ -231,7 +231,7 @@ const HomePageTap = () => {
                     <span className={"ball-score-line"}></span>
                     <span className={"ball-score-line2"}></span>
                     <div className="ball-score ball-score-status">
-                        <p>Tap Bonus</p>
+                        <p>Darajangiz</p>
                         <h1>Akademiya Futbolchisi</h1>
                     </div>
 
@@ -244,16 +244,15 @@ const HomePageTap = () => {
                     <img src={ball} alt=""/>
                     <h1>{userData.score}</h1>
                 </div>
-                <div className="tap_ball_energy">
-                    <div className="energy_line">
-                        <p>{formatNumber(userData.limitCoin)}</p>
-                        <p>{userData.status}fdsf</p>
-                        <span style={{ width: `${(userData.score / userData.limitCoin) * 100}%` }}></span>
-                    </div>
-                </div>
+                {/*<div className="tap_ball_energy">*/}
+                {/*    <div className="energy_line">*/}
+                {/*        <p>{formatNumber(userData.limitCoin)}</p>*/}
+                {/*        <p>{userData.status}fdsf</p>*/}
+                {/*        <span style={{ width: `${(userData.score / userData.limitCoin) * 100}%` }}></span>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <div className="tap_ball"
                      onContextMenu={(e) => e.preventDefault()}
-
                 >
                     <img
                         onTouchStart={handleStart}
@@ -267,6 +266,10 @@ const HomePageTap = () => {
                     {animations.map(({id, x, y}) => (
                         <div key={id} className="ball-animation" style={{left: x, top: y}}>+1</div>
                     ))}
+                </div>
+                <div className="energy_info">
+                    <img src={volteg} alt="volteg"/>
+                    <p>{userData.energy}/{userData.maxEnergy}</p>
                 </div>
             </div>
             <Tour
