@@ -95,19 +95,24 @@ const HomePageTap = () => {
     };
 
     const handleStart = (event) => {
+        // Agar energiya 0 bo'lsa, funksiya to'xtaydi
         if (userData.energy <= 0) return;
 
-        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
+        // Faqat barmoq bilan bosilayotganini tekshirish
+        const touches = event.touches;
+        if (touches.length === 0) return; // Agar hech qanday barmoq bo'lmasa, to'xtaydi
+
+        // Har bir barmoq uchun ishlarni bajarish
         const allowedTouches = Math.min(touches.length, userData.energy);
 
-        // Har bir barmoq uchun animatsiya va ovoz ijro etish
-        touches.slice(0, allowedTouches).forEach((touch, index) => {
+        for (let i = 0; i < allowedTouches; i++) {
+            const touch = touches[i];
             const x = touch.clientX - 28;
             const y = touch.clientY - 42;
             const tapBonusValue = `+${userData.tapBonus}`;
 
             // Animatsiyani qo'shish
-            const newAnimation = { id: Date.now() + index, x, y, tapBonus: tapBonusValue };
+            const newAnimation = { id: Date.now() + i, x, y, tapBonus: tapBonusValue };
             setAnimations((prev) => [...prev, newAnimation]);
 
             // Animatsiyani 500ms dan keyin olib tashlash
@@ -125,7 +130,10 @@ const HomePageTap = () => {
             if (vibrationEnabled && navigator.vibrate) {
                 navigator.vibrate(50);
             }
-        });
+
+            // Energiyani kamaytirish
+            setUserData((prev) => ({ ...prev, energy: prev.energy - 1 }));
+        }
 
         // Ball pressed state o'rnatish
         setBallPressed(true);
@@ -135,6 +143,7 @@ const HomePageTap = () => {
             setBallPressed(false);
         }, 100);
     };
+
 
 
 
@@ -276,8 +285,6 @@ const HomePageTap = () => {
                     <img
                         onTouchStart={handleStart}
                         onTouchEnd={handleEnd}
-
-
                         draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
