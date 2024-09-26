@@ -45,7 +45,7 @@ body {
 }
 
 
-a:hover {
+a:hover , a:focus {
     color: white;
     outline: none;
 }
