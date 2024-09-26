@@ -33,6 +33,7 @@ const HomePageTap = () => {
     const getCoinData = async () => {
         try {
             const res = await $API.get(`/users/${user_id}`);
+            console.log(res)
             const user = res.data.user_data;
             const status = res.data.status;
             setUserData({
@@ -71,6 +72,7 @@ const HomePageTap = () => {
 
     const updateServer = async (newScore, newEnergy) => {
         try {
+            console.log(parseInt(newScore) , parseInt(newEnergy))
             await $API.patch(`/users/${user_id}`, {
                 coins: newScore,
                 energy: newEnergy
@@ -97,41 +99,42 @@ const HomePageTap = () => {
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches);
 
-        if (vibrationEnabled && navigator.vibrate) {
-            navigator.vibrate(10);
-        }
-
-        if (soundEnabled) {
-            const newClickAudio = new Audio(clickSound);
-            newClickAudio.play();
-        }
-
-        // Create new animations for each touch and calculate the tapBonus for each touch
-        const newAnimations = touches.slice(0, allowedTouches).map((touch, index) => {
+        touches.slice(0, allowedTouches).forEach((touch, index) => {
+            // Animatsiya yaratish uchun x va y koordinatalarini oling
             const x = touch.clientX - 28;
             const y = touch.clientY - 42;
             const tapBonusValue = `+${userData.tapBonus}`;
-            return { id: Date.now() + index, x, y, tapBonus: tapBonusValue };
+
+            // Animatsiyani qo'shish
+            const newAnimation = { id: Date.now() + index, x, y, tapBonus: tapBonusValue };
+            setAnimations((prev) => [...prev, newAnimation]);
+
+            // Animatsiyani 500ms dan keyin olib tashlash
+            setTimeout(() => {
+                setAnimations((prev) => prev.filter((a) => a.id !== newAnimation.id));
+            }, 500);
+
+            // Ovoz yaratish va ijro etish
+            if (soundEnabled) {
+                const newClickAudio = new Audio(clickSound);
+                newClickAudio.play();
+            }
+
+            // Vibratsiya
+            if (vibrationEnabled && navigator.vibrate) {
+                navigator.vibrate(50);
+            }
         });
 
-        // Update animations state to include the new animations
-        setAnimations((prev) => [...prev, ...newAnimations]);
-
-        // Set the ball pressed state
+        // Ball pressed state o'rnatish
         setBallPressed(true);
 
-        // Set a timeout to remove the animations after a duration
-        newAnimations.forEach(({ id }) => {
-            setTimeout(() => {
-                setAnimations((prev) => prev.filter((a) => a.id !== id));
-            }, 500); // Match this duration with your animation duration
-        });
-
-        // Set the ball pressed state back to false after a timeout
+        // Ball pressed holatini qayta false holatiga o'zgartirish
         setTimeout(() => {
             setBallPressed(false);
         }, 100);
     };
+
 
     const handleEnd = () => {
         const newScore = userData.score + touchCount * userData.tapBonus;
