@@ -6,13 +6,13 @@ export const languages = [
         label: "Russian",
         key: "0",
         code: "ru",
-        icon: <img src={RU} alt={"russ"}/>,
+        icon: <img src={RU} loading={"lazy"} alt={"russ"}/>,
     },
     {
         label: "O'zbek",
         key: "1",
         code: "uz",
-        icon: <img src={UZ} alt={"uz"}/>,
+        icon: <img src={UZ} loading={"lazy"} alt={"uz"}/>,
     },
 
 ];

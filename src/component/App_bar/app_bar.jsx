@@ -16,22 +16,22 @@ const AppBar = ({boshSahifaRef , friendsRef , eventsRef , peredachaRef , ratingR
         <div className="app_bar">
             <div className="app_bar_content">
                 <Link to={`/${user_id}`} className="app_bar_content_item" ref={boshSahifaRef}>
-                    <span><img src={ball} alt="Home" /></span>
+                    <span><img src={ball} alt="Home" loading={"lazy"}/></span>
                     <p>Bosh sahifa</p>
                 </Link>
                 <Link to={`/${user_id}/friends`} className="app_bar_content_item" ref={friendsRef}>
-                    <span><img src={users} alt="Friends" /></span>
+                    <span><img src={users} alt="Friends" loading={"lazy"}/></span>
                     <p>Do'stlar</p>
                 </Link>
                 <Link to={`/${user_id}/peredacha`} className="app_bar_content_item app_live_button" ref={peredachaRef}>
                     <span>live</span>
                 </Link>
                 <Link to={`/${user_id}/Events_Page`} className="app_bar_content_item" ref={eventsRef}>
-                    <span><img src={event} alt="Events" /></span>
+                    <span><img src={event} alt="Events" loading={"lazy"}/></span>
                     <p>Vazifalar</p>
                 </Link>
                 <Link to={`/${user_id}/rating`} className="app_bar_content_item" ref={ratingRef}>
-                    <span><img src={liga} alt="Rating" /></span>
+                    <span><img src={liga} alt="Rating" loading={"lazy"}/></span>
                     <p>Reyting</p>
                 </Link>
 

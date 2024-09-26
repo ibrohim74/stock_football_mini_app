@@ -53,6 +53,7 @@ const PeredachaTomorrow = ({ leagueList }) => {
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
                     <img
+                        loading={"lazy"}
                         src={game.teams.home.logo || ball}
                         alt={game.teams.home.name}
                         onError={retryImage}
@@ -66,6 +67,7 @@ const PeredachaTomorrow = ({ leagueList }) => {
                 }).format(new Date(game.fixture.date))}</p>
                 <div className="team2">
                     <img
+                        loading={"lazy"}
                         src={game.teams.away.logo || ball}
                         alt={game.teams.away.name}
                         onError={retryImage}

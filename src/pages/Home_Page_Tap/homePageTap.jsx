@@ -118,7 +118,7 @@ const HomePageTap = () => {
         setTimeout(() => {
             setAnimations((prev) => prev.filter((a) => !newAnimations.includes(a)));
             setBallPressed(false);
-        }, 500);
+        }, 100);
     };
 
     const handleEnd = () => {
@@ -219,7 +219,7 @@ const HomePageTap = () => {
             <div className="home-page_user_settings">
                 <Link to={`/${user_id}/settings`} className="home-page_user" ref={profileRef}>
                     <h1>{userData.username}Khasanov_ibroxim</h1>
-                    <span className="home-page_user_icon"><img src={user_img} alt=""/></span>
+                    <span  loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </Link>
             </div>
             <div className="ball-content">
@@ -241,7 +241,7 @@ const HomePageTap = () => {
                     </Link>
                 </div>
                 <div className="tap_coin">
-                    <img src={ball} alt=""/>
+                    <img loading={"lazy"} src={ball} alt=""/>
                     <h1>{userData.score}</h1>
                 </div>
                 {/*<div className="tap_ball_energy">*/}
@@ -255,6 +255,7 @@ const HomePageTap = () => {
                      onContextMenu={(e) => e.preventDefault()}
                 >
                     <img
+                        loading={"lazy"}
                         onTouchStart={handleStart}
                         onTouchEnd={handleEnd}
                         onMouseDown={handleStart}
@@ -268,7 +269,7 @@ const HomePageTap = () => {
                     ))}
                 </div>
                 <div className="energy_info">
-                    <img src={volteg} alt="volteg"/>
+                    <img src={volteg} alt="volteg" loading={"lazy"}/>
                     <p>{userData.energy}/{userData.maxEnergy}</p>
                 </div>
             </div>

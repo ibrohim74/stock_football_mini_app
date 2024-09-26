@@ -100,7 +100,7 @@ const ExpShop = () => {
             </div>
             <div className="exp_ball_score">
                 <div className="exp_ball">
-                    <img src={ball} alt="" width={25} />
+                    <img src={ball} alt="" loading={"lazy"} width={25} />
                     <h1>{score}</h1>
                 </div>
                 <button>Tajriba ortirish</button>
@@ -110,7 +110,7 @@ const ExpShop = () => {
                 {expItems.map(item => (
                     <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
                         <div className="exp_item_header">
-                            <img src={imgHeader} alt="" />
+                            <img src={imgHeader} loading={"lazy"} alt="" />
                             <p>{item.title}</p>
                         </div>
                         <div className="exp_item_body">
@@ -119,7 +119,7 @@ const ExpShop = () => {
                         <div className="item_footer">
                             <div className="item_footer_exp">{item.level}-dar</div>
                             <div className="item_footer_coin">
-                                <img src={ball} alt="" width={15} />
+                                <img src={ball} loading={"lazy"} alt="" width={15} />
                                 {formatNumber(item.coins)}
                             </div>
                         </div>

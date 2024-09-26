@@ -68,16 +68,16 @@ const Events = () => {
                         <h1>Kundalik vazifalar</h1>
                     </div>
                     <Link className="events_item"  to={`/${user_id}/quiz`}>
-                        <img src={gift} alt="logo" className="events_item_logo"/>
+                        <img src={gift} loading={"lazy"} alt="logo" className="events_item_logo"/>
                         <div className="events_item_text">
                             <p>asdsad</p>
                             <span>
-                                <img src={ball} alt="ball"/>
+                                <img loading={"lazy"} src={ball} alt="ball"/>
                                 <p>5k</p>
                             </span>
                         </div>
                         <span className="events_item_status">
-                                            <img src={active} alt=""/>
+                                            <img loading={"lazy"} src={active} alt=""/>
 
                                         </span>
                     </Link>
@@ -86,18 +86,18 @@ const Events = () => {
                     </div>
                     {eventsData.map((item, i) => {
                         return (<div className="events_item" key={i} onClick={() => showModal(item)}>
-                            <img src={gift} alt="logo" className="events_item_logo"/>
+                            <img src={gift} loading={"lazy"} alt="logo" className="events_item_logo"/>
                             <div className="events_item_text">
                                 <p>{item.event}</p>
                                 <span>
-                                                <img src={ball} alt="ball"/>
+                                                <img loading={"lazy"} src={ball} alt="ball"/>
                                                 <p>{item.event_bonus}</p>
                                             </span>
                             </div>
                             <span className="events_item_status">
-                                            {item.status === "active" && <img src={active} alt=""/>}
-                                {item.status === "ready" && <img src={ready} alt=""/>}
-                                {item.status === "ongoing" && <img src={ongoing} alt=""/>}
+                                            {item.status === "active" && <img src={active}  loading={"lazy"} alt=""/>}
+                                {item.status === "ready" && <img src={ready} loading={"lazy"} alt=""/>}
+                                {item.status === "ongoing" && <img src={ongoing} loading={"lazy"} alt=""/>}
                                         </span>
                         </div>)
                     })}

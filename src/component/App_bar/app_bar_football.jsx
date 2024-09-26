@@ -13,15 +13,15 @@ const   AppBarFootball = () => {
             <div className="app_bar_content">
                     <>
                         <Link to={`/${user_id}/Football`} className="app_bar_content_item">
-                            <span><img src={ball} alt="Football" /></span>
+                            <span><img src={ball} alt="Football" loading={"lazy"}/></span>
                             <p>Football</p>
                         </Link>
                         <Link to={`/${user_id}/peredacha`} className="app_bar_content_item" style={{ marginRight: 0 }}>
-                            <span><img src={peredacha} alt="Peredacha" /></span>
+                            <span><img src={peredacha} alt="Peredacha" loading={"lazy"}/></span>
                             <p>Peredacha</p>
                         </Link>
                         <Link to={`/${user_id}/league`} className="app_bar_content_item">
-                            <span><img src={liga} alt="League" /></span>
+                            <span><img src={liga} alt="League" loading={"lazy"}/></span>
                             <p>Liga</p>
                         </Link>
                     </>

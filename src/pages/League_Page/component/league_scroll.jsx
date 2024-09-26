@@ -130,6 +130,7 @@ const LeagueScroll = () => {
                     <h1>{game.teams.home.name}</h1>
                     {loadingImages[`${game.teams.home.logo}-${index}`] && <div className="image-loader">Loading...</div>}
                     <img
+                        loading={"lazy"}
                         src={game.teams.home.logo || ball}
                         alt={game.teams.home.name}
                         onError={retryImage}
@@ -148,6 +149,7 @@ const LeagueScroll = () => {
                 <div className="team2">
                     {loadingImages[`${game.teams.away.logo}-${index}`] && <div className="image-loader">Loading...</div>}
                     <img
+                        loading={"lazy"}
                         src={game.teams.away.logo || ball}
                         alt={game.teams.away.name}
                         onError={retryImage}
@@ -168,6 +170,7 @@ const LeagueScroll = () => {
                             <h1>HOME</h1>
                             {loadingImages[`${game.teams.home.logo}-${index}`] && <div className="image-loader">Loading...</div>}
                             <img
+                                loading={"lazy"}
                                 src={game.teams.home.logo || ball}
                                 alt={game.teams.home.name}
                                 onError={retryImage}
@@ -186,6 +189,7 @@ const LeagueScroll = () => {
                         <div className="league_collapseChildren_item_logo">
                             {loadingImages[`${game.teams.away.logo}-${index}`] && <div className="image-loader">Loading...</div>}
                             <img
+                                loading={"lazy"}
                                 src={game.teams.away.logo || ball}
                                 alt={game.teams.away.name}
                                 onError={retryImage}
@@ -221,6 +225,7 @@ const LeagueScroll = () => {
                     className={selectedLeague === league.id ? "active" : ""}
                     >
                         <img
+                            loading={"lazy"}
                             src={league.logo || ball}
                             alt={league.name}
                             className={selectedLeague === league.id ? 'selected' : ''}

@@ -57,10 +57,10 @@ const Friends = () => {
                     </div>
 
                     <div className="friends_gift_card">
-                        <img src={gift} alt="Rating"/>
+                        <img src={gift} loading={"lazy"} alt="Rating"/>
                         <div className="friends_gift_card_text">
                             <h1>Do'st taklif qilish</h1>
-                            <p><img src={ball} alt="Ball"/>+5K taklif uchun</p>
+                            <p><img src={ball} loading={"lazy"} alt="Ball"/>+5K taklif uchun</p>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@ const Friends = () => {
                         <div className="friends_ref_title">
                             <div className="friends_ref_title_top">
                                 <h1>Do'stlar ro'yxati ({ref_users.length})</h1>
-                                <img src={reload} alt="Ball" width={60} height={60}/>
+                                <img src={reload} loading={"lazy"} alt="Ball" width={60} height={60}/>
                             </div>
                             <p>{ref_users.length > 0 ? '' : 'Siz hali hech kimni taklif qilmagansiz'}</p>
                         </div>
@@ -76,12 +76,12 @@ const Friends = () => {
                         <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
                             {displayedUsers.map(user => (
                                 <div key={user.id} className="friends_ref_item">
-                                    <img src={user_img} alt="User"/>
+                                    <img src={user_img} loading={"lazy"} alt="User"/>
                                     <div className="friends_ref_item_info">
                                         <h1>{user.username}</h1>
                                         <p>
                                             {user.status}
-                                            <span><img src={ball} alt=""/>{formatNumber(user.score)}</span>
+                                            <span><img  loading={"lazy"} src={ball} alt=""/>{formatNumber(user.score)}</span>
                                         </p>
                                     </div>
                                 </div>

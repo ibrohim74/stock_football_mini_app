@@ -90,11 +90,11 @@ const HomePageFootball = () => {
             <div className="table-row">
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
-                    <img src={game.teams.home.logo || ball} alt={game.teams.home.name} />
+                    <img loading={"lazy"} src={game.teams.home.logo || ball} alt={game.teams.home.name} />
                 </div>
                 <p><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</p>
                 <div className="team2">
-                    <img src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball} alt={game.teams.away.name} />
+                    <img loading={"lazy"} src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball} alt={game.teams.away.name} />
                     <h1>{game.teams.away.name}</h1>
                 </div>
             </div>

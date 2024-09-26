@@ -95,7 +95,7 @@ const PeredashaToday = ({ leagueList }) => {
             <div className="table-row" key={index}>
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
-                    <img src={imageCache[game.teams.home.logo] || ball} alt={game.teams.home.name} />
+                    <img loading={"lazy"} src={imageCache[game.teams.home.logo] || ball} alt={game.teams.home.name} />
                 </div>
                 <p><span>Soat</span> {new Intl.DateTimeFormat('en-US', {
                     timeZone: 'Asia/Tashkent',
@@ -104,7 +104,7 @@ const PeredashaToday = ({ leagueList }) => {
                     hour12: false,
                 }).format(new Date(game.fixture.date))}</p>
                 <div className="team2">
-                    <img src={imageCache[game.teams.away.logo] || ball} alt={game.teams.away.name} />
+                    <img loading={"lazy"} src={imageCache[game.teams.away.logo] || ball} alt={game.teams.away.name} />
                     <h1>{game.teams.away.name}</h1>
                 </div>
             </div>

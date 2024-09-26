@@ -92,7 +92,7 @@ const Quiz = () => {
         return (
             <div className="quiz-container quiz_end">
                 <div className="quiz_end_score">
-                    <h1><img src={ball} alt="" width={25}/> {score}</h1>
+                    <h1><img loading={"lazy"} src={ball} alt="" width={25}/> {score}</h1>
                     Otgan oyinda toplagan ballaringiz
                 </div>
                 Siz 24 soatda faqat bir martda qatnashishingiz mumkin.
@@ -105,7 +105,7 @@ const Quiz = () => {
         return (
             <div className="quiz-container quiz_end">
                 <div className="quiz_end_score">
-                    <h1><img src={ball} alt="" width={25}/> {score}</h1>
+                    <h1><img loading={"lazy"} src={ball} alt="" width={25}/> {score}</h1>
                     Otgan oyinda toplagan ballaringiz
                 </div>
                 Siz testni tugatdingiz.

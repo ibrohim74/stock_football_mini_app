@@ -42,11 +42,11 @@ const Settings = () => {
 
                 <div className="settings_box">
                     <div className="settings_vibr settings_item" onClick={toggleVibration}>
-                        <img src={phone} alt=""/>
+                        <img loading={"lazy"} src={phone} alt=""/>
                         {vibrationEnabled ? "On" : "Off"}
                     </div>
                     <div className="settings_mute settings_item" onClick={toggleSound}>
-                        <img src={sound} alt=""/>
+                        <img loading={"lazy"} src={sound} alt=""/>
                         {soundEnabled ? "On" : "Off"}
                     </div>
                 </div>

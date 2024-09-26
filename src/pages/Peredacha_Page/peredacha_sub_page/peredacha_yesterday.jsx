@@ -53,6 +53,7 @@ const PeredachaYesterday = ({ leagueList }) => {
                 <div className="team1">
                     <h1>{game.teams.home.name}</h1>
                     <img
+                        loading={"lazy"}
                         src={game.teams.home.logo || ball}
                         alt={game.teams.home.name}
                         onError={retryImage}
@@ -61,6 +62,7 @@ const PeredachaYesterday = ({ leagueList }) => {
                 <p><span>Score</span> {game.goals.home} - {game.goals.away}</p>
                 <div className="team2">
                     <img
+                        loading={"lazy"}
                         src={game.teams.away.logo || ball}
                         alt={game.teams.away.name}
                         onError={retryImage}
