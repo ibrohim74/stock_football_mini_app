@@ -39,7 +39,7 @@ const StatusUsers = [
             { id: 12, username: "Oddiy Yigit 12", coins: "4000" },
             { id: 13, username: "Oddiy Yigit 13", coins: "3400" },
             { id: 14, username: "Oddiy Yigit 13", coins: "3300" },
-            { id: 15, username: "Oddiy Yigit 13", coins: "2880" },
+            { id: 15, username: "Oddiy Yigit 13", coins: "2880" , rank:8},
             { id: 1376002269, username: "Khasanov_ibroxim", coins: "2850" },
         ]
     },

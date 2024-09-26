@@ -129,7 +129,7 @@ const HomePageTap = () => {
         // Set the ball pressed state back to false after a timeout
         setTimeout(() => {
             setBallPressed(false);
-        }, 500);
+        }, 100);
     };
 
 
