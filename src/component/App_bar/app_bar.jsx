@@ -2,10 +2,9 @@ import React from 'react';
 import { Link, useParams } from "react-router-dom";
 import "./app_bar.css";
 import ball from "../../assets/icons/soccer_ball.png";
-import peredacha from "../../assets/imgs/perspective_matte-57-128x128.png";
-import liga from "../../assets/icon/kobek.png";
-import users from "../../assets/icon/omixta.png";
-import event from "../../assets/icon/clandar.png";
+import liga from "../../assets/icon/kobek.webp";
+import users from "../../assets/icon/omixta.webp";
+import event from "../../assets/icon/clandar.webp";
 import { HOME_PAGE_FOOTBALL, FRIENDS, RATING, SETTINGS, EVENTS, PEREDACHA, LEAGUE } from "../../utils/const.jsx";
 
 const AppBar = ({boshSahifaRef , friendsRef , eventsRef , peredachaRef , ratingRef}) => {

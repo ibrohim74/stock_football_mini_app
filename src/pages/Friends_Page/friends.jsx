@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import "./friends.css";
-import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.png";
+import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.webp";
 import ball from "../../assets/icons/soccer_ball.png";
-import user_img from "../../assets/icon/xsxxa.png";
-import reload from "../../assets/icon/restart.png";
+import user_img from "../../assets/icon/xsxxa.webp";
+import reload from "../../assets/icon/restart.webp";
 import {CopyOutlined} from "@ant-design/icons";
 import {message, notification} from "antd";
 import AppBar from "../../component/App_bar/app_bar.jsx";

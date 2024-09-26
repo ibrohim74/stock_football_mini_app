@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, useParams } from "react-router-dom";
 import "./app_bar.css";
 import ball from "../../assets/icons/soccer_ball.png";
-import peredacha from "../../assets/icon/dilbuzor.png";
-import liga from "../../assets/icon/kobek.png";
+import peredacha from "../../assets/icon/dilbuzor.webp";
+import liga from "../../assets/icon/kobek.webp";
 
 
 const   AppBarFootball = () => {

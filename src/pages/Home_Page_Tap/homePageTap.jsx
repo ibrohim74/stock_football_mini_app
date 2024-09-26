@@ -3,10 +3,10 @@ import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import { Link, useParams } from "react-router-dom";
 import $API from "../../utils/https.jsx";
-import user_img from "../../assets/icon/xsxxa.png";
+import user_img from "../../assets/icon/xsxxa.webp";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 import clickSound from "../../assets/ui-click-43196.mp3";
-import volteg from "../../assets/icon/spark.png";
+import volteg from "../../assets/icon/spark.webp";
 import { useTranslation } from "react-i18next";
 import { Tour } from "antd";
 
@@ -112,14 +112,16 @@ const HomePageTap = () => {
             return { id: Date.now() + index, x, y };
         });
 
-        setAnimations((prev) => [...prev, ...newAnimations]);
+        setAnimations((prev) => [...prev, ...newAnimations]); // Har bir barmoq uchun yangi animatsiyani qo'shish
         setBallPressed(true);
 
+        // Animatsiyani bir vaqtning o'zida ko'rsatish vaqti
         setTimeout(() => {
             setAnimations((prev) => prev.filter((a) => !newAnimations.includes(a)));
             setBallPressed(false);
-        }, 100);
+        }, 400);
     };
+
 
     const handleEnd = () => {
         const newScore = userData.score + touchCount;
