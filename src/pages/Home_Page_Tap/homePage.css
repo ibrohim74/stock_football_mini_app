@@ -137,6 +137,7 @@
     position: absolute;
     font-size: 30px;
     animation: ball-move 0.8s ease-in-out forwards;
+    color: #378805;
 }
 
 @keyframes ball-move {

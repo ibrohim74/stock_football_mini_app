@@ -97,7 +97,6 @@ const HomePageTap = () => {
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches);
 
-        // Handle vibration and sound
         if (vibrationEnabled && navigator.vibrate) {
             navigator.vibrate(10);
         }
@@ -107,23 +106,20 @@ const HomePageTap = () => {
             newClickAudio.play();
         }
 
-        // Create animations for each touch point
         const newAnimations = touches.slice(0, allowedTouches).map((touch, index) => {
-            const x = touch.clientX - 28; // Adjust according to your ball size
-            const y = touch.clientY - 42; // Adjust according to your ball size
+            const x = touch.clientX - 28;
+            const y = touch.clientY - 42;
             return { id: Date.now() + index, x, y };
         });
 
         setAnimations((prev) => [...prev, ...newAnimations]);
         setBallPressed(true);
 
-        // Clean up animations after the timeout
         setTimeout(() => {
             setAnimations((prev) => prev.filter((a) => !newAnimations.includes(a)));
             setBallPressed(false);
-        }, 400);
+        }, 500);
     };
-
 
     const handleEnd = () => {
         const newScore = userData.score + touchCount;
@@ -262,8 +258,8 @@ const HomePageTap = () => {
                         loading={"lazy"}
                         onTouchStart={handleStart}
                         onTouchEnd={handleEnd}
-                        // onMouseDown={handleStart}
-                        // onMouseUp={handleEnd}
+                        onMouseDown={handleStart}
+                        onMouseUp={handleEnd}
                         ref={ballRef}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
