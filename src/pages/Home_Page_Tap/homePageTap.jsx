@@ -106,11 +106,12 @@ const HomePageTap = () => {
             newClickAudio.play();
         }
 
-        // Create new animations for each touch
+        // Create new animations for each touch and calculate the tapBonus for each touch
         const newAnimations = touches.slice(0, allowedTouches).map((touch, index) => {
             const x = touch.clientX - 28;
             const y = touch.clientY - 42;
-            return { id: Date.now() + index, x, y };
+            const tapBonusValue = `+${userData.tapBonus}`;
+            return { id: Date.now() + index, x, y, tapBonus: tapBonusValue };
         });
 
         // Update animations state to include the new animations
@@ -132,14 +133,14 @@ const HomePageTap = () => {
         }, 100);
     };
 
-
     const handleEnd = () => {
-        const newScore = userData.score + touchCount;
+        const newScore = userData.score + touchCount * userData.tapBonus; // Multiply by tapBonus
         const newEnergy = Math.max(0, userData.energy - touchCount);
         setUserData((prevData) => ({ ...prevData, score: newScore, energy: newEnergy }));
         setTouchCount(0);
         debounceUpdate(newScore, newEnergy);
     };
+
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -277,9 +278,12 @@ const HomePageTap = () => {
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
 
-                    {animations.map(({id, x, y}) => (
-                        <div key={id} className="ball-animation" style={{left: x, top: y}}>+1</div>
+                    {animations.map(({id, x, y, tapBonus}) => (
+                        <div key={id} className="ball-animation" style={{left: x, top: y}}>
+                            {tapBonus}
+                        </div>
                     ))}
+
                 </div>
                 <div className="energy_info">
                     <img src={volteg} alt="volteg" loading={"lazy"}/>
