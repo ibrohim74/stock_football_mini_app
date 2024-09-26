@@ -11,6 +11,7 @@ const App = () => {
 
         tg.expand();
         tg.headerColor = "#378805";
+        tg.bg_color = "#378805";
         tg.isVerticalSwipesEnabled = false
         tg.isHorizontalSwipesEnabled = false
 
