@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import $API from "../../utils/https.jsx";
 import user_img from "../../assets/icon/xsxxa.webp";
 import AppBar from "../../component/App_bar/app_bar.jsx";
-import clickSound from "../../assets/ui-click-43196.mp3";
+import clickSound from "../../assets/mixkit-soccer-ball-quick-kick-2108.wav";
 import volteg from "../../assets/icon/spark.webp";
 import { useTranslation } from "react-i18next";
 import { Tour } from "antd";
