@@ -6,30 +6,18 @@
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background: linear-gradient(180deg, #191919 0%, #378805 100%) no-repeat;
-
-}
-/* For iOS, disable the bounce effect while scrolling */
-html, body {
     min-height: 100vh;
-    scroll-behavior: smooth;
-    touch-action: manipulation; /* Prevents scroll manipulation */
-}
-
-/* For preventing extra space when swiping up */
-body {
-    overscroll-behavior-y: contain; /* Prevents default scroll behavior */
-    -webkit-backface-visibility: hidden; /* Improves rendering performance */
 }
 
 
 a {
     font-weight: 500;
-    color: white;
+    color: #646cff;
     text-decoration: inherit;
 }
 
 a:hover {
-    color: white;
+    color: #535bf2;
 }
 
 body {
@@ -38,15 +26,29 @@ body {
     box-sizing: border-box;
 }
 
-
-
-a:hover , a:focus , div {
+.index_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+.index_page a{
+    width: 50%;
+    background: #535bf2;
     color: white;
-    outline: none;
+    text-align: center;
+    border-radius: 15px;
+    padding: 16px 20px;
+    margin: 20px;
+
 }
 
 
-
+a:hover {
+    color: white;
+    outline: none;
+}
 
 @media screen and (max-width: 321px){
     body, html{

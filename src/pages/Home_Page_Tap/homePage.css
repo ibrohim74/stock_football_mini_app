@@ -1,135 +1,140 @@
-@media screen and (max-width: 800px) {
-    .home-page {
-        display: flex;
-        /*justify-content: center;*/
-        flex-direction: column;
-        align-items: center;
-        width: 100vw;
-        min-height: 100vh;
-        background: linear-gradient(180deg, #191919 0%, #378805 100%);
-    }
 
-    .home-page_user_settings {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 50px;
-        margin-top: 10px;
-    }
+.home-page {
+    display: flex;
+    /*justify-content: center;*/
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    max-height: 100vh;
+    min-height: 90vh;
+    background: linear-gradient(180deg, #191919 0%, #378805 100%);
+}
 
-    .home-page_settings svg {
-        width: 30px;
-        height: 30px;
-        object-fit: cover;
-        margin-right: 20px;
-        margin-top: 20px;
-        color: white;
-    }
+.home-page_user_settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+}
 
-    .home-page_user {
-        float: right;
-        width: 95%;
-        display: flex;
-        align-items: center;
-        justify-content: right;
-        font-size: 20px;
-        margin-right: 20px;
-        color: white;
-    }
+.home-page_settings svg {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 20px;
+    margin-top: 20px;
+    color: white;
+}
 
-    .home-page_user h1 {
-        font-size: 20px;
-        width: 70%;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        text-align: right;
-    }
+.home-page_user {
+    float: right;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    font-size: 20px;
+    margin-right: 20px;
+    color: white;
+}
 
-    .home-page_user .home-page_user_icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 25%;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-    }
+.home-page_user h1 {
+    font-size: 20px;
+    width: 70%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: right;
+}
 
-    .home-page_user_icon svg {
-        width: 100%;
-        height: 100%;
-    }
+.home-page_user .home-page_user_icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 25%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
 
-    .ball-score h1 {
-        font-size: 18px;
-    }
+.home-page_user_icon svg {
+    width: 100%;
+    height: 100%;
+}
 
-    .tap_ball {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        width: 100%;
-        -webkit-touch-callout: none; /* Mobil qurilmalarda yuklab olish menyusini bloklaydi */
-        -webkit-user-select: none; /* Matnni tanlashni o'chiradi */
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
+.ball-score h1 {
+    font-size: 18px;
+}
 
-    .tap_ball img {
-        width: 280px;
-        height: 280px;
-        border-radius: 50%;
-        user-select: none; /* Rasmni tanlashni oldini oladi */
-        pointer-events: none; /* Bosish va yuklab olishni bloklaydi */
-    }
+.tap_ball {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    -webkit-touch-callout: none; /* Mobil qurilmalarda yuklab olish menyusini bloklaydi */
+    -webkit-user-select: none; /* Matnni tanlashni o'chiradi */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-    .ball-content {
-        width: 100%;
-        display: flex;
-        /*justify-content: center;*/
-        align-items: center;
-        margin-top: 15px;
-        flex-direction: column;
+.tap_ball img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    user-select: none; /* Rasmni tanlashni oldini oladi */
+    pointer-events: none; /* Bosish va yuklab olishni bloklaydi */
+}
 
-    }
+.ball-content {
+    width: 100%;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    margin-top: 15px;
+    flex-direction: column;
 
-    .ball-score-container {
-        width: 90%;
-        border-radius: 20px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        text-align: center;
-        backdrop-filter: blur(30px);
-        /*box-shadow: 0 0 30px rgba(49, 230, 247, 0.26);*/
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-    }
+}
 
-    .ball-score h1, .ball-score, .ball-score p {
-        color: #fff
-    }
+.ball-score-container {
+    width: 90%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(30px);
+    /*box-shadow: 0 0 30px rgba(49, 230, 247, 0.26);*/
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
 
-    .ball-score-line , .ball-score-line2 {
-        position: absolute;
-        width: 2px;
-        height: 80%;
-        background: rgba(255, 255, 255, 0.1);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        left: 29%;
-    }
-    .ball-score-line2 {
-        left: 78%;
-    }
-    .ball-score-status h1{
-        font-size: 14px;
-    }
-    .ball-score-status p {margin: 0}
+.ball-score h1, .ball-score, .ball-score p {
+    color: #fff
+}
+
+.ball-score-line, .ball-score-line2 {
+    position: absolute;
+    width: 2px;
+    height: 80%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 29%;
+}
+
+.ball-score-line2 {
+    left: 78%;
+}
+
+.ball-score-status h1 {
+    font-size: 14px;
+}
+
+.ball-score-status p {
+    margin: 0
 }
 
 
@@ -169,6 +174,7 @@
 .ball-image.pressed {
     animation: ball-press 0.2s ease;
 }
+
 @keyframes ball-press {
     0% {
         transform: scale(1);
@@ -245,7 +251,7 @@
     bottom: 0;
     top: 0;
     height: 90%;
-    background: linear-gradient(90deg, rgba(0,0,0 , 0.01) 0%, #378805 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.01) 0%, #378805 100%);
     border-radius: 10px;
 }
 
@@ -269,8 +275,8 @@
 }
 
 
-@media screen and (max-width: 376px){
-    .tap_ball img{
+@media screen and (max-width: 376px) {
+    .tap_ball img {
         width: 243px;
         height: 243px;
     }
