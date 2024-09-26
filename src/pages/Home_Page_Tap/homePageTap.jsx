@@ -271,14 +271,14 @@ const HomePageTap = () => {
                 {/*</div>*/}
                 <div className="tap_ball"
                      onContextMenu={(e) => e.preventDefault()}
+                     ref={ballRef}
                 >
                     <img
-                        loading={"lazy"}
                         onTouchStart={handleStart}
                         onTouchEnd={handleEnd}
-                        onMouseDown={handleStart}
-                        onMouseUp={handleEnd}
-                        ref={ballRef}
+                        // onMouseDown={handleStart}
+                        // onMouseUp={handleEnd}
+
                         draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
