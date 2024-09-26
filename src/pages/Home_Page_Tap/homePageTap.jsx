@@ -73,9 +73,11 @@ const HomePageTap = () => {
     const updateServer = async (newScore, newEnergy) => {
         try {
             console.log(parseInt(newScore) , parseInt(newEnergy))
-            await $API.patch(`/users/${user_id}`, {
-                coins: newScore,
-                energy: newEnergy
+            await $API.patch(`/users/${user_id}`, null,{params:
+                    {
+                        coins: newScore,
+                        energy: newEnergy
+                    }
             });
             getCoinData();
         } catch (e) {
@@ -89,7 +91,7 @@ const HomePageTap = () => {
         }
         timerRef.current = setTimeout(() => {
             updateServer(newScore, newEnergy);
-        }, 1000);
+        }, 300);
     };
 
     const handleStart = (event) => {
