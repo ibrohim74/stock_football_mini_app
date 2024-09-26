@@ -99,10 +99,9 @@ const HomePageTap = () => {
 
         const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
         const allowedTouches = Math.min(touches.length, userData.energy);
-        setTouchCount(allowedTouches);
 
+        // Har bir barmoq uchun animatsiya va ovoz ijro etish
         touches.slice(0, allowedTouches).forEach((touch, index) => {
-            // Animatsiya yaratish uchun x va y koordinatalarini oling
             const x = touch.clientX - 28;
             const y = touch.clientY - 42;
             const tapBonusValue = `+${userData.tapBonus}`;
@@ -116,7 +115,7 @@ const HomePageTap = () => {
                 setAnimations((prev) => prev.filter((a) => a.id !== newAnimation.id));
             }, 500);
 
-            // Ovoz yaratish va ijro etish
+            // Ovoz ijro etish
             if (soundEnabled) {
                 const newClickAudio = new Audio(clickSound);
                 newClickAudio.play();
@@ -136,6 +135,7 @@ const HomePageTap = () => {
             setBallPressed(false);
         }, 100);
     };
+
 
 
     const handleEnd = () => {
@@ -276,8 +276,7 @@ const HomePageTap = () => {
                     <img
                         onTouchStart={handleStart}
                         onTouchEnd={handleEnd}
-                        // onMouseDown={handleStart}
-                        // onMouseUp={handleEnd}
+
 
                         draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
