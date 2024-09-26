@@ -1,7 +1,8 @@
 .friends {
 
     width: 100vw;
-    overflow: hidden;
+    height: 100vh;
+    overflow:scroll;
 }
 
 .friends_content {
