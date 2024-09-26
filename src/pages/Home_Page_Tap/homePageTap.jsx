@@ -112,16 +112,14 @@ const HomePageTap = () => {
             return { id: Date.now() + index, x, y };
         });
 
-        setAnimations((prev) => [...prev, ...newAnimations]); // Har bir barmoq uchun yangi animatsiyani qo'shish
+        setAnimations((prev) => [...prev, ...newAnimations]);
         setBallPressed(true);
 
-        // Animatsiyani bir vaqtning o'zida ko'rsatish vaqti
         setTimeout(() => {
             setAnimations((prev) => prev.filter((a) => !newAnimations.includes(a)));
             setBallPressed(false);
         }, 400);
     };
-
 
     const handleEnd = () => {
         const newScore = userData.score + touchCount;
@@ -260,8 +258,8 @@ const HomePageTap = () => {
                         loading={"lazy"}
                         onTouchStart={handleStart}
                         onTouchEnd={handleEnd}
-                        // onMouseDown={handleStart}
-                        // onMouseUp={handleEnd}
+                        onMouseDown={handleStart}
+                        onMouseUp={handleEnd}
                         ref={ballRef}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
