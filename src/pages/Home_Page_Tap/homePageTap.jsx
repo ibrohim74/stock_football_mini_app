@@ -106,7 +106,7 @@ const HomePageTap = () => {
             const touch = touches[i];
             const x = touch.clientX - 28; // X koordinati
             const y = touch.clientY - 42; // Y koordinati
-            const tapBonusValue = `+${userData.tapBonus}`;
+            const tapBonusValue = `${userData.tapBonus}`;
 
             // Animatsiyani qo'shish
             const newAnimation = { id: Date.now() + i, x, y, tapBonus: tapBonusValue };

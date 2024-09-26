@@ -11,6 +11,7 @@ const App = () => {
 
         tg.expand();
         tg.headerColor = "#378805";
+        tg.isVerticalSwipesEnabled = false
         const stableHeight = tg.viewportStableHeight;
         if (stableHeight) {
             // Telegram tomonidan berilgan stableHeightni o'rnatamiz
