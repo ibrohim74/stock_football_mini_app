@@ -13,6 +13,9 @@ const App = () => {
         tg.headerColor = "#378805";
         tg.bg_color = "#378805";
         tg.secondary_bg_color = "#378805";
+        tg.bottom_bar_bg_color = "#378805";
+        tg.section_bg_color = "#378805";
+        tg.section_separator_color = "#378805";
         tg.isVerticalSwipesEnabled = false
         tg.isHorizontalSwipesEnabled = false
 
