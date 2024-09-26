@@ -49,3 +49,14 @@ a:hover {
     color: white;
     outline: none;
 }
+
+@media screen and (max-width: 321px){
+    body, html{
+        display: none;
+    }
+}
+@media screen and (orientation: landscape){
+    body, html{
+        display: none;
+    }
+}

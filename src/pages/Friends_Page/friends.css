@@ -1,6 +1,7 @@
 .friends {
 
     width: 100vw;
+    overflow: hidden;
 }
 
 .friends_content {

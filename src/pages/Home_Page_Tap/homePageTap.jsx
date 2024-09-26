@@ -230,7 +230,7 @@ const HomePageTap = () => {
             />
             <div className="home-page_user_settings">
                 <Link to={`/${user_id}/settings`} className="home-page_user" ref={profileRef}>
-                    <h1>{userData.username}Khasanov_ibroxim</h1>
+                    <h1>{userData.username}</h1>
                     <span  loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </Link>
             </div>
@@ -273,6 +273,7 @@ const HomePageTap = () => {
                         onMouseDown={handleStart}
                         onMouseUp={handleEnd}
                         ref={ballRef}
+                        draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
 
