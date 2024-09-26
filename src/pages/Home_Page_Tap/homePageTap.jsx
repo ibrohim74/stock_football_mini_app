@@ -134,7 +134,7 @@ const HomePageTap = () => {
     };
 
     const handleEnd = () => {
-        const newScore = userData.score + touchCount * userData.tapBonus; // Multiply by tapBonus
+        const newScore = userData.score + touchCount * userData.tapBonus;
         const newEnergy = Math.max(0, userData.energy - touchCount);
         setUserData((prevData) => ({ ...prevData, score: newScore, energy: newEnergy }));
         setTouchCount(0);

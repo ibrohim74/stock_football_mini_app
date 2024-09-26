@@ -8,8 +8,9 @@ import AppBarFootball from "./component/App_bar/app_bar_football.jsx";
 const App = () => {
     const tg = window.Telegram.WebApp;
     useEffect(() => {
-        // Ekranni to'liq ochish
+
         tg.expand();
+        tg.headerColor = "#378805";
         const stableHeight = tg.viewportStableHeight;
         if (stableHeight) {
             // Telegram tomonidan berilgan stableHeightni o'rnatamiz
