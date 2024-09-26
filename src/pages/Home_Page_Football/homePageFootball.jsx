@@ -108,7 +108,7 @@ const HomePageFootball = () => {
         ),
     }));
     return (
-        <>
+        <div className={"homePageFootball"}>
             <h1 className={"footballTitle"}>
                 <BackTab back_url={`/${user_id}`} />
                 <span>
@@ -125,7 +125,7 @@ const HomePageFootball = () => {
             <div className={"footballContent"}>
                 {loading ? <p>Loading...</p> : (liveGames.length > 0 ? <Collapse_Stock items={items} /> : "Hozirda mavjud o'yinlar yo'q")}
             </div>
-        </>
+        </div>
     );
 };
 

@@ -1,3 +1,4 @@
+
 .footballTitle{
     width: 95%;
     display: flex;
@@ -29,15 +30,15 @@
     border-radius: 100%;
     position: absolute;
     margin: 0 auto;
-    border: 3px solid rgba(255, 255, 255, 1);
+    border: 3px solid rgb(248, 5, 5);
     -webkit-animation: live 1.4s infinite ease-in-out;
     animation: live 1.4s infinite ease-in-out;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 .livenow > div:nth-child(1) {
-    background-color:rgba(255,255,255,0.3);
-    background-color:rgba(255,255,255,1);
+    background-color:rgba(248, 5, 5,0.3);
+    background-color:rgba(248, 5, 5,1);
     -webkit-animation-delay: -0.1s;
     animation-delay: -0.1s;
 }
@@ -48,7 +49,7 @@
 .livenow > div:nth-child(3){
     -webkit-animation-delay: 0.42s;
     animation-delay: 0.42s;
-    border:3px solid rgba(255,255,255,0.5);
+    border:3px solid rgba(248, 5, 5,0.5);
 }
 
 @-webkit-keyframes live {

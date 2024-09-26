@@ -260,7 +260,7 @@ const HomePageTap = () => {
                         onMouseDown={handleStart}
                         onMouseUp={handleEnd}
                         ref={ballRef}
-                        src={ball} alt="ball" className={`tap_ball_img ${ballPressed ? 'pressed' : ''}`}
+                        src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
 
                     {animations.map(({id, x, y}) => (

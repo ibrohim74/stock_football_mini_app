@@ -209,12 +209,11 @@ const LeagueScroll = () => {
     return (
         <div className="league-wrapper">
             <Swiper
-                slidesPerView={5}
+                slidesPerView={3.5}
                 spaceBetween={10}
-                loop={false}
-                navigation={true}
+                loop={true}
                 pagination={{ clickable: true }}
-                modules={[Pagination, Navigation]}
+                navigation
                 className="mySwiperLig"
             >
                 {leagues.map((league) => (

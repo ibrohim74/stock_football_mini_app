@@ -1,18 +1,20 @@
-.collapse-container {
+.collapse-container-l {
     overflow: hidden;
     width: 95vw;
 }
 
-.collapse-item {
+.collapse-item-l {
     margin: 10px 0;
     width: 100%;
+
 }
 
-.collapse-header {
+.collapse-header-l {
     height: 50px;
     padding: 5px 15px;
     cursor: pointer;
-    background: #191919;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(250, 250, 250, 0.20);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,14 +26,15 @@
 
 }
 
-.collapse-icon {
+.collapse-icon-l {
     font-size: 14px;
     color: white;
 }
 
-.collapse-content {
+.collapse-content-l {
     padding: 10px 15px;
-    background: #191919;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(250, 250, 250, 0.20);
     color: white;
     overflow: hidden;
     max-height: 0; /* Boshlang'ich balandlik 0 */
@@ -40,7 +43,7 @@
 }
 
 /* Collapse ochiq bo'lganda */
-.collapse-item.open .collapse-content {
+.collapse-item-l.open .collapse-content-l {
     max-height: 500px; /* Maksimal balandlikni tahminiy qiymat belgilang */
     width: 100%;
 }

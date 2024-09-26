@@ -5,8 +5,10 @@
     font-family: "Roboto", sans-serif;
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    background: linear-gradient(180deg, #191919 0%, #378805 100%) no-repeat;
+    min-height: 100vh;
 }
+
 
 a {
     font-weight: 500;

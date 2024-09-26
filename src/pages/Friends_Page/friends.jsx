@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import "./friends.css";
-import gift from "../../assets/imgs/perspective_matte-87-128x128.png";
+import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.png";
 import ball from "../../assets/icons/soccer_ball.png";
-import user_img from "../../assets/imgs/perspective_matte-59-128x128.png";
-import reload from "../../assets/imgs/reload.png";
-import { CopyOutlined } from "@ant-design/icons";
+import user_img from "../../assets/icon/xsxxa.png";
+import reload from "../../assets/icon/restart.png";
+import {CopyOutlined} from "@ant-design/icons";
 import {message, notification} from "antd";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 
 // ref_users malumotlari
 const ref_users = [
-    { id: 1, username: "khasanov_ibroxim1", status: "junior" },
-    { id: 2, username: "khasanov_ibroxim2", status: "junior" },
-    { id: 3, username: "khasanov_ibroxim3", status: "junior" },
-    { id: 4, username: "khasanov_ibroxim4", status: "junior" },
-    { id: 5, username: "khasanov_ibroxim5", status: "junior" },
-    { id: 6, username: "khasanov_ibroxim6", status: "junior" },
-    { id: 7, username: "khasanov_ibroxim7", status: "junior" },
-    { id: 8, username: "khasanov_ibroxim8", status: "junior" },
-    { id: 9, username: "khasanov_ibroxim9", status: "junior" },
-    { id: 10, username: "khasanov_ibroxim10", status: "junior" },
+    {id: 1, username: "khasanov_ibroxim1", status: "Professional Futbolchi", score: 4000000},
+    {id: 2, username: "khasanov_ibroxim2", status: "Mahalla Futbolchisi", score: 430500},
+    {id: 3, username: "khasanov_ibroxim3", status: "Havaskor Futbolchi", score: 50450},
+    {id: 4, username: "khasanov_ibroxim4", status: "Akademiya Futbolchisi", score: 69032},
+    {id: 5, username: "khasanov_ibroxim5", status: "Professional Futbolchi", score: 400000},
+    {id: 6, username: "khasanov_ibroxim6", status: "Terma Jamoa", score: 4000000},
+    {id: 7, username: "khasanov_ibroxim7", status: "Chempiyon", score: 4000000},
+    {id: 8, username: "khasanov_ibroxim8", status: "Legenda", score: 4000000},
+    {id: 9, username: "khasanov_ibroxim9", status: "Professional Futbolchi", score: 4000000},
+    {id: 10, username: "khasanov_ibroxim10", status: "Professional Futbolchi", score: 4000000},
 ];
 
 const Friends = () => {
@@ -39,10 +39,15 @@ const Friends = () => {
         window.open(shareLink, '_blank');
     };
 
-
+    const formatNumber = (num) => {
+        if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+        if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+        if (num >= 1e3) return (num / 1e3).toFixed(1) + 'k';
+        return num.toString();
+    };
     return (
         <div className="friends">
-            <AppBar  />
+            <AppBar/>
             {contextHolder}
             <div className="content_friends">
                 <div className="friends_content">
@@ -52,10 +57,10 @@ const Friends = () => {
                     </div>
 
                     <div className="friends_gift_card">
-                        <img src={gift} alt="Rating" />
+                        <img src={gift} alt="Rating"/>
                         <div className="friends_gift_card_text">
                             <h1>Do'st taklif qilish</h1>
-                            <p><img src={ball} alt="Ball" />+5K taklif uchun</p>
+                            <p><img src={ball} alt="Ball"/>+5K taklif uchun</p>
                         </div>
                     </div>
 
@@ -63,7 +68,7 @@ const Friends = () => {
                         <div className="friends_ref_title">
                             <div className="friends_ref_title_top">
                                 <h1>Do'stlar ro'yxati ({ref_users.length})</h1>
-                                <img src={reload} alt="Ball" />
+                                <img src={reload} alt="Ball" width={60} height={60}/>
                             </div>
                             <p>{ref_users.length > 0 ? '' : 'Siz hali hech kimni taklif qilmagansiz'}</p>
                         </div>
@@ -71,10 +76,13 @@ const Friends = () => {
                         <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
                             {displayedUsers.map(user => (
                                 <div key={user.id} className="friends_ref_item">
-                                    <img src={user_img} alt="User" />
+                                    <img src={user_img} alt="User"/>
                                     <div className="friends_ref_item_info">
                                         <h1>{user.username}</h1>
-                                        <p>{user.status}</p>
+                                        <p>
+                                            {user.status}
+                                            <span><img src={ball} alt=""/>{formatNumber(user.score)}</span>
+                                        </p>
                                     </div>
                                 </div>
                             ))}
@@ -89,7 +97,7 @@ const Friends = () => {
                         <div className="ref_link_box">
                             <div className="ref_button" onClick={openShareLink}>Do`stni taklif qilish</div>
                             <div className="ref_link" onClick={copyToClipboard}>
-                                <CopyOutlined />
+                                <CopyOutlined/>
                             </div>
                         </div>
                     </div>

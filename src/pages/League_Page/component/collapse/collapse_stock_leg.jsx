@@ -3,13 +3,13 @@ import './collapseLeg.css'; // Collapse uchun CSS
 
 const CollapseItem = ({ label, children, isOpen, onClick }) => {
     return (
-        <div className={`collapse-item ${isOpen ? 'open' : ''}`}>
-            <div className="collapse-header" onClick={onClick}>
+        <div className={`collapse-item-l ${isOpen ? 'open' : ''}`}>
+            <div className="collapse-header-l" onClick={onClick}>
                 {label}
-                <span className="collapse-icon">{isOpen ? '-' : '+'}</span>
+                <span className="collapse-icon-l">{isOpen ? '-' : '+'}</span>
             </div>
             {isOpen && (
-                <div className="collapse-content">
+                <div className="collapse-content-l">
                     {children}
                 </div>
             )}
@@ -26,7 +26,7 @@ export const Collapse_stock_leg = ({ items , setOpenKeyItem}) => {
     };
 
     return (
-        <div className="collapse-container">
+        <div className="collapse-container-l">
             {items.map((item) => (
                 <CollapseItem
                     key={item.key}
