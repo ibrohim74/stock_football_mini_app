@@ -8,6 +8,7 @@ import ready from "../../assets/icon/success.webp"
 import ongoing from "../../assets/icon/restart.webp"
 import active from "../../assets/icon/spark.webp"
 import {Link, useParams} from "react-router-dom";
+import Collapse_events from "../../component/collapse_events/collapse_events.jsx";
 
 const Events = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -54,6 +55,28 @@ const Events = () => {
         setIsModalVisible(false);
     };
 
+    const CollapseItem = eventsData.map((item, index) => ({
+        key: index.toString(),
+        label: (
+            <div className="events_item" key={index} >
+                <img src={gift} loading={"lazy"} alt="logo" className="events_item_logo"/>
+                <div className="events_item_text">
+                    <p>{item.event}</p>
+                    <span>
+                        <img loading={"lazy"} src={ball} alt="ball"/>
+                        <p>{item.event_bonus}</p>
+                    </span>
+                </div>
+                <span className="events_item_status">
+                    {item.status === "active" && <img src={active} loading={"lazy"} alt=""/>}
+                    {item.status === "ready" && <img src={ready} loading={"lazy"} alt=""/>}
+                    {item.status === "ongoing" && <img src={ongoing} loading={"lazy"} alt=""/>}
+                </span>
+            </div>
+        ),
+        children: (<>sadsad</>)
+    }))
+
     return (<div className="events">
 
         <div className="content_events">
@@ -66,7 +89,7 @@ const Events = () => {
                     <div className="events_box_content_title">
                         <h1>Kundalik vazifalar</h1>
                     </div>
-                    <Link className="events_item"  to={`/${user_id}/quiz`}>
+                    <Link className="events_item" to={`/${user_id}/quiz`}>
                         <img src={gift} loading={"lazy"} alt="logo" className="events_item_logo"/>
                         <div className="events_item_text">
                             <p>asdsad</p>
@@ -83,23 +106,7 @@ const Events = () => {
                     <div className="events_box_content_title">
                         <h1>Vazifalar ro'yxati</h1>
                     </div>
-                    {eventsData.map((item, i) => {
-                        return (<div className="events_item" key={i} onClick={() => showModal(item)}>
-                            <img src={gift} loading={"lazy"} alt="logo" className="events_item_logo"/>
-                            <div className="events_item_text">
-                                <p>{item.event}</p>
-                                <span>
-                                                <img loading={"lazy"} src={ball} alt="ball"/>
-                                                <p>{item.event_bonus}</p>
-                                            </span>
-                            </div>
-                            <span className="events_item_status">
-                                            {item.status === "active" && <img src={active}  loading={"lazy"} alt=""/>}
-                                {item.status === "ready" && <img src={ready} loading={"lazy"} alt=""/>}
-                                {item.status === "ongoing" && <img src={ongoing} loading={"lazy"} alt=""/>}
-                                        </span>
-                        </div>)
-                    })}
+                   <Collapse_events items={CollapseItem}/>
                 </div>
             </div>
         </div>

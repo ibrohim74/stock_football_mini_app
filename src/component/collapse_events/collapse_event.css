@@ -1,0 +1,78 @@
+.collapse-container-event {
+    overflow: hidden;
+    width: 95vw;
+}
+.collapse-container-event {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.collapse-item-event {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+
+.collapse-content-event {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.collapse-item-event{
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.collapse-header-event:focus , .collapse-header-event {
+    outline: none;
+}
+.collapse-header-event {
+    width: 100%;
+    /*height: 50px;*/
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.collapse-icon-event{
+    font-size: 14px;
+    color: white;
+}
+
+.collapse-content-event {
+    padding: 10px 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(250, 250, 250, 0.20);
+    color: white;
+    overflow: hidden;
+    max-height: 0; /* Boshlang'ich balandlik 0 */
+    transition: max-height 0.5s ease; /* Animatsiya */
+    width: 100%;
+}
+.collapse-item-event .collapse-content-event{
+    display: none !important;
+}
+    /* Collapse ochiq bo'lganda */
+.collapse-item-event.open .collapse-content-event {
+    max-height: 500px; /* Maksimal balandlikni tahminiy qiymat belgilang */
+    width: 84%;
+    display: block !important;
+}
+.collapse-header-event .events_item{
+    margin: 0 !important;
+}
