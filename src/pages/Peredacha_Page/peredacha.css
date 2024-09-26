@@ -1,6 +1,7 @@
 .peredacha {
     padding: 10px 10px 0 10px;
-    margin-bottom: 100px;
+    margin-bottom: 20%;
+    overflow:hidden;
 }
 
 .peredacha_time {
@@ -18,10 +19,8 @@
 
 .peredacha_list {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    height: 100vh;
+    overflow: scroll;
 }
 
 .table-row {

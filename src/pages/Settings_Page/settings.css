@@ -42,7 +42,10 @@
     width: 50px;
     height: 50px;
 }
-
+.sett{
+    height: 100vh;
+    overflow: scroll;
+}
 .sett .back-tab{
     position: absolute !important;
 }

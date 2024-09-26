@@ -1,11 +1,8 @@
 .rating{
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    height: 100vh;
+    overflow: scroll;
 }
 .rating .swiper-slide{
     width: 150px !important;
@@ -37,7 +34,7 @@
     margin-right: 50px !important;
 }
 .rating_table {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +42,7 @@
 }
 
 .rating_table_item {
-    width: 90%;
+    width: 80%;
     height: 70px;
     margin-bottom: 10px;
     padding: 5px 20px;
