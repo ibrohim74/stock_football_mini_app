@@ -260,8 +260,8 @@ const HomePageTap = () => {
                         loading={"lazy"}
                         onTouchStart={handleStart}
                         onTouchEnd={handleEnd}
-                        onMouseDown={handleStart}
-                        onMouseUp={handleEnd}
+                        // onMouseDown={handleStart}
+                        // onMouseUp={handleEnd}
                         ref={ballRef}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
