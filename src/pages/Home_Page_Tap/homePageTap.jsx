@@ -106,20 +106,32 @@ const HomePageTap = () => {
             newClickAudio.play();
         }
 
+        // Create new animations for each touch
         const newAnimations = touches.slice(0, allowedTouches).map((touch, index) => {
             const x = touch.clientX - 28;
             const y = touch.clientY - 42;
             return { id: Date.now() + index, x, y };
         });
 
+        // Update animations state to include the new animations
         setAnimations((prev) => [...prev, ...newAnimations]);
+
+        // Set the ball pressed state
         setBallPressed(true);
 
+        // Set a timeout to remove the animations after a duration
+        newAnimations.forEach(({ id }) => {
+            setTimeout(() => {
+                setAnimations((prev) => prev.filter((a) => a.id !== id));
+            }, 500); // Match this duration with your animation duration
+        });
+
+        // Set the ball pressed state back to false after a timeout
         setTimeout(() => {
-            setAnimations((prev) => prev.filter((a) => !newAnimations.includes(a)));
             setBallPressed(false);
         }, 500);
     };
+
 
     const handleEnd = () => {
         const newScore = userData.score + touchCount;
