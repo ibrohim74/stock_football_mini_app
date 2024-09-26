@@ -6,7 +6,19 @@
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background: linear-gradient(180deg, #191919 0%, #378805 100%) no-repeat;
+
+}
+/* For iOS, disable the bounce effect while scrolling */
+html, body {
     min-height: 100vh;
+    scroll-behavior: smooth;
+    touch-action: manipulation; /* Prevents scroll manipulation */
+}
+
+/* For preventing extra space when swiping up */
+body {
+    overscroll-behavior-y: contain; /* Prevents default scroll behavior */
+    -webkit-backface-visibility: hidden; /* Improves rendering performance */
 }
 
 

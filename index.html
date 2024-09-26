@@ -17,6 +17,11 @@
   </style>
 
   <script>
+    // Prevent body scrolling when user swipes up
+    document.body.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+    }, { passive: false });
+
     // O'ng tugmani (contextmenu) bloklash
     document.addEventListener('contextmenu', (event) => event.preventDefault());
 
