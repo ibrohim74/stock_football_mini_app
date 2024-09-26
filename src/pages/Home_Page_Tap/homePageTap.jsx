@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import $API from "../../utils/https.jsx";
 import user_img from "../../assets/icon/xsxxa.webp";
 import AppBar from "../../component/App_bar/app_bar.jsx";
-import clickSound from "../../assets/mixkit-soccer-ball-quick-kick-2108.wav";
+// import clickSound from "../../assets/mixkit-soccer-ball-quick-kick-2108.wav";
 import volteg from "../../assets/icon/spark.webp";
 import { useTranslation } from "react-i18next";
 import { Tour } from "antd";
@@ -15,15 +15,13 @@ const HomePageTap = () => {
     const [touchCount, setTouchCount] = useState(0);
     const [ballPressed, setBallPressed] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
-    const [soundEnabled, setSoundEnabled] = useState(true);
+    // const [soundEnabled, setSoundEnabled] = useState(true);
     const { user_id } = useParams();
     const timerRef = useRef(null);
     const { t } = useTranslation();
     const [openTour, setOpenTour] = useState(false);
     const [userData, setUserData] = useState({
-        score: 0,
         tapBonus: 1,
-        energy: 0,
         maxEnergy: 200,
         username: '',
         status: '',
@@ -52,22 +50,21 @@ const HomePageTap = () => {
 
     useEffect(() => {
         getCoinData();
-        updateServer();
     }, [user_id]);
 
     useEffect(() => {
         const savedVibration = localStorage.getItem('settings_vibr');
-        const savedSound = localStorage.getItem('settings_mute');
+        // const savedSound = localStorage.getItem('settings_mute');
 
         setVibrationEnabled(savedVibration === 'true' || savedVibration === null);
-        setSoundEnabled(savedSound === 'true' || savedSound === null);
+        // setSoundEnabled(savedSound === 'true' || savedSound === null);
 
         if (savedVibration === null) {
             localStorage.setItem('settings_vibr', 'true');
         }
-        if (savedSound === null) {
-            localStorage.setItem('settings_mute', 'true');
-        }
+        // if (savedSound === null) {
+        //     localStorage.setItem('settings_mute', 'true');
+        // }
     }, []);
 
     const updateServer = async (newScore, newEnergy) => {
@@ -81,6 +78,9 @@ const HomePageTap = () => {
             });
             getCoinData();
         } catch (e) {
+            if (e.status === 422) {
+                getCoinData();
+            }
             console.log(e);
         }
     };
@@ -95,20 +95,17 @@ const HomePageTap = () => {
     };
 
     const handleStart = (event) => {
-        // Agar energiya 0 bo'lsa, funksiya to'xtaydi
+        // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        // Faqat barmoq bilan bosilayotganini tekshirish
-        const touches = event.touches;
-        if (touches.length === 0) return; // Agar hech qanday barmoq bo'lmasa, to'xtaydi
-
-        // Har bir barmoq uchun ishlarni bajarish
+        // Barmoq yoki sichqoncha bosilishini aniqlash
+        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
         const allowedTouches = Math.min(touches.length, userData.energy);
-
+        setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
             const touch = touches[i];
-            const x = touch.clientX - 28;
-            const y = touch.clientY - 42;
+            const x = touch.clientX - 28; // X koordinati
+            const y = touch.clientY - 42; // Y koordinati
             const tapBonusValue = `+${userData.tapBonus}`;
 
             // Animatsiyani qo'shish
@@ -121,27 +118,24 @@ const HomePageTap = () => {
             }, 500);
 
             // Ovoz ijro etish
-            if (soundEnabled) {
-                const newClickAudio = new Audio(clickSound);
-                newClickAudio.play();
-            }
+            // if (soundEnabled) {
+            //     const newClickAudio = new Audio(clickSound);
+            //     newClickAudio.play();
+            // }
 
             // Vibratsiya
             if (vibrationEnabled && navigator.vibrate) {
-                navigator.vibrate(50);
+                navigator.vibrate(100);
             }
+            setBallPressed(true);
 
+            // Ball pressed holatini qayta false holatiga o'zgartirish
+            setTimeout(() => {
+                setBallPressed(false);
+            }, 100);
             // Energiyani kamaytirish
             setUserData((prev) => ({ ...prev, energy: prev.energy - 1 }));
         }
-
-        // Ball pressed state o'rnatish
-        setBallPressed(true);
-
-        // Ball pressed holatini qayta false holatiga o'zgartirish
-        setTimeout(() => {
-            setBallPressed(false);
-        }, 100);
     };
 
 
@@ -162,7 +156,7 @@ const HomePageTap = () => {
                 ...prevData,
                 energy: Math.min(prevData.maxEnergy, prevData.energy + 1)
             }));
-        }, 300);
+        }, 600);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -284,7 +278,9 @@ const HomePageTap = () => {
                 >
                     <img
                         onTouchStart={handleStart}
+                        onMouseDown={handleStart}
                         onTouchEnd={handleEnd}
+                        onMouseUp={handleEnd}
                         draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
