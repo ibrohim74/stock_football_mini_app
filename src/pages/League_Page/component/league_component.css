@@ -3,8 +3,10 @@
     overflow: hidden;
 }
 .league_data{
-    height: 100vh;
-    overflow: scroll;
+
+    overflow-y: auto; /* scroll qilish imkoniyatini beradi */
+    height: calc(100vh - 200px); /* Ekran balandligiga qarab o'lchov */
+
 }
 .swiper_league_scroll{
     margin-top: 10px;
@@ -51,6 +53,7 @@
 
 
 .fixtures {
+    width: 100%;
     margin-top: 20px;
     margin-bottom: 100px;
     display: flex;
