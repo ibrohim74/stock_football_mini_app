@@ -1,7 +1,6 @@
 .peredacha {
     padding: 10px 10px 0 10px;
     margin-bottom: 20%;
-    overflow:hidden;
 }
 
 .peredacha_time {
@@ -9,9 +8,11 @@
     justify-content: space-between;
     align-items: center;
 }
-.peredacha_time_box{
+
+.peredacha_time_box {
     text-align: center;
 }
+
 .peredacha_time h1, .peredacha_time p {
     margin: 0;
     padding: 0;
@@ -19,11 +20,18 @@
 
 .peredacha_list {
     width: 100%;
+
 }
-.peredacha_list_items{
-    overflow-y: scroll;
-    max-height: 300vh;
+
+.peredacha_list_items {
+    overflow-y: auto; /* scroll qilish imkoniyatini beradi */
+    height: calc(100vh - 200px); /* Ekran balandligiga qarab o'lchov */
+    padding-right: 10px; /* Scroll uchun joy */
+    padding-bottom: 50px; /* Oxirgi element pastda qolib ketmasligi uchun joy ajratish */
 }
+
+
+
 .table-row {
     display: flex;
     align-items: center;
@@ -36,8 +44,10 @@
     display: flex;
     flex-direction: column;
 }
-.table-row p span{
-    margin-bottom: 7px;}
+
+.table-row p span {
+    margin-bottom: 7px;
+}
 
 .team1, .team2 {
     width: 40%;
@@ -66,8 +76,7 @@
 }
 
 
-
-.peredacha_tabs{
+.peredacha_tabs {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 100%;
@@ -79,12 +88,13 @@
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.18);
     border-radius: 15px;
 }
-.peredacha__tab_item.active{
+
+.peredacha__tab_item.active {
     background: white;
     color: #191919;
 }
 
-.peredacha__tab_item{
+.peredacha__tab_item {
     background: transparent;
     color: #fff;
     height: 100%;

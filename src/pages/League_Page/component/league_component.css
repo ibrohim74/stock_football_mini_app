@@ -1,8 +1,11 @@
 .league-wrapper{
     height: 100vh;
+    overflow: hidden;
+}
+.league_data{
+    height: 100vh;
     overflow: scroll;
 }
-
 .swiper_league_scroll{
     margin-top: 10px;
 }
