@@ -234,6 +234,7 @@ const HomePageTap = () => {
 
     return (
         <div className="home-page">
+            {user_id}
             <AppBar
                 boshSahifaRef={boshSahifaRef}
                 friendsRef={friendsRef}
