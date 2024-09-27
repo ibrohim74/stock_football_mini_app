@@ -81,9 +81,9 @@ const ExpShop = () => {
     };
 
     const expItems = [
-        { id: 1, title: 'komunikatsiya', experience: 324, level: 7, coins: 513 },
-        { id: 2, title: 'ta\'lim', experience: 540, level: 8, coins: 34234 },
-        { id: 3, title: 'texnologiya', experience: 455, level: 6, coins: 23423 }
+        { id: 1, name: 'komunikatsiya', hour_coin: 324, degree: 7, price: 513 },
+        { id: 2, name: 'ta\'lim', hour_coin: 540, degree: 8, price: 34234 },
+        { id: 3, name: 'texnologiya', hour_coin: 455, degree: 6, price: 23423 }
     ];
 
     console.log(userExpData);
@@ -112,7 +112,7 @@ const ExpShop = () => {
                     <p>{formatTime(remainingTime)}</p> {/* Taymerni ko'rsatish */}
                 </div>
                 <div className="exp_box">
-                    {userExpData.map(item => (
+                    {expItems.map(item => (
                         <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
                             <div className="exp_item_header">
                                 <img src={imgHeader} loading={"lazy"} alt=""/>
