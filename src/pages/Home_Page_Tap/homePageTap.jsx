@@ -41,6 +41,7 @@ const HomePageTap = () => {
                 energy: user.energy,
                 maxEnergy: user.max_energy,
                 username: user.username,
+                first_name: user.first_name,
                 status: status.name,
                 limitCoin: status.limit_coin,
                 hour_coin: res.data.hour_coin,
@@ -93,7 +94,7 @@ const HomePageTap = () => {
         }
         timerRef.current = setTimeout(() => {
             updateServer(newScore, newEnergy);
-        }, 300);
+        }, 1000);
     };
 
     const handleStart = (event) => {
@@ -241,7 +242,7 @@ const HomePageTap = () => {
             />
             <div className="home-page_user_settings">
                 <Link to={`/${user_id}/settings`} className="home-page_user" ref={profileRef}>
-                    <h1>{userData.username}</h1>
+                    <h1>{userData.username ? userData.username : userData.first_name}</h1>
                     <span  loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </Link>
             </div>

@@ -115,8 +115,10 @@ const ExpShop = () => {
                     {expItems.map(item => (
                         <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
                             <div className="exp_item_header">
-                                <img src={imgHeader} loading={"lazy"} alt=""/>
+                                {/*<img src={item.photo} loading={"lazy"} alt=""/>*/}
+                                <img src={"https://telegra.ph/file/900a7fdbb33f941ca63f1.png"} loading={"lazy"} alt=""/>
                                 <p>{item.name}</p>
+
                             </div>
                             <div className="exp_item_body">
                                 soatiga tajriba +{item.hour_coin}
@@ -140,13 +142,20 @@ const ExpShop = () => {
                 {selectedItem && (
                     <div className="exp_modal_box">
                         <div className="exp_modal_header">
-                            <img src={selectedItem.photo} alt="asdasd"/>
+                            <img src={"https://telegra.ph/file/900a7fdbb33f941ca63f1.png"} alt="asdasd"/>
+                            {/*<img src={selectedItem.photo} alt="asdasd"/>*/}
                         </div>
                         <h2>{selectedItem.name}</h2>
+                        <p className={"exp_modal_box_desc"}>{selectedItem.description}
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, quidem.
+                        </p>
                         <p>soatiga tajriba: {selectedItem.price}</p>
                         <p>Daraja: {selectedItem.degree}</p>
                         <p>Coinlar: {formatNumber(selectedItem.price)}</p>
-                        <button>OLISH</button>
+                        <div className="exp_modal_footer">
+                            <button>OLISH</button>
+                        </div>
+
                     </div>
                 )}
             </Modal>

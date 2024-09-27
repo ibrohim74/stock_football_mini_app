@@ -7,18 +7,21 @@
     flex-direction: column;
     overflow: hidden;
 }
-.exp_content{
+
+.exp_content {
     height: 100vh;
     overflow: scroll;
     width: 100vw;
 }
-.exp_nav_box{
+
+.exp_nav_box {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
 }
+
 .exp_nav {
     margin-top: 25px;
     width: 90%;
@@ -101,8 +104,8 @@
 }
 
 .exp_item_header img {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: auto;
 }
 
 .item_footer {
@@ -143,7 +146,8 @@
     justify-content: space-around;
     width: 50%;
 }
-.exp_modal{
+
+.exp_modal {
     backdrop-filter: blur(50px);
     border: 1px solid rgba(0, 0, 0, 0.1);
     background: rgba(250, 250, 250, 0.20) !important;
@@ -151,17 +155,40 @@
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.18);
     color: white;
 }
-.exp_modal .ant-modal-content{
+
+.exp_modal .ant-modal-content {
     background: none;
 }
-.exp_modal .ant-modal-header , .exp_modal .ant-modal-title{
+
+.exp_modal .ant-modal-header, .exp_modal .ant-modal-title {
     background: none;
     color: white;
 }
-.exp_modal .ant-modal-content .ant-modal-close svg{color: white}
-.exp_modal img{
+
+.exp_modal .ant-modal-content .ant-modal-close svg {
+    color: white
+}
+.exp_modal_header{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.exp_modal .exp_modal_header img {
+    width: 60%;
+    height:150px;
+    object-fit: cover;
+}
+.exp_modal_box h2{
+    text-align: center;
+    font-size: 25px;
+}
+.exp_modal_footer{
     width: 100%;
-    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 .exp_modal .ant-modal-footer {
     display: none !important;
@@ -171,7 +198,26 @@
     width: 70%;
     padding: 15px 0;
     border-radius: 10px;
-    background: #535bf2;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(250, 250, 250, 0.20);
     outline: none;
-    border: none;
+    color: white;
+    font-size: 18px;
+}
+.exp_modal_box_desc{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+
+
+
+.ant-modal{
+    padding-bottom: 0 !important;
+}
+.ant-modal-wrap{
+    top: -64px !important;
 }
