@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import ball from "../../assets/icons/icons8-football-50.svg";
-import { Collapse_Stock } from "../../component/collapse/collapse_stock.jsx";
+import {Collapse_Stock} from "../../component/collapse/collapse_stock.jsx";
 import axios from 'axios';
 import {
     uzbekistan_league,
@@ -35,7 +35,7 @@ const HomePageFootball = () => {
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-        params: { live: 'all' },
+        params: {live: 'all'},
         headers: {
             'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
             'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
@@ -52,7 +52,7 @@ const HomePageFootball = () => {
             const filteredLiveGames = liveGamesData.filter(game =>
                 allLeagues.some(league => league.id === game.league.id)
             );
-
+            console.log(filteredLiveGames)
             setLiveGames(filteredLiveGames); // Filtrlangan jonli o'yinlarni set qilamiz
         } catch (error) {
             console.error(error);
@@ -84,33 +84,56 @@ const HomePageFootball = () => {
     };
 
     // Mapping over the filtered liveGames to create items for Collapse_stock_leg
-    const items = liveGames.map((game, index) => ({
-        key: index.toString(),
-        label: (
-            <div className="table-row">
-                <div className="team1">
-                    <h1>{game.teams.home.name}</h1>
-                    <img loading={"lazy"} src={game.teams.home.logo || ball} alt={game.teams.home.name} />
+    const items = liveGames.map((game, index) => {
+        // Gollarni filtrlaymiz
+        const goals = game.events?.filter(event => event.type === 'Goal') || [];
+
+        return {
+            key: index.toString(),
+            label: (
+                <div className="table-row">
+                    <div className="team1">
+                        <h1>{game.teams.home.name}</h1>
+                        <img loading={"lazy"} src={game.teams.home.logo || ball} alt={game.teams.home.name}/>
+                    </div>
+                    <p>
+                        <span>Soat</span> {formatToTashkentTime(game.fixture.date) === formatToTashkentTime(game.fixture.date) ?
+                        <>{game.goals.home} - {game.goals.away}</>
+                    : <>{formatToTashkentTime(game.fixture.date)}</>
+                    }</p>
+                    <div className="team2">
+                        <img loading={"lazy"} src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball}
+                             alt={game.teams.away.name}/>
+                        <h1>{game.teams.away.name}</h1>
+                    </div>
+                    </div>
+                        ),
+                        children: (
+                        <div>
+                        <p>League: {game.league.name}</p>
+                    <p>Score: {game.goals.home} - {game.goals.away}</p>
+                    <p>Match Date: {new Date(game.fixture.date).toLocaleDateString()}</p>
+                    <p><strong>Goals:</strong></p>
+                    <ul>
+                        {goals.length > 0 ? (
+                            goals.map((goal, idx) => (
+                                <li key={idx}>
+                                    {goal.player.name} ({goal.team.name}) - {goal.time.elapsed}'
+                                </li>
+                            ))
+                        ) : (
+                            <li>Hozircha gollar yo'q</li>
+                        )}
+                    </ul>
                 </div>
-                <p><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</p>
-                <div className="team2">
-                    <img loading={"lazy"} src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball} alt={game.teams.away.name} />
-                    <h1>{game.teams.away.name}</h1>
-                </div>
-            </div>
-        ),
-        children: (
-            <div>
-                <p>League: {game.league.name}</p>
-                <p>Score: {game.goals.home} - {game.goals.away}</p>
-                <p>Match Date: {new Date(game.fixture.date).toLocaleDateString()}</p>
-            </div>
-        ),
-    }));
+            ),
+    };
+    });
+
     return (
         <div className={"homePageFootball"}>
             <h1 className={"footballTitle"}>
-                <BackTab back_url={`/${user_id}`} />
+                <BackTab back_url={`/${user_id}`}/>
                 <span>
                    LIVE
 
@@ -123,10 +146,11 @@ const HomePageFootball = () => {
             </h1>
 
             <div className={"footballContent"}>
-                {loading ? <p>Loading...</p> : (liveGames.length > 0 ? <Collapse_Stock items={items} /> : "Hozirda mavjud o'yinlar yo'q")}
+                {loading ? <p>Loading...</p> : (liveGames.length > 0 ?
+                    <Collapse_Stock items={items}/> : "Hozirda mavjud o'yinlar yo'q")}
             </div>
         </div>
     );
-};
+    };
 
-export default HomePageFootball;
+    export default HomePageFootball;
