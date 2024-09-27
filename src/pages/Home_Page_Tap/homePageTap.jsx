@@ -9,6 +9,7 @@ import AppBar from "../../component/App_bar/app_bar.jsx";
 import volteg from "../../assets/icon/spark.webp";
 import { useTranslation } from "react-i18next";
 import { Tour } from "antd";
+import Odometer from "react-odometerjs";
 
 const HomePageTap = () => {
     const [animations, setAnimations] = useState([]);
@@ -266,7 +267,7 @@ const HomePageTap = () => {
                 </div>
                 <div className="tap_coin">
                     <img loading={"lazy"} src={ball} alt=""/>
-                    <h1>{userData.score}</h1>
+                    <h1><Odometer value={userData.score} format="(.ddd),dd" /></h1>
                 </div>
                 {/*<div className="tap_ball_energy">*/}
                 {/*    <div className="energy_line">*/}

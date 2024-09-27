@@ -135,7 +135,10 @@
     align-items: center;
     margin-bottom: 20px;
 }
-
+.exp_ball p{
+    margin: 0;
+    padding: 0;
+}
 .exp_ball h1 {
     margin: 0;
     margin-left: 5px;
@@ -221,3 +224,11 @@
 .ant-modal-wrap{
     top: -64px !important;
 }
+
+
+
+
+
+
+
+
