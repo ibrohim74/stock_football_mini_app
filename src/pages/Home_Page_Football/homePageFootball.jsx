@@ -53,7 +53,7 @@ const HomePageFootball = () => {
                 allLeagues.some(league => league.id === game.league.id)
             );
 
-            setLiveGames(liveGamesData); // Filtrlangan jonli o'yinlarni set qilamiz
+            setLiveGames(filteredLiveGames); // Filtrlangan jonli o'yinlarni set qilamiz
         } catch (error) {
             console.error(error);
         } finally {
