@@ -122,7 +122,7 @@ const ExpShop = () => {
                                 soatiga tajriba +{item.hour_coin}
                             </div>
                             <div className="item_footer">
-                                <div className="item_footer_exp">{item.degree + 1}-dar</div>
+                                <div className="item_footer_exp">{item.degree }-dar</div>
                                 <div className="item_footer_coin">
                                     <img src={ball} loading={"lazy"} alt="" width={15}/>
                                     {formatNumber(item.price)}
@@ -138,11 +138,14 @@ const ExpShop = () => {
             <Modal title="Tajriba tafsilotlari" className={"exp_modal"} visible={isModalVisible} onOk={handleOk}
                    onCancel={handleCancel}>
                 {selectedItem && (
-                    <div>
+                    <div className="exp_modal_box">
+                        <div className="exp_modal_header">
+                            <img src={selectedItem.photo} alt="asdasd"/>
+                        </div>
                         <h2>{selectedItem.name}</h2>
-                        <p>Tajriba: {selectedItem.price}</p>
-                        {/*<p>Daraja: {selectedItem.level}</p>*/}
-                        {/*<p>Coinlar: {formatNumber(selectedItem.coins)}</p>*/}
+                        <p>soatiga tajriba: {selectedItem.price}</p>
+                        <p>Daraja: {selectedItem.degree}</p>
+                        <p>Coinlar: {formatNumber(selectedItem.price)}</p>
                         <button>OLISH</button>
                     </div>
                 )}
