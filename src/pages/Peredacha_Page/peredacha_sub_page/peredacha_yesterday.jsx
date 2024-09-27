@@ -81,7 +81,7 @@ const PeredachaYesterday = ({ leagueList }) => {
     }));
 
     return (
-        <div>
+        <div className={"peredacha_list_items"}>
             {loading ? (
                 <p>Loading...</p>
             ) : (
