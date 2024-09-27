@@ -47,7 +47,6 @@ const Friends = () => {
     };
     return (
         <div className="friends">
-            <AppBar/>
             {contextHolder}
             <div className="content_friends">
                 <div className="friends_content">

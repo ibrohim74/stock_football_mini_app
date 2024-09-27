@@ -15,7 +15,13 @@ const AppBar = ({boshSahifaRef , friendsRef , eventsRef , peredachaRef , ratingR
         <div className="app_bar">
             <div className="app_bar_content">
                 <Link to={`/${user_id}`} className="app_bar_content_item" ref={boshSahifaRef}>
-                    <span><img src={ball} alt="Home" loading={"lazy"}/></span>
+                    <span><img src={ball} alt="Home" loading={"lazy"}
+                            style={{
+                                width:"40px",
+                                height:"40px",
+                                marginTop:"8px"
+                            }}
+                    /></span>
                     <p>Bosh sahifa</p>
                 </Link>
                 <Link to={`/${user_id}/friends`} className="app_bar_content_item" ref={friendsRef}>
