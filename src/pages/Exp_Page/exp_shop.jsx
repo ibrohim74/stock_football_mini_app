@@ -13,13 +13,13 @@ const ExpShop = () => {
     const [isModalVisible, setIsModalVisible] = useState(false); // Modal uchun state
     const [selectedItem, setSelectedItem] = useState(null); // Bosilgan exp_item uchun state
     const { user_id } = useParams();
-
+    const [userExpData, setUserExpData] = useState([])
     const getCoinData = async () => {
         try {
             const res = await $API.get(`/users/${user_id}`);
             setScore(res.data.user_data.coins);
             setTapBonus(res.data.user_data.bonus);
-
+            setUserExpData(res.data.experience)
             const startDate = res.data.user_data.start_date ? new Date(res.data.user_data.start_date) : new Date();
             const endDate = res.data.user_data.end_date ? new Date(res.data.user_data.end_date) : new Date("2024-09-27T00:00:00.000Z");
 
@@ -32,7 +32,7 @@ const ExpShop = () => {
             setRemainingTime(timeDifference);
         }
     };
-
+    console.log()
     const formatNumber = (num) => {
         if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
         if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
@@ -86,55 +86,63 @@ const ExpShop = () => {
         { id: 3, title: 'texnologiya', experience: 455, level: 6, coins: 23423 }
     ];
 
+    console.log(userExpData);
     return (
         <div className="ExpShop">
-            <div className="exp_nav">
-                <div className="exp_tap_bonus">
-                    <h1>Tap Bonus</h1>
-                    <p>+{tapBonus}</p>
-                </div>
-                <div className="exp_exp">
-                    <h1>Tajribangiz</h1>
-                    <p>{formatNumber(4000000)}</p>
-                </div>
-            </div>
-            <div className="exp_ball_score">
-                <div className="exp_ball">
-                    <img src={ball} alt="" loading={"lazy"} width={25} />
-                    <h1>{score}</h1>
-                </div>
-                <button>Tajriba ortirish</button>
-                <p>{formatTime(remainingTime)}</p> {/* Taymerni ko'rsatish */}
-            </div>
-            <div className="exp_box">
-                {expItems.map(item => (
-                    <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
-                        <div className="exp_item_header">
-                            <img src={imgHeader} loading={"lazy"} alt="" />
-                            <p>{item.title}</p>
+            <div className="exp_content">
+                <div className="exp_nav_box">
+                    <div className="exp_nav">
+                        <div className="exp_tap_bonus">
+                            <h1>Tap Bonus</h1>
+                            <p>+{tapBonus}</p>
                         </div>
-                        <div className="exp_item_body">
-                            soatiga tajriba +{item.experience}
-                        </div>
-                        <div className="item_footer">
-                            <div className="item_footer_exp">{item.level}-dar</div>
-                            <div className="item_footer_coin">
-                                <img src={ball} loading={"lazy"} alt="" width={15} />
-                                {formatNumber(item.coins)}
-                            </div>
+                        <div className="exp_exp">
+                            <h1>Tajribangiz</h1>
+                            <p>{formatNumber(4000000)}</p>
                         </div>
                     </div>
-                ))}
+                </div>
+
+                <div className="exp_ball_score">
+                    <div className="exp_ball">
+                        <img src={ball} alt="" loading={"lazy"} width={25}/>
+                        <h1>{score}</h1>
+                    </div>
+                    <button>Tajriba ortirish</button>
+                    <p>{formatTime(remainingTime)}</p> {/* Taymerni ko'rsatish */}
+                </div>
+                <div className="exp_box">
+                    {userExpData.map(item => (
+                        <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
+                            <div className="exp_item_header">
+                                <img src={imgHeader} loading={"lazy"} alt=""/>
+                                <p>{item.name}</p>
+                            </div>
+                            <div className="exp_item_body">
+                                soatiga tajriba +{item.hour_coin}
+                            </div>
+                            <div className="item_footer">
+                                <div className="item_footer_exp">{item.degree + 1}-dar</div>
+                                <div className="item_footer_coin">
+                                    <img src={ball} loading={"lazy"} alt="" width={15}/>
+                                    {formatNumber(item.price)}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
+
             {/* Modal */}
-            <Modal title="Tajriba tafsilotlari" className={"exp_modal"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="Tajriba tafsilotlari" className={"exp_modal"} visible={isModalVisible} onOk={handleOk}
+                   onCancel={handleCancel}>
                 {selectedItem && (
                     <div>
-                        <h2>{selectedItem.title}</h2>
-                        <p>Tajriba: {selectedItem.experience}</p>
-                        <p>Daraja: {selectedItem.level}</p>
-                        <p>Coinlar: {formatNumber(selectedItem.coins)}</p>
+                        <h2>{selectedItem.name}</h2>
+                        <p>Tajriba: {selectedItem.price}</p>
+                        {/*<p>Daraja: {selectedItem.level}</p>*/}
+                        {/*<p>Coinlar: {formatNumber(selectedItem.coins)}</p>*/}
                         <button>OLISH</button>
                     </div>
                 )}
