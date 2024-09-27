@@ -26,6 +26,7 @@ const HomePageTap = () => {
         username: '',
         status: '',
         limitCoin: 30,
+        hour_coin: 0,
     });
 
     const getCoinData = async () => {
@@ -42,6 +43,7 @@ const HomePageTap = () => {
                 username: user.username,
                 status: status.name,
                 limitCoin: status.limit_coin,
+                hour_coin: res.data.hour_coin,
             });
         } catch (e) {
             console.log(e);
@@ -156,7 +158,7 @@ const HomePageTap = () => {
                 ...prevData,
                 energy: Math.min(prevData.maxEnergy, prevData.energy + 1)
             }));
-        }, 600);
+        }, 750);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -253,12 +255,12 @@ const HomePageTap = () => {
                     <span className={"ball-score-line2"}></span>
                     <div className="ball-score ball-score-status">
                         <p>Darajangiz</p>
-                        <h1>Akademiya Futbolchisi</h1>
+                        <h1>{userData.status}</h1>
                     </div>
 
                     <Link className="ball-score" to={`/${user_id}/exp_shop`}>
                         <p>Tajriba</p>
-                        <h1>400k</h1>
+                        <h1>{userData.hour_coin ? formatNumber(userData.hour_coin) : 0}</h1>
                     </Link>
                 </div>
                 <div className="tap_coin">

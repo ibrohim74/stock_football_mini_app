@@ -122,11 +122,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    left: 29%;
+    left: 33%;
 }
 
 .ball-score-line2 {
-    left: 78%;
+    left: 74%;
 }
 
 .ball-score-status h1 {
