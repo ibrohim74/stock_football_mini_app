@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
-import { Link, useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import $API from "../../utils/https.jsx";
 import user_img from "../../assets/icon/xsxxa.webp";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 // import clickSound from "../../assets/mixkit-soccer-ball-quick-kick-2108.wav";
 import volteg from "../../assets/icon/spark.webp";
-import { useTranslation } from "react-i18next";
-import { Tour } from "antd";
+import {useTranslation} from "react-i18next";
+import {Tour} from "antd";
 import Odometer from "react-odometerjs";
 
 
@@ -18,9 +18,9 @@ const HomePageTap = () => {
     const [ballPressed, setBallPressed] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     // const [soundEnabled, setSoundEnabled] = useState(true);
-    const { user_id } = useParams();
+    const {user_id} = useParams();
     const timerRef = useRef(null);
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [openTour, setOpenTour] = useState(false);
     const [userData, setUserData] = useState({
         tapBonus: 1,
@@ -74,8 +74,9 @@ const HomePageTap = () => {
 
     const updateServer = async (newScore, newEnergy) => {
         try {
-            console.log(parseInt(newScore) , parseInt(newEnergy))
-            await $API.patch(`/users/${user_id}`, null,{params:
+            console.log(parseInt(newScore), parseInt(newEnergy))
+            await $API.patch(`/users/${user_id}`, null, {
+                params:
                     {
                         coins: newScore,
                         energy: newEnergy
@@ -104,8 +105,8 @@ const HomePageTap = () => {
         if (userData.energy <= 0) return;
 
         // Barmoq yoki sichqoncha bosilishini aniqlash
-        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
-        console.log("start: ",touches)
+        const touches = event.touches || [{clientX: event.clientX, clientY: event.clientY}];
+        console.log("start: ", touches)
         // console.log("start2: ", [{ clientX: event.clientX, clientY: event.clientY }])
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches)
@@ -116,7 +117,7 @@ const HomePageTap = () => {
             const tapBonusValue = userData.tapBonus;
 
             // Animatsiyani qo'shish
-            const newAnimation = { id: Date.now() + i, x, y, tapBonus: tapBonusValue };
+            const newAnimation = {id: Date.now() + i, x, y, tapBonus: tapBonusValue};
             setAnimations((prev) => [...prev, newAnimation]);
 
             // Animatsiyani 500ms dan keyin olib tashlash
@@ -141,7 +142,7 @@ const HomePageTap = () => {
                 setBallPressed(false);
             }, 100);
             // Energiyani kamaytirish
-            setUserData((prev) => ({ ...prev, energy: prev.energy - 1 }));
+            setUserData((prev) => ({...prev, energy: prev.energy - 1}));
         }
     };
 
@@ -149,11 +150,10 @@ const HomePageTap = () => {
         console.log(touchCount)
         const newScore = userData.score + touchCount * userData.tapBonus;
         const newEnergy = Math.max(0, userData.energy - touchCount);
-        setUserData((prevData) => ({ ...prevData, score: newScore, energy: newEnergy }));
+        setUserData((prevData) => ({...prevData, score: newScore, energy: newEnergy}));
         setTouchCount(0);
         debounceUpdate(newScore, newEnergy);
     };
-
 
 
     useEffect(() => {
@@ -247,7 +247,7 @@ const HomePageTap = () => {
             <div className="home-page_user_settings">
                 <Link to={`/${user_id}/settings`} className="home-page_user" ref={profileRef}>
                     <h1>{userData.username ? userData.username : userData.first_name}</h1>
-                    <span  loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
+                    <span loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
                 </Link>
             </div>
             <div className="ball-content">
@@ -270,7 +270,7 @@ const HomePageTap = () => {
                 </div>
                 <div className="tap_coin">
                     <img loading={"lazy"} src={ball} alt=""/>
-                    <h1><Odometer value={userData.score} format="(.ddd),dd" /></h1>
+                    <h1><Odometer value={userData.score} format="(.ddd),dd"/></h1>
                 </div>
                 {/*<div className="tap_ball_energy">*/}
                 {/*    <div className="energy_line">*/}
@@ -284,15 +284,15 @@ const HomePageTap = () => {
                      ref={ballRef}
                      onTouchStart={handleStart}
                      onTouchEnd={handleEnd}
+                     onMouseDown={handleStart}
+                     onMouseUp={handleEnd}
                 >
                     <img
 
-                        // onMouseDown={handleStart}
 
-                        // onMouseUp={handleEnd}
                         draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
-                        />
+                    />
 
                     {animations.map(({id, x, y, tapBonus}) => (
                         <div key={id} className="ball-animation" style={{left: x, top: y}}>
