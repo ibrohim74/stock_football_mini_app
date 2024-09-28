@@ -100,45 +100,53 @@ const HomePageTap = () => {
     };
 
     const handleStart = (event) => {
+        // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
+        // Barmoq yoki sichqoncha bosilishini aniqlash
         const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
+        console.log("start: ",touches)
+        // console.log("start2: ", [{ clientX: event.clientX, clientY: event.clientY }])
         const allowedTouches = Math.min(touches.length, userData.energy);
-        console.log(allowedTouches)
-        let newEnergy = userData.energy;
-        let totalTouches = 0;
-
+        setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
             const touch = touches[i];
-            const x = touch.clientX - 28;
-            const y = touch.clientY - 42;
-            const tapBonusValue = `${userData.tapBonus}`;
+            const x = touch.clientX - 28; // X koordinati
+            const y = touch.clientY - 42; // Y koordinati
+            const tapBonusValue = userData.tapBonus;
 
+            // Animatsiyani qo'shish
             const newAnimation = { id: Date.now() + i, x, y, tapBonus: tapBonusValue };
             setAnimations((prev) => [...prev, newAnimation]);
 
+            // Animatsiyani 500ms dan keyin olib tashlash
             setTimeout(() => {
                 setAnimations((prev) => prev.filter((a) => a.id !== newAnimation.id));
             }, 500);
 
+            // Ovoz ijro etish
+            // if (soundEnabled) {
+            //     const newClickAudio = new Audio(clickSound);
+            //     newClickAudio.play();
+            // }
+
+            // Vibratsiya
             if (vibrationEnabled && navigator.vibrate) {
                 navigator.vibrate(100);
             }
-
             setBallPressed(true);
+
+            // Ball pressed holatini qayta false holatiga o'zgartirish
             setTimeout(() => {
                 setBallPressed(false);
             }, 100);
-
-            totalTouches++;
-            newEnergy--; // energiyani kamaytiramiz
+            // Energiyani kamaytirish
+            setUserData((prev) => ({ ...prev, energy: prev.energy - 1 }));
         }
-
-        setUserData((prev) => ({ ...prev, energy: newEnergy }));
-        setTouchCount(totalTouches);  // Bir marta sanaymiz
     };
 
     const handleEnd = () => {
+        console.log(touchCount)
         const newScore = userData.score + touchCount * userData.tapBonus;
         const newEnergy = Math.max(0, userData.energy - touchCount);
         setUserData((prevData) => ({ ...prevData, score: newScore, energy: newEnergy }));
@@ -274,12 +282,14 @@ const HomePageTap = () => {
                 <div className="tap_ball"
                      onContextMenu={(e) => e.preventDefault()}
                      ref={ballRef}
+                     onTouchStart={handleStart}
+                     onTouchEnd={handleEnd}
                 >
                     <img
-                        // onTouchStart={handleStart}
-                        onMouseDown={handleStart}
-                        // onTouchEnd={handleEnd}
-                        onMouseUp={handleEnd}
+
+                        // onMouseDown={handleStart}
+
+                        // onMouseUp={handleEnd}
                         draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
