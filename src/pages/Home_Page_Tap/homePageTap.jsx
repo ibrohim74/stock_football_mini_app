@@ -74,19 +74,18 @@ const HomePageTap = () => {
 
     const updateServer = async (newScore, newEnergy) => {
         try {
-            console.log(newScore , newEnergy);
-            const res = await $API.patch(`/users/${user_id}`, null,{params:
+            console.log(parseInt(newScore) , parseInt(newEnergy))
+            await $API.patch(`/users/${user_id}`, null,{params:
                     {
                         coins: newScore,
                         energy: newEnergy
                     }
             });
-            if (res.status === 200) {
-                getCoinData()
-            }
-
+            getCoinData();
         } catch (e) {
-            getCoinData()
+            if (e.status === 422) {
+                getCoinData();
+            }
             console.log(e);
         }
     };
@@ -144,7 +143,6 @@ const HomePageTap = () => {
         const newEnergy = Math.max(0, userData.energy - touchCount);
         setUserData((prevData) => ({ ...prevData, score: newScore, energy: newEnergy }));
         setTouchCount(0);
-
         debounceUpdate(newScore, newEnergy);
     };
 
