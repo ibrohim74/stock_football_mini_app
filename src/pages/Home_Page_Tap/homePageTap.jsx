@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Tour } from "antd";
 import Odometer from "react-odometerjs";
 
+
 const HomePageTap = () => {
     const [animations, setAnimations] = useState([]);
     const [touchCount, setTouchCount] = useState(0);
@@ -73,18 +74,19 @@ const HomePageTap = () => {
 
     const updateServer = async (newScore, newEnergy) => {
         try {
-            console.log(parseInt(newScore) , parseInt(newEnergy))
-            await $API.patch(`/users/${user_id}`, null,{params:
+            console.log(newScore , newEnergy);
+            const res = await $API.patch(`/users/${user_id}`, null,{params:
                     {
                         coins: newScore,
                         energy: newEnergy
                     }
             });
-            getCoinData();
-        } catch (e) {
-            if (e.status === 422) {
-                getCoinData();
+            if (res.status === 200) {
+                getCoinData()
             }
+
+        } catch (e) {
+            getCoinData()
             console.log(e);
         }
     };
@@ -99,59 +101,53 @@ const HomePageTap = () => {
     };
 
     const handleStart = (event) => {
-        // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        // Barmoq yoki sichqoncha bosilishini aniqlash
         const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
         const allowedTouches = Math.min(touches.length, userData.energy);
-        setTouchCount(allowedTouches)
+        console.log(allowedTouches)
+        let newEnergy = userData.energy;
+        let totalTouches = 0;
+
         for (let i = 0; i < allowedTouches; i++) {
             const touch = touches[i];
-            const x = touch.clientX - 28; // X koordinati
-            const y = touch.clientY - 42; // Y koordinati
+            const x = touch.clientX - 28;
+            const y = touch.clientY - 42;
             const tapBonusValue = `${userData.tapBonus}`;
 
-            // Animatsiyani qo'shish
             const newAnimation = { id: Date.now() + i, x, y, tapBonus: tapBonusValue };
             setAnimations((prev) => [...prev, newAnimation]);
 
-            // Animatsiyani 500ms dan keyin olib tashlash
             setTimeout(() => {
                 setAnimations((prev) => prev.filter((a) => a.id !== newAnimation.id));
             }, 500);
 
-            // Ovoz ijro etish
-            // if (soundEnabled) {
-            //     const newClickAudio = new Audio(clickSound);
-            //     newClickAudio.play();
-            // }
-
-            // Vibratsiya
             if (vibrationEnabled && navigator.vibrate) {
                 navigator.vibrate(100);
             }
-            setBallPressed(true);
 
-            // Ball pressed holatini qayta false holatiga o'zgartirish
+            setBallPressed(true);
             setTimeout(() => {
                 setBallPressed(false);
             }, 100);
-            // Energiyani kamaytirish
-            setUserData((prev) => ({ ...prev, energy: prev.energy - 1 }));
+
+            totalTouches++;
+            newEnergy--; // energiyani kamaytiramiz
         }
+
+        setUserData((prev) => ({ ...prev, energy: newEnergy }));
+        setTouchCount(totalTouches);  // Bir marta sanaymiz
     };
-
-
-
 
     const handleEnd = () => {
         const newScore = userData.score + touchCount * userData.tapBonus;
         const newEnergy = Math.max(0, userData.energy - touchCount);
         setUserData((prevData) => ({ ...prevData, score: newScore, energy: newEnergy }));
         setTouchCount(0);
+
         debounceUpdate(newScore, newEnergy);
     };
+
 
 
     useEffect(() => {
@@ -282,9 +278,9 @@ const HomePageTap = () => {
                      ref={ballRef}
                 >
                     <img
-                        onTouchStart={handleStart}
+                        // onTouchStart={handleStart}
                         onMouseDown={handleStart}
-                        onTouchEnd={handleEnd}
+                        // onTouchEnd={handleEnd}
                         onMouseUp={handleEnd}
                         draggable={false}
                         src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
