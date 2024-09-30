@@ -9,7 +9,7 @@ import {
     portugal_league, spain_league, uzbekistan_league
 } from "../League_Page/component/leagueList.jsx";
 import {useParams} from "react-router-dom";
-import BackTab from "../../component/backTab/BackTab.jsx";
+
 import {useTranslation} from "react-i18next";
 
 const Peredacha = () => {
@@ -61,7 +61,7 @@ const Peredacha = () => {
         <div className="peredacha">
 
             <div className="peredacha_time">
-                <BackTab back_url={`/${user_id}`} />
+
                 <div className="peredacha_time_box">
                     <h1>{formattedTime}</h1>
                     <p>{formattedDate}</p>

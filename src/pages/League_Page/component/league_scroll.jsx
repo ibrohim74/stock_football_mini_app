@@ -16,7 +16,6 @@ import {
     germany_league,
     italy_league
 } from "./leagueList.jsx";
-import BackTab from "../../../component/backTab/BackTab.jsx";
 import {useParams} from "react-router-dom";
 
 const monthNames = [
@@ -250,7 +249,6 @@ const LeagueScroll = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <BackTab back_url={`/${user_id}`}/>
             <div className="league_data">
                 {loadingFixtures ? (
                     <div className="loading-indicator">Loading...</div>

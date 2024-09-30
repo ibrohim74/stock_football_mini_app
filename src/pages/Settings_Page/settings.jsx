@@ -6,7 +6,7 @@ import {Dropdown, Space} from "antd";
 import {languages} from "../../utils/lang/langs.jsx";
 import {DownOutlined} from "@ant-design/icons";
 import {useLanguage} from "../../utils/lang/LangContext.jsx";
-import BackTab from "../../component/backTab/BackTab.jsx";
+
 import {useParams} from "react-router-dom";
 
 
@@ -37,7 +37,7 @@ const Settings = () => {
 
     return (
         <div className={'sett'}>
-            <BackTab back_url={`/${user_id}`}/>
+
             <div className="settings">
 
                 <div className="settings_box">
