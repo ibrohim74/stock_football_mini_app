@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import LeagueScroll from './component/league_scroll.jsx';
-import { useNavigate, useParams } from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 const League = () => {
     const { user_id } = useParams();
@@ -12,7 +12,7 @@ const League = () => {
 
         // Correcting the event listener assignment
         backButton.onClick = () => {
-            navigate(`/${user_id}`);
+            return <Link to={`/${user_id}`}>sad</Link>
         };
 
         // Cleanup: hide the back button on component unmount

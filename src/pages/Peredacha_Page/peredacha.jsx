@@ -6,7 +6,7 @@ import PeredachaTomorrow from "./peredacha_sub_page/peredacha_tomorrow.jsx";
 import PeredachaYesterday from "./peredacha_sub_page/peredacha_yesterday.jsx";
 import {
     england_league, france_league, germany_league, italy_league,
-    portugal_league, russian_league, spain_league, uzbekistan_league
+    portugal_league, spain_league, uzbekistan_league
 } from "../League_Page/component/leagueList.jsx";
 import {useParams} from "react-router-dom";
 import BackTab from "../../component/backTab/BackTab.jsx";
@@ -27,7 +27,7 @@ const Peredacha = () => {
             ...france_league,
             ...germany_league,
             ...italy_league,
-            ...russian_league
+
         ]);
     }, []);
 

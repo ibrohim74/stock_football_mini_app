@@ -9,7 +9,7 @@ import {
     germany_league,
     italy_league,
     spain_league,
-    portugal_league, russian_league
+    portugal_league
 } from "../League_Page/component/leagueList.jsx";
 import BackTab from "../../component/backTab/BackTab.jsx";
 import "./footballHomePage.css"
@@ -30,7 +30,7 @@ const HomePageFootball = () => {
         ...italy_league,
         ...spain_league,
         ...portugal_league,
-        ...russian_league
+
     ];
 
     const options = {

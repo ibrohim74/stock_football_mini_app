@@ -14,7 +14,7 @@ import {
     portugal_league,
     france_league,
     germany_league,
-    italy_league, russian_league
+    italy_league
 } from "./leagueList.jsx";
 import BackTab from "../../../component/backTab/BackTab.jsx";
 import {useParams} from "react-router-dom";
@@ -42,7 +42,7 @@ const LeagueScroll = () => {
             ...france_league,
             ...germany_league,
             ...italy_league,
-            ...russian_league
+
         ];
         setLeagues(allLeagues);
         if (allLeagues.length > 0) {
