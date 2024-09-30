@@ -10,6 +10,7 @@ import volteg from "../../assets/icon/spark.webp";
 import {useTranslation} from "react-i18next";
 import {Tour} from "antd";
 import Odometer from "react-odometerjs";
+import LoaderFootball from "../../component/loader/loader_football.jsx";
 
 
 const HomePageTap = () => {
@@ -30,8 +31,9 @@ const HomePageTap = () => {
         limitCoin: 30,
         hour_coin: 0,
     });
-
+    const [loader, setLoader] = useState(false);
     const getCoinData = async () => {
+        setLoader(true);  // loaderni ko'rsatish
         try {
             const res = await $API.get(`/users/${user_id}`);
             console.log(res)
@@ -50,8 +52,11 @@ const HomePageTap = () => {
             });
         } catch (e) {
             console.log(e);
+        } finally {
+            setLoader(false);  // loaderni yashirish
         }
     };
+
 
     useEffect(() => {
         getCoinData();
@@ -82,10 +87,38 @@ const HomePageTap = () => {
                         energy: newEnergy
                     }
             });
-            getCoinData();
+            const res = await $API.get(`/users/${user_id}`);
+            console.log(res)
+            const user = res.data.user_data;
+            const status = res.data.status;
+            setUserData({
+                score: user.coins,
+                tapBonus: user.bonus,
+                energy: user.energy,
+                maxEnergy: user.max_energy,
+                username: user.username,
+                first_name: user.first_name,
+                status: status.name,
+                limitCoin: status.limit_coin,
+                hour_coin: res.data.hour_coin,
+            });
         } catch (e) {
             if (e.status === 422) {
-                getCoinData();
+                const res = await $API.get(`/users/${user_id}`);
+                console.log(res)
+                const user = res.data.user_data;
+                const status = res.data.status;
+                setUserData({
+                    score: user.coins,
+                    tapBonus: user.bonus,
+                    energy: user.energy,
+                    maxEnergy: user.max_energy,
+                    username: user.username,
+                    first_name: user.first_name,
+                    status: status.name,
+                    limitCoin: status.limit_coin,
+                    hour_coin: res.data.hour_coin,
+                });
             }
             console.log(e);
         }
@@ -193,7 +226,7 @@ const HomePageTap = () => {
         },
         {
             title: t("tour.tajriba.title"),
-            description:t("tour.tajriba.description"),
+            description: t("tour.tajriba.description"),
             target: () => tajribaRef.current,
         },
         {
@@ -239,7 +272,10 @@ const HomePageTap = () => {
         return num.toString(); // Less than 1000
     };
 
-    return (
+    if (loader){
+        return <LoaderFootball/>
+    }else {
+        return (
         <div className="home-page">
             <AppBar
                 boshSahifaRef={boshSahifaRef}
@@ -316,7 +352,9 @@ const HomePageTap = () => {
                 onClose={() => setOpenTour(false)}
             />
         </div>
-    );
+    ); }
+
+
 };
 
 export default HomePageTap;

@@ -63,7 +63,7 @@
 }
 
 .ball-score h1 {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .tap_ball {
@@ -113,8 +113,13 @@
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
-.ball-score h1, .ball-score, .ball-score p {
-    color: #fff
+.ball-score h1, .ball-score {
+    color: #fff;
+
+}
+.ball-score h1{text-transform: uppercase}
+.ball-score p{
+    color: #e1dfdf;
 }
 
 .ball-score-line, .ball-score-line2 {
@@ -134,6 +139,8 @@
 
 .ball-score-status h1 {
     font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 0;
 }
 
 .ball-score-status p {
