@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./friends.css";
 import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.webp";
-import ball from "../../assets/icons/soccer_ball.png";
+import ball from "../../assets/icons/soccer_ball2.png";
 import user_img from "../../assets/icon/xsxxa.webp";
 import reload from "../../assets/icon/restart.webp";
 import {CopyOutlined} from "@ant-design/icons";

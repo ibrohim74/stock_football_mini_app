@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import "./settings.css";
 import phone from "../../assets/imgs/perspective_matte-51-128x128.png"
-import sound from "../../assets/imgs/perspective_matte-109-128x128.png"
+
 import {Dropdown, Space} from "antd";
 import {languages} from "../../utils/lang/langs.jsx";
 import {DownOutlined} from "@ant-design/icons";

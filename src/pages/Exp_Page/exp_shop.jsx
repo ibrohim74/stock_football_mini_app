@@ -4,7 +4,7 @@ import $API from "../../utils/https.jsx";
 import { useParams } from "react-router-dom";
 import "./exp_shop.css";
 import imgHeader from "../../assets/imgs/perspective_matte-36-128x128.png";
-import ball from "../../assets/icons/soccer_ball.png";
+import ball from "../../assets/icons/soccer_ball2.png";
 import Odometer from 'react-odometerjs';
 import "../../assets/odometer.css"
 import {useTranslation} from "react-i18next";
