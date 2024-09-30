@@ -23,7 +23,6 @@
     display: flex;
     justify-content: space-between; /* Ensure even spacing */
     width: 100%;
-    padding: 0 50px; /* Adding some padding on the sides */
 }
 
 .app_bar_live {
