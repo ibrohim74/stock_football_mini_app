@@ -13,7 +13,7 @@ import {
 } from "../League_Page/component/leagueList.jsx";
 
 import "./footballHomePage.css"
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 const HomePageFootball = () => {
@@ -130,6 +130,13 @@ const HomePageFootball = () => {
             ),
     };
     });
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
+            navigate(`/${user_id}`)
+        })
+    }, [user_id]);
 
     return (
         <div className={"homePageFootball"}>

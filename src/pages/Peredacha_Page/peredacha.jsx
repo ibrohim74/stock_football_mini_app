@@ -8,7 +8,7 @@ import {
     england_league, france_league, germany_league, italy_league,
     portugal_league, spain_league, uzbekistan_league
 } from "../League_Page/component/leagueList.jsx";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 import {useTranslation} from "react-i18next";
 
@@ -56,6 +56,13 @@ const Peredacha = () => {
 
     // Endi leagueIds string emas, array holatida
     const leagueIds = leagues.map(league => league.id);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
+            navigate(`/${user_id}`)
+        })
+    }, [user_id]);
 
     return (
         <div className="peredacha">

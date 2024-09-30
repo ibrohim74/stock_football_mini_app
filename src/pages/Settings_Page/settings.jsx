@@ -7,7 +7,7 @@ import {languages} from "../../utils/lang/langs.jsx";
 import {DownOutlined} from "@ant-design/icons";
 import {useLanguage} from "../../utils/lang/LangContext.jsx";
 
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 
 const Settings = () => {
@@ -33,7 +33,13 @@ const Settings = () => {
     }, [soundEnabled]);
 
     const toggleVibration = () => setVibrationEnabled(prev => !prev);
-    const toggleSound = () => setSoundEnabled(prev => !prev);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
+            navigate(`/${user_id}`)
+        })
+    }, [user_id]);
 
     return (
         <div className={'sett'}>
