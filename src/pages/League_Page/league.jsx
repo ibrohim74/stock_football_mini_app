@@ -1,23 +1,14 @@
 import React, { useEffect } from 'react';
 import LeagueScroll from './component/league_scroll.jsx';
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const League = () => {
     const { user_id } = useParams();
-
+    const navigate = useNavigate();
     useEffect(() => {
-        const backButton = window.Telegram.WebApp.BackButton;
-        backButton.show();
-
-        // Corrected the onClick event to use window.location.href
-        backButton.onClick = () => {
-            window.location.href = `/${user_id}`;
-        };
-
-        // Cleanup: hide the back button on component unmount
-        return () => {
-            backButton.hide();
-        };
+            window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
+                navigate(`/${user_id}`)
+            })
     }, [user_id]);
 
     return (
