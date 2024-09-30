@@ -51,6 +51,34 @@ a:hover {
     outline: none;
 }
 
+/* Matn tanlanmasligi */
+* {
+    user-select: none;
+}
+
+/* Rasmlarni ko'chirib bo'lmasligi */
+img {
+    pointer-events: none;
+}
+/* Hover effektni o'chirish */
+button, a, div, img, * {
+    /*background-color: initial !important;*/
+}
+
+/* Bosilganda fon o'zgarishini o'chirish */
+button:active, a:active, div:active, img:active, *:active {
+    /*background-color: initial !important;*/
+}
+
+/* Fokuslanganida fon o'zgarishini o'chirish */
+button:focus, a:focus, div:focus, img:focus, *:focus {
+    outline: none;
+    /*background-color: initial !important;*/
+}
+
+
+
+
 @media screen and (max-width: 321px){
     body, html{
         display: none;

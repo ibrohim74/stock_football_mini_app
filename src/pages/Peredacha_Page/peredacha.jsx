@@ -10,12 +10,14 @@ import {
 } from "../League_Page/component/leagueList.jsx";
 import {useParams} from "react-router-dom";
 import BackTab from "../../component/backTab/BackTab.jsx";
+import {useTranslation} from "react-i18next";
 
 const Peredacha = () => {
     const [time, setTime] = useState(new Date());
     const [leagues, setLeagues] = useState([]);
     const [activeTab, setActiveTab] = useState('today');
     const {user_id} = useParams();
+    const {t} = useTranslation()
     useEffect(() => {
         setLeagues([
             ...uzbekistan_league,
@@ -71,19 +73,19 @@ const Peredacha = () => {
                     className={`peredacha__tab_item ${activeTab === 'yesterday' ? 'active' : ''}`}
                     onClick={() => setActiveTab('yesterday')}
                 >
-                    Kechagi
+                    {t("peredacha.kechagi")}
                 </div>
                 <div
                     className={`peredacha__tab_item ${activeTab === 'today' ? 'active' : ''}`}
                     onClick={() => setActiveTab('today')}
                 >
-                    Bugungi
+                    {t("peredacha.bugungi")}
                 </div>
                 <div
                     className={`peredacha__tab_item ${activeTab === 'tomorrow' ? 'active' : ''}`}
                     onClick={() => setActiveTab('tomorrow')}
                 >
-                    Ertangi
+                    {t("peredacha.ertangi")}
                 </div>
             </div>
 

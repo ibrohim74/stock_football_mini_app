@@ -183,42 +183,47 @@ const HomePageTap = () => {
     const peredachaRef = useRef(null);
     const eventsRef = useRef(null);
     const ratingRef = useRef(null);
+    const tajribaRef = useRef(null);
 
     const stepsTour = [
         {
-            title: 'Profile',
-            description: 'Bu yerda sizning sozlamalaringiz saqlanadi',
+            title: t("tour.profile.title"),
+            description: t("tour.profile.description"),
             target: () => profileRef.current,
         },
         {
-            title: 'Koptok',
-            description: 'Koptokni bosib ballar ishlang! ' +
-                'Darajangizga qarab energiya beriladi va shu energiya tugamaguncham ballar ishlasangiz boladi',
+            title: t("tour.tajriba.title"),
+            description:t("tour.tajriba.description"),
+            target: () => tajribaRef.current,
+        },
+        {
+            title: t("tour.Koptok.title"),
+            description: t("tour.Koptok.description"),
             target: () => ballRef.current,
         },
         {
-            title: 'Bosh sahifa',
-            description: 'Bu yerda asosiy sahifani ochasiz',
+            title: t("tour.bosh_sahifa.title"),
+            description: t("tour.bosh_sahifa.description"),
             target: () => boshSahifaRef.current,
         },
         {
-            title: 'Do\'stlar',
-            description: 'Bu yerda do\'stlaringizni taklif qilishingiz mumkin',
+            title: t("tour.dostlar.title"),
+            description: t("tour.dostlar.description"),
             target: () => friendsRef.current,
         },
         {
-            title: 'Live',
-            description: 'Bu yerda futbol o\'yinlarini kuzatishingiz mumkin',
+            title: t("tour.live.title"),
+            description: t("tour.live.description"),
             target: () => peredachaRef.current,
         },
         {
-            title: 'Vazifalar',
-            description: 'Bu yerda vazifalar ro\'yxatini ko\'rishingiz mumkin',
+            title: t("tour.events.title"),
+            description: t("tour.events.description"),
             target: () => eventsRef.current,
         },
         {
-            title: 'Reyting',
-            description: 'Bu yerda reyting sahifasini ochasiz',
+            title: t("tour.Reyting.title"),
+            description: t("tour.Reyting.description"),
             target: () => ratingRef.current,
         }
     ];
@@ -236,7 +241,6 @@ const HomePageTap = () => {
 
     return (
         <div className="home-page">
-            {user_id}
             <AppBar
                 boshSahifaRef={boshSahifaRef}
                 friendsRef={friendsRef}
@@ -253,18 +257,18 @@ const HomePageTap = () => {
             <div className="ball-content">
                 <div className="ball-score-container">
                     <div className="ball-score">
-                        <p>Tap Bonus</p>
+                        <p>{t("homePageTap.tap_bonus")}</p>
                         <h1>+{userData.tapBonus}</h1>
                     </div>
                     <span className={"ball-score-line"}></span>
                     <span className={"ball-score-line2"}></span>
                     <div className="ball-score ball-score-status">
-                        <p>Darajangiz</p>
+                        <p>{t("homePageTap.darajangiz")}</p>
                         <h1>{userData.status}</h1>
                     </div>
 
-                    <Link className="ball-score" to={`/${user_id}/exp_shop`}>
-                        <p>Tajriba</p>
+                    <Link className="ball-score" to={`/${user_id}/exp_shop`} ref={tajribaRef}>
+                        <p>{t("homePageTap.tajriba")}</p>
                         <h1>{userData.hour_coin ? formatNumber(userData.hour_coin) : 0}</h1>
                     </Link>
                 </div>

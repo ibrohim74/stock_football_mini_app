@@ -97,12 +97,26 @@ const PeredashaToday = ({ leagueList }) => {
                     <h1>{game.teams.home.name}</h1>
                     <img loading={"lazy"} src={imageCache[game.teams.home.logo] || ball} alt={game.teams.home.name} />
                 </div>
-                <p><span>Soat</span> {new Intl.DateTimeFormat('en-US', {
-                    timeZone: 'Asia/Tashkent',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                }).format(new Date(game.fixture.date))}</p>
+                <p>
+                    {game.fixture.date === game.fixture.date ? <>
+                            {new Intl.DateTimeFormat('en-US', {
+                                timeZone: 'Asia/Tashkent',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: false,
+                            }).format(new Date(game.fixture.date))} <br/>
+                            {game.goals.home} - {game.goals.away}
+                        </> :
+                      <>
+                          <span>Soat</span> {new Intl.DateTimeFormat('en-US', {
+                          timeZone: 'Asia/Tashkent',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: false,
+                      }).format(new Date(game.fixture.date))}
+                      </>
+                    }
+                   </p>
                 <div className="team2">
                     <img loading={"lazy"} src={imageCache[game.teams.away.logo] || ball} alt={game.teams.away.name} />
                     <h1>{game.teams.away.name}</h1>

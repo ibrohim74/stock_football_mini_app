@@ -7,6 +7,7 @@ import imgHeader from "../../assets/imgs/perspective_matte-36-128x128.png";
 import ball from "../../assets/icons/soccer_ball.png";
 import Odometer from 'react-odometerjs';
 import "../../assets/odometer.css"
+import {useTranslation} from "react-i18next";
 
 const ExpShop = () => {
     const [score, setScore] = useState(0);
@@ -19,7 +20,7 @@ const ExpShop = () => {
     const { user_id } = useParams();
     const [userExpData, setUserExpData] = useState([]);
     const [hoursBonusCoin, setHoursBonusCoin] = useState(null);
-
+    const {t} = useTranslation()
     const getCoinData = async () => {
         try {
             const res = await $API.get(`/users/${user_id}`);
@@ -98,7 +99,7 @@ const ExpShop = () => {
         const threeHoursInMs = 45000; // 45 soniya, test uchun
         const startTime = Date.now();
         const endTime = startTime + threeHoursInMs;
-
+    const {t} = useTranslation()
         // Vaqtni localStorage ga saqlash
         localStorage.setItem('expStartTime', startTime.toString());
         localStorage.setItem('expEndTime', endTime.toString());
@@ -170,11 +171,11 @@ const ExpShop = () => {
                 <div className="exp_nav_box">
                     <div className="exp_nav">
                         <div className="exp_tap_bonus">
-                            <h1>Tap Bonus</h1>
+                            <h1>{t("homePageTap.tap_bonus")}</h1>
                             <p>+{tapBonus}</p>
                         </div>
                         <div className="exp_exp">
-                            <h1>Tajribangiz</h1>
+                            <h1>{t("homePageTap.tajriba")}</h1>
                             <p>{hour_coin ? formatNumber(hour_coin) : 0}</p>
                         </div>
                     </div>
@@ -187,7 +188,7 @@ const ExpShop = () => {
                         {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}
                     </div>
                     <button onClick={postExpHours} disabled={buttonDisabled}>
-                        {buttonDisabled ? "Tajriba davom etmoqda..." : "Tajriba ortirish"}
+                        {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}
                     </button>
                     <p>{formatTime(remainingTime)}</p> {/* Taymerni ko'rsatish */}
                 </div>

@@ -45,10 +45,6 @@ const Settings = () => {
                         <img loading={"lazy"} src={phone} alt=""/>
                         {vibrationEnabled ? "On" : "Off"}
                     </div>
-                    <div className="settings_mute settings_item" onClick={toggleSound}>
-                        <img loading={"lazy"} src={sound} alt=""/>
-                        {soundEnabled ? "On" : "Off"}
-                    </div>
                 </div>
                 <div className="settings_lang">
                     <Dropdown

@@ -9,10 +9,13 @@ import active from '../../assets/icon/spark.webp';
 import {Link, useParams} from 'react-router-dom';
 import Collapse_events from '../../component/collapse_events/collapse_events.jsx';
 import {message} from "antd";
+import {useTranslation} from "react-i18next";
 
 const Events = () => {
     const {user_id} = useParams();
     const [messageApi, contextHolder] = message.useMessage();
+    const {t } = useTranslation();
+
 
     const [eventsData, setEventsData] = useState([
         {id: 1, event: 'event task obuna boling1', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active'},
@@ -95,17 +98,17 @@ const Events = () => {
             <div className="content_events">
                 <div className="events_box">
                     <div className="events_title">
-                        <h1>Vazifalarni bajaring</h1>
-                        <p>va yanada ko'proq Hurmat tangalarini qo'lga kiriting</p>
+                        <h1>{t("events.title")}</h1>
+                        <p>{t("events.sub_title")}</p>
                     </div>
                     <div className="events_box_content">
                         <div className="events_box_content_title">
-                            <h1>Kundalik vazifalar</h1>
+                            <h1>{t("events.day_event")}</h1>
                         </div>
                         <Link className="events_item" to={`/${user_id}/quiz`}>
                             <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
                             <div className="events_item_text">
-                                <p>Asosiy vazifa</p>
+                                <p>{t("events.hero_event")}</p>
                                 <span>
                   <img loading="lazy" src={ball} alt="ball"/>
                   <p>5k</p>
@@ -116,7 +119,7 @@ const Events = () => {
               </span>
                         </Link>
                         <div className="events_box_content_title">
-                            <h1>Vazifalar ro'yxati</h1>
+                            <h1>{t("events.event")}</h1>
                         </div>
                         <Collapse_events items={CollapseItem}/>
                     </div>

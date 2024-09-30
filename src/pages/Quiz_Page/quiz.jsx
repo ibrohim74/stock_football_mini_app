@@ -117,7 +117,7 @@ const Quiz = () => {
         <div className={`quiz-container`}>
             <div className="quiz_title">
                 <h1>Savollar</h1>
-                <h3>Score: {score}</h3>
+                <h3>Yutuq: {score}</h3>
 
             </div>
 

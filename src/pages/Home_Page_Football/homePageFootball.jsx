@@ -14,12 +14,13 @@ import {
 import BackTab from "../../component/backTab/BackTab.jsx";
 import "./footballHomePage.css"
 import {useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
     const [loading, setLoading] = useState(true); // Loading holatini qo'shish
     const {user_id} = useParams();
-
+    const {t} = useTranslation()
     // Barcha ligalarni bir joyda to'plab olish
     const allLeagues = [
         ...uzbekistan_league,
@@ -97,10 +98,10 @@ const HomePageFootball = () => {
                         <img loading={"lazy"} src={game.teams.home.logo || ball} alt={game.teams.home.name}/>
                     </div>
                     <p>
-                        <span>Soat</span> {formatToTashkentTime(game.fixture.date) === formatToTashkentTime(game.fixture.date) ?
+                         {formatToTashkentTime(game.fixture.date) === formatToTashkentTime(game.fixture.date) ?
                         <>{game.goals.home} - {game.goals.away}</>
-                    : <>{formatToTashkentTime(game.fixture.date)}</>
-                    }</p>
+                    : <><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</>
+                         }</p>
                     <div className="team2">
                         <img loading={"lazy"} src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball}
                              alt={game.teams.away.name}/>
@@ -112,7 +113,7 @@ const HomePageFootball = () => {
                         <div>
                         <p>League: {game.league.name}</p>
                     <p>Score: {game.goals.home} - {game.goals.away}</p>
-                    <p>Match Date: {new Date(game.fixture.date).toLocaleDateString()}</p>
+                    <p>Match Date: {new Date(game.fixture.date).toLocaleDateString()} {formatToTashkentTime(game.fixture.date)}</p>
                     <p><strong>Goals:</strong></p>
                     <ul>
                         {goals.length > 0 ? (
