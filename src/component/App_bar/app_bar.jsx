@@ -25,16 +25,17 @@ const AppBar = ({boshSahifaRef , friendsRef , eventsRef , peredachaRef , ratingR
                     /></span>
                     <p>{t("app_bar.bosh_sahifa")}</p>
                 </Link>
-                <Link to={`/${user_id}/friends`} className="app_bar_content_item" ref={friendsRef}>
-                    <span><img src={users} alt="Friends" loading={"lazy"}/></span>
-                    <p>{t("app_bar.dostlar")}</p>
-                </Link>
-                <Link to={`/${user_id}/peredacha`} className="app_bar_content_item app_live_button" ref={peredachaRef}>
-                    <span>{t("app_bar.live")}</span>
-                </Link>
                 <Link to={`/${user_id}/Events_Page`} className="app_bar_content_item" ref={eventsRef}>
                     <span><img src={event} alt="Events" loading={"lazy"}/></span>
                     <p>{t("app_bar.vazifalar")}</p>
+                </Link>
+
+                <Link to={`/${user_id}/peredacha`} className="app_bar_content_item app_live_button" ref={peredachaRef}>
+                    <span>{t("app_bar.live")}</span>
+                </Link>
+                <Link to={`/${user_id}/friends`} className="app_bar_content_item" ref={friendsRef}>
+                    <span><img src={users} alt="Friends" loading={"lazy"}/></span>
+                    <p>{t("app_bar.dostlar")}</p>
                 </Link>
                 <Link to={`/${user_id}/rating`} className="app_bar_content_item" ref={ratingRef}>
                     <span><img src={liga} alt="Rating" loading={"lazy"}/></span>
