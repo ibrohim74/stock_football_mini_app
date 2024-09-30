@@ -3,7 +3,7 @@ import "./rating.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/pagination';
-import ball from '../../assets/icons/soccer_ball2.png';
+import ball from '../../assets/icons/soccer_ball.png';
 import {useParams} from "react-router-dom";
 import $API from "../../utils/https.jsx";
 

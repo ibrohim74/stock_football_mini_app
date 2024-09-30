@@ -167,7 +167,7 @@
 .small-ball {
     width: 30px;
     height: 30px;
-    background: url("../../assets/icons/soccer_ball2.png");
+    background: url("../../assets/icons/soccer_ball.png");
     background-size: cover;
     border-radius: 50%;
     /*box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);*/

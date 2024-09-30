@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {message, Progress} from 'antd';
 import './quiz.css';
 import {useNavigate, useParams} from "react-router-dom";
-import ball from '../../assets/icons/soccer_ball2.png'
+import ball from '../../assets/icons/soccer_ball.png'
 
 const Quiz = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);

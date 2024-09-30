@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams, useLocation } from "react-router-dom";
 import "./app_bar.css";
-import ball from "../../assets/icons/soccer_ball2.png";
+import ball from "../../assets/icons/soccer_ball.png";
 import liga from "../../assets/icon/kobek.webp";
 import users from "../../assets/icon/omixta.webp";
 import event from "../../assets/icon/clandar.webp";
