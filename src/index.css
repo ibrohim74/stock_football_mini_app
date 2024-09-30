@@ -79,7 +79,7 @@ button:focus, a:focus, div:focus, img:focus, *:focus {
 /* Disable any active/focused styling */
 *:active, *:focus {
     outline: none;
-    background-color: transparent; /* Ensures no background color change */
+    /*background-color: transparent; !* Ensures no background color change *!*/
 }
 
 
