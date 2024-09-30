@@ -11,16 +11,16 @@ import {useTranslation} from "react-i18next";
 
 // ref_users malumotlari
 const ref_users = [
-    // {id: 1, username: "khasanov_ibroxim1", status: "Professional Futbolchi", score: 4000000},
-    // {id: 2, username: "khasanov_ibroxim2", status: "Mahalla Futbolchisi", score: 430500},
-    // {id: 3, username: "khasanov_ibroxim3", status: "Havaskor Futbolchi", score: 50450},
-    // {id: 4, username: "khasanov_ibroxim4", status: "Akademiya Futbolchisi", score: 69032},
-    // {id: 5, username: "khasanov_ibroxim5", status: "Professional Futbolchi", score: 400000},
-    // {id: 6, username: "khasanov_ibroxim6", status: "Terma Jamoa", score: 4000000},
-    // {id: 7, username: "khasanov_ibroxim7", status: "Chempiyon", score: 4000000},
-    // {id: 8, username: "khasanov_ibroxim8", status: "Legenda", score: 4000000},
-    // {id: 9, username: "khasanov_ibroxim9", status: "Professional Futbolchi", score: 4000000},
-    // {id: 10, username: "khasanov_ibroxim10", status: "Professional Futbolchi", score: 4000000},
+    {id: 1, username: "khasanov_ibroxim1", status: "Professional Futbolchi", score: 4000000},
+    {id: 2, username: "khasanov_ibroxim2", status: "Mahalla Futbolchisi", score: 430500},
+    {id: 3, username: "khasanov_ibroxim3", status: "Havaskor Futbolchi", score: 50450},
+    {id: 4, username: "khasanov_ibroxim4", status: "Akademiya Futbolchisi", score: 69032},
+    {id: 5, username: "khasanov_ibroxim5", status: "Professional Futbolchi", score: 400000},
+    {id: 6, username: "khasanov_ibroxim6", status: "Terma Jamoa", score: 4000000},
+    {id: 7, username: "khasanov_ibroxim7", status: "Chempiyon", score: 4000000},
+    {id: 8, username: "khasanov_ibroxim8", status: "Legenda", score: 4000000},
+    {id: 9, username: "khasanov_ibroxim9", status: "Professional Futbolchi", score: 4000000},
+    {id: 10, username: "khasanov_ibroxim10", status: "Professional Futbolchi", score: 4000000},
 ];
 
 const Friends = () => {

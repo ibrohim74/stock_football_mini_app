@@ -10,9 +10,11 @@
     z-index: 99;
     border-top-right-radius: 25px;
 
-    backdrop-filter: blur(30px);
-    /*box-shadow: 0 0 30px rgba(49, 230, 247, 0.26);*/
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba( 55, 136, 5, 0.55 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .app_bar_content{
     position: relative;
