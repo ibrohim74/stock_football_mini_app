@@ -16,6 +16,8 @@ import {
     germany_league,
     italy_league, russian_league
 } from "./leagueList.jsx";
+import BackTab from "../../../component/backTab/BackTab.jsx";
+import {useParams} from "react-router-dom";
 
 const monthNames = [
     'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
@@ -24,14 +26,29 @@ const monthNames = [
 
 const LeagueScroll = () => {
     const [leagues, setLeagues] = useState([]);
-    const [selectedLeague, setSelectedLeague] = useState(null); // Faqat bitta liga tanlash uchun
+    const [selectedLeague, setSelectedLeague] = useState(); // Faqat bitta liga tanlash uchun
     const [fixtures, setFixtures] = useState([]);
     const [openKeyItem, setOpenKeyItem] = useState(null);
     const [loadingFixtures, setLoadingFixtures] = useState(false); // Track loading state for fixtures
     const [loadingImages, setLoadingImages] = useState({}); // Track loading state for images
-    console.log(selectedLeague)
+    console.log(leagues)
+    const {user_id} = useParams();
     useEffect(() => {
-        setLeagues([...uzbekistan_league, ...england_league, ...spain_league, ...portugal_league, ...france_league, ...germany_league, ...italy_league , ...russian_league]);
+        const allLeagues = [
+            ...uzbekistan_league,
+            ...england_league,
+            ...spain_league,
+            ...portugal_league,
+            ...france_league,
+            ...germany_league,
+            ...italy_league,
+            ...russian_league
+        ];
+        setLeagues(allLeagues);
+        if (allLeagues.length > 0) {
+            setSelectedLeague(allLeagues[0].id);
+            fetchFixtures(allLeagues[0].id); // Fetch fixtures for the default selected league
+        }
     }, []);
 
     const handleSelect = async (league) => {
@@ -233,6 +250,7 @@ const LeagueScroll = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
+            <BackTab back_url={`/${user_id}`}/>
             <div className="league_data">
                 {loadingFixtures ? (
                     <div className="loading-indicator">Loading...</div>
