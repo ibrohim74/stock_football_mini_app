@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./rating.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import ball from '../../assets/icons/soccer_ball.png';
 import {useParams} from "react-router-dom";
+import $API from "../../utils/https.jsx";
 
 // Helper function to format coins
 const formatCoins = (coins) => {
@@ -155,7 +156,10 @@ const StatusUsers = [
 ];
 
 const Rating = () => {
-    const [selectedStatus, setSelectedStatus] = React.useState(StatusUsers[0].status);
+    const [selectedStatus, setSelectedStatus] = React.useState();
+    const [status, setStatus] = React.useState([]);
+    const [selectData, setSelectData] = React.useState([]);
+
     const { user_id } = useParams();
 
     const handleSlideClick = (status) => setSelectedStatus(status);
@@ -175,6 +179,20 @@ const Rating = () => {
     const sortedAllData = [...allData].sort((a, b) => b.coins - a.coins);
     const userRank = sortedAllData.findIndex(item => item.id.toString() === user_id) + 1;
 
+
+    const getUserData = async ()=>{
+        try {
+            const res = await $API.get(`/users/${user_id}`);
+            setStatus(Object.keys(res.data.top_10))
+            console.log(res)
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    console.log(status)
+    useEffect(()=>{
+        getUserData()
+    }, [selectedStatus])
     return (
         <div className="rating">
             <Swiper
@@ -185,13 +203,13 @@ const Rating = () => {
                 navigation
                 className="ratingSwiper"
             >
-                {StatusUsers.map((user) => (
+                {status.map((stat , index) => (
                     <SwiperSlide
-                        key={user.id}
-                        onClick={() => handleSlideClick(user.status)}
-                        className={user.status === selectedStatus ? "selected" : ""}
+                        key={index}
+                        onClick={() => handleSlideClick(stat)}
+                        className={stat === selectedStatus ? "selected" : ""}
                     >
-                        {user.status}
+                        {stat}
                     </SwiperSlide>
                 ))}
             </Swiper>

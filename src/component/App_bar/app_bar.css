@@ -3,12 +3,12 @@
     height: 70px;
     padding: 0;
     position: fixed;
-    bottom: 0;
+    bottom: 2%;
     left: 0;
     right: 0;
     z-index: 99;
     background: rgba(55, 136, 5, 0.55); /* Keep your background color */
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top-left-radius: 25px;
