@@ -153,8 +153,8 @@ const HomePageFootball = () => {
             </h1>
 
             <div className={"footballContent"}>
-                {loading ? <p>Loading...</p> : (liveGames.length > 0 ?
-                    <Collapse_Stock items={items}/> : "Hozirda mavjud o'yinlar yo'q")}
+                {loading ? <p style={{textAlign: 'center'}}>{t("loading")}</p> : (liveGames.length > 0 ?
+                    <Collapse_Stock items={items}/> : <p style={{textAlign: 'center'}}>{t("no_data")}</p>)}
             </div>
         </div>
     );

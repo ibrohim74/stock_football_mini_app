@@ -3,12 +3,11 @@
     height: 70px;
     padding: 0;
     position: fixed;
-    bottom: 2%;
+    bottom: 0;
     left: 0;
     right: 0;
     z-index: 99;
-    background: rgba(55, 136, 5, 0.55); /* Keep your background color */
-
+    background: rgba(55, 136, 5, 0.55);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top-left-radius: 25px;
@@ -21,33 +20,35 @@
 
 .app_bar_content {
     display: flex;
-    justify-content: space-between; /* Ensure even spacing */
+    justify-content: space-between;
     width: 100%;
 }
 
 .app_bar_live {
-    width: 98px;
-    height: 79px;
-    border-radius: 50%;
-    background: red;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-top: -30px; /* Moves the live button upwards to overlap the app bar */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10%;
 }
 
+
+
 .app_live_button {
-    width: 60px;
-    height: 60px;
-    background: red;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
+    background: linear-gradient(145deg, #ff0000, #a10606);
+    box-shadow:  2px 2px 19px #da3b3b,
+    -1px -1px 19px #8c1c1c;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 22px;
-    color: white;
-    font-weight: bold;
+    color: #efefef;
+    font-weight: 600;
 }
 
 .app_bar_content_item {
@@ -60,13 +61,12 @@
 }
 
 .app_bar_content_item img {
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
 }
 
 .app_bar_content_item p {
-    margin: 5px 0 0 0;
+    margin: 0;
     font-size: 12px;
     color: white;
 }
-

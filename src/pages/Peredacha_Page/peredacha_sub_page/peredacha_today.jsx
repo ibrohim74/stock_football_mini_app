@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Collapse_Stock } from "../../../component/collapse/collapse_stock.jsx";
 import ball from "../../../assets/icons/icons8-football-50.svg";
 import axios from 'axios';
+import {useTranslation} from "react-i18next";
 
 const PeredashaToday = ({ leagueList }) => {
     const [todayGames, setTodayGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [imageCache, setImageCache] = useState({});
-
+    const {t} = useTranslation();
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
@@ -135,12 +136,12 @@ const PeredashaToday = ({ leagueList }) => {
     return (
         <div className={"peredacha_list_items"}>
             {loading ? (
-                <p>Loading...</p>
+                <p style={{textAlign: 'center'}}>{t("loading")}</p>
             ) : (
                 todayGames.length > 0 ? (
                     <Collapse_Stock items={items} />
                 ) : (
-                    <p>Bugun mavjud o'yinlar yo'q</p>
+                    <p style={{textAlign:'center'}}>{t("no_data")}</p>
                 )
             )}
         </div>

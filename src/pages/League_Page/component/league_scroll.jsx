@@ -17,6 +17,7 @@ import {
     italy_league
 } from "./leagueList.jsx";
 import {useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const monthNames = [
     'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
@@ -30,6 +31,7 @@ const LeagueScroll = () => {
     const [openKeyItem, setOpenKeyItem] = useState(null);
     const [loadingFixtures, setLoadingFixtures] = useState(false); // Track loading state for fixtures
     const [loadingImages, setLoadingImages] = useState({}); // Track loading state for images
+    const {t} = useTranslation();
     console.log(leagues)
     const {user_id} = useParams();
     useEffect(() => {
@@ -251,13 +253,13 @@ const LeagueScroll = () => {
             </Swiper>
             <div className="league_data">
                 {loadingFixtures ? (
-                    <div className="loading-indicator">Loading...</div>
+                    <p style={{textAlign: 'center'}}>{t("loading")}</p>
                 ) : fixtures.length > 0 ? (
                     <div className="fixtures">
                         <Collapse_stock_leg items={collapseItem} setOpenKeyItem={setOpenKeyItem} />
                     </div>
                 ) : (
-                    <p>Ma'lumot yo'q</p>
+                    <p style={{textAlign: 'center'}}>{t("no_data")}</p>
                 )}
             </div>
 
