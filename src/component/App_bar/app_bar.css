@@ -23,7 +23,22 @@
     justify-content: space-between;
     width: 100%;
 }
+.app_bar::before{
+    content: "";
+    top: -35px;
+    background: rgba(55, 136, 5, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-top-left-radius: 125px;
+    border-top-right-radius: 125px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    width: 100px;
+}
 .app_bar_live {
     position: relative;
     width: 80px;
@@ -32,6 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 5;
 }
 
 
@@ -40,6 +56,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
+
     background: linear-gradient(145deg, #ff0000, #a10606);
     box-shadow:  2px 2px 19px #da3b3b,
     -1px -1px 19px #8c1c1c;
