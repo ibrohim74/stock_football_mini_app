@@ -60,20 +60,26 @@ a:hover {
 img {
     pointer-events: none;
 }
-/* Hover effektni o'chirish */
-button, a, div, img, * {
-    /*background-color: initial !important;*/
-}
 
-/* Bosilganda fon o'zgarishini o'chirish */
-button:active, a:active, div:active, img:active, *:active {
-    /*background-color: initial !important;*/
-}
+
 
 /* Fokuslanganida fon o'zgarishini o'chirish */
 button:focus, a:focus, div:focus, img:focus, *:focus {
     outline: none;
-    /*background-color: initial !important;*/
+}
+
+/* Disable tap highlight on mobile */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Disable any active/focused styling */
+*:active, *:focus {
+    outline: none;
+    background-color: transparent; /* Ensures no background color change */
 }
 
 
