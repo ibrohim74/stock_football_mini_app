@@ -85,7 +85,11 @@ i18n
                       btn_active:"Tajriba orttirish davom etmoqda...",
                       btn_disbl:"Tajriba orttirish",
                     },
-
+                    peredacha:{
+                        bugungi:"Bugungi",
+                        ertangi:"Ertangi",
+                        kechagi:"Kechagi"
+                    },
                     loading: "Kuting...",
                     no_data: "Ma'lumot yo'q"
                 }
