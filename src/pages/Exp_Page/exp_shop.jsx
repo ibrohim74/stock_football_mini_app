@@ -97,7 +97,7 @@ const ExpShop = () => {
     };
 
     const postExpHours = async () => {
-        const threeHoursInMs = 45000; // 45 soniya, test uchun
+        const threeHoursInMs = 3*60*60*1000;
         const startTime = Date.now();
         const endTime = startTime + threeHoursInMs;
 
@@ -119,7 +119,7 @@ const ExpShop = () => {
                 setButtonDisabled(false);
                 localStorage.removeItem('expStartTime');
                 localStorage.removeItem('expEndTime');
-                getCoinData();
+
                 return;
             }
 
@@ -133,9 +133,11 @@ const ExpShop = () => {
             });
             console.log(res)
             setHoursBonusCoin(res.data.response.coin)
+            getCoinData();
             setInterval(()=>{
                 setHoursBonusCoin(null)
             },10000)
+
         } catch (e) {
             console.log(e);
         }

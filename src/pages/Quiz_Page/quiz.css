@@ -83,6 +83,18 @@
     padding: 10px;
     border-radius: 10px;
 }
+.correct-answer {
+    background-color: green;
+    transition: background-color 0.2s ease-in;
+}
+
+.incorrect-answer {
+    background-color: red;
+    transition: background-color 0.2s ease-in;
+}
+
+
+
 .quiz_item:nth-child(even){
     margin-left: 10px;
 }
