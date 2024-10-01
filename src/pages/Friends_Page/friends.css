@@ -24,6 +24,11 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background: rgba( 55, 136, 5, 0.30 );
+    box-shadow: 0 0 100px 0 rgba( 255, 255, 255, 0.17 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 30px;
 }
 .friends_gift_card p {
     display: flex;

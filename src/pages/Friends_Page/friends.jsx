@@ -10,6 +10,7 @@ import AppBar from "../../component/App_bar/app_bar.jsx";
 import { useTranslation } from "react-i18next";
 import $API from "../../utils/https.jsx";
 import { useParams } from "react-router-dom";
+import LoaderFootball from "../../component/loader/loader_football.jsx"; // LoaderFootball import qilish
 
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
@@ -17,6 +18,7 @@ const Friends = () => {
     const [currentUser, setCurrentUser] = useState({});
     const [remainingTime, setRemainingTime] = useState(0);
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [loading, setLoading] = useState(true); // Loading holatini qo'shish
     const [hoursBonusCoin, setHoursBonusCoin] = useState(null);
     const { t } = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
@@ -25,19 +27,22 @@ const Friends = () => {
     const displayedUsers = showAll ? friendsData : friendsData.slice(0, 3);
 
     const getUserData = async () => {
+        setLoading(true); // Yuklanish boshlandi
         try {
             const res = await $API.get(`/users/${user_id}`);
-            console.log(res)
+            console.log(res);
             setFriendsData(res.data.friends);
-            setCurrentUser(res.data.user_data)
-
+            setCurrentUser(res.data.user_data);
         } catch (e) {
             console.log(e);
+        } finally {
+            setLoading(false); // Yuklanish tugadi
         }
     };
-    console.log(currentUser);
+
     const getClaim = async () => {
-        const threeHoursInMs = 8*60*60*1000;
+
+        const threeHoursInMs = 8 * 60 * 60 * 1000;
         const startTime = Date.now();
         const endTime = startTime + threeHoursInMs;
 
@@ -49,35 +54,20 @@ const Friends = () => {
         setRemainingTime(endTime - Date.now());
         setButtonDisabled(true);
 
-        const timerId = setInterval(() => {
-            const savedEndTime = parseInt(localStorage.getItem('friendsEndTime'), 10);
-            const currentTime = Date.now();
-            const timeLeft = savedEndTime - currentTime;
-
-            if (timeLeft <= 1000) {
-                clearInterval(timerId);
-                setButtonDisabled(false);
-                localStorage.removeItem('friendsStartTime');
-                localStorage.removeItem('friendsEndTime');
-
-                return;
-            }
-
-            setRemainingTime(timeLeft);
-        }, 1000);
-
         try {
             const res = await $API.post(`/referral/activate/${user_id}`);
             console.log(res);
             setHoursBonusCoin(res.data.coin);
-        if (res.status === 200){
-            getUserData()
-        }
+            if (res.status === 200) {
+                await getUserData(); // Foydalanuvchi ma'lumotlarini yuklash
+            }
             setTimeout(() => {
                 setHoursBonusCoin(null);
             }, 3000);
         } catch (e) {
             console.log(e);
+        } finally {
+            setLoading(false); // Yuklanish tugadi
         }
     };
 
@@ -109,7 +99,45 @@ const Friends = () => {
 
     useEffect(() => {
         getUserData();
-    }, [user_id]);
+
+        const intervalId = setInterval(() => {
+            setRemainingTime((prevTime) => {
+                if (prevTime <= 1000) {
+                    clearInterval(intervalId);
+                    return 0;
+                }
+                return prevTime - 1000;
+            });
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    useEffect(() => {
+        const savedEndTime = localStorage.getItem('friendsEndTime');
+
+        if (savedEndTime) {
+            const currentTime = Date.now();
+            const remaining = parseInt(savedEndTime, 10) - currentTime;
+
+            if (remaining > 0) {
+                setRemainingTime(remaining);
+                setButtonDisabled(true);
+                const timerId = setInterval(() => {
+                    const updatedRemaining = parseInt(savedEndTime, 10) - Date.now();
+                    if (updatedRemaining <= 1000) {
+                        clearInterval(timerId);
+                        setButtonDisabled(false);
+                        localStorage.removeItem('friendsStartTime');
+                        localStorage.removeItem('friendsEndTime');
+                        getUserData()
+                        return;
+                    }
+                    setRemainingTime(updatedRemaining);
+                }, 1000);
+            }
+        }
+    }, []);
 
     return (
         <div className="friends">
@@ -121,57 +149,63 @@ const Friends = () => {
                         <p>{t("friends.sub_title")}</p>
                     </div>
 
-                    {friendsData.length > 0 && (
-                        <div className="friends_gift_card">
-                            <p><img src={ball} loading={"lazy"} alt="Ball" />{currentUser.coins}</p>
-                            {buttonDisabled ? (
-                                <>
-                                    {t("exp_shop.btn_active")}
-                                    <p>{formatTime(remainingTime)}</p>
-                                </>
-                            ) : (
-                                <button onClick={getClaim}>{t("friends.claim")}</button>
+                    {loading ? ( // Yuklanayotganda loading ko'rsatish
+                        <LoaderFootball />
+                    ) : (
+                        <>
+                            {friendsData.length > 0 && (
+                                <div className="friends_gift_card">
+                                    <p><img src={ball} loading={"lazy"} alt="Ball" />{currentUser.coins}</p>
+                                    {buttonDisabled ? (
+                                        <>
+                                            {t("friends.claim_active")}
+                                            <p>{formatTime(remainingTime)}</p>
+                                        </>
+                                    ) : (
+                                        <button onClick={getClaim}>{t("friends.claim")}</button>
+                                    )}
+                                </div>
                             )}
-                        </div>
-                    )}
 
-                    <div className="friends_ref">
-                        <div className="friends_ref_title">
-                            <div className="friends_ref_title_top">
-                                <h1>{t("friends.fiends")} ({friendsData.length})</h1>
-                                <img src={reload} loading={"lazy"} alt="Ball" width={60} height={60} />
-                            </div>
-                            <p>{friendsData.length > 0 ? '' : t("friends.no_fiends")}</p>
-                        </div>
+                            <div className="friends_ref">
+                                <div className="friends_ref_title">
+                                    <div className="friends_ref_title_top">
+                                        <h1>{t("friends.fiends")} ({friendsData.length})</h1>
+                                        <img src={reload} loading={"lazy"} alt="Ball" width={60} height={60} />
+                                    </div>
+                                    <p>{friendsData.length > 0 ? '' : t("friends.no_friends")}</p>
+                                </div>
 
-                        <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
-                            {displayedUsers.map(user => (
-                                <div key={user.id} className="friends_ref_item">
-                                    <img src={user_img} loading={"lazy"} alt="User" />
-                                    <div className="friends_ref_item_info">
-                                        <h1>{user.values.username}</h1>
-                                        <p>
-                                            {user.values.status}
-                                            <span><img loading={"lazy"} src={ball} alt="" />{formatNumber(parseInt(user.values.coin))}</span>
-                                        </p>
+                                <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
+                                    {displayedUsers.map(user => (
+                                        <div key={user.id} className="friends_ref_item">
+                                            <img src={user_img} loading={"lazy"} alt="User" />
+                                            <div className="friends_ref_item_info">
+                                                <h1>{user.values.username}</h1>
+                                                <p>
+                                                    {user.values.status}
+                                                    <span><img loading={"lazy"} src={ball} alt="" />{formatNumber(parseInt(user.values.coin))}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {!showAll && friendsData.length > 3 && (
+                                        <button onClick={() => setShowAll(true)} className="show_more_button">
+                                            {t("friends.show_all")}
+                                        </button>
+                                    )}
+                                </div>
+
+                                <div className="ref_link_box">
+                                    <div className="ref_button" onClick={openShareLink}>{t("friends.share")}</div>
+                                    <div className="ref_link" onClick={copyToClipboard}>
+                                        <CopyOutlined />
                                     </div>
                                 </div>
-                            ))}
-
-                            {!showAll && friendsData.length > 3 && (
-                                <button onClick={() => setShowAll(true)} className="show_more_button">
-                                    {t("friends.show_all")}
-                                </button>
-                            )}
-                        </div>
-
-                        <div className="ref_link_box">
-                            <div className="ref_button" onClick={openShareLink}>{t("friends.share")}</div>
-                            <div className="ref_link" onClick={copyToClipboard}>
-                                <CopyOutlined />
                             </div>
-                        </div>
-                    </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

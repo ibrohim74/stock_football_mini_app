@@ -17,10 +17,10 @@ const Events = () => {
     const [quizAvailable, setQuizAvailable] = useState(false);
 
     const initialEventsData = [
-        { id: 1, event: 'event task obuna boling1', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 15 },
-        { id: 2, event: 'event task obuna boling2', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 1200 },
-        { id: 3, event: 'event task obuna boling3', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 1000 },
-        { id: 4, event: 'stock football ga obuna boling4', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 200 }
+        { id: 1, event: 'YouTube’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 15 },
+        { id: 2, event: 'Instagram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 1200 },
+        { id: 3, event: 'Telegram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 1000 },
+        { id: 4, event: 'stock football ga obuna boling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 200 }
     ];
 
     const [eventsData, setEventsData] = useState(initialEventsData);
@@ -36,7 +36,14 @@ const Events = () => {
         });
         setEventsData(updatedEvents);
     }, [user_id]);
+    const formatTime = (milliseconds) => {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
 
+        return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
+    };
     // Timer effect
     useEffect(() => {
         const intervals = eventsData.map((event, index) => {
@@ -120,7 +127,7 @@ const Events = () => {
                     )}
                     {item.status === 'ongoing' && (
                         <div className="timer">
-                            <p>Time Remaining: {item.timer} seconds</p>
+                            <p>{formatTime(item.timer*1000)}</p>
                         </div>
                     )}
                     {item.status === 'completed' && (

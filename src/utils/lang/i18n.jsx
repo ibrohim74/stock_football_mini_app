@@ -71,6 +71,7 @@ i18n
                         title: "Do'stlarni taklif qiling!",
                         sub_title: "Do'stingi darajasi oshsa  darhol +5K va bonuslar olasiz",
                         claim: "Ballarni olish",
+                        claim_active:"Ballar to'planmoqda",
                         fiends: "Do'stlar ro'yxati",
                         show_all: "Barchasini ko'rsatish",
                         share: "Do'stni taklif qilish"
@@ -79,7 +80,9 @@ i18n
                         title: "Vazifalarni bajaring",
                         sub_title: "va yanada ko'proq  tangalarini qo'lga kiriting",
                         day_event: "Kundalik vazifalar",
-                        event: "Vazifalar ro'yxati"
+                        event: "Vazifalar ro'yxati",
+                        hero_event: "Asosiy vazifalar",
+                        completed: "Vazifa bajarildi"
                     },
                     exp_shop: {
                         btn_active: "Tajriba orttirish davom etmoqda...",
@@ -154,8 +157,9 @@ i18n
                         title: "Приглашайте друзей!",
                         sub_title: "При повышении уровня приглашенного друга вы сразу получается 5К баллов бонусом",
                         claim: "Получить баллы",
+                        claim_active:"Баллы набираются",
                         fiends: "Список друзей",
-                        no_fiends: "Вы еще никого не пригласили",
+                        no_friends: "Вы еще никого не пригласили",
                         show_all: "Показать все",
                         share: "Пригласить друзей"
                     },
@@ -164,7 +168,8 @@ i18n
                         sub_title: "И получайте больше монет",
                         day_event: "Ежедневные задания",
                         event: "Список заданий",
-                        hero_event: "Основная задача"
+                        hero_event: "Основная задача",
+                        completed: "задача выполнена"
                     },
                     exp_shop: {
                         btn_active: "Продолжается получение опыта…",
