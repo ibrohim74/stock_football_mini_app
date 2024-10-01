@@ -40,12 +40,7 @@ const Friends = () => {
     };
 
     const openShareLink = async () => {
-        try {
-            const res = await $API.post(`referral/${user_id}`)
-            window.open(res.data.url, '_blank');
-        } catch (e) {
-            console.log(e)
-        }
+        window.open(`https://t.me/share/url?url=https://t.me/snkrsshoopbot?start=${user_id}`, '_blank');
     };
 
     const formatNumber = (num) => {

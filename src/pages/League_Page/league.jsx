@@ -6,10 +6,10 @@ const League = () => {
     const { user_id } = useParams();
     const navigate = useNavigate();
     useEffect(() => {
-            window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
-                navigate(`/${user_id}`)
-            })
-    }, [user_id]);
+        window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
+            navigate(`/${user_id}`)
+        })
+    }, []);
 
     return (
         <>

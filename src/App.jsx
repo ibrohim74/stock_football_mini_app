@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { HashRouter, Route, Routes } from "react-router-dom";
+import React, { useState, useEffect , } from 'react';
+import {HashRouter, Route, Routes, useNavigate, useParams} from "react-router-dom";
 import AppBar from "./component/App_bar/app_bar.jsx";
 import { RouterFootballData, RouterTapFootballData } from "./utils/const.jsx";
 import HomePageTap from "./pages/Home_Page_Tap/homePageTap.jsx";
