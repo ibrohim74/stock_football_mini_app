@@ -28,6 +28,7 @@ const ExpShop = () => {
             setTapBonus(res.data.user_data.bonus);
             setUserExpData(res.data.experience);
             setHour_coin(res.data.hour_coin);
+            console.log(res)
         } catch (e) {
             console.log(e);
         }
@@ -99,7 +100,7 @@ const ExpShop = () => {
         const threeHoursInMs = 45000; // 45 soniya, test uchun
         const startTime = Date.now();
         const endTime = startTime + threeHoursInMs;
-    const {t} = useTranslation()
+
         // Vaqtni localStorage ga saqlash
         localStorage.setItem('expStartTime', startTime.toString());
         localStorage.setItem('expEndTime', endTime.toString());
@@ -149,7 +150,6 @@ const ExpShop = () => {
             if (remaining > 0) {
                 setRemainingTime(remaining);
                 setButtonDisabled(true);
-
                 const timerId = setInterval(() => {
                     const updatedRemaining = parseInt(savedEndTime, 10) - Date.now();
                     if (updatedRemaining <= 1000) {
@@ -197,9 +197,12 @@ const ExpShop = () => {
                         <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
                             <div className="exp_item_header">
                                 <img src={item.photo} loading={"lazy"} alt="" />
-                                <p>{item.name}</p>
+
                             </div>
-                            <div className="exp_item_body">soatiga tajriba +{item.hour_coin}</div>
+                            <div className="exp_item_body">
+                                <p>{item.name}</p>
+                               <p style={{fontSize:14}}>soatiga tajriba + {formatNumber(item.hour_coin)}</p>
+                            </div>
                             <div className="item_footer">
                                 <div className="item_footer_exp">{item.degree}-dar</div>
                                 <div className="item_footer_coin">

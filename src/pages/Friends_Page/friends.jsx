@@ -8,6 +8,8 @@ import {CopyOutlined} from "@ant-design/icons";
 import {message, notification} from "antd";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 import {useTranslation} from "react-i18next";
+import $API from "../../utils/https.jsx";
+import {useParams} from "react-router-dom";
 
 // ref_users malumotlari
 const ref_users = [
@@ -26,19 +28,24 @@ const ref_users = [
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
     const {t} = useTranslation();
-    const shareLink = "https://t.me/stock_football_bot";
     const [messageApi, contextHolder] = message.useMessage();
     const displayedUsers = showAll ? ref_users : ref_users.slice(0, 3);
+    const {user_id} = useParams();
+
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(shareLink).then(() => {
+        navigator.clipboard.writeText(`https://t.me/snkrsshoopbot?start=${user_id}`).then(() => {
             messageApi.success("Havola nusxalandi!");
         });
     };
 
-    const openShareLink = () => {
-        // Telegram orqali to'g'ridan-to'g'ri ulashish havolasi ochiladi
-        window.open(shareLink, '_blank');
+    const openShareLink = async () => {
+        try {
+            const res = await $API.post(`referral/${user_id}`)
+            window.open(res.data.url, '_blank');
+        } catch (e) {
+            console.log(e)
+        }
     };
 
     const formatNumber = (num) => {
@@ -47,6 +54,7 @@ const Friends = () => {
         if (num >= 1e3) return (num / 1e3).toFixed(1) + 'k';
         return num.toString();
     };
+
     return (
         <div className="friends">
             {contextHolder}

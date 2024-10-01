@@ -141,7 +141,7 @@ const HomePageTap = () => {
         const touches = event.touches || [{clientX: event.clientX, clientY: event.clientY}];
         console.log("start: ", touches)
         // console.log("start2: ", [{ clientX: event.clientX, clientY: event.clientY }])
-        const allowedTouches = Math.min(touches.length, userData.energy);
+        const allowedTouches = Math.floor(touches.length, userData.energy);
         setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
             const touch = touches[i];
