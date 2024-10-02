@@ -19,8 +19,7 @@ const HomePageTap = () => {
     const [ballPressed, setBallPressed] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     // const [soundEnabled, setSoundEnabled] = useState(true);
-    const {user_id} = useParams();
-const {language} = useParams();
+    const {user_id , language} = useParams();
     const timerRef = useRef(null);
     const {t} = useTranslation();
     const [openTour, setOpenTour] = useState(false);
@@ -139,7 +138,7 @@ const {language} = useParams();
         // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        const touches = event.touches ;
+        const touches = event.touches;
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
@@ -158,7 +157,6 @@ const {language} = useParams();
             }, 500);
 
 
-
             // Vibratsiya
             if (vibrationEnabled && navigator.vibrate) {
                 navigator.vibrate(100);
@@ -172,7 +170,7 @@ const {language} = useParams();
             // Energiyani kamaytirish
             setUserData((prev) => ({
                 ...prev,
-                energy: Math.min(prev.energy , prev.maxEnergy)
+                energy: Math.min(prev.energy, prev.maxEnergy)
             }));
         }
     };
@@ -269,88 +267,87 @@ const {language} = useParams();
         return num.toString(); // Less than 1000
     };
 
-    if (loader){
+    if (loader) {
         return <LoaderFootball/>
-    }else {
+    } else {
         return (
-        <div className="home-page">
-            {language}
-            <AppBar
-                boshSahifaRef={boshSahifaRef}
-                friendsRef={friendsRef}
-                peredachaRef={peredachaRef}
-                eventsRef={eventsRef}
-                ratingRef={ratingRef}
-            />
-            <div className="home-page_user_settings">
-                <Link to={`/${user_id}/settings`} className="home-page_user" ref={profileRef}>
-                    <h1>{userData.username ? userData.username : userData.first_name}</h1>
-                    <span loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
-                </Link>
-            </div>
-            <div className="ball-content">
-                <div className="ball-score-container">
-                    <div className="ball-score">
-                        <p>{t("homePageTap.tap_bonus")}</p>
-                        <h1>+{userData.tapBonus}</h1>
-                    </div>
-                    <span className={"ball-score-line"}></span>
-                    <span className={"ball-score-line2"}></span>
-                    <div className="ball-score ball-score-status">
-                        <p>{t("homePageTap.darajangiz")}</p>
-                        <h1>{userData.status}</h1>
-                    </div>
-
-                    <Link className="ball-score" to={`/${user_id}/exp_shop`} ref={tajribaRef}>
-                        <p>{t("homePageTap.tajriba")}</p>
-                        <h1>{userData.hour_coin ? formatNumber(userData.hour_coin) : 0}</h1>
+            <div className="home-page">
+                {language}
+                <AppBar
+                    boshSahifaRef={boshSahifaRef}
+                    friendsRef={friendsRef}
+                    peredachaRef={peredachaRef}
+                    eventsRef={eventsRef}
+                    ratingRef={ratingRef}
+                />
+                <div className="home-page_user_settings">
+                    <Link to={`/${user_id}/${language}/settings`} className="home-page_user" ref={profileRef}>
+                        <h1>{userData.username ? userData.username : userData.first_name}</h1>
+                        <span loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
                     </Link>
                 </div>
-                <div className="tap_coin">
-                    <img loading={"lazy"} src={ball} alt=""/>
-                    <h1><Odometer value={userData.score} format="(.ddd),dd"/></h1>
-                </div>
-                {/*<div className="tap_ball_energy">*/}
-                {/*    <div className="energy_line">*/}
-                {/*        <p>{formatNumber(userData.limitCoin)}</p>*/}
-                {/*        <p>{userData.status}fdsf</p>*/}
-                {/*        <span style={{ width: `${(userData.score / userData.limitCoin) * 100}%` }}></span>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                <div className="tap_ball"
-                     onContextMenu={(e) => e.preventDefault()}
-                     ref={ballRef}
-                     onTouchStart={handleStart}
-                     onTouchEnd={handleEnd}
-                     onMouseDown={handleStart}
-                     onMouseUp={handleEnd}
-                >
-                    <img
-
-
-                        draggable={false}
-                        src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
-                    />
-
-                    {animations.map(({id, x, y, tapBonus}) => (
-                        <div key={id} className="ball-animation" style={{left: x, top: y}}>
-                            {tapBonus}
+                <div className="ball-content">
+                    <div className="ball-score-container">
+                        <div className="ball-score">
+                            <p>{t("homePageTap.tap_bonus")}</p>
+                            <h1>+{userData.tapBonus}</h1>
                         </div>
-                    ))}
+                        <span className={"ball-score-line"}></span>
+                        <span className={"ball-score-line2"}></span>
+                        <div className="ball-score ball-score-status">
+                            <p>{t("homePageTap.darajangiz")}</p>
+                            <h1>{userData.status}</h1>
+                        </div>
 
+                        <Link className="ball-score" to={`/${user_id}/${language}/exp_shop`} ref={tajribaRef}>
+                            <p>{t("homePageTap.tajriba")}</p>
+                            <h1>{userData.hour_coin ? formatNumber(userData.hour_coin) : 0}</h1>
+                        </Link>
+                    </div>
+                    <div className="tap_coin">
+                        <img loading={"lazy"} src={ball} alt=""/>
+                        <h1><Odometer value={userData.score} format="(.ddd),dd"/></h1>
+                    </div>
+                    {/*<div className="tap_ball_energy">*/}
+                    {/*    <div className="energy_line">*/}
+                    {/*        <p>{formatNumber(userData.limitCoin)}</p>*/}
+                    {/*        <p>{userData.status}fdsf</p>*/}
+                    {/*        <span style={{ width: `${(userData.score / userData.limitCoin) * 100}%` }}></span>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <div className="tap_ball"
+                         onContextMenu={(e) => e.preventDefault()}
+                         ref={ballRef}
+                         onTouchStart={handleStart}
+                         onTouchEnd={handleEnd}
+                         onMouseDown={handleStart}
+                         onMouseUp={handleEnd}
+                    >
+                        <img
+                            draggable={false}
+                            src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
+                        />
+
+                        {animations.map(({id, x, y, tapBonus}) => (
+                            <div key={id} className="ball-animation" style={{left: x, top: y}}>
+                                {tapBonus}
+                            </div>
+                        ))}
+
+                    </div>
+                    <div className="energy_info">
+                        <img src={volteg} alt="volteg" loading={"lazy"}/>
+                        <p>{userData.energy}/{userData.maxEnergy}</p>
+                    </div>
                 </div>
-                <div className="energy_info">
-                    <img src={volteg} alt="volteg" loading={"lazy"}/>
-                    <p>{userData.energy}/{userData.maxEnergy}</p>
-                </div>
+                <Tour
+                    open={openTour}
+                    steps={stepsTour}
+                    onClose={() => setOpenTour(false)}
+                />
             </div>
-            <Tour
-                open={openTour}
-                steps={stepsTour}
-                onClose={() => setOpenTour(false)}
-            />
-        </div>
-    ); }
+        );
+    }
 
 
 };
