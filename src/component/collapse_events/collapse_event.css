@@ -54,7 +54,7 @@
     color: white;
 }
 
-.collapse-content-event {
+.collapse-item-event.open .collapse-content-event {
     padding: 10px 15px;
     background: rgba( 55, 136, 5, 0.55 );
     box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
@@ -127,6 +127,15 @@
     width: 18px;
     height: 18px;
 }
+
+.collapse-item-event.open .events_item{
+    background: rgba( 55, 136, 5, 0.55 );
+    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 20px );
+    border: 1px solid #39FF14;
+}
+
 .event_collapse_box button{
     cursor: pointer;
     width: 90%;

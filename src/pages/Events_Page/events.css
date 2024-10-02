@@ -46,16 +46,19 @@
 .events_box_content_title h1 {
     font-size: 27px;
 }
-
+.events_item.active{
+    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+    border: 1px solid #39FF14;
+}
 .events_item {
     width: 88%;
     height: 65px;
     padding: 10px;
     background: rgba( 55, 136, 5, 0.55 );
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid #39FF14;
+
     margin-bottom: 10px;
     border-radius: 30px;
     color: white;

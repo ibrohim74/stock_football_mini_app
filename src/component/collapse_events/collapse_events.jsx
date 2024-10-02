@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import "./collapse_event.css"
+import React, { useEffect, useRef, useState } from 'react';
+import './collapse_event.css';
 
 const CollapseItem = ({ label, children, isOpen, onClick }) => {
     const contentRef = useRef(null);
@@ -15,7 +15,10 @@ const CollapseItem = ({ label, children, isOpen, onClick }) => {
 
     return (
         <div className={`collapse-item-event ${isOpen ? 'open' : ''}`}>
-            <div className="collapse-header-event" onClick={onClick}>
+            <div
+                className={`collapse-header-event ${isOpen ? 'active' : ''}`} // Add 'active' class when open
+                onClick={onClick}
+            >
                 {label}
             </div>
             <div
@@ -29,7 +32,7 @@ const CollapseItem = ({ label, children, isOpen, onClick }) => {
     );
 };
 
-const CollapseEvents = ({items}) => {
+const CollapseEvents = ({ items }) => {
     const [openKey, setOpenKey] = useState(null);
 
     const handleToggle = (key) => {

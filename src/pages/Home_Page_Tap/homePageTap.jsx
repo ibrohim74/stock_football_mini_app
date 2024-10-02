@@ -292,8 +292,7 @@ const HomePageTap = () => {
                             <p>{t("homePageTap.tap_bonus")}</p>
                             <h1>+{userData.tapBonus}</h1>
                         </div>
-                        <span className={"ball-score-line"}></span>
-                        <span className={"ball-score-line2"}></span>
+
                         <div className="ball-score ball-score-status">
                             <p>{t("homePageTap.darajangiz")}</p>
                             <h1>{userData.status}</h1>

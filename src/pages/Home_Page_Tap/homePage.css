@@ -106,46 +106,59 @@
     text-align: center;
 
 
-    background: rgba( 55, 136, 5, 0.55 );
-    box-shadow: 0 0 100px 0 rgba( 255, 255, 255, 0.17 );
-    backdrop-filter: blur( 20px );
-    -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    /*background: rgba( 55, 136, 5, 0.55 );*/
+    /*box-shadow: 0 0 100px 0 rgba( 255, 255, 255, 0.17 );*/
+    /*backdrop-filter: blur( 20px );*/
+    /*-webkit-backdrop-filter: blur( 20px );*/
+    /*border: 1px solid rgba( 255, 255, 255, 0.18 );*/
 }
 
 .ball-score h1, .ball-score {
     color: #fff;
 
 }
+.ball-score{
+    background: rgba( 55, 136, 5, 0.55 );
+    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 20px );
+    border: 1px solid #39FF14;
+    width: 20%;
+    height: 75px;
+    padding: 10px 20px;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.ball-score:nth-child(1){
+    width: 30%;
+}
+.ball-score:nth-child(2){
+    width: 38%;
+}
 .ball-score h1{text-transform: uppercase}
 .ball-score p{
     color: #e1dfdf;
+    margin: 0;
 }
 
-.ball-score-line, .ball-score-line2 {
-    position: absolute;
-    width: 2px;
-    height: 80%;
-    background: rgba(255, 255, 255, 0.1);
+.ball-score h1{
+    margin: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    left: 33%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 100%;
 }
 
-.ball-score-line2 {
-    left: 74%;
-}
 
-.ball-score-status h1 {
+.ball-score h1 {
     font-size: 14px;
-    margin-top: 20px;
-    margin-bottom: 0;
 }
 
-.ball-score-status p {
-    margin: 0
-}
+
 
 
 .ball-animation {
