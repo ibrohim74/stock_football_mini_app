@@ -19,8 +19,8 @@ const HomePageTap = () => {
     const [ballPressed, setBallPressed] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     // const [soundEnabled, setSoundEnabled] = useState(true);
-    const {user_id, language} = useParams();
-
+    const {user_id} = useParams();
+const {language} = useParams();
     const timerRef = useRef(null);
     const {t} = useTranslation();
     const [openTour, setOpenTour] = useState(false);

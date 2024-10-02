@@ -9,16 +9,16 @@ import Events from "../pages/Events_Page/events.jsx";
 import ExpShop from "../pages/Exp_Page/exp_shop.jsx";
 import Quiz from "../pages/Quiz_Page/quiz.jsx";
 
-export const HOME_PAGE_TAP = "/:user_id";
-export const HOME_PAGE_FOOTBALL = "/:user_id/Football";
-export const PEREDACHA = "/:user_id/peredacha";
-export const LEAGUE = "/:user_id/league";
-export const FRIENDS = "/:user_id/friends";
-export const RATING = "/:user_id/rating";
-export const SETTINGS = "/:user_id/settings";
-export const EVENTS = "/:user_id/Events_Page";
-export const EXP_SHOP = "/:user_id/exp_shop";
-export const QUIZ = "/:user_id/quiz";
+export const HOME_PAGE_TAP = "/:user_id/:language";
+export const HOME_PAGE_FOOTBALL = "/:user_id/:language/Football";
+export const PEREDACHA = "/:user_id/:language/peredacha";
+export const LEAGUE = "/:user_id/:language/league";
+export const FRIENDS = "/:user_id/:language/friends";
+export const RATING = "/:user_id/:language/rating";
+export const SETTINGS = "/:user_id/:language/settings";
+export const EVENTS = "/:user_id/:language/Events_Page";
+export const EXP_SHOP = "/:user_id/:language/exp_shop";
+export const QUIZ = "/:user_id/:language/quiz";
 
 export const RouterTapFootballData = [
     { Path: HOME_PAGE_TAP, Component: HomePageTap },

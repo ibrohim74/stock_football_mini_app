@@ -19,7 +19,7 @@ import {useTranslation} from "react-i18next";
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
     const [loading, setLoading] = useState(true); // Loading holatini qo'shish
-    const {user_id} = useParams();
+    const {user_id,language} = useParams();
     const {t} = useTranslation()
     // Barcha ligalarni bir joyda to'plab olish
     const allLeagues = [
@@ -134,7 +134,7 @@ const HomePageFootball = () => {
     const navigate = useNavigate();
     useEffect(() => {
         window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
-            navigate(`/${user_id}`)
+            navigate(`/${user_id}/${language}`)
         })
     }, [user_id]);
 

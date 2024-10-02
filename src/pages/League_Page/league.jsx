@@ -3,7 +3,7 @@ import LeagueScroll from './component/league_scroll.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const League = () => {
-    const { user_id } = useParams();
+    const { user_id,language } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const League = () => {
 
         // "backButtonClicked" hodisasiga qo'shish
         window.Telegram.WebApp.onEvent("backButtonClicked", () => {
-            navigate(`/${user_id}`);
+            navigate(`/${user_id}/${language}`);
         });
 
         // Komponent unmount bo'lganida voqeani tozalash

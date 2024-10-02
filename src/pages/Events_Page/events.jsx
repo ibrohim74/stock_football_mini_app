@@ -11,7 +11,7 @@ import { message } from "antd";
 import { useTranslation } from "react-i18next";
 
 const Events = () => {
-    const { user_id } = useParams();
+    const { user_id,language } = useParams();
     const [messageApi, contextHolder] = message.useMessage();
     const { t } = useTranslation();
     const [quizAvailable, setQuizAvailable] = useState(false);
@@ -153,7 +153,7 @@ const Events = () => {
                         </div>
 
                         {quizAvailable ? (
-                            <Link className="events_item" to={`/${user_id}/quiz`}>
+                            <Link className="events_item" to={`/${user_id}/${language}/quiz`}>
                                 <img src={gift} loading="lazy" alt="logo" className="events_item_logo" />
                                 <div className="events_item_text">
                                     <p>{t("events.hero_event")}</p>
