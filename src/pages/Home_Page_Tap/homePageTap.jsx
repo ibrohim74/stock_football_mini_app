@@ -32,6 +32,7 @@ const HomePageTap = () => {
         hour_coin: 0,
     });
     const [loader, setLoader] = useState(false);
+    console.log(user_id)
     const getCoinData = async () => {
         setLoader(true);  // loaderni ko'rsatish
         try {
@@ -324,8 +325,8 @@ const HomePageTap = () => {
                      ref={ballRef}
                      onTouchStart={handleStart}
                      onTouchEnd={handleEnd}
-                     onMouseDown={handleStart}
-                     onMouseUp={handleEnd}
+                     // onMouseDown={handleStart}
+                     // onMouseUp={handleEnd}
                 >
                     <img
 
