@@ -97,7 +97,8 @@ const ExpShop = () => {
     };
 
     const postExpHours = async () => {
-        const threeHoursInMs = 3*60*60*1000;
+        // const threeHoursInMs = 3*60*60*1000;
+        const threeHoursInMs = 3000;
         const startTime = Date.now();
         const endTime = startTime + threeHoursInMs;
 
