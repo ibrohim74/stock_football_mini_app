@@ -19,7 +19,7 @@
 }
 
 .app_bar_content_item.active  img{
-    filter: drop-shadow(0 0 0.70rem white);
+
     transform: translateY(-10px);
 }
 
