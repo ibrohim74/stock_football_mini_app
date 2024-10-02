@@ -19,6 +19,7 @@
 }
 
 .app_bar_content_item.active{
+    z-index: 9999;
     filter: drop-shadow(0 0 0.75rem white);
 }
 
