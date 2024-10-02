@@ -52,9 +52,10 @@
     height: 65px;
     padding: 10px;
     background: rgba( 55, 136, 5, 0.55 );
-    backdrop-filter: blur( 20px );
+    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+    backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid #39FF14;
     margin-bottom: 10px;
     border-radius: 30px;
     color: white;
