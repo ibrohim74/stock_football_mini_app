@@ -18,7 +18,7 @@
     align-items: center;
 }
 
-.app_bar_content_item.active img{
+.app_bar_content_item.active{
     filter: drop-shadow(0 0 0.75rem white);
 }
 
