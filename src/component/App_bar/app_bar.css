@@ -21,6 +21,8 @@
 .app_bar_content_item.active  {
     padding-top:  -6px;
     border-top: #39FF14 solid 2px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 
