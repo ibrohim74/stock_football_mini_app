@@ -19,7 +19,6 @@
 }
 
 .app_bar_content_item.active{
-    border-radius: 50%;
     filter: drop-shadow(0 0 0.75rem white);
 }
 
@@ -77,20 +76,24 @@
 
 .app_bar_content_item {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 25%;
-    text-align: center;
+    border-radius: 50%; /* Tugmani to'liq yumaloq shaklda ko'rinish uchun */
+    overflow: hidden; /* Tugma ortidan chiqib ketgan qismlarni yashirish uchun */
 }
 
+
 .app_bar_content_item img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px; /* Masofani moslash */
 }
 
 .app_bar_content_item p {
-    margin: 0;
     font-size: 12px;
     color: white;
+    margin: 0; /* Matn tagidan bo'shliqni olib tashlash */
 }
+
