@@ -14,7 +14,7 @@
     border-top-right-radius: 25px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -27,7 +27,7 @@
 .app_bar_content {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 95%;
 }
 /*.app_bar::before{*/
 /*    content: "";*/
