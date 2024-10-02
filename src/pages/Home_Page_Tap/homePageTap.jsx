@@ -171,7 +171,7 @@ const HomePageTap = () => {
             // Energiyani kamaytirish
             setUserData((prev) => ({
                 ...prev,
-                energy: Math.min(prev.energy , prev.maxEnergy) // maksimal energiya chegarasi
+                energy: Math.min(prev.energy , prev.maxEnergy)
             }));
         }
     };
