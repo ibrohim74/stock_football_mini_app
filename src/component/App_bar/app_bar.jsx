@@ -15,28 +15,28 @@ const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, ratingRef 
     return (
         <div className="app_bar">
             <div className="app_bar_content">
-                <Link to={`/${user_id}/${language}`} className={`app_bar_content_item ${location.pathname === `/${user_id}` ? 'active' : ''}`} ref={boshSahifaRef}>
+                <Link to={`/${user_id}/${language}`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}` ? 'active' : ''}`} ref={boshSahifaRef}>
                     <img src={ball} alt="Home" loading="lazy" style={{ marginBottom:"6px"}}/>
                     <p style={{marginBottom:"-7px"}}>{t("app_bar.bosh_sahifa")}</p>
                 </Link>
 
-                <Link to={`/${user_id}/${language}/Events_Page`} className={`app_bar_content_item ${location.pathname === `/${user_id}/Events_Page` ? 'active' : ''}`} ref={eventsRef}>
+                <Link to={`/${user_id}/${language}/Events_Page`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/Events_Page` ? 'active' : ''}`} ref={eventsRef}>
                     <img src={event} alt="Events" loading="lazy" />
                     <p>{t("app_bar.vazifalar")}</p>
                 </Link>
 
                 <div className="app_bar_live">
-                    <Link to={`/${user_id}/${language}/peredacha`} className={`app_live_button ${location.pathname === `/${user_id}/peredacha` ? 'active' : ''}`} ref={peredachaRef}>
+                    <Link to={`/${user_id}/${language}/peredacha`} className={`app_live_button ${location.pathname === `/${user_id}/${language}/peredacha` ? 'active' : ''}`} ref={peredachaRef}>
                         {t("app_bar.live")}
                     </Link>
                 </div>
 
-                <Link to={`/${user_id}/${language}/friends`} className={`app_bar_content_item ${location.pathname === `/${user_id}/friends` ? 'active' : ''}`} ref={friendsRef}>
+                <Link to={`/${user_id}/${language}/friends`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/friends` ? 'active' : ''}`} ref={friendsRef}>
                     <img src={users} alt="Friends" loading="lazy" />
                     <p>{t("app_bar.dostlar")}</p>
                 </Link>
 
-                <Link to={`/${user_id}/${language}/rating`} className={`app_bar_content_item ${location.pathname === `/${user_id}/rating` ? 'active' : ''}`} ref={ratingRef}>
+                <Link to={`/${user_id}/${language}/rating`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/rating` ? 'active' : ''}`} ref={ratingRef}>
                     <img src={liga} alt="Rating" loading="lazy" />
                     <p>{t("app_bar.reyting")}</p>
                 </Link>

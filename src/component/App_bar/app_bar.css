@@ -17,7 +17,6 @@
     justify-content: space-between;
     align-items: center;
 }
-/* Aktiv bo'lganda ikonka 5px katta va 10px tepaga ko‘tariladi */
 
 .app_bar_content_item.active{
     filter: drop-shadow(0 0 0.75rem white);
