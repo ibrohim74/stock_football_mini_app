@@ -1,0 +1,13 @@
+.gift {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* To hide overflow */
+}
+.gift_item{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}

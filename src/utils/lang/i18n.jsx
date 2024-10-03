@@ -90,11 +90,17 @@ i18n
                         ertangi: "Ertangi",
                         kechagi: "Kechagi"
                     },
+                    gift:{
+                        title: "Sovg'alar",
+                        h1:"Tez Kunda..."
+                    },
+
+
                     loading: "Kuting...",
                     no_data: "Ma'lumot yo'q"
                 }
             },
-            ru: {
+            rus: {
                 translation: {
                     tour: {
                         profile: {
@@ -176,6 +182,11 @@ i18n
                         ertangi: "Завтра",
                         kechagi: "Вчера"
                     },
+                    gift:{
+                        title: "Подарки",
+                        h1:"Скоро..."
+                    },
+
                     loading: "Подождите…",
                     no_data: "Нет информации"
                 }

@@ -5,6 +5,7 @@ import ball from "../../assets/icons/soccer_ball.png";
 import liga from "../../assets/icon/kobek.webp";
 import users from "../../assets/icon/omixta.webp";
 import event from "../../assets/icon/clandar.webp";
+import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.webp";
 import { useTranslation } from "react-i18next";
 
 const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, ratingRef }) => {
@@ -36,9 +37,9 @@ const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, ratingRef 
                     <p>{t("app_bar.dostlar")}</p>
                 </Link>
 
-                <Link to={`/${user_id}/${language}/rating`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/rating` ? 'active' : ''}`} ref={ratingRef}>
-                    <img src={liga} alt="Rating" loading="lazy" />
-                    <p>{t("app_bar.reyting")}</p>
+                <Link to={`/${user_id}/${language}/gift`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/rating` ? 'active' : ''}`} ref={ratingRef}>
+                    <img src={gift} alt="Rating" loading="lazy" />
+                    <p>{t("gift.title")}</p>
                 </Link>
             </div>
         </div>

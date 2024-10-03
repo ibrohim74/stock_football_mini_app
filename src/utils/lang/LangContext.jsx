@@ -5,7 +5,7 @@ import { languages } from "./langs.jsx";
 const LangContext = createContext();
 
 const LanguageProvider = ({ children }) => {
-    const validLanguages = ["ru", "uz"]; // Only allow "ru" and "uz"
+    const validLanguages = ["rus", "uz"]; // Only allow "ru" and "uz"
 
     const [selectedLanguage, setSelectedLanguage] = useState(() => {
         // Extract the language from the URL

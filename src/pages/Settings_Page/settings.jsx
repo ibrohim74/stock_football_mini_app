@@ -68,7 +68,7 @@ const Settings = () => {
                         <a onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
                             <Space>
                                 {selectedLanguage === "uz" && <><img src={UZ} alt=""/> O'zbekcha </>}
-                                {selectedLanguage === "ru" && <><img src={RU} alt=""/> Русский </>}
+                                {selectedLanguage === "rus" && <><img src={RU} alt=""/> Русский </>}
                                 <DownOutlined />
                             </Space>
                         </a>

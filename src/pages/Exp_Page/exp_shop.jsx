@@ -233,7 +233,7 @@ const ExpShop = () => {
 
                         {score > selectedItem.price ? (
                             <div className="exp_modal_footer">
-                                <button onClick={buyExp}>OLISH</button>
+                                <button onClick={buyExp} className={"exp_modal_btn_buy"}>OLISH</button>
                             </div>
                         ) : (
                             ""
