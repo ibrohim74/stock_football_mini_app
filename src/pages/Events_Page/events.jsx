@@ -17,10 +17,9 @@ const Events = () => {
     const [quizAvailable, setQuizAvailable] = useState(false);
 
     const initialEventsData = [
-        { id: 1, event: 'YouTube’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 15 },
-        { id: 2, event: 'Instagram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 1200 },
-        { id: 3, event: 'Telegram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 1000 },
-        { id: 4, event: 'stock football ga obuna boling', event_bonus: '+5M', event_link: 'https://test.uz', status: 'active', timer: 200 }
+        { id: 1, event: 'YouTube’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://www.youtube.com/@stockfootballuz', status: 'active', timer: 15 },
+        { id: 2, event: 'Instagram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://www.instagram.com/stockfootball_uz/', status: 'active', timer: 1200 },
+        { id: 3, event: 'Telegram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://t.me/+dU0VUUqbfWI0ZWIy', status: 'active', timer: 1000 },
     ];
 
     const [eventsData, setEventsData] = useState(initialEventsData);
@@ -99,6 +98,10 @@ const Events = () => {
                 event.id === id ? { ...event, status: 'ongoing' } : event
             )
         );
+        const selectedEvent = eventsData.find(event => event.id === id);
+        if (selectedEvent) {
+            window.open(selectedEvent.event_link, '_blank');
+        }
     };
 
     const CollapseItem = eventsData.map(item => ({
