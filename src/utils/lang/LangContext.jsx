@@ -12,29 +12,22 @@ const LanguageProvider = ({ children }) => {
         const urlParts = window.location.href.split("/");
         const urlLanguage = urlParts[urlParts.length - 1]; // Get the last part of the URL
 
-        // Check if the language in the URL is valid ("ru" or "uz"), else fallback to localStorage or default
-        const initialLanguage = validLanguages.includes(urlLanguage)
-            ? urlLanguage
-            : localStorage.getItem("selectedLanguage") || languages[0].key;
+        // Check if the language in the URL is valid ("ru" or "uz"), else fallback to a default
+        const initialLanguage = validLanguages.includes(urlLanguage) ? urlLanguage : "uz"; // Default to "uz"
 
-        return languages.find((lang) => lang.key === initialLanguage) || languages[0];
+        return initialLanguage;
     });
 
     useEffect(() => {
-        if (selectedLanguage && selectedLanguage.code) {
-            const lang_code = selectedLanguage.code;
-            i18n.changeLanguage(lang_code);
-            localStorage.setItem("selectedLanguage", selectedLanguage.key);
+        if (selectedLanguage) {
+            i18n.changeLanguage(selectedLanguage);
         }
     }, [selectedLanguage]);
 
-    const handleLanguageChange = (value) => {
-        const newLanguage = languages.find((lang) => lang.key === value.key);
-        if (newLanguage) {
-            setSelectedLanguage(newLanguage);
-            const lang_code = newLanguage.code;
-            i18n.changeLanguage(lang_code);
-            localStorage.setItem("selectedLanguage", newLanguage.key);
+    const handleLanguageChange = (languageCode) => {
+        if (validLanguages.includes(languageCode)) {
+            setSelectedLanguage(languageCode);
+            i18n.changeLanguage(languageCode);
 
             // Extract current parts of the URL
             const urlParts = window.location.href.split("/");
@@ -45,10 +38,11 @@ const LanguageProvider = ({ children }) => {
 
             // Construct the new URL
             const currentOrigin = window.location.origin; // Get current origin
-            const newUrl = `${currentOrigin}/#/${userId}/${newLanguage.code}`;
+            const newUrl = `${currentOrigin}/#/${userId}/${languageCode}`;
 
             // Update the URL without reloading the page
             window.history.replaceState(null, "", newUrl);
+            window.location.reload()
         }
     };
 
@@ -56,7 +50,6 @@ const LanguageProvider = ({ children }) => {
         <LangContext.Provider
             value={{
                 selectedLanguage,
-                setSelectedLanguage,
                 handleLanguageChange,
             }}
         >

@@ -2,17 +2,8 @@ import RU from "../../assets/icons/ru.svg"
 import UZ from "../../assets/icons/uz.svg"
 
 export const languages = [
-    {
-        label: "Russian",
-        key: "0",
-        code: "ru",
-        icon: <img src={RU} loading={"lazy"} alt={"russ"}/>,
-    },
-    {
-        label: "O'zbek",
-        key: "1",
-        code: "uz",
-        icon: <img src={UZ} loading={"lazy"} alt={"uz"}/>,
-    },
-
+    { code: 'uz', label: 'O\'zbekcha', icon: <img src={UZ} alt="O'zbekcha" /> },
+    { code: 'ru', label: 'Русский', icon: <img src={RU} alt="Русский" /> },
+    // boshqa tillar qo'shish mumkin
 ];
+

@@ -1,12 +1,10 @@
 import i18n from "i18next";
-import {initReactI18next} from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
 
 i18n
     .use(initReactI18next)
-    .use(LanguageDetector)
     .init({
-        fallbackLng: "uz",
+        fallbackLng: "uz", // Default language if the URL does not specify a valid language
         interpolation: {
             escapeValue: false,
         },
@@ -48,7 +46,6 @@ i18n
                             title: "Reyting",
                             description: "Bu yerda reyting sahifasini ochasiz"
                         }
-
                     },
                     app_bar: {
                         bosh_sahifa: "Bosh sahifa",
@@ -69,16 +66,16 @@ i18n
                     },
                     friends: {
                         title: "Do'stlarni taklif qiling!",
-                        sub_title: "Do'stingi darajasi oshsa  darhol +5K va bonuslar olasiz",
+                        sub_title: "Do'stingi darajasi oshsa darhol +5K va bonuslar olasiz",
                         claim: "Ballarni olish",
-                        claim_active:"Ballar to'planmoqda",
+                        claim_active: "Ballar to'planmoqda",
                         fiends: "Do'stlar ro'yxati",
                         show_all: "Barchasini ko'rsatish",
                         share: "Do'stni taklif qilish"
                     },
                     events: {
                         title: "Vazifalarni bajaring",
-                        sub_title: "va yanada ko'proq  tangalarini qo'lga kiriting",
+                        sub_title: "va yanada ko'proq tangalarini qo'lga kiriting",
                         day_event: "Kundalik vazifalar",
                         event: "Vazifalar ro'yxati",
                         hero_event: "Asosiy vazifalar",
@@ -134,7 +131,6 @@ i18n
                             title: "Рейтинг",
                             description: "Здесь вы сможете открыть страницу рейтинга"
                         }
-
                     },
                     app_bar: {
                         bosh_sahifa: "Главная ",
@@ -155,9 +151,9 @@ i18n
                     },
                     friends: {
                         title: "Приглашайте друзей!",
-                        sub_title: "При повышении уровня приглашенного друга вы сразу получается 5К баллов бонусом",
+                        sub_title: "При повышении уровня приглашенного друга вы сразу получаете 5К баллов бонусом",
                         claim: "Получить баллы",
-                        claim_active:"Баллы набираются",
+                        claim_active: "Баллы набираются",
                         fiends: "Список друзей",
                         no_friends: "Вы еще никого не пригласили",
                         show_all: "Показать все",
@@ -180,7 +176,6 @@ i18n
                         ertangi: "Завтра",
                         kechagi: "Вчера"
                     },
-
                     loading: "Подождите…",
                     no_data: "Нет информации"
                 }
