@@ -37,7 +37,7 @@ const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, ratingRef 
                     <p>{t("app_bar.dostlar")}</p>
                 </Link>
 
-                <Link to={`/${user_id}/${language}/gift`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/rating` ? 'active' : ''}`} ref={ratingRef}>
+                <Link to={`/${user_id}/${language}/gift`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/gift` ? 'active' : ''}`} ref={ratingRef}>
                     <img src={gift} alt="Rating" loading="lazy" />
                     <p>{t("gift.title")}</p>
                 </Link>

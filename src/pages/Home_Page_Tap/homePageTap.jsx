@@ -293,10 +293,10 @@ const HomePageTap = () => {
                             <h1>+{userData.tapBonus}</h1>
                         </div>
 
-                        <div className="ball-score ball-score-status">
+                        <Link to={`/${user_id}/${language}/rating`} className="ball-score ball-score-status">
                             <p>{t("homePageTap.darajangiz")}</p>
                             <h1>{userData.status}</h1>
-                        </div>
+                        </Link>
 
                         <Link className="ball-score" to={`/${user_id}/${language}/exp_shop`} ref={tajribaRef}>
                             <p>{t("homePageTap.tajriba")}</p>

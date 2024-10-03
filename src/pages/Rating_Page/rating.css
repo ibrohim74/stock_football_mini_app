@@ -1,8 +1,8 @@
 .rating{
     padding: 0;
     margin: 0;
-    height: 100vh;
-    overflow: scroll;
+    width: 100%;
+    /*overflow: scroll;*/
 }
 .rating .swiper-slide{
     width: 150px !important;
@@ -16,6 +16,7 @@
 
 
 .ratingSwiper{
+
     margin-top: 35px !important;
 }
 .ratingSwiper .swiper-slide.selected {
@@ -38,6 +39,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    height: 100%;
 }
 
 .rating_table_item {
@@ -55,7 +58,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.rating_table_item:last-child{margin-bottom: 100px}
+.rating_table_item:last-child{margin-bottom: 220px}
 .rating_table_item p , .rating_table_item h1{
     margin: 0;
     padding: 0;

@@ -1,0 +1,47 @@
+.ratingIndex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    width: 100vw;
+    flex-direction: column;
+}
+.rating_content{
+    width: 100%;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    overflow-y: scroll;
+    height: 100vh;
+}
+.rating_tabs{
+    width: 90%;
+    background: rgba( 55, 136, 5, 0.55 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 20px );
+    border: 1px solid rgba( 55, 136, 5, 0.55 );
+    border-radius: 30px;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.rating_tabs_item{
+    padding: 20px 20px;
+    border-radius: 30px;
+    font-weight: 300;
+    /*border: 1px solid #39FF14;*/
+    /*box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );*/
+    /*background: rgba( 55, 136, 5, 0.55 );*/
+    /*backdrop-filter: blur( 10px );*/
+    /*-webkit-backdrop-filter: blur( 20px );*/
+}
+.rating_tabs_item.active{
+    border: 1px solid #39FF14;
+    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );
+    background: rgba( 55, 136, 5, 0.55 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 20px );
+}
