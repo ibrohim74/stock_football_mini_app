@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import {initReactI18next} from "react-i18next";
 
 i18n
     .use(initReactI18next)
@@ -20,6 +20,10 @@ i18n
                             title: "Tajriba",
                             description: 'Bu yerda soatiga qancha tajriba ishlashingiz ko\'rsatiladi, ' +
                                 'ustiga bosib tajriba sotib olishingiz va ko\'paytirishingiz mumkin'
+                        },
+                        daraja: {
+                            title: "Daraja",
+                            description: "Bu yerda mavjud barcha darajalarni va reytingni korishingiz mumkin.",
                         },
                         Koptok: {
                             title: "Koptok",
@@ -84,15 +88,31 @@ i18n
                     exp_shop: {
                         btn_active: "Tajriba orttirish davom etmoqda...",
                         btn_disbl: "Tajriba orttirish",
+                        hour_tajriba: "Soatiga tajriba",
+                        daraja: "Daraja",
+                        daraja_short: "dar",
+                        price: "Narx",
+                        buy: "Sotb olish",
+                        dis_buy: "Mablag' yetarli emas",
+                        status: {
+                            tajriba_oshdi: "Tajribangiz oshdi !!!",
+                            error: "Xatolik yuzaga keldi",
+                            claim: "Ballar olindi"
+                        }
                     },
                     peredacha: {
                         bugungi: "Bugungi",
                         ertangi: "Ertangi",
                         kechagi: "Kechagi"
                     },
-                    gift:{
+                    gift: {
                         title: "Sovg'alar",
-                        h1:"Tez Kunda..."
+                        h1: "Tez Kunda..."
+                    },
+
+                    rayting_content: {
+                        darajalar: "Darajalar",
+                        reyting: "Reyting",
                     },
 
 
@@ -112,6 +132,11 @@ i18n
                             description: 'Здесь указано сколько опыта в час вы зарабатываете, ' +
                                 'Войдя вы сможете покупать карточки опыта и усиливать его'
                         },
+                        daraja: {
+                            title: "Уровень",
+                            description: "Здесь вы можете увидеть все доступные уровни и рейтинг.",
+                        },
+
                         Koptok: {
                             title: "Мяч",
                             description: 'Тапайте мяч и зарабатывайте баллы!' +
@@ -173,18 +198,35 @@ i18n
                         hero_event: "Основная задача",
                         completed: "задача выполнена"
                     },
+
                     exp_shop: {
                         btn_active: "Продолжается получение опыта…",
                         btn_disbl: "Получение опыта",
+                        hour_tajriba: "Часовой опыт",
+                        daraja: "Уровень",
+                        daraja_short: "ур.",
+                        price: "Цена",
+                        buy: "Купить",
+                        dis_buy: "Недостаточно средств",
+                        status: {
+                            tajriba_oshdi: "Ваш опыт увеличился !!!",
+                            error: "Произошла ошибка",
+                            claim: "Баллы получены"
+                        }
                     },
+
                     peredacha: {
                         bugungi: "Сегодняшний",
                         ertangi: "Завтра",
                         kechagi: "Вчера"
                     },
-                    gift:{
+                    gift: {
                         title: "Подарки",
-                        h1:"Скоро..."
+                        h1: "Скоро..."
+                    },
+                    rayting_content: {
+                        darajalar: "Уровни",
+                        reyting: "Рейтинг",
                     },
 
                     loading: "Подождите…",

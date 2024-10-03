@@ -8,9 +8,10 @@ import { useLanguage } from "../../utils/lang/LangContext.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import UZ from "../../assets/icons/uz.svg"
 import RU from "../../assets/icons/ru.svg"
+import BackTab from "../../component/backTab/BackTab.jsx";
 const Settings = () => {
     const { handleLanguageChange, selectedLanguage } = useLanguage();
-    const { user_id } = useParams();
+    const { user_id ,language} = useParams();
     const navigate = useNavigate();
 
     const [vibrationEnabled, setVibrationEnabled] = useState(() => {
@@ -33,14 +34,10 @@ const Settings = () => {
 
     const toggleVibration = () => setVibrationEnabled(prev => !prev);
 
-    useEffect(() => {
-        window.Telegram.WebApp.onEvent("backButtonClicked", () => {
-            navigate(`/${user_id}`);
-        });
-    }, [user_id, navigate]);
 
     return (
         <div className='sett'>
+            <BackTab back_url={`/${user_id}/${language}`}/>
             <div className="settings">
                 <div className="settings_box">
                     <div

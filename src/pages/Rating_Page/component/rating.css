@@ -58,6 +58,13 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.rating_table_item_current_user{
+    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.17 );
+    border: 3px solid #39FF14;
+}
+
+
 .rating_table_item:last-child{margin-bottom: 220px}
 .rating_table_item p , .rating_table_item h1{
     margin: 0;

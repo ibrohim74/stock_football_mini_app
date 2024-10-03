@@ -212,12 +212,18 @@ const HomePageTap = () => {
     const eventsRef = useRef(null);
     const ratingRef = useRef(null);
     const tajribaRef = useRef(null);
+    const darajaRef = useRef(null);
 
     const stepsTour = [
         {
             title: t("tour.profile.title"),
             description: t("tour.profile.description"),
             target: () => profileRef.current,
+        },
+        {
+            title: t("tour.daraja.title"),
+            description: t("tour.daraja.description"),
+            target: () => darajaRef.current,
         },
         {
             title: t("tour.tajriba.title"),
@@ -272,7 +278,6 @@ const HomePageTap = () => {
     } else {
         return (
             <div className="home-page">
-                {language}
                 <AppBar
                     boshSahifaRef={boshSahifaRef}
                     friendsRef={friendsRef}
@@ -293,7 +298,7 @@ const HomePageTap = () => {
                             <h1>+{userData.tapBonus}</h1>
                         </div>
 
-                        <Link to={`/${user_id}/${language}/rating`} className="ball-score ball-score-status">
+                        <Link to={`/${user_id}/${language}/rating`} className="ball-score ball-score-status" ref={darajaRef}>
                             <p>{t("homePageTap.darajangiz")}</p>
                             <h1>{userData.status}</h1>
                         </Link>

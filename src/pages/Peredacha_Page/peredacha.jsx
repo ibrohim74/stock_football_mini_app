@@ -11,12 +11,13 @@ import {
 import {useNavigate, useParams} from "react-router-dom";
 
 import {useTranslation} from "react-i18next";
+import BackTab from "../../component/backTab/BackTab.jsx";
 
 const Peredacha = () => {
     const [time, setTime] = useState(new Date());
     const [leagues, setLeagues] = useState([]);
     const [activeTab, setActiveTab] = useState('today');
-    const {user_id} = useParams();
+    const {user_id,language} = useParams();
     const {t} = useTranslation()
     useEffect(() => {
         setLeagues([
@@ -57,18 +58,12 @@ const Peredacha = () => {
     // Endi leagueIds string emas, array holatida
     const leagueIds = leagues.map(league => league.id);
 
-    const navigate = useNavigate();
-    useEffect(() => {
-        window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
-            navigate(`/${user_id}`)
-        })
-    }, [user_id]);
 
     return (
         <div className="peredacha">
 
             <div className="peredacha_time">
-
+                <BackTab back_url={`/${user_id}/${language}`}/>
                 <div className="peredacha_time_box">
                     <h1>{formattedTime}</h1>
                     <p>{formattedDate}</p>

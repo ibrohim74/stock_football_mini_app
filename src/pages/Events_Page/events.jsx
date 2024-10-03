@@ -11,7 +11,7 @@ import { message } from "antd";
 import { useTranslation } from "react-i18next";
 
 const Events = () => {
-    const { user_id,language } = useParams();
+    const { user_id, language } = useParams();
     const [messageApi, contextHolder] = message.useMessage();
     const { t } = useTranslation();
     const [quizAvailable, setQuizAvailable] = useState(false);
@@ -36,6 +36,22 @@ const Events = () => {
         });
         setEventsData(updatedEvents);
     }, [user_id]);
+
+    // Check if quiz is available
+    useEffect(() => {
+        const lastPlayedTime = localStorage.getItem(`quiz_last_played_${user_id}`);
+        const now = new Date().getTime(); // Hozirgi vaqtni olish
+        const quizCooldown = 24 * 60 * 60 * 1000; // 24 soatlik vaqt
+
+        // Agar quiz last played vaqt mavjud bo'lsa, va vaqt o'tgan bo'lsa, quizAvailable false bo'ladi
+        if (lastPlayedTime) {
+            const timePassed = now - lastPlayedTime;
+            setQuizAvailable(timePassed >= quizCooldown); // 24 soat o'tganligini tekshirish
+        } else {
+            setQuizAvailable(true); // Agar vaqt bo'lmasa, quizAvailable true
+        }
+    }, [user_id]);
+
     const formatTime = (milliseconds) => {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const hours = Math.floor(totalSeconds / 3600);
@@ -44,6 +60,7 @@ const Events = () => {
 
         return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
     };
+
     // Timer effect
     useEffect(() => {
         const intervals = eventsData.map((event, index) => {
@@ -100,13 +117,12 @@ const Events = () => {
                      {item.status === 'active' && (
                          <img loading="lazy" src={active} alt="active"/>
                      )}
-                     {item.status === 'ongoing' && (
-                         <img loading="lazy" src={reload} alt="active"/>
-                     )}
-                     {item.status === 'completed' && (
-                         <img loading="lazy" src={success} alt="active"/>
-                     )}
-
+                    {item.status === 'ongoing' && (
+                        <img loading="lazy" src={reload} alt="active"/>
+                    )}
+                    {item.status === 'completed' && (
+                        <img loading="lazy" src={success} alt="active"/>
+                    )}
                 </span>
             </div>
         ),
@@ -118,7 +134,6 @@ const Events = () => {
                 <div className="text_event_collapse">
                     <h1>{item.event}</h1>
                     <span>
-
                         <img loading="lazy" src={ball} alt="ball" />
                         <p>{item.event_bonus}</p>
                     </span>
@@ -127,7 +142,7 @@ const Events = () => {
                     )}
                     {item.status === 'ongoing' && (
                         <div className="timer">
-                            <p>{formatTime(item.timer*1000)}</p>
+                            <p>{formatTime(item.timer * 1000)}</p>
                         </div>
                     )}
                     {item.status === 'completed' && (
@@ -183,7 +198,7 @@ const Events = () => {
                         )}
 
                         <div className="events_box_content_title">
-                            <h1>{t("events.event")}</h1>
+                            <h1>{t("events.event_list")}</h1>
                         </div>
                         <Collapse_events items={CollapseItem} />
                     </div>

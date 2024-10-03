@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Modal } from 'antd'; // Antd modalni import qilamiz
+import React, {useEffect, useState} from 'react';
+import {message, Modal} from 'antd'; // Antd modalni import qilamiz
 import $API from "../../utils/https.jsx";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import "./exp_shop.css";
 import imgHeader from "../../assets/imgs/perspective_matte-36-128x128.png";
 import ball from "../../assets/icons/soccer_ball.png";
@@ -17,9 +17,12 @@ const ExpShop = () => {
     const [isModalVisible, setIsModalVisible] = useState(false); // Modal for details
     const [selectedItem, setSelectedItem] = useState(null); // Selected exp_item state
     const [buttonDisabled, setButtonDisabled] = useState(false); // Button disable state
-    const { user_id } = useParams();
+    const {user_id} = useParams();
     const [userExpData, setUserExpData] = useState([]);
     const [hoursBonusCoin, setHoursBonusCoin] = useState(null);
+    const [buyBtnDis, setBuyBtnDis] = useState(false);
+    const [messageApi, contextHolder] = message.useMessage();
+
     const {t} = useTranslation()
     const getCoinData = async () => {
         try {
@@ -31,6 +34,7 @@ const ExpShop = () => {
             console.log(res)
         } catch (e) {
             console.log(e);
+            messageApi.error(t("exp_shop.status.error"));
         }
     };
 
@@ -42,17 +46,23 @@ const ExpShop = () => {
     };
 
     const buyExp = async () => {
+        setBuyBtnDis(true)
         try {
             const res = await $API.post(`/experience/sale/${selectedItem.id}`, null, {
                 params: {
                     user_id: selectedItem.user_id,
                 },
             });
+            setBuyBtnDis(false)
             setIsModalVisible(false)
             getCoinData();
+            messageApi.success(t("exp_shop.status.tajriba_oshdi"));
             console.log(res);
         } catch (e) {
             console.log(e);
+            setBuyBtnDis(false)
+            setIsModalVisible(false)
+            messageApi.error(t("exp_shop.status.error"));
         }
     };
 
@@ -133,13 +143,15 @@ const ExpShop = () => {
                 },
             });
             console.log(res)
+            messageApi.success(t('exp_shop.status.claim'));
             setHoursBonusCoin(res.data.response.coin)
             getCoinData();
-            setInterval(()=>{
+            setInterval(() => {
                 setHoursBonusCoin(null)
-            },10000)
+            }, 10000)
 
         } catch (e) {
+            messageApi.error(t("exp_shop.status.error"));
             console.log(e);
         }
     };
@@ -170,6 +182,7 @@ const ExpShop = () => {
     }, []);
     return (
         <div className="ExpShop">
+            {contextHolder}
             <div className="exp_content">
                 <div className="exp_nav_box">
                     <div className="exp_nav">
@@ -186,8 +199,8 @@ const ExpShop = () => {
 
                 <div className="exp_ball_score">
                     <div className="exp_ball">
-                        <img src={ball} alt="" loading={"lazy"} width={25} />
-                        <h1><Odometer value={score} format="(.ddd),dd" /></h1>
+                        <img src={ball} alt="" loading={"lazy"} width={25}/>
+                        <h1><Odometer value={score} format="(.ddd),dd"/></h1>
                         {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}
                     </div>
                     <button onClick={postExpHours} disabled={buttonDisabled}>
@@ -199,17 +212,17 @@ const ExpShop = () => {
                     {userExpData.map((item) => (
                         <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
                             <div className="exp_item_header">
-                                <img src={item.photo} loading={"lazy"} alt="" />
+                                <img src={item.photo} loading={"lazy"} alt=""/>
 
                             </div>
                             <div className="exp_item_body">
                                 <p>{item.name}</p>
-                               <p style={{fontSize:14}}>soatiga tajriba + {formatNumber(item.hour_coin)}</p>
+                                <p style={{fontSize: 14}}>{t('exp_shop.hour_tajriba')} + {formatNumber(item.hour_coin)}</p>
                             </div>
                             <div className="item_footer">
-                                <div className="item_footer_exp">{item.degree}-dar</div>
+                                <div className="item_footer_exp">{item.degree}-{t("exp_shop.daraja_short")}</div>
                                 <div className="item_footer_coin">
-                                    <img src={ball} loading={"lazy"} alt="" width={15} />
+                                    <img src={ball} loading={"lazy"} alt="" width={15}/>
                                     {formatNumber(item.price)}
                                 </div>
                             </div>
@@ -219,24 +232,30 @@ const ExpShop = () => {
             </div>
 
             {/* Modal */}
-            <Modal title="Tajriba tafsilotlari" className={"exp_modal"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Modal className={"exp_modal"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 {selectedItem && (
                     <div className="exp_modal_box">
                         <div className="exp_modal_header">
-                            <img src={selectedItem.photo} alt="asdasd" />
+                            <img src={selectedItem.photo} alt="asdasd"/>
                         </div>
                         <h2>{selectedItem.name}</h2>
                         <p className={"exp_modal_box_desc"}>{selectedItem.description}</p>
-                        <p>soatiga tajriba: {selectedItem.price}</p>
-                        <p>Daraja: {selectedItem.degree}</p>
-                        <p>Coinlar: {formatNumber(selectedItem.price)}</p>
+                        <p>{t('exp_shop.hour_tajriba')} : {selectedItem.price}</p>
+                        <p>{t('exp_shop.daraja')} : {selectedItem.degree}</p>
+                        <p>{t('exp_shop.price')} : {formatNumber(selectedItem.price)}</p>
 
                         {score > selectedItem.price ? (
                             <div className="exp_modal_footer">
-                                <button onClick={buyExp} className={"exp_modal_btn_buy"}>OLISH</button>
+                                <button onClick={buyExp} className={"exp_modal_btn_buy"}
+                                        disabled={buttonDisabled}>{t('exp_shop.buy')}</button>
                             </div>
                         ) : (
-                            ""
+                            <div className="exp_modal_footer">
+                                <button className={"exp_modal_btn_buy disabled"}
+                                        disabled={true}>
+                                    {t("exp_shop.dis_buy")}
+                                </button>
+                            </div>
                         )}
                     </div>
                 )}

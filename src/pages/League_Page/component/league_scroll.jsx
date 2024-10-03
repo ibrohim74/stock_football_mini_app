@@ -18,6 +18,7 @@ import {
 } from "./leagueList.jsx";
 import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import BackTab from "../../../component/backTab/BackTab.jsx";
 
 const monthNames = [
     'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun',
@@ -33,7 +34,7 @@ const LeagueScroll = () => {
     const [loadingImages, setLoadingImages] = useState({}); // Track loading state for images
     const {t} = useTranslation();
     console.log(leagues)
-    const {user_id} = useParams();
+    const {user_id, language} = useParams();
     useEffect(() => {
         const allLeagues = [
             ...uzbekistan_league,
@@ -230,6 +231,7 @@ const LeagueScroll = () => {
 
     return (
         <div className="league-wrapper">
+            <BackTab back_url={`/${user_id}/${language}`}/>
             <Swiper
                 slidesPerView={3.5}
                 spaceBetween={10}
@@ -251,6 +253,7 @@ const LeagueScroll = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
+
             <div className="league_data">
                 {loadingFixtures ? (
                     <p style={{textAlign: 'center'}}>{t("loading")}</p>

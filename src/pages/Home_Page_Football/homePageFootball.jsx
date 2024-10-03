@@ -15,6 +15,7 @@ import {
 import "./footballHomePage.css"
 import {useNavigate, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import BackTab from "../../component/backTab/BackTab.jsx";
 
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
@@ -131,16 +132,11 @@ const HomePageFootball = () => {
     };
     });
 
-    const navigate = useNavigate();
-    useEffect(() => {
-        window.Telegram.WebApp.onEvent("backButtonClicked" , ()=>{
-            navigate(`/${user_id}/${language}`)
-        })
-    }, [user_id]);
 
     return (
         <div className={"homePageFootball"}>
             <h1 className={"footballTitle"}>
+                <BackTab back_url={`/${user_id}/${language}`}/>
                 <span>
                    LIVE
 

@@ -240,7 +240,15 @@
     color: white;
     font-size: 18px;
 }
-
+.exp_modal_btn_buy.disabled{
+    background: gray;
+    border: none;
+    color: white;
+}
+.disabled:hover{
+    border: none !important;
+    box-shadow: none !important;
+}
 .exp_modal .exp_modal_btn_buy:hover{
     border: 1px solid #39FF14;
     box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );

@@ -15,13 +15,14 @@ const Quiz = () => {
     const [quizFinished, setQuizFinished] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [answerStatus, setAnswerStatus] = useState(null); // Javob holatini saqlash
-    const { user_id } = useParams();
+    const { user_id,language } = useParams();
     const navigate = useNavigate();
 
     const getQuestions = async () => {
         try {
             const res = await $API.get("/questions");
             setQuestions(res.data);
+            console.log(res)
         } catch (error) {
             console.error(error);
         }
@@ -98,7 +99,7 @@ const Quiz = () => {
             setQuizFinished(true);
             localStorage.setItem(`quiz_last_played_${user_id}`, new Date().toISOString());
             setTimeout(() => {
-                navigate(`/${user_id}/Events_Page`);
+                navigate(`/${user_id}/${language}/Events_Page`);
             }, 3000);
         } else {
             setCurrentQuestion(currentQuestion + 1);

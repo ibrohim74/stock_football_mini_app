@@ -5,11 +5,11 @@ import {Link} from "react-router-dom";
 import back from "../../assets/icon/back.webp"
 const BackTab = ({back_url}) => {
     return (
-        <div className={"back-tab"}>
-            <Link to={back_url}>
-               <LeftOutlined/> <p>Orqaga</p>
-            </Link>
-        </div>
+        <Link className={"back-tab"} to={back_url}>
+
+               <LeftOutlined/>
+
+        </Link>
     );
 };
 

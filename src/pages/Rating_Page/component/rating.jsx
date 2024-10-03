@@ -3,10 +3,10 @@ import "./rating.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/pagination';
-import ball from '../../assets/icons/soccer_ball.png';
+import ball from '../../../assets/icons/soccer_ball.png';
 import { useParams } from "react-router-dom";
-import $API from "../../utils/https.jsx";
-import LoaderFootball from "../../component/loader/loader_football.jsx";
+import $API from "../../../utils/https.jsx";
+import LoaderFootball from "../../../component/loader/loader_football.jsx";
 import {useTranslation} from "react-i18next";
 
 // Helper function to format coins
