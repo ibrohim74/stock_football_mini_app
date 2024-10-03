@@ -19,11 +19,7 @@
 }
 
 .app_bar_content_item.active  {
-    padding-top:  -6px;
-    border-top: rgba(57 , 255 , 20 , 1) solid 2px;
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.57 );
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+  filter: drop-shadow(0 0 0.75rem white);
 }
 
 
