@@ -39,6 +39,7 @@ const Settings = () => {
         <div className='sett'>
             <BackTab back_url={`/${user_id}/${language}`}/>
             <div className="settings">
+
                 <div className="settings_box">
                     <div
                         className="settings_vibr settings_item"
@@ -46,10 +47,12 @@ const Settings = () => {
                         role="button"
                         aria-label={`Vibration is ${vibrationEnabled ? "on" : "off"}`}
                     >
-                        <img loading="lazy" src={phone} alt="Vibration setting icon" />
+                        <img loading="lazy" src={phone} alt="Vibration setting icon"/>
                         {vibrationEnabled ? "On" : "Off"}
                     </div>
+
                 </div>
+                <button onClick={()=>window.localStorage.clear()}>Clear</button>
                 <div className="settings_lang">
                     <Dropdown
                         menu={{
@@ -66,10 +69,11 @@ const Settings = () => {
                             <Space>
                                 {selectedLanguage === "uz" && <><img src={UZ} alt=""/> O'zbekcha </>}
                                 {selectedLanguage === "rus" && <><img src={RU} alt=""/> Русский </>}
-                                <DownOutlined />
+                                <DownOutlined/>
                             </Space>
                         </a>
                     </Dropdown>
+
                 </div>
             </div>
         </div>
