@@ -135,7 +135,7 @@
     width: 38%;
     border-right: 2px solid rgba( 55, 136, 5, 0.55 );
 }
-.ball-score h1{text-transform: uppercase}
+/*.ball-score h1{text-transform: uppercase}*/
 .ball-score p{
     color: #e1dfdf;
     margin: 0;

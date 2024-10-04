@@ -2,6 +2,16 @@
     height: 100vh;
     overflow: hidden;
 }
+.back_liga{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.back_liga h1{
+    font-size: 25px;
+    margin-right: 10px;
+}
 .league_data{
 
     overflow-y: auto; /* scroll qilish imkoniyatini beradi */

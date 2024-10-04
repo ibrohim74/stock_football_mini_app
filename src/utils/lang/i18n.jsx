@@ -49,6 +49,10 @@ i18n
                         Reyting: {
                             title: "Reyting",
                             description: "Bu yerda reyting sahifasini ochasiz"
+                        },
+                        Gift: {
+                            title: "Sovg'alar",
+                            description: "Tez kunda ..."
                         }
                     },
                     app_bar: {
@@ -114,6 +118,9 @@ i18n
                         darajalar: "Darajalar",
                         reyting: "Reyting",
                     },
+                    liga:{
+                        title:"Liga o'yinlari"
+                    },
 
 
                     loading: "Kuting...",
@@ -161,6 +168,10 @@ i18n
                         Reyting: {
                             title: "Рейтинг",
                             description: "Здесь вы сможете открыть страницу рейтинга"
+                        },
+                        Gift: {
+                            title: "Подарки",
+                            description: "Скоро..."
                         }
                     },
                     app_bar: {
@@ -227,6 +238,9 @@ i18n
                     rayting_content: {
                         darajalar: "Уровни",
                         reyting: "Рейтинг",
+                    },
+                    liga:{
+                        title:"Игры лиги"
                     },
 
                     loading: "Подождите…",

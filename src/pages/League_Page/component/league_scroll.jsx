@@ -231,7 +231,11 @@ const LeagueScroll = () => {
 
     return (
         <div className="league-wrapper">
-            <BackTab back_url={`/${user_id}/${language}`}/>
+            <div className="back_liga">
+                <BackTab back_url={`/${user_id}/${language}`}/>
+                <h1>{t('liga.title')}</h1>
+            </div>
+
             <Swiper
                 slidesPerView={3.5}
                 spaceBetween={10}

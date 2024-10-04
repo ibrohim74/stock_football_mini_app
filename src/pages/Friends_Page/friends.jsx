@@ -24,7 +24,7 @@ const Friends = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const { user_id } = useParams();
 
-    const displayedUsers = showAll ? friendsData : friendsData.slice(0, 3);
+    const displayedUsers = showAll && friendsData.length > 3 ? friendsData : friendsData.slice(0, 3);
 
     const getUserData = async () => {
         setLoading(true); // Yuklanish boshlandi

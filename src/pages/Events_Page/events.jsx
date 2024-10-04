@@ -17,9 +17,9 @@ const Events = () => {
     const [quizAvailable, setQuizAvailable] = useState(false);
 
     const initialEventsData = [
-        { id: 1, event: 'YouTube’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://www.youtube.com/@stockfootballuz', status: 'active', timer: 15 },
-        { id: 2, event: 'Instagram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://www.instagram.com/stockfootball_uz/', status: 'active', timer: 15 },
-        { id: 3, event: 'Telegram’dagi Stock football sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://t.me/+dU0VUUqbfWI0ZWIy', status: 'active', timer: 15 },
+        { id: 1, event: 'YouTube’dagi sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://www.youtube.com/@stockfootballuz', status: 'active', timer: 15 },
+        { id: 2, event: 'Instagram’dagi sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://www.instagram.com/stockfootball_uz/', status: 'active', timer: 15 },
+        { id: 3, event: 'Telegram’dagi sahifamizga obuna bo‘ling', event_bonus: '+5M', event_link: 'https://t.me/+dU0VUUqbfWI0ZWIy', status: 'active', timer: 15 },
     ];
 
     const [eventsData, setEventsData] = useState(initialEventsData);

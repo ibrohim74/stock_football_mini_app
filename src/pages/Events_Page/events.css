@@ -104,7 +104,8 @@
 .events_item_text p {
     margin: 0;
     padding: 0;
-
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .events_item_text img {

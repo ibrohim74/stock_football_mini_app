@@ -84,7 +84,7 @@ const HomePageTap = () => {
             await $API.patch(`/users/${user_id}`, null, {
                 params:
                     {
-                        coins: newScore,
+                        coin: newScore,
                         energy: newEnergy
                     }
             });
@@ -210,7 +210,7 @@ const HomePageTap = () => {
     const friendsRef = useRef(null);
     const peredachaRef = useRef(null);
     const eventsRef = useRef(null);
-    const ratingRef = useRef(null);
+    const giftRef = useRef(null);
     const tajribaRef = useRef(null);
     const darajaRef = useRef(null);
 
@@ -241,9 +241,9 @@ const HomePageTap = () => {
             target: () => boshSahifaRef.current,
         },
         {
-            title: t("tour.dostlar.title"),
-            description: t("tour.dostlar.description"),
-            target: () => friendsRef.current,
+            title: t("tour.events.title"),
+            description: t("tour.events.description"),
+            target: () => eventsRef.current,
         },
         {
             title: t("tour.live.title"),
@@ -251,14 +251,14 @@ const HomePageTap = () => {
             target: () => peredachaRef.current,
         },
         {
-            title: t("tour.events.title"),
-            description: t("tour.events.description"),
-            target: () => eventsRef.current,
+            title: t("tour.dostlar.title"),
+            description: t("tour.dostlar.description"),
+            target: () => friendsRef.current,
         },
         {
-            title: t("tour.Reyting.title"),
-            description: t("tour.Reyting.description"),
-            target: () => ratingRef.current,
+            title: t("tour.Gift.title"),
+            description: t("tour.Gift.description"),
+            target: () => giftRef.current,
         }
     ];
 
@@ -284,7 +284,7 @@ const HomePageTap = () => {
                     friendsRef={friendsRef}
                     peredachaRef={peredachaRef}
                     eventsRef={eventsRef}
-                    ratingRef={ratingRef}
+                    giftRef={giftRef}
                 />
                 <div className="home-page_user_settings">
                     <Link to={`/${user_id}/${language}/settings`} className="home-page_user" ref={profileRef}>
@@ -348,8 +348,9 @@ const HomePageTap = () => {
                 <Tour
                     open={openTour}
                     steps={stepsTour}
-                    onClose={() => setOpenTour(false)}
+                    closeIcon={false}
                 />
+
             </div>
         );
     }

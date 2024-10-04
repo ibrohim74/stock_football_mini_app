@@ -137,6 +137,9 @@ const HomePageFootball = () => {
         <div className={"homePageFootball"}>
             <h1 className={"footballTitle"}>
                 <BackTab back_url={`/${user_id}/${language}`}/>
+
+                <div className={"jonliEfir"}>Jonli Efir</div>
+
                 <span>
                    LIVE
 

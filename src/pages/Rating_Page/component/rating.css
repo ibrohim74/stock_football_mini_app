@@ -13,6 +13,14 @@
     margin-top: 10px;
 }
 
+.rating_table_tab{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 
 
 .ratingSwiper{
@@ -43,8 +51,8 @@
     height: 100%;
 }
 
-.rating_table_item {
-    width: 80%;
+.rating_table_tab_item , .rating_table_item {
+    width: 150px;
     height: 70px;
     margin-bottom: 10px;
     padding: 5px 20px;
@@ -58,7 +66,8 @@
     justify-content: space-between;
     align-items: center;
 }
-
+.rating_table_item{
+    width: 80%;}
 .rating_table_item_current_user{
     box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.17 );
     border: 3px solid #39FF14;

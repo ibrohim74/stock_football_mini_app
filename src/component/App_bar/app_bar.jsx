@@ -8,7 +8,7 @@ import event from "../../assets/icon/clandar.webp";
 import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.webp";
 import { useTranslation } from "react-i18next";
 
-const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, ratingRef }) => {
+const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, giftRef }) => {
     const { user_id,language } = useParams(); // Get userId from the URL
     const { t } = useTranslation();
     const location = useLocation();
@@ -36,7 +36,7 @@ const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, ratingRef 
                     <p>{t("app_bar.dostlar")}</p>
                 </Link>
 
-                <Link to={`/${user_id}/${language}/gift`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/gift` ? 'active' : ''}`} ref={ratingRef}>
+                <Link to={`/${user_id}/${language}/gift`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/gift` ? 'active' : ''}`} ref={giftRef}>
                     <img src={gift} alt="Rating" loading="lazy" />
                     <p>{t("gift.title")}</p>
                 </Link>

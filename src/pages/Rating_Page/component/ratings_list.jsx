@@ -14,12 +14,12 @@ const RatingsList = () => {
     const getUserData = async () => {
         setLoading(true); // Start loading
         try {
-            const res = await $API.get(`/users/${user_id}`);
-            const statuses = Object.keys(res.data.top_10); // Get status keys
-            setStatus(statuses);
-            setCurrentStatus(res.data.status)
-            setUserScore(res.data.user_data.coins)
-            console.log(res)
+            const res = await $API.get(`/status`);
+            const getUser = await $API.get(`/users/${user_id}`);
+            setStatus(res.data);
+            setCurrentStatus(getUser.data.status)
+            setUserScore(getUser.data.user_data.coins)
+            console.log(getUser)
         } catch (e) {
             console.log(e);
         } finally {
@@ -56,16 +56,18 @@ const RatingsList = () => {
 
                     {status.map((item, index) => {
                         return (
-                            <div className={`rating_list_item ${item === currentStatus.name && "active"}`} key={index}>
+                            <div className={`rating_list_item ${item.name === currentStatus.name && "active"}`} key={index}>
                                 <div className="rating_list_item_left">
-                                    <h1>{item}</h1>
+                                    <h1>{item.name}</h1>
                                 </div>
 
                                 <div className="rating_list_item_right">
                                     <h1>
-                                        {item === currentStatus.name ? <>
-                                            {formatCoins(userScore)} /{formatCoins(currentStatus.limit_coin)}
-                                        </> : "100k"}
+                                        {item.name === currentStatus.name ? <>
+                                            {formatCoins(userScore)} / {formatCoins(currentStatus.limit_coin)}
+                                        </> : <>
+                                        {formatCoins(item.limit_coin)}
+                                        </>}
                                     </h1>
                                 </div>
 

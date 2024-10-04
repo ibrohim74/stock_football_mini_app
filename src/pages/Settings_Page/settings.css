@@ -5,6 +5,7 @@
     width: 100%;
     height: 100vh;
     flex-direction: column;
+    position: relative;
 }
 .settings_box{
     display: flex;
@@ -46,7 +47,33 @@
 .sett{
     height: 100vh;
     overflow: scroll;
+
 }
 .sett .back-tab{
     position: absolute !important;
+    z-index: 99;
+}
+
+.settings_footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 20%;
+}
+.settings_footer_item{
+    width: 115px;
+    margin: 0 10px;
+    padding: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background: #378805;
+    color: white;
+}
+.settings_footer_item img{
+    width: 25px;
+    height: 25px;
 }

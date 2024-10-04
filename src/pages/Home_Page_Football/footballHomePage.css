@@ -5,16 +5,25 @@
 
 
 .footballTitle{
-    width: 95%;
+    width: 100%;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 5px;
 }
+.footballTitle .jonliEfir{
+    font-size: 20px;
+    background: #378805;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
 .footballTitle span{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 2px;
 }
 .footballContent{
     margin: 15px 0 100px 0;
