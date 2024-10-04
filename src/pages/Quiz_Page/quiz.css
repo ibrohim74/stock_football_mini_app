@@ -83,6 +83,13 @@
     padding: 10px;
     border-radius: 10px;
 }
+.quiz_item label{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .correct-answer {
     background-color: green;
     transition: background-color 0.2s ease-in;

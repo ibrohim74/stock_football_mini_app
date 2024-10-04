@@ -349,6 +349,7 @@ const HomePageTap = () => {
                     open={openTour}
                     steps={stepsTour}
                     closeIcon={false}
+                    onClose={() => setOpenTour(false)}
                 />
 
             </div>

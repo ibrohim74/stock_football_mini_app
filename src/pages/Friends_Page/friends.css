@@ -25,10 +25,9 @@
     justify-content: center;
     flex-direction: column;
     background: rgba( 55, 136, 5, 0.55 );
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid #39FF14;
+    border: 1px solid rgba( 55, 136, 5, 0.55 );
     border-radius: 30px;
 }
 .friends_gift_card p {
@@ -45,16 +44,19 @@
 }
 .friends_gift_card button{
     background: rgba( 55, 136, 5, 0.55 );
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid #39FF14;
+    border: 1px solid rgba( 55, 136, 5, 0.55 );
     border-radius: 10px;
     height: 50px;
     width: 200px;
     font-size: 20px;
 }
-
+.friends_gift_card button:hover{
+    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+    border: 1px solid #39FF14;
+}
 .friends_gift_card_text {
     padding: 10px;
     display: flex;
@@ -130,10 +132,9 @@
     align-items: center;
     padding: 10px;
     background: rgba( 55, 136, 5, 0.55 );
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
-    backdrop-filter: blur( 10px );
+        backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid #39FF14;
+    border: 1px solid rgba( 55, 136, 5, 0.55 );
     border-radius: 30px;
 }
 

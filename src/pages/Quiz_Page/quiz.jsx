@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { message, Progress } from 'antd';
+import React, {useState, useEffect} from 'react';
+import {message, Progress} from 'antd';
 import './quiz.css';
-import { useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import ball from '../../assets/icons/soccer_ball.png';
 import $API from "../../utils/https.jsx";
+import LoaderFootball from "../../component/loader/loader_football.jsx";
 
 const Quiz = () => {
     const [questions, setQuestions] = useState([]);
@@ -15,12 +16,12 @@ const Quiz = () => {
     const [quizFinished, setQuizFinished] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [answerStatus, setAnswerStatus] = useState(null); // Javob holatini saqlash
-    const { user_id,language } = useParams();
+    const {user_id, language} = useParams();
     const navigate = useNavigate();
 
     const getQuestions = async () => {
         try {
-            const res = await $API.get("/questions");
+            const res = await $API.get(`/questions/${user_id}`);
             setQuestions(res.data);
             console.log(res)
         } catch (error) {
@@ -58,9 +59,8 @@ const Quiz = () => {
     // Javobni serverga jo'natish va qaytgan javobga qarab rang berish
     const sendAnswerToServer = async (questionId, answerText) => {
         try {
-            const res = await $API.post('/questions/answer/', null, {
+            const res = await $API.post(`/questions/answer/${user_id}`, null, {
                 params: {
-                    user_id,
                     question_id: questionId,
                     answer: answerText,
                 }
@@ -68,7 +68,7 @@ const Quiz = () => {
 
             if (res.data.answer) {
                 setAnswerStatus('correct');
-                setScore(score + 100); // To'g'ri javob bo'lsa ball qo'shish
+                setScore(score + res.data.ball); // To'g'ri javob bo'lsa ball qo'shish
             } else {
                 setAnswerStatus('incorrect');
             }
@@ -107,31 +107,16 @@ const Quiz = () => {
     };
 
     if (!quizAvailable) {
-        return (
-            <div className="quiz-container quiz_end">
-                <div className="quiz_end_score">
-                    <h1><img loading={"lazy"} src={ball} alt="" width={25}/> {score}</h1>
-                    So'nggi o'yin natijasi
-                </div>
-                Viktorina faqat 24 soatda bir marta o'tkaziladi.
-            </div>
-        );
+        return navigate(`/${user_id}/${language}/Events_Page`);
     }
 
     if (quizFinished) {
-        return (
-            <div className="quiz-container quiz_end">
-                <div className="quiz_end_score">
-                    <h1><img loading={"lazy"} src={ball} alt="" width={25}/> {score}</h1>
-                    So'nggi o'yin natijasi
-                </div>
-                Viktorina yakunlandi.
-            </div>
-        );
+        return navigate(`/${user_id}/${language}/Events_Page`);
+        ;
     }
 
     if (questions.length === 0) {
-        return <div>Savollar yuklanmoqda...</div>;
+        return <LoaderFootball/>;
     }
 
     return (

@@ -10,7 +10,8 @@ import AppBar from "../../component/App_bar/app_bar.jsx";
 import { useTranslation } from "react-i18next";
 import $API from "../../utils/https.jsx";
 import { useParams } from "react-router-dom";
-import LoaderFootball from "../../component/loader/loader_football.jsx"; // LoaderFootball import qilish
+import LoaderFootball from "../../component/loader/loader_football.jsx";
+import Odometer from "react-odometerjs"; // LoaderFootball import qilish
 
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
@@ -29,7 +30,7 @@ const Friends = () => {
     const getUserData = async () => {
         setLoading(true); // Yuklanish boshlandi
         try {
-            const res = await $API.get(`/users/${user_id}`);
+            const res = await $API.get(`/users/friends/${user_id}`);
             console.log(res);
             setFriendsData(res.data.friends);
             setCurrentUser(res.data.user_data);
@@ -41,26 +42,29 @@ const Friends = () => {
     };
 
     const getClaim = async () => {
-
-        const threeHoursInMs = 8 * 60 * 60 * 1000;
-        const startTime = Date.now();
-        const endTime = startTime + threeHoursInMs;
-
-        // Vaqtni localStorage ga saqlash
-        localStorage.setItem('friendsStartTime', startTime.toString());
-        localStorage.setItem('friendsEndTime', endTime.toString());
-
-        // Qolgan vaqtni hisoblash
-        setRemainingTime(endTime - Date.now());
-        setButtonDisabled(true);
-
         try {
-            const res = await $API.post(`/referral/activate/${user_id}`);
+            const res = await $API.post(`/referrals/activate/${user_id}`);
             console.log(res);
             setHoursBonusCoin(res.data.coin);
             if (res.status === 200) {
                 await getUserData(); // Foydalanuvchi ma'lumotlarini yuklash
             }
+
+            const startTime = new Date(res.data.start_time).getTime(); // Start time ni vaqtga aylantirish
+            const endTime = new Date(res.data.end_time).getTime(); // End time ni vaqtga aylantirish
+
+            // Vaqtni localStorage ga saqlash
+            localStorage.setItem('friendsStartTime', startTime.toString());
+            localStorage.setItem('friendsEndTime', endTime.toString());
+
+            // Qolgan vaqtni hisoblash
+            const currentTime = Date.now(); // Hozirgi vaqt
+            const remaining = endTime - currentTime; // Qolgan vaqtni hisoblash
+            setRemainingTime(remaining);
+
+            // Tugma ni o'chirish
+            setButtonDisabled(true);
+
             setTimeout(() => {
                 setHoursBonusCoin(null);
             }, 3000);
@@ -70,6 +74,45 @@ const Friends = () => {
             setLoading(false); // Yuklanish tugadi
         }
     };
+
+    useEffect(() => {
+        const savedEndTime = localStorage.getItem('friendsEndTime');
+
+        if (savedEndTime) {
+            const currentTime = Date.now();
+            let remaining = parseInt(savedEndTime) - currentTime; // ISO formatdan o'qish
+
+            if (remaining > 0) {
+                setRemainingTime(remaining);
+                setButtonDisabled(true);
+
+                const timerId = setInterval(() => {
+                    remaining = parseInt(savedEndTime) - Date.now(); // Har bir sekundda yangilanadi
+
+                    if (remaining <= 0) {
+                        clearInterval(timerId);
+                        setButtonDisabled(false);
+                        localStorage.removeItem('friendsStartTime');
+                        localStorage.removeItem('friendsEndTime');
+                        getUserData();
+                    } else {
+                        setRemainingTime(remaining); // Qolgan vaqtni yangilash
+                    }
+                }, 1000);
+
+                // O'chirish uchun to'plamni ochirish
+                return () => clearInterval(timerId);
+            } else {
+                // Agar vaqt tugagan bo'lsa
+                setButtonDisabled(false);
+                localStorage.removeItem('friendsStartTime');
+                localStorage.removeItem('friendsEndTime');
+                getUserData();
+            }
+        }
+    }, [friendsData]);
+
+
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(`https://t.me/snkrsshoopbot?start=${user_id}`).then(() => {
@@ -88,6 +131,7 @@ const Friends = () => {
         return num.toString();
     };
 
+    // Qolgan vaqtni formatlash funksiyasi
     const formatTime = (milliseconds) => {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const hours = Math.floor(totalSeconds / 3600);
@@ -113,31 +157,7 @@ const Friends = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    useEffect(() => {
-        const savedEndTime = localStorage.getItem('friendsEndTime');
 
-        if (savedEndTime) {
-            const currentTime = Date.now();
-            const remaining = parseInt(savedEndTime, 10) - currentTime;
-
-            if (remaining > 0) {
-                setRemainingTime(remaining);
-                setButtonDisabled(true);
-                const timerId = setInterval(() => {
-                    const updatedRemaining = parseInt(savedEndTime, 10) - Date.now();
-                    if (updatedRemaining <= 1000) {
-                        clearInterval(timerId);
-                        setButtonDisabled(false);
-                        localStorage.removeItem('friendsStartTime');
-                        localStorage.removeItem('friendsEndTime');
-                        getUserData()
-                        return;
-                    }
-                    setRemainingTime(updatedRemaining);
-                }, 1000);
-            }
-        }
-    }, []);
 
     return (
         <div className="friends">
@@ -155,11 +175,13 @@ const Friends = () => {
                         <>
                             {friendsData.length > 0 && (
                                 <div className="friends_gift_card">
-                                    <p><img src={ball} loading={"lazy"} alt="Ball" />{currentUser.coins}</p>
+                                    <p><img src={ball} loading={"lazy"} alt="Ball" />
+                                        <Odometer value={currentUser.coins} format="(.ddd),dd"/>
+                                        </p>
                                     {buttonDisabled ? (
                                         <>
                                             {t("friends.claim_active")}
-                                            <p>{formatTime(remainingTime)}</p>
+                                            <p>{formatTime(remainingTime)}</p> {/* Qolgan vaqtni ko'rsatish */}
                                         </>
                                     ) : (
                                         <button onClick={getClaim}>{t("friends.claim")}</button>
@@ -169,7 +191,7 @@ const Friends = () => {
 
                             <div className="friends_ref">
                                 <div className="friends_ref_title">
-                                    <div className="friends_ref_title_top">
+                                    <div className="friends_ref_title_top" onClick={()=>getUserData()}>
                                         <h1>{t("friends.fiends")} ({friendsData.length})</h1>
                                         <img src={reload} loading={"lazy"} alt="Ball" width={60} height={60} />
                                     </div>
@@ -181,10 +203,10 @@ const Friends = () => {
                                         <div key={user.id} className="friends_ref_item">
                                             <img src={user_img} loading={"lazy"} alt="User" />
                                             <div className="friends_ref_item_info">
-                                                <h1>{user.values.username}</h1>
+                                                <h1>{user.username}</h1>
                                                 <p>
-                                                    {user.values.status}
-                                                    <span><img loading={"lazy"} src={ball} alt="" />{formatNumber(parseInt(user.values.coin))}</span>
+                                                    {user.status}
+                                                    <span><img loading={"lazy"} src={ball} alt="" />{formatNumber(parseInt(user.coins))}</span>
                                                 </p>
                                             </div>
                                         </div>

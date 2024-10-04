@@ -1,39 +1,37 @@
-import React, {useEffect, useState} from 'react';
-import {message, Modal} from 'antd'; // Antd modalni import qilamiz
+import React, { useEffect, useState } from 'react';
+import { message, Modal } from 'antd';
 import $API from "../../utils/https.jsx";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./exp_shop.css";
 import imgHeader from "../../assets/imgs/perspective_matte-36-128x128.png";
 import ball from "../../assets/icons/soccer_ball.png";
 import Odometer from 'react-odometerjs';
-import "../../assets/odometer.css"
-import {useTranslation} from "react-i18next";
+import "../../assets/odometer.css";
+import { useTranslation } from "react-i18next";
 
 const ExpShop = () => {
     const [score, setScore] = useState(0);
     const [tapBonus, setTapBonus] = useState(0);
     const [hour_coin, setHour_coin] = useState(null);
-    const [remainingTime, setRemainingTime] = useState(0); // Timer for display
-    const [isModalVisible, setIsModalVisible] = useState(false); // Modal for details
-    const [selectedItem, setSelectedItem] = useState(null); // Selected exp_item state
-    const [buttonDisabled, setButtonDisabled] = useState(false); // Button disable state
-    const {user_id} = useParams();
+    const [remainingTime, setRemainingTime] = useState(0);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const { user_id } = useParams();
     const [userExpData, setUserExpData] = useState([]);
-    const [hoursBonusCoin, setHoursBonusCoin] = useState(null);
+    const [hoursBonusCoin, setHoursBonusCoin] = useState(0);
     const [buyBtnDis, setBuyBtnDis] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
+    const { t } = useTranslation();
 
-    const {t} = useTranslation()
     const getCoinData = async () => {
         try {
-            const res = await $API.get(`/users/${user_id}`);
+            const res = await $API.get(`users/experience/${user_id}`);
             setScore(res.data.user_data.coins);
             setTapBonus(res.data.user_data.bonus);
             setUserExpData(res.data.experience);
-            setHour_coin(res.data.hour_coin);
-            console.log(res)
+            setHour_coin(res.data.user_data.hour_coin);
         } catch (e) {
-            console.log(e);
             messageApi.error(t("exp_shop.status.error"));
         }
     };
@@ -46,22 +44,20 @@ const ExpShop = () => {
     };
 
     const buyExp = async () => {
-        setBuyBtnDis(true)
+        setBuyBtnDis(true);
         try {
             const res = await $API.post(`/experience/sale/${selectedItem.id}`, null, {
                 params: {
                     user_id: selectedItem.user_id,
                 },
             });
-            setBuyBtnDis(false)
-            setIsModalVisible(false)
+            setBuyBtnDis(false);
+            setIsModalVisible(false);
             getCoinData();
             messageApi.success(t("exp_shop.status.tajriba_oshdi"));
-            console.log(res);
         } catch (e) {
-            console.log(e);
-            setBuyBtnDis(false)
-            setIsModalVisible(false)
+            setBuyBtnDis(false);
+            setIsModalVisible(false);
             messageApi.error(t("exp_shop.status.error"));
         }
     };
@@ -91,13 +87,11 @@ const ExpShop = () => {
         return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
     };
 
-    // Modalni ochish funksiyasi
     const showModal = (item) => {
-        setSelectedItem(item); // Bosilgan elementni saqlash
-        setIsModalVisible(true); // Modalni ochish
+        setSelectedItem(item);
+        setIsModalVisible(true);
     };
 
-    // Modalni yopish funksiyasi
     const handleOk = () => {
         setIsModalVisible(false);
     };
@@ -107,35 +101,7 @@ const ExpShop = () => {
     };
 
     const postExpHours = async () => {
-        // const threeHoursInMs = 3*60*60*1000;
-        const threeHoursInMs = 3000;
-        const startTime = Date.now();
-        const endTime = startTime + threeHoursInMs;
-
-        // Vaqtni localStorage ga saqlash
-        localStorage.setItem('expStartTime', startTime.toString());
-        localStorage.setItem('expEndTime', endTime.toString());
-
-        // Qolgan vaqtni hisoblash
-        setRemainingTime(endTime - Date.now());
-        setButtonDisabled(true);
-
-        const timerId = setInterval(() => {
-            const savedEndTime = parseInt(localStorage.getItem('expEndTime'), 10);
-            const currentTime = Date.now();
-            const timeLeft = savedEndTime - currentTime;
-
-            if (timeLeft <= 1000) {
-                clearInterval(timerId);
-                setButtonDisabled(false);
-                localStorage.removeItem('expStartTime');
-                localStorage.removeItem('expEndTime');
-
-                return;
-            }
-
-            setRemainingTime(timeLeft);
-        }, 1000);
+        setButtonDisabled(true); // Disable the button to prevent multiple clicks
         try {
             const res = await $API.post(`/experience/${user_id}`, null, {
                 params: {
@@ -143,18 +109,45 @@ const ExpShop = () => {
                 },
             });
             console.log(res)
-            messageApi.success(t('exp_shop.status.claim'));
-            setHoursBonusCoin(res.data.response.coin)
-            getCoinData();
-            setInterval(() => {
-                setHoursBonusCoin(null)
-            }, 10000)
+            // Assuming the response has start_time and end_time fields
+            const startTime = new Date(res.data.start_time).getTime();
+            const endTime = new Date(res.data.end_time).getTime();
 
+            // Store start and end times in localStorage
+            localStorage.setItem('expStartTime', startTime.toString());
+            localStorage.setItem('expEndTime', endTime.toString());
+
+            // Calculate the remaining time
+            const currentTime = Date.now();
+            const remaining = endTime - currentTime;
+
+            // Set the remaining time in state
+            setRemainingTime(remaining > 0 ? remaining : 0); // Avoid negative values
+
+            // Start a timer to update the remaining time every second
+            const timerId = setInterval(() => {
+                setRemainingTime((prevTime) => {
+                    if (prevTime <= 1000) {
+                        clearInterval(timerId);
+                        setButtonDisabled(false);
+                        localStorage.removeItem('expStartTime');
+                        localStorage.removeItem('expEndTime');
+                        getCoinData(); // Refresh coin data
+                        return 0; // Reset remaining time to 0
+                    }
+                    return prevTime - 1000; // Decrease by 1 second
+                });
+            }, 1000);
+
+            // Cleanup the timer on component unmount
+            return () => clearInterval(timerId);
         } catch (e) {
-            messageApi.error(t("exp_shop.status.error"));
             console.log(e);
+            messageApi.error(t("exp_shop.status.error"));
         }
     };
+
+
     useEffect(() => {
         const savedEndTime = localStorage.getItem('expEndTime');
 
@@ -172,7 +165,7 @@ const ExpShop = () => {
                         setButtonDisabled(false);
                         localStorage.removeItem('expStartTime');
                         localStorage.removeItem('expEndTime');
-                        getCoinData(); // Yangilangan ma'lumotlarni olish
+                        getCoinData();
                         return;
                     }
                     setRemainingTime(updatedRemaining);
@@ -206,18 +199,17 @@ const ExpShop = () => {
                     <button onClick={postExpHours} disabled={buttonDisabled}>
                         {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}
                     </button>
-                    <p>{formatTime(remainingTime)}</p> {/* Taymerni ko'rsatish */}
+                    <p>{formatTime(remainingTime)}</p>
                 </div>
                 <div className="exp_box">
-                    {userExpData.map((item) => (
+                    {Array.isArray(userExpData) && userExpData.map((item) => (
                         <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
                             <div className="exp_item_header">
-                                <img src={item.photo} loading={"lazy"} alt=""/>
-
+                                <img src={item?.photo} loading={"lazy"} alt=""/>
                             </div>
                             <div className="exp_item_body">
                                 <p>{item.name}</p>
-                                <p style={{fontSize: 14}}>{t('exp_shop.hour_tajriba')} + {formatNumber(item.hour_coin)}</p>
+                                <p style={{ fontSize: 14 }}>{t('exp_shop.hour_tajriba')} + {formatNumber(item.hour_coin)}</p>
                             </div>
                             <div className="item_footer">
                                 <div className="item_footer_exp">{item.degree}-{t("exp_shop.daraja_short")}</div>
@@ -231,7 +223,6 @@ const ExpShop = () => {
                 </div>
             </div>
 
-            {/* Modal */}
             <Modal className={"exp_modal"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 {selectedItem && (
                     <div className="exp_modal_box">
@@ -240,7 +231,7 @@ const ExpShop = () => {
                         </div>
                         <h2>{selectedItem.name}</h2>
                         <p className={"exp_modal_box_desc"}>{selectedItem.description}</p>
-                        <p>{t('exp_shop.hour_tajriba')} : {selectedItem.price}</p>
+                        <p>{t('exp_shop.hour_tajriba')} : {selectedItem.next_coin}</p>
                         <p>{t('exp_shop.daraja')} : {selectedItem.degree}</p>
                         <p>{t('exp_shop.price')} : {formatNumber(selectedItem.price)}</p>
 
@@ -260,6 +251,7 @@ const ExpShop = () => {
                     </div>
                 )}
             </Modal>
+
         </div>
     );
 };
