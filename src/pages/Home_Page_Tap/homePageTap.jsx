@@ -138,7 +138,7 @@ const HomePageTap = () => {
         // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        const touches = event.touches;
+        const touches = event.touches || [{clientX: event.clientX, clientY: event.clientY}];
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
@@ -154,7 +154,7 @@ const HomePageTap = () => {
             // Animatsiyani 500ms dan keyin olib tashlash
             setTimeout(() => {
                 setAnimations((prev) => prev.filter((a) => a.id !== newAnimation.id));
-            }, 500);
+            }, 300);
 
 
             // Vibratsiya

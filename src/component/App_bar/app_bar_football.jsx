@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useLocation, useParams} from "react-router-dom";
 import "./app_bar.css";
-import ball from "../../assets/icons/soccer_ball.png";
+import ball from "../../assets/icon/ball_app_bar.png";
 import peredacha from "../../assets/icon/dilbuzor.webp";
 import liga from "../../assets/icon/kobek.webp";
 import {useTranslation} from "react-i18next";
