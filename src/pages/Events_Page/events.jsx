@@ -201,7 +201,7 @@ const Events = () => {
                         )}
 
                         <div className="events_box_content_title">
-                            <h1>{t("events.event_list")}</h1>
+                            <h1>{t("events.event")}</h1>
                         </div>
                         <Collapse_events items={CollapseItem} />
                     </div>

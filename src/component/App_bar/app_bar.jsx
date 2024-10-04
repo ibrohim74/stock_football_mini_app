@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams, useLocation } from "react-router-dom";
 import "./app_bar.css";
-import ball from "../../assets/icons/soccer_ball.png";
+import ball from "../../assets/10620008.png";
 import liga from "../../assets/icon/kobek.webp";
 import users from "../../assets/icon/omixta.webp";
 import event from "../../assets/icon/clandar.webp";
@@ -17,10 +17,9 @@ const AppBar = ({ boshSahifaRef, friendsRef, eventsRef, peredachaRef, ratingRef 
         <div className="app_bar">
             <div className="app_bar_content">
                 <Link to={`/${user_id}/${language}`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}` ? 'active' : ''}`} ref={boshSahifaRef}>
-                    <img src={ball} alt="Home" loading="lazy" style={{width:"40px" , height:"40px" , marginBottom:"6px" , marginTop:"-6px"}}/>
-                    <p style={{marginBottom:"-7px"}}>{t("app_bar.bosh_sahifa")}</p>
+                    <img src={ball} alt="Home" loading="lazy"/>
+                    <p >{t("app_bar.bosh_sahifa")}</p>
                 </Link>
-
                 <Link to={`/${user_id}/${language}/Events_Page`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/Events_Page` ? 'active' : ''}`} ref={eventsRef}>
                     <img src={event} alt="Events" loading="lazy" />
                     <p>{t("app_bar.vazifalar")}</p>
