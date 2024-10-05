@@ -77,6 +77,7 @@ i18n
                         sub_title: "Do'stingi darajasi oshsa darhol +5K va bonuslar olasiz",
                         claim: "Ballarni olish",
                         claim_active: "Ballar to'planmoqda",
+                        no_friends:"Do'stalaringizni chaqiring",
                         fiends: "Do'stlar ro'yxati",
                         show_all: "Barchasini ko'rsatish",
                         share: "Do'stni taklif qilish"
