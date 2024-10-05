@@ -18,31 +18,46 @@ const Events = () => {
     const [quizAvailable, setQuizAvailable] = useState(false);
     const [eventsData, setEventsData] = useState([]);
 
-    const getEvents = async () => {
-        try {
-            const res = await $API.get(`/events/${user_id}`);
-            setEventsData(res.data);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     // Timer data-ni localStorage-dan yuklash
     useEffect(() => {
         getEvents();
         const savedTimers = JSON.parse(localStorage.getItem(`event_timers_${user_id}`)) || {};
         const updatedEvents = eventsData.map(event => {
-            if (savedTimers[event.id]) {
+            if (savedTimers[event.event_id]) {
                 return {
                     ...event,
-                    timer: savedTimers[event.id],
-                    status: savedTimers[event.id] > 0 ? 'ongoing' : 'completed'
+                    timer: savedTimers[event.event_id],
+                    status: savedTimers[event.event_id] > 0 ? 'ongoing' : 'completed'
                 };
             }
             return event;
         });
         setEventsData(updatedEvents);
     }, [user_id]);
+
+    // Eventlarni serverdan olish
+    const getEvents = async () => {
+        try {
+            const res = await $API.get(`/events/${user_id}`);
+            const updatedData = res.data.map(event => {
+                let eventStatus = 'ready';  // Default holat
+                if (event.status === true && event.timer > 0) {
+                    eventStatus = 'ongoing';
+                } else if (event.status === true && event.timer === 0) {
+                    eventStatus = 'active';
+                }
+
+                return {
+                    ...event,
+                    status: eventStatus,  // Serverdan kelgan true/false holatini o'zgartiramiz
+                    timer: event.timer || 0  // Timer mavjud bo'lsa, o'rnatamiz
+                };
+            });
+            setEventsData(updatedData);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     // Quiz mavjudligini tekshirish
     useEffect(() => {
@@ -67,51 +82,65 @@ const Events = () => {
         return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
     };
 
+    // Event tugmasini bosganda
     const handleButtonClick = async (item) => {
-        // Timerni boshlash
-        const interval = setInterval(() => {
-            setEventsData((prevEvents) => prevEvents.map(event => {
-                if (event.event_id === item.event_id && event.timer > 0) {
-                    const newTimer = event.timer - 1000;
-                    // Timer 0 ga yetganda post so'rovini jo'natish
-                    if (newTimer <= 0) {
-                        clearInterval(interval);
-                        postEventCompletion(item.event_id);
-                    }
+        console.log(item)
+        window.open(item.url, '_blank');
+        setEventsData((prevEvents) =>
+            prevEvents.map((event) => {
+                if (event.event_id === item.event_id) {
                     return {
                         ...event,
-                        timer: newTimer
+                        status: 'ongoing', // Statusni yangilash
+                        timer: item.timer // Masalan, 1 daqiqa (60,000 ms) timerni o'rnatish
                     };
                 }
                 return event;
-            }));
-        }, 1000);
+            })
+        );
 
+        // Timerni boshlash
+        const interval = setInterval(() => {
+            setEventsData((prevEvents) =>
+                prevEvents.map((event) => {
+                    if (event.event_id === item.event_id && event.timer > 0) {
+
+                        const newTimer = event.timer - 1000;
+
+                        // Timer 0 ga yetganda post so'rovini jo'natish
+                        if (newTimer <= 0) {
+                            clearInterval(interval);
+                            postEventCompletion(item.event_id);
+                            return {
+                                ...event,
+                                timer: 0, // Timerni 0 ga o'rnatamiz
+                                status: 'active' // Tugallangan statusini yangilash
+                            };
+                        }
+
+                        return {
+                            ...event,
+                            timer: newTimer // Timerni yangilash
+                        };
+                    }
+                    return event;
+                })
+            );
+        }, 1000);
+    };
+
+
+    // Event tugallangandan so'ng serverga yuborish
+    const postEventCompletion = async (event_id) => {
         try {
-            // Serverga post so'rovi yuboriladi va sahifa yangilanadi
             const res = await $API.post(`/events/${user_id}`, null, {
                 params: {
-                    event_id: item.event_id
+                    event_id: parseInt(event_id)
                 }
             });
-            window.open(item.url, '_blank');
             console.log(res);
         } catch (e) {
             console.log(e);
-        }
-    };
-
-    const postEventCompletion = async (event_id) => {
-        try {
-            const res = await $API.post(`/events/complete/${user_id}`, null, {
-                params: {
-                    event_id
-                }
-            });
-            console.log("Event completed", res);
-            getEvents(); // Yangilangan ma'lumotlarni olish
-        } catch (error) {
-            console.error("Error completing event:", error);
         }
     };
 
@@ -128,11 +157,15 @@ const Events = () => {
                     </span>
                 </div>
                 <span className="events_item_status">
-                    {item.status === false && (
+                    {/* Serverdan kelgan true/false statusga asoslanib yangi status ko'rsatamiz */}
+                    {item.status === 'active' && (
                         <img loading="lazy" src={active} alt="active" />
                     )}
-                    {item.status === true && (
-                        <img loading="lazy" src={success} alt="success" />
+                    {item.status === 'ongoing' && (
+                        <img loading="lazy" src={success} alt="ongoing" />
+                    )}
+                    {item.status === 'ready' && (
+                        <img loading="lazy" src={reload} alt="ready" />
                     )}
                 </span>
             </div>
@@ -148,10 +181,12 @@ const Events = () => {
                         <img loading="lazy" src={ball} alt="ball" />
                         <p>{item.coin}</p>
                     </span>
-                    {item.status === false && (
+                    {/* Agar status 'ready' bo'lsa, bajarish tugmasini ko'rsatamiz */}
+                    {item.status === 'ready' && (
                         <button onClick={() => handleButtonClick(item)}>Bajarish</button>
                     )}
-                    {item.status === true && item.timer > 0 && (
+                    {/* Timer bor bo'lsa, ko'rsatamiz */}
+                    {item.timer > 0 && (
                         <div className="timer">
                             <p>{formatTime(item.timer)}</p>
                         </div>
