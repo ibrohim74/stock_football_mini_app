@@ -118,7 +118,6 @@
 
 }
 .ball-score{
-    width: 25%;
     height: 75px;
     padding: 0 10px;
     display: flex;
@@ -128,12 +127,17 @@
 }
 
 .ball-score:nth-child(1){
-    width: 33%;
+    width: 30%;
     border-right: 2px solid rgba( 55, 136, 5, 0.55 );
 }
 .ball-score:nth-child(2){
+    padding: 0;
     width: 50%;
     border-right: 2px solid rgba( 55, 136, 5, 0.55 );
+}
+.ball-score:nth-child(3){
+    width: 25%;
+
 }
 .ball-score p{
     color: #e1dfdf;
