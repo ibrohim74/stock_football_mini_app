@@ -138,7 +138,7 @@ const HomePageTap = () => {
         // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        const touches = event.touches || [{clientX: event.clientX, clientY: event.clientY}];
+        const touches = event.touches;
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
@@ -325,8 +325,8 @@ const HomePageTap = () => {
                          ref={ballRef}
                          onTouchStart={handleStart}
                          onTouchEnd={handleEnd}
-                         onMouseDown={handleStart}
-                         onMouseUp={handleEnd}
+                         // onMouseDown={handleStart}
+                         // onMouseUp={handleEnd}
                     >
                         <img
                             draggable={false}
