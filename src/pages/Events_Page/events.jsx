@@ -143,10 +143,10 @@ const Events = () => {
                     <img src={gift} alt="gift" />
                 </div>
                 <div className="text_event_collapse">
-                    <h1>{item.event}</h1>
+                    <h1>{item.name}</h1>
                     <span>
                         <img loading="lazy" src={ball} alt="ball" />
-                        <p>{item.event_bonus}</p>
+                        <p>{item.coin}</p>
                     </span>
                     {item.status === false && (
                         <button onClick={() => handleButtonClick(item)}>Bajarish</button>
