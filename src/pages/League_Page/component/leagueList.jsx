@@ -27,7 +27,7 @@
     export const england_league = [
         {
             'id': 39,
-            'name': 'Premier League',
+            'name': 'Premier ligasi',
             'type': 'League',
             'logo': 'https://media.api-sports.io/football/leagues/39.png',
         },
@@ -111,7 +111,7 @@
     export const spain_league = [
         {
             'id': 140,
-            'name': 'La Liga',
+            'name': 'LA Liga',
             'type': 'League',
             'logo': 'https://media.api-sports.io/football/leagues/140.png',
 
