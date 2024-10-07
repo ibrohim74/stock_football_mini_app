@@ -165,7 +165,7 @@
 .ball-animation {
     position: absolute;
     font-size: 30px;
-    animation: ball-move 0.8s ease-in-out forwards;
+    animation: ball-move 0.8s ease-in-out both;
     color: #378805;
 }
 
