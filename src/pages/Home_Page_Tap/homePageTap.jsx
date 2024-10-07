@@ -330,6 +330,7 @@ const HomePageTap = () => {
                     >
                         <img
                             draggable={false}
+                            onContextMenu={(e) => e.preventDefault()}
                             src={ball} alt="ball" className={`ball-image ${ballPressed ? 'pressed' : ''}`}
                         />
 

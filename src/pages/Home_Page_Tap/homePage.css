@@ -164,18 +164,18 @@
 .ball-animation {
     position: absolute;
     font-size: 30px;
-    /*animation: ball-move 0.8s ease-in-out both;*/
+    animation: ball-move 0.8s ease-in-out both;
     color: #378805;
 }
 
-/*@keyframes ball-move {*/
-/*    from {*/
-/*        transform: translateY(0);*/
-/*    }*/
-/*    to {*/
-/*        transform: translateY(-20px);*/
-/*    }*/
-/*}*/
+@keyframes ball-move {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100px);
+    }
+}
 
 .small-ball {
     width: 30px;
