@@ -94,7 +94,6 @@
     align-items: center;
     margin-top: 15px;
     flex-direction: column;
-    position: relative;
 
 }
 
@@ -163,9 +162,9 @@
 
 
 .ball-animation {
-    position: absolute;
+    position: relative;
     font-size: 30px;
-    animation: ball-move 0.8s ease-in-out both;
+    animation: ball-move 0.8s ease-in-out forwards;
     color: #378805;
 }
 
