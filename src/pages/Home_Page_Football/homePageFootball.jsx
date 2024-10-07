@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ball from "../../assets/icons/icons8-football-50.svg";
 import {Collapse_Stock} from "../../component/collapse/collapse_stock.jsx";
 import axios from 'axios';
@@ -16,11 +16,13 @@ import "./footballHomePage.css"
 import {useNavigate, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import BackTab from "../../component/backTab/BackTab.jsx";
+import {Tour} from "antd";
 
 const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
     const [loading, setLoading] = useState(true); // Loading holatini qo'shish
-    const {user_id,language} = useParams();
+    const [openTour, setOpenTour] = useState(false);
+    const {user_id, language} = useParams();
     const {t} = useTranslation()
     // Barcha ligalarni bir joyda to'plab olish
     const allLeagues = [
@@ -43,6 +45,8 @@ const HomePageFootball = () => {
             'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
         }
     };
+
+
 
     const getData = async () => {
         try {
@@ -84,12 +88,19 @@ const HomePageFootball = () => {
             hour12: false,
         }).format(new Date(dateString));
     };
+    useEffect(() => {
+        const isTourShown = localStorage.getItem('tourShownLive');
+        const tourShownFootball = localStorage.getItem('tourShownFootball');
 
-    // Mapping over the filtered liveGames to create items for Collapse_stock_leg
+        if (tourShownFootball && !isTourShown ) {
+            setOpenTour( true);
+            localStorage.setItem('tourShownLive', 'true');
+        }
+    }, []);
+
+
     const items = liveGames.map((game, index) => {
-        // Gollarni filtrlaymiz
         const goals = game.events?.filter(event => event.type === 'Goal') || [];
-
         return {
             key: index.toString(),
             label: (
@@ -99,22 +110,23 @@ const HomePageFootball = () => {
                         <img loading={"lazy"} src={game.teams.home.logo || ball} alt={game.teams.home.name}/>
                     </div>
                     <p>
-                         {formatToTashkentTime(game.fixture.date) === formatToTashkentTime(game.fixture.date) ?
-                        <>{game.goals.home} - {game.goals.away}</>
-                    : <><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</>
-                         }</p>
+                        {formatToTashkentTime(game.fixture.date) === formatToTashkentTime(game.fixture.date) ?
+                            <>{game.goals.home} - {game.goals.away}</>
+                            : <><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</>
+                        }</p>
                     <div className="team2">
                         <img loading={"lazy"} src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball}
                              alt={game.teams.away.name}/>
                         <h1>{game.teams.away.name}</h1>
                     </div>
-                    </div>
-                        ),
-                        children: (
-                        <div>
-                        <p>League: {game.league.name}</p>
+                </div>
+            ),
+            children: (
+                <div>
+                    <p>League: {game.league.name}</p>
                     <p>Score: {game.goals.home} - {game.goals.away}</p>
-                    <p>Match Date: {new Date(game.fixture.date).toLocaleDateString()} {formatToTashkentTime(game.fixture.date)}</p>
+                    <p>Match
+                        Date: {new Date(game.fixture.date).toLocaleDateString()} {formatToTashkentTime(game.fixture.date)}</p>
                     <p><strong>Goals:</strong></p>
                     <ul>
                         {goals.length > 0 ? (
@@ -129,16 +141,29 @@ const HomePageFootball = () => {
                     </ul>
                 </div>
             ),
-    };
+        };
     });
 
-
+    const liveRef = useRef(null);
+    const liveButtonRef = useRef(null);
+    const stepsTour = [
+        {
+            title: t("tour_fotballLive.live_button.title"),
+            description: t("tour_fotballLive.live_button.description"),
+            target: () => liveButtonRef.current,
+        },
+        {
+            title: t("tour_fotballLive.live.title"),
+            description: t("tour_fotballLive.live.description"),
+            target: () => liveRef.current,
+        },
+    ]
     return (
         <div className={"homePageFootball"}>
             <h1 className={"footballTitle"}>
-                <BackTab back_url={`/${user_id}/${language}`}/>
+                <BackTab back_url={`/${user_id}/${language}`} />
 
-                <div className={"jonliEfir"}>Jonli Efir <div className="livenow">
+                <div className={"jonliEfir"} ref={liveButtonRef}>Jonli Efir <div className="livenow">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -146,12 +171,18 @@ const HomePageFootball = () => {
                 </div>
             </h1>
 
-            <div className={"footballContent"}>
+            <div className={"footballContent"} ref={liveRef}>
                 {loading ? <p style={{textAlign: 'center'}}>{t("loading")}</p> : (liveGames.length > 0 ?
                     <Collapse_Stock items={items}/> : <p style={{textAlign: 'center'}}>{t("no_data")}</p>)}
             </div>
+            <Tour
+                open={openTour}
+                steps={stepsTour}
+                closeIcon={false}
+                onClose={() => setOpenTour(false)}
+            />
         </div>
     );
-    };
+};
 
-    export default HomePageFootball;
+export default HomePageFootball;

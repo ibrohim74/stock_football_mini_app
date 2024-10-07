@@ -58,16 +58,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     position: absolute;
     bottom: 20%;
 }
 .settings_footer_item{
-    width: 115px;
-    margin: 0 10px;
+    width: 100px;
+    margin: 0 5px;
     padding: 5px;
     border-radius: 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 50px;
     background: #378805;
@@ -76,4 +78,5 @@
 .settings_footer_item img{
     width: 25px;
     height: 25px;
+    margin-right: 1px;
 }

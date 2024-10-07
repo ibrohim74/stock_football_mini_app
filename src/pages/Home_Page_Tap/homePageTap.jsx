@@ -190,7 +190,7 @@ const HomePageTap = () => {
                 ...prevData,
                 energy: Math.min(prevData.maxEnergy, prevData.energy + 1)
             }));
-        }, 750);
+        }, 1000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -278,7 +278,7 @@ const HomePageTap = () => {
     } else {
         return (
             <div className="home-page">
-                {language}
+
                 <AppBar
                     boshSahifaRef={boshSahifaRef}
                     friendsRef={friendsRef}

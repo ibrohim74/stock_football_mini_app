@@ -10,6 +10,7 @@ import UZ from "../../assets/icons/uz.svg"
 import RU from "../../assets/icons/ru.svg"
 import instagram from "../../assets/instagram.png"
 import telegram from "../../assets/telegram.png"
+import youtube from "../../assets/youtube.png"
 
 
 import BackTab from "../../component/backTab/BackTab.jsx";
@@ -56,7 +57,7 @@ const Settings = () => {
                     </div>
 
                 </div>
-                <button onClick={() => window.localStorage.clear()}>Clear</button>
+
                 <div className="settings_lang">
                     <Dropdown
                         menu={{
@@ -80,6 +81,7 @@ const Settings = () => {
 
                 </div>
                 <div className="settings_footer">
+                    <a href={"https://www.instagram.com/stockfootball_uz/"} className="settings_footer_item"><img src={youtube} alt=""/>YouTube</a>
                     <a href={"https://www.instagram.com/stockfootball_uz/"} className="settings_footer_item"><img src={instagram} alt=""/>Instagram</a>
                     <a href={"https://t.me/+dU0VUUqbfWI0ZWIy "} className="settings_footer_item"><img src={telegram} alt=""/>Telegram</a>
                 </div>

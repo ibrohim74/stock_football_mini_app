@@ -55,6 +55,34 @@ i18n
                             description: "Tez kunda ..."
                         }
                     },
+                    tour_fotballApp: {
+                        live: {
+                            title: "Live",
+                            description: "Bu yerda hozirda bo'layotgan o'yinlarini kuzatishingiz mumkin",
+                        },
+                        peredacha: {
+                            title: "Dastur",
+                            description: "Bu yerda 3 kunlik o'yinlarini kuzatishingiz mumkin",
+                        },
+                        liga: {
+                            title: "Liga",
+                            description: "Bu yerda ligalarning 1 yillik o'yinlarini kuzatishingiz mumkin va liga bo'yicha oyinlarni qachon bo'lishini bilishingiz mumkun",
+                        },
+                    },
+                    tour_fotballLive: {
+                        live: {
+                            title: "Live",
+                            description: "Bu yerda hozirda bo'layotgan o'yinlarini kuzatishingiz mumkin",
+                        },
+                        live_button: {
+                            title: "Live tugmasi",
+                            description: "Bu yerda hozirda bo'layotgan o'yinlarini jonli efirda kuzatishingiz mumkin",
+                        },
+                        back: {
+                            title: "Ortga qaytish",
+                            description: "Bosh sahifaga qaytish uchun tugma",
+                        },
+                    },
                     app_bar: {
                         bosh_sahifa: "Bosh sahifa",
                         dostlar: "Do'stlar",
@@ -77,7 +105,7 @@ i18n
                         sub_title: "Do'stingi darajasi oshsa darhol +5K va bonuslar olasiz",
                         claim: "Ballarni olish",
                         claim_active: "Ballar to'planmoqda",
-                        no_friends:"Do'stalaringizni chaqiring",
+                        no_friends: "Do'stalaringizni chaqiring",
                         fiends: "Do'stlar ro'yxati",
                         show_all: "Barchasini ko'rsatish",
                         share: "Do'stni taklif qilish"
@@ -119,8 +147,8 @@ i18n
                         darajalar: "Darajalar",
                         reyting: "Reyting",
                     },
-                    liga:{
-                        title:"Liga o'yinlari"
+                    liga: {
+                        title: "Liga o'yinlari"
                     },
 
 
@@ -175,6 +203,36 @@ i18n
                             description: "Скоро..."
                         }
                     },
+                    tour_fotballApp: {
+                        live: {
+                            title: "Прямой эфир",
+                            description: "Здесь вы можете следить за текущими играми",
+                        },
+                        peredacha: {
+                            title: "Программа",
+                            description: "Здесь вы можете следить за играми в течение 3 дней",
+                        },
+                        liga: {
+                            title: "Лига",
+                            description: "Здесь вы можете следить за играми лиги на протяжении года и узнать, когда будут проводиться матчи по лиге",
+                        },
+                    },
+
+                    tour_fotballLive: {
+                        live: {
+                            title: "Прямой эфир",
+                            description: "Здесь вы можете следить за текущими играми",
+                        },
+                        live_button: {
+                            title: "Кнопка Прямой эфир",
+                            description: "Здесь вы можете следить за текущими играми в прямом эфире",
+                        },
+                        back: {
+                            title: "Возврат",
+                            description: "Кнопка для возврата на главную страницу",
+                        },
+                    },
+
                     app_bar: {
                         bosh_sahifa: "Главная ",
                         dostlar: "Друзья",
@@ -240,8 +298,8 @@ i18n
                         darajalar: "Уровни",
                         reyting: "Рейтинг",
                     },
-                    liga:{
-                        title:"Игры лиги"
+                    liga: {
+                        title: "Игры лиги"
                     },
 
                     loading: "Подождите…",
