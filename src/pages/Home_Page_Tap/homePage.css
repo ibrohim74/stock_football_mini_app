@@ -170,6 +170,7 @@
     }
     to {
         transform: translateY(-100px);
+        display: none;
     }
 }
 

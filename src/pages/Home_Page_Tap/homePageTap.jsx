@@ -341,7 +341,7 @@ const HomePageTap = () => {
 
                         {animations.map(({id, x, y, tapBonus}) => (
                             <div key={id} className="ball-animation" style={{left: x, top: y}}>
-                                {tapBonus}
+                                +{tapBonus}
                             </div>
                         ))}
 
