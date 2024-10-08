@@ -81,7 +81,7 @@ const Settings = () => {
 
                 </div>
                 <div className="settings_footer">
-                    <a href={"https://www.instagram.com/stockfootball_uz/"} className="settings_footer_item"><img src={youtube} alt=""/>YouTube</a>
+                    <a href={"https://youtube.com/@stockfootballuz?si=dSzDWnEidN_Niarx"} className="settings_footer_item"><img src={youtube} alt=""/>YouTube</a>
                     <a href={"https://www.instagram.com/stockfootball_uz/"} className="settings_footer_item"><img src={instagram} alt=""/>Instagram</a>
                     <a href={"https://t.me/+dU0VUUqbfWI0ZWIy "} className="settings_footer_item"><img src={telegram} alt=""/>Telegram</a>
                 </div>

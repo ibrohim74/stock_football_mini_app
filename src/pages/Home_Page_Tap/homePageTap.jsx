@@ -294,23 +294,28 @@ const HomePageTap = () => {
                 </div>
                 <div className="ball-content">
                     <div className="ball-score-container">
-                        <div className="ball-score">
-                            <p>{t("homePageTap.tap_bonus")}</p>
-                            <h1>+{userData.tapBonus}</h1>
-                        </div>
 
-                        <Link to={`/${user_id}/${language}/rating`} className="ball-score ball-score-status" ref={darajaRef}>
-                            <p>{t("homePageTap.darajangiz")}</p>
+                        <Link to={`/${user_id}/${language}/rating`}
+                              onClick={()=>navigator.vibrate(100)}
+                              className="ball-score ball-score-status" ref={darajaRef}>
+                            <span>
+                                 <p>{t("homePageTap.darajangiz")}</p>
                             <h1>{userData.status}</h1>
+                            </span>
+
                         </Link>
 
-                        <Link className="ball-score" to={`/${user_id}/${language}/exp_shop`} ref={tajribaRef}>
-                            <p>{t("homePageTap.tajriba")}</p>
+                        <Link
+                            onClick={()=>navigator.vibrate(100)}
+                            className="ball-score" to={`/${user_id}/${language}/exp_shop`} ref={tajribaRef}>
+                            <span>
+                                   <p>{t("homePageTap.tajriba")}</p>
                             <h1>{userData.hour_coin ? formatNumber(userData.hour_coin) : 0}</h1>
+                            </span>
                         </Link>
                     </div>
                     <div className="tap_coin">
-                        <img loading={"lazy"} src={ball} alt=""/>
+                    <img loading={"lazy"} src={ball} alt=""/>
                         <h1><Odometer value={userData.score} format="(.ddd),dd"/></h1>
                     </div>
                     {/*<div className="tap_ball_energy">*/}
