@@ -115,12 +115,14 @@ const Friends = () => {
 
 
     const copyToClipboard = () => {
+        navigator.vibrate(100)
         navigator.clipboard.writeText(`https://t.me/snkrsshoopbot?start=${user_id}`).then(() => {
             messageApi.success("Havola nusxalandi!");
         });
     };
 
     const openShareLink = () => {
+        navigator.vibrate(100)
         window.open(`https://t.me/share/url?url=https://t.me/snkrsshoopbot?start=${user_id}`, '_blank');
     };
 
@@ -185,7 +187,7 @@ const Friends = () => {
                                         <p>{formatTime(remainingTime)}</p> {/* Qolgan vaqtni ko'rsatish */}
                                     </>
                                 ) : (<>
-                                        {friendsData.length >= 0 ? <button onClick={getClaim}>{t("friends.claim")}</button>
+                                        {friendsData.length > 0 ? <button onClick={getClaim}>{t("friends.claim")}</button>
                                             :
                                             <button>{t("friends.claim")}</button>
                                         }
