@@ -174,11 +174,11 @@ const Friends = () => {
                         <LoaderFootball />
                     ) : (
                         <>
-                            {friendsData.length > 0 && (
+                            {friendsData.length >= 0 && (
                                 <div className="friends_gift_card">
-                                    <p><img src={ball} loading={"lazy"} alt="Ball" />
+                                    <p><img src={ball} loading={"lazy"} alt="Ball"/>
                                         <Odometer value={currentUser.coins} format="(.ddd),dd"/>
-                                        </p>
+                                    </p>
                                     {buttonDisabled ? (
                                         <>
                                             {t("friends.claim_active")}
@@ -189,12 +189,11 @@ const Friends = () => {
                                     )}
                                 </div>
                             )}
-
+                            <p className={"friends_title_subTitle"}>{t("friends.sub_title")}</p>
                             <div className="friends_ref">
                                 <div className="friends_ref_title">
-                                    <div className="friends_ref_title_top" onClick={()=>getUserData()}>
-                                        <h1>{t("friends.fiends")} ({friendsData.length})</h1>
-                                        <img src={reload} loading={"lazy"} alt="Ball" width={60} height={60} />
+                                    <div className="friends_ref_title_top">
+                                        <h1>({friendsData.length}) {t("friends.fiends")} </h1>
                                     </div>
                                     <p>{friendsData.length > 0 ? '' : t("friends.no_friends")}</p>
                                 </div>
@@ -202,17 +201,30 @@ const Friends = () => {
                                 <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
                                     {displayedUsers.map(user => (
                                         <div key={user.id} className="friends_ref_item">
-                                            <img src={user_img} loading={"lazy"} alt="User" />
+                                            <img src={user_img} loading={"lazy"} alt="User"/>
                                             <div className="friends_ref_item_info">
                                                 <h1>{user.username}</h1>
                                                 <p>
                                                     {user.status}
-                                                    <span><img loading={"lazy"} src={ball} alt="" />{formatNumber(parseInt(user.coins))}</span>
+                                                    <span><img loading={"lazy"} src={ball}
+                                                               alt=""/>{formatNumber(parseInt(user.coins))}</span>
                                                 </p>
                                             </div>
                                         </div>
                                     ))}
+                                    <div className="friends_ref_item">
+                                        <div className="friends_ref_item_left">
+                                            <img src={user_img} loading={"lazy"} alt="User"/>
+                                            <h1>khasanov</h1>
+                                        </div>
 
+                                        <div className="friends_ref_item_info">
+                                            <p>Mahalla  </p>
+                                                <span><img loading={"lazy"} src={ball}
+                                                           alt=""/>{formatNumber(parseInt(50000))}</span>
+
+                                        </div>
+                                    </div>
                                     {!showAll && friendsData.length > 3 && (
                                         <button onClick={() => setShowAll(true)} className="show_more_button">
                                             {t("friends.show_all")}
@@ -223,7 +235,7 @@ const Friends = () => {
                                 <div className="ref_link_box">
                                     <div className="ref_button" onClick={openShareLink}>{t("friends.share")}</div>
                                     <div className="ref_link" onClick={copyToClipboard}>
-                                        <CopyOutlined />
+                                        <CopyOutlined/>
                                     </div>
                                 </div>
                             </div>
