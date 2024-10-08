@@ -166,7 +166,7 @@ const Friends = () => {
             <div className="content_friends">
                 <div className="friends_content">
                     <div className="friends_title">
-                        <div className="friends_title_icon">👨🏻‍👩🏻‍👧🏿‍👦🏾</div>
+                        <div className="friends_title_icon">👨‍👩‍👧‍👦</div>
                         <h1>{t("friends.title")}</h1>
                     </div>
 
