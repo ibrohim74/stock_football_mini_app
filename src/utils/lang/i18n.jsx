@@ -102,7 +102,7 @@ i18n
                     },
                     friends: {
                         title: "Do'stlarni taklif qiling!",
-                        sub_title: "Do'stingi darajasi oshsa darhol +5K va har 8 soatda ballar yegib olasiz",
+                        sub_title: "Do'stingi darajasi oshsa darhol +5K va har 8 soatda ballar yegib oling",
                         claim: "Ballarni olish",
                         claim_active: "Ballar to'planmoqda",
                         no_friends: "Do'stalaringizni chaqiring",

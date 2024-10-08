@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import "./friends.css";
 import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.webp";
 import ball from "../../assets/icons/soccer_ball.png";
 import user_img from "../../assets/icon/xsxxa.webp";
 import friendsIcon from "../../assets/icon/omixta.webp";
-import { CopyOutlined } from "@ant-design/icons";
-import { message } from "antd";
+import {CopyOutlined} from "@ant-design/icons";
+import {message} from "antd";
 import AppBar from "../../component/App_bar/app_bar.jsx";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import $API from "../../utils/https.jsx";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import LoaderFootball from "../../component/loader/loader_football.jsx";
 import Odometer from "react-odometerjs"; // LoaderFootball import qilish
 
@@ -21,9 +21,9 @@ const Friends = () => {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [loading, setLoading] = useState(true); // Loading holatini qo'shish
     const [hoursBonusCoin, setHoursBonusCoin] = useState(null);
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
-    const { user_id } = useParams();
+    const {user_id} = useParams();
 
     const displayedUsers = showAll && friendsData.length > 3 ? friendsData : friendsData.slice(0, 3);
 
@@ -114,7 +114,6 @@ const Friends = () => {
     }, [friendsData]);
 
 
-
     const copyToClipboard = () => {
         navigator.clipboard.writeText(`https://t.me/snkrsshoopbot?start=${user_id}`).then(() => {
             messageApi.success("Havola nusxalandi!");
@@ -159,7 +158,6 @@ const Friends = () => {
     }, []);
 
 
-
     return (
         <div className="friends">
             {contextHolder}
@@ -173,24 +171,29 @@ const Friends = () => {
                     </div>
 
                     {loading ? ( // Yuklanayotganda loading ko'rsatish
-                        <LoaderFootball />
+                        <LoaderFootball/>
                     ) : (
                         <>
-                            {friendsData.length >= 0 && (
-                                <div className="friends_gift_card">
-                                    <p><img src={ball} loading={"lazy"} alt="Ball"/>
-                                        <Odometer value={currentUser.coins} format="(.ddd),dd"/>
-                                    </p>
-                                    {buttonDisabled ? (
-                                        <>
-                                            {t("friends.claim_active")}
-                                            <p>{formatTime(remainingTime)}</p> {/* Qolgan vaqtni ko'rsatish */}
-                                        </>
-                                    ) : (
-                                        <button onClick={getClaim}>{t("friends.claim")}</button>
-                                    )}
-                                </div>
-                            )}
+
+                            <div className="friends_gift_card">
+                                <p><img src={ball} loading={"lazy"} alt="Ball"/>
+                                    <Odometer value={currentUser.coins} format="(.ddd),dd"/>
+                                </p>
+                                {buttonDisabled ? (
+                                    <>
+                                        {t("friends.claim_active")}
+                                        <p>{formatTime(remainingTime)}</p> {/* Qolgan vaqtni ko'rsatish */}
+                                    </>
+                                ) : (<>
+                                        {friendsData.length > 0 ? <button onClick={getClaim}>{t("friends.claim")}</button>
+                                            :
+                                            <button>{t("friends.claim")}</button>
+                                        }
+
+                                    </>
+                                )}
+                            </div>
+
                             <p className={"friends_title_subTitle"}>{t("friends.sub_title")}</p>
                             <div className="friends_ref">
                                 <div className="friends_ref_title">
@@ -203,30 +206,20 @@ const Friends = () => {
                                 <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
                                     {displayedUsers.map(user => (
                                         <div key={user.id} className="friends_ref_item">
-                                            <img src={user_img} loading={"lazy"} alt="User"/>
-                                            <div className="friends_ref_item_info">
+                                            <div className="friends_ref_item_left">
+                                                <img src={user_img} loading={"lazy"} alt="User"/>
                                                 <h1>{user.username}</h1>
-                                                <p>
-                                                    {user.status}
-                                                    <span><img loading={"lazy"} src={ball}
-                                                               alt=""/>{formatNumber(parseInt(user.coins))}</span>
-                                                </p>
+                                            </div>
+
+                                            <div className="friends_ref_item_info">
+                                                <p>{user.status} </p>
+                                                <span><img loading={"lazy"} src={ball}
+                                                           alt=""/>{formatNumber(parseInt(user.coins))}</span>
+
                                             </div>
                                         </div>
                                     ))}
-                                    <div className="friends_ref_item">
-                                        <div className="friends_ref_item_left">
-                                            <img src={user_img} loading={"lazy"} alt="User"/>
-                                            <h1>khasanov</h1>
-                                        </div>
 
-                                        <div className="friends_ref_item_info">
-                                            <p>Mahalla  </p>
-                                                <span><img loading={"lazy"} src={ball}
-                                                           alt=""/>{formatNumber(parseInt(50000))}</span>
-
-                                        </div>
-                                    </div>
                                     {!showAll && friendsData.length > 3 && (
                                         <button onClick={() => setShowAll(true)} className="show_more_button">
                                             {t("friends.show_all")}
