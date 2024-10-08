@@ -20,7 +20,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: rgba( 55, 136, 5, 0.55 );
+    background: rgba( 55, 136, 5, 0.3 );
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
     border: 1px solid rgba( 55, 136, 5, 0.55 );
@@ -264,7 +264,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 50px;
+    font-size: 25px;
 }
 .friends_title h1 {
     text-align: center;
