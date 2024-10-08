@@ -13,10 +13,6 @@
     text-align: center
 }
 
-.friends_title p {
-    font-size: 18px;
-    text-align: center;
-}
 
 .friends_gift_card {
     padding: 15px 0;
@@ -256,4 +252,16 @@
 }
 .ref_link svg{
     font-size: 35px;
+}
+
+.friends_title_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+.friends_title h1 {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 0;
 }

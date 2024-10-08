@@ -42,6 +42,7 @@ const Friends = () => {
     };
 
     const getClaim = async () => {
+        navigator.vibrate(100)
         try {
             const res = await $API.post(`/referrals/activate/${user_id}`);
             console.log(res);
@@ -165,8 +166,8 @@ const Friends = () => {
             <div className="content_friends">
                 <div className="friends_content">
                     <div className="friends_title">
+                        <div className="friends_title_icon">👨🏻‍👩🏻‍👧🏿‍👦🏾</div>
                         <h1>{t("friends.title")}</h1>
-                        <p>{t("friends.sub_title")}</p>
                     </div>
 
                     {loading ? ( // Yuklanayotganda loading ko'rsatish
