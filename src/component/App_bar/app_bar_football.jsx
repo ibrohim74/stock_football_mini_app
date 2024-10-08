@@ -48,10 +48,7 @@ const   AppBarFootball = () => {
         <div className="app_bar">
             <div className="app_bar_content">
                     <>
-                        <Link ref={liveRef} to={`/${user_id}/${language}/Football`} className={`app_bar_content_item ${location.pathname === `/${user_id}/Football` ? 'active' : ''}`}>
-                            <span><img src={ball} alt="Football" loading={"lazy"}/></span>
-                            <p>{t("app_bar_football.live")}</p>
-                        </Link>
+
                         <Link ref={peredachaRef} to={`/${user_id}/${language}/peredacha`} className={`app_bar_content_item ${location.pathname === `/${user_id}/peredacha` ? 'active' : ''}`} style={{ marginRight: 0 }}>
                             <span><img src={peredacha} alt="Peredacha" loading={"lazy"}/></span>
                             <p>{t("app_bar_football.peredacha")}</p>
@@ -59,6 +56,10 @@ const   AppBarFootball = () => {
                         <Link ref={ligaRef} to={`/${user_id}/${language}/league`} className={`app_bar_content_item ${location.pathname === `/${user_id}/league` ? 'active' : ''}`}>
                             <span><img src={liga} alt="League" loading={"lazy"}/></span>
                             <p>{t("app_bar_football.liga")}</p>
+                        </Link>
+                        <Link ref={liveRef} to={`/${user_id}/${language}/Football`} className={`app_bar_content_item ${location.pathname === `/${user_id}/Football` ? 'active' : ''}`}>
+                            <span><img src={ball} alt="Football" loading={"lazy"}/></span>
+                            <p>{t("app_bar_football.live")}</p>
                         </Link>
                     </>
             </div>

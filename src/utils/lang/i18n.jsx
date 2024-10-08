@@ -91,7 +91,7 @@ i18n
                         reyting: "Reyting"
                     },
                     app_bar_football: {
-                        live: "Football",
+                        live: "Jonli Efir",
                         peredacha: "Dastur",
                         liga: "Liga",
                     },
