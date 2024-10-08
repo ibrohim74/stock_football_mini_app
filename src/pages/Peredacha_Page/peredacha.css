@@ -98,8 +98,9 @@
     background: transparent;
     color: #fff;
     height: 100%;
-    padding: 0 20px;
-    display: flex;
+    width: 100%;
+    text-align: center;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     font-weight: 600;

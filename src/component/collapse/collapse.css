@@ -39,11 +39,10 @@
 }
 
 .collapse-content {
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+
     padding: 10px 15px;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(250, 250, 250, 0.20);
+    /*background: rgba(250, 250, 250, 0.20);*/
     color: white;
     overflow: hidden;
     max-height: 0; /* Boshlang'ich balandlik 0 */

@@ -4,7 +4,7 @@ import ball from "../../../assets/icons/icons8-football-50.svg";
 import axios from 'axios';
 import {useTranslation} from "react-i18next";
 
-const PeredashaToday = ({ leagueList }) => {
+const PeredashaToday = ({ activeDate ,leagueList}) => {
     const [todayGames, setTodayGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [imageCache, setImageCache] = useState({});
@@ -12,7 +12,8 @@ const PeredashaToday = ({ leagueList }) => {
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-        params: { date: new Date().toISOString().split('T')[0] },
+        params: { date: new Date(new Date(activeDate).setDate(new Date(activeDate).getDate() + 1)).toISOString().split('T')[0] },
+
         headers: {
             'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
             'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
@@ -55,7 +56,7 @@ const PeredashaToday = ({ leagueList }) => {
             getData();
         }, 900000); // 15 daqiqa
         return () => clearInterval(intervalId);
-    }, [leagueList.length]);
+    }, [activeDate , leagueList.length]);
 
     const loadImage = (url) => {
         return new Promise((resolve) => {

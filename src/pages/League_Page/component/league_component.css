@@ -26,12 +26,12 @@
     padding: 10px;
     background: transparent;
 }
-.swiper {
+.swiper_league_scroll .swiper {
     width: 100%;
     height: 100px;
 }
 .swiper-pagination{display: none}
-.swiper-slide {
+.swiper_league_scroll .swiper-slide {
     text-align: center;
     font-size: 18px;
     border-radius: 15px;
