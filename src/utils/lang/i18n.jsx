@@ -102,7 +102,7 @@ i18n
                     },
                     friends: {
                         title: "Do'stlarni taklif qiling!",
-                        sub_title: "Do'stingi darajasi oshsa darhol +5K va bonuslar olasiz",
+                        sub_title: "Do'stingi darajasi oshsa darhol +5K va har 8 soatda ballar yegib olasiz",
                         claim: "Ballarni olish",
                         claim_active: "Ballar to'planmoqda",
                         no_friends: "Do'stalaringizni chaqiring",
@@ -252,7 +252,7 @@ i18n
                     },
                     friends: {
                         title: "Приглашайте друзей!",
-                        sub_title: "При повышении уровня приглашенного друга вы сразу получаете 5К баллов бонусом",
+                        sub_title: "При повышении уровня приглашенного друга вы сразу получаете 5К баллов бонусом , а также будете зарабатывать очки каждые 8 часов.",
                         claim: "Получить баллы",
                         claim_active: "Баллы набираются",
                         fiends: "Список друзей",

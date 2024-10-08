@@ -3,7 +3,7 @@ import "./friends.css";
 import gift from "../../assets/icon/freepik-export-20240923164119B0Nu.webp";
 import ball from "../../assets/icons/soccer_ball.png";
 import user_img from "../../assets/icon/xsxxa.webp";
-import reload from "../../assets/icon/restart.webp";
+import friendsIcon from "../../assets/icon/omixta.webp";
 import { CopyOutlined } from "@ant-design/icons";
 import { message } from "antd";
 import AppBar from "../../component/App_bar/app_bar.jsx";
@@ -166,7 +166,9 @@ const Friends = () => {
             <div className="content_friends">
                 <div className="friends_content">
                     <div className="friends_title">
-                        <div className="friends_title_icon">👨‍👩‍👧‍👦</div>
+                        <div className="friends_title_icon">
+                            <img src={friendsIcon} alt=""/>
+                        </div>
                         <h1>{t("friends.title")}</h1>
                     </div>
 
