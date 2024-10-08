@@ -20,7 +20,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: rgba( 55, 136, 5, 0.3 );
+    background: rgba( 55, 136, 5, 0.18 );
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
     border: 1px solid rgba( 55, 136, 5, 0.55 );
