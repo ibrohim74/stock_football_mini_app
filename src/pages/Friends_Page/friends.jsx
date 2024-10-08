@@ -185,7 +185,7 @@ const Friends = () => {
                                         <p>{formatTime(remainingTime)}</p> {/* Qolgan vaqtni ko'rsatish */}
                                     </>
                                 ) : (<>
-                                        {friendsData.length > 0 ? <button onClick={getClaim}>{t("friends.claim")}</button>
+                                        {friendsData.length >= 0 ? <button onClick={getClaim}>{t("friends.claim")}</button>
                                             :
                                             <button>{t("friends.claim")}</button>
                                         }
