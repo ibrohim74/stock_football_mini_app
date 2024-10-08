@@ -213,14 +213,14 @@ const Events = () => {
                         {quizAvailable ? (
                             <Link className="events_item" to={`/${user_id}/${language}/quiz`}>
                                 <img src={gift} loading="lazy" alt="logo" className="events_item_logo" />
-                                <div className="events_item_text">
+                                <div className="events_item_text" style={{marginTop:"18px" , marginLeft:0}}>
                                     <p>{t("events.hero_event")}</p>
-                                    <span>
+                                    <span style={{marginTop:0}}>
                                         <img loading="lazy" src={ball} alt="ball" />
                                         <p>5k</p>
                                     </span>
                                 </div>
-                                <span className="events_item_status">
+                                <span className="events_item_status" >
                                     <img loading="lazy" src={active} alt="active" />
                                 </span>
                             </Link>

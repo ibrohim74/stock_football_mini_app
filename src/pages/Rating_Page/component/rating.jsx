@@ -109,7 +109,7 @@ const Rating = () => {
                             key={item}
                         >
                             <div className="rating_table_item_info">
-                                <h1>{item.username}</h1>
+                                <h1>{item.username ? item.username : item.first_name}</h1>
                                 <p>
                                     <img loading={"lazy"} src={ball} alt="soccer ball"/> +{formatCoins(item.coins)}
                                 </p>
