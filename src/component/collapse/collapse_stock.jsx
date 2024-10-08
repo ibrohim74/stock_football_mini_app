@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import './collapse.css'; // Collapse uchun CSS
-
+import down from "../../assets/icon/down.png"
+import upArrow from  "../../assets/icon/upload.png"
 const CollapseItem = ({ label, children, isOpen, onClick }) => {
     const contentRef = useRef(null);
     const [maxHeight, setMaxHeight] = useState(0);
@@ -17,13 +18,14 @@ const CollapseItem = ({ label, children, isOpen, onClick }) => {
         <div className={`collapse-item ${isOpen ? 'open' : ''}`}>
             <div className="collapse-header" onClick={onClick}>
                 {label}
-                <span className="collapse-icon">{isOpen ? '-' : '+'}</span>
+
             </div>
             <div
                 className="collapse-content"
                 ref={contentRef}
                 style={{ maxHeight: `${maxHeight}px` }}
             >
+                <span className="collapse-icon">{isOpen ? <img src={upArrow} alt=""/> : <img src={down} alt=""/>}</span>
                 {children}
             </div>
         </div>

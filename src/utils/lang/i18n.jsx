@@ -134,9 +134,9 @@ i18n
                         }
                     },
                     peredacha: {
-                        bugungi: "Bugungi",
-                        ertangi: "Ertangi",
-                        kechagi: "Kechagi"
+                       liga: "Liga",
+                        hisob: "Hisob",
+                        oyin_vaqti:"o'yin vaqti",
                     },
                     gift: {
                         title: "Sovg'alar",
@@ -148,7 +148,7 @@ i18n
                         reyting: "Reyting",
                     },
                     liga: {
-                        title: "Liga o'yinlari"
+                        title: "Liga o'yinlari",
                     },
 
 
@@ -286,9 +286,9 @@ i18n
                     },
 
                     peredacha: {
-                        bugungi: "Сегодняшний",
-                        ertangi: "Завтра",
-                        kechagi: "Вчера"
+                        liga: "Лига",
+                        hisob: "Счет",
+                        oyin_vaqti: "время игры"
                     },
                     gift: {
                         title: "Подарки",

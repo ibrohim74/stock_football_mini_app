@@ -84,7 +84,7 @@ const Peredacha = () => {
     const handleDateChange = (date) => {
         // Vaqtni 00:00 ga o'rnating
         const newDate = new Date(date);
-        newDate.setHours(1, 1, 0, 0);
+        newDate.setHours(0, 0, 0, 0);
         setActiveDate(newDate);
     };
 

@@ -100,23 +100,22 @@ const PeredashaToday = ({ activeDate ,leagueList}) => {
                     <img loading={"lazy"} src={imageCache[game.teams.home.logo] || ball} alt={game.teams.home.name} />
                 </div>
                 <p>
-                    {game.fixture.date === game.fixture.date ? <>
+                    {game.fixture.date >= new Date().toISOString() ? <div style={{
+                            width:"50px"
+                        }}>
                             {new Intl.DateTimeFormat('en-US', {
                                 timeZone: 'Asia/Tashkent',
                                 hour: '2-digit',
                                 minute: '2-digit',
                                 hour12: false,
                             }).format(new Date(game.fixture.date))} <br/>
-                            {game.goals.home} - {game.goals.away}
-                        </> :
-                      <>
-                          <span>Soat</span> {new Intl.DateTimeFormat('en-US', {
-                          timeZone: 'Asia/Tashkent',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: false,
-                      }).format(new Date(game.fixture.date))}
-                      </>
+
+                        </div> :
+                      <div style={{
+                          width:"50px"
+                      }}>
+                          {game.goals.home} - {game.goals.away}
+                      </div>
                     }
                    </p>
                 <div className="team2">
@@ -127,9 +126,12 @@ const PeredashaToday = ({ activeDate ,leagueList}) => {
         ),
         children: (
             <div>
-                <p>League: {game.league.name}</p>
-                <p>Score: {game.goals.home} - {game.goals.away}</p>
-                <p>Match Date: {new Date(game.fixture.date).toLocaleDateString()}</p>
+                <p style={{
+                    display:'flex',
+                    alignItems:"center"
+                }}>{t('peredacha.liga')} : {game.league.name} <img src={game.league.flag} width={25} style={{marginLeft:"10px"}} alt=""/></p>
+                <p>{t('peredacha.hisob')} : {game.goals.home} - {game.goals.away}</p>
+                <p>{t('peredacha.oyin_vaqti')} : {new Date(game.fixture.date).toLocaleDateString()}</p>
             </div>
         ),
     }));
