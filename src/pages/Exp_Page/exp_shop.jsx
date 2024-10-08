@@ -101,6 +101,7 @@ const ExpShop = () => {
     };
 
     const postExpHours = async () => {
+        navigator.vibrate(100)
         setButtonDisabled(true); // Disable the button to prevent multiple clicks
         try {
             const res = await $API.post(`/experience/${user_id}`, null, {

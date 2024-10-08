@@ -5,8 +5,7 @@ import {Link} from "react-router-dom";
 import back from "../../assets/icon/back.webp"
 const BackTab = ({back_url , } ) => {
     return (
-        <Link className={"back-tab"} to={back_url}>
-
+        <Link className={"back-tab"} to={back_url} onClick={()=>navigator.vibrate(100)}>
                <LeftOutlined/>
 
         </Link>

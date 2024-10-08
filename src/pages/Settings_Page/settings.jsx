@@ -37,7 +37,12 @@ const Settings = () => {
         localStorage.setItem('settings_mute', soundEnabled);
     }, [soundEnabled]);
 
-    const toggleVibration = () => setVibrationEnabled(prev => !prev);
+    const toggleVibration = () => {
+        setVibrationEnabled(prev => !prev);
+        if (vibrationEnabled){
+            navigator.vibrate(100)
+        }
+    }
 
 
     return (
