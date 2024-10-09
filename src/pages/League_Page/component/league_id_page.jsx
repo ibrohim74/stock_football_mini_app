@@ -65,6 +65,7 @@ const LeagueIdPage = () => {
                 <p style={{ textAlign: 'center' }}>{t("loading")}</p>
             ) : standings.length > 0 ? (
                 <div className="standings">
+
                     <table className={"table_standing"}>
                         <thead>
                         <tr>

@@ -112,7 +112,7 @@ const HomePageFootball = () => {
                     <p>
                         {formatToTashkentTime(game.fixture.date) === formatToTashkentTime(game.fixture.date) ?
                             <>{game.goals.home} - {game.goals.away}</>
-                            : <><span>Soat</span> {formatToTashkentTime(game.fixture.date)}</>
+                            : <> {formatToTashkentTime(game.fixture.date)}</>
                         }</p>
                     <div className="team2">
                         <img loading={"lazy"} src={game?.teams?.away?.logo ? game?.teams?.away?.logo : ball}
@@ -123,10 +123,9 @@ const HomePageFootball = () => {
             ),
             children: (
                 <div>
-                    <p>League: {game.league.name}</p>
-                    <p>Score: {game.goals.home} - {game.goals.away}</p>
-                    <p>Match
-                        Date: {new Date(game.fixture.date).toLocaleDateString()} {formatToTashkentTime(game.fixture.date)}</p>
+                    <p>{t('peredacha.liga')} : {game.league.name}</p>
+                    <p>{t('peredacha.hisob')} : {game.goals.home} - {game.goals.away}</p>
+                    <p>{t('peredacha.oyin_vaqti')} : {new Date(game.fixture.date).toLocaleDateString()} {formatToTashkentTime(game.fixture.date)}</p>
                     <p><strong>Goals:</strong></p>
                     <ul>
                         {goals.length > 0 ? (

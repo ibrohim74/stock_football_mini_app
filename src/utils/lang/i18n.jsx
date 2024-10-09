@@ -1,10 +1,11 @@
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
-
+const urlParts = window.location.href.split("/");
+const urlLanguage = urlParts[urlParts.length - 1]
 i18n
     .use(initReactI18next)
     .init({
-        fallbackLng: "uz", // Default language if the URL does not specify a valid language
+        fallbackLng: urlLanguage, // Default language if the URL does not specify a valid language
         interpolation: {
             escapeValue: false,
         },
