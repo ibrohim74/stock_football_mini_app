@@ -26,6 +26,12 @@
 .ratingSwiper{
 
     margin-top: 35px !important;
+    margin-bottom: 30px;
+}
+.ratingSwiper .swiper-slide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .ratingSwiper .swiper-slide.selected {
     transition: 0.4s;

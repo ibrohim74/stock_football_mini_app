@@ -1,109 +1,54 @@
-.league-wrapper{
-    height: 100vh;
+.league-container{
+    width: 100%;
     overflow: hidden;
+    height: 100vh;
+}
+.league_box{
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.league_item{
+    background: #378805;
+    width: 90%;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.league_item:last-child{
+    margin-bottom: 200px;
+}
+.league_item:first-child{
+    margin-top: 150px;
+}
+.league_item h1{
+    font-size: 20px;
 }
 .back_liga{
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 80px;
 }
 .back_liga h1{
-    font-size: 25px;
-    margin-right: 10px;
-}
-.league_data{
+    margin-right: 10px;}
 
-    overflow-y: auto; /* scroll qilish imkoniyatini beradi */
-    height: calc(100vh - 200px); /* Ekran balandligiga qarab o'lchov */
-
+.league_item_left img{
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    object-fit: contain;
 }
-.swiper_league_scroll{
-    margin-top: 10px;
-}
-.mySwiperLig{
-    margin-top: 20px !important;
-    padding: 10px;
-    background: transparent;
-}
-.swiper_league_scroll .swiper {
-    width: 100%;
-    height: 100px;
-}
-.swiper-pagination{display: none}
-.swiper_league_scroll .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    border-radius: 15px;
+.league_item_left{
+    width: 80%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    flex-direction: column;
-    background: rgba( 55, 136, 5, 0.55 );
-    backdrop-filter: blur( 20px );
-    -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
-
-.swiper-slide img {
-    width: 40px;
-    margin-top: 10px;
-    height: 40px;
-    object-fit: cover;
-}
-.swiper-slide p{
-    font-size: 12px;
-}
-
-.mySwiperLig .swiper-slide.active {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: white;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.18);
-    transition: background-color 0.3s ease;
-}
-
-
-.fixtures {
-    width: 100%;
-    margin-top: 20px;
-    margin-bottom: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.league_collapseChildren{
-    display: flex;
-    flex-direction: column;
-}
-.league_collapseChildren_box{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.league_collapseChildren_item{
-    margin-top: 10px;
-    width: 50%;
-}
-.league_collapseChildren_item:last-child{
-    margin-right: 25px;
-    text-align: right;
-}
-.league_collapseChildren_item_logo{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.league_collapseChildren_item_logo img{
-    width: 30px;
-    height: 30px;
-}
-.league_collapseChildren_item_stadion img{
-    width: 30px;
-    height: 30px;
-}
-.swiper-wrapper{
-    height: 95%;
 }

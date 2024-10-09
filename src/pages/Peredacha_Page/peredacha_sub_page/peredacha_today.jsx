@@ -12,7 +12,7 @@ const PeredashaToday = ({ activeDate ,leagueList}) => {
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-        params: { date: new Date(new Date(activeDate).setDate(new Date(activeDate).getDate() + 1)).toISOString().split('T')[0] },
+        params: { date: activeDate ? new Date(new Date().setDate(new Date(activeDate).getDate())).toISOString().split('T')[0] : new Date(activeDate).toISOString().split('T')[0]},
 
         headers: {
             'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
@@ -32,16 +32,16 @@ const PeredashaToday = ({ activeDate ,leagueList}) => {
         try {
             const response = await axios.request(options);
             console.log(response)
-            const filteredGames = Array.isArray(leagueList)
+           const filteredGames =  Array.isArray(leagueList)
                 ? response?.data?.response.filter(game =>
                     leagueList.map(Number).includes(Number(game.league.id))
                 )
                 : response?.data?.response;
 
-            // Agar o'yinlar o'zgarmagan bo'lsa, yangi ma'lumotlarni yangilamaymiz
             if (!isSameGameData(filteredGames, todayGames)) {
-                setTodayGames(filteredGames);
+                 setTodayGames(filteredGames);
             }
+
         } catch (error) {
             console.error(error);
         } finally {
@@ -90,6 +90,7 @@ const PeredashaToday = ({ activeDate ,leagueList}) => {
 
         fetchImages();
     }, [todayGames]);
+
 
     const items = todayGames.map((game, index) => ({
         key: index.toString(),

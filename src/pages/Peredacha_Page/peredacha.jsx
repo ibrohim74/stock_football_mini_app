@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './peredacha.css';
 import PeredachaToday from "./peredacha_sub_page/peredacha_today.jsx";
-import PeredachaTomorrow from "./peredacha_sub_page/peredacha_tomorrow.jsx";
-import PeredachaYesterday from "./peredacha_sub_page/peredacha_yesterday.jsx";
+
 import {
     england_league, france_league, germany_league, italy_league,
     portugal_league, spain_league, uzbekistan_league

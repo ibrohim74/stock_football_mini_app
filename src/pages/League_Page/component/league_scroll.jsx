@@ -140,7 +140,6 @@ const LeagueScroll = () => {
     const handleImageLoadEnd = (key) => {
         setLoadingImages(prev => ({ ...prev, [key]: false }));
     };
-
     const collapseItem = fixtures.map((game, index) => ({
         key: index,
         label: (
