@@ -41,15 +41,18 @@ const League = () => {
                 <h1>{t('liga.title')}</h1>
             </div>
             <div className="league_box">
-                {leagues?.map((league, index) => (<div key={index} className="league_item">
-                    <div className="league_item_left">
-                        <img src={league.logo} alt=""/>
-                        <h1>{league.name}</h1>
-                    </div>
-                    <div className="league_item_right">
-                        <img src={arrowRight} alt=""/>
-                    </div>
-                </div>))}
+                <div className="league_box_container">
+                    {leagues?.map((league, index) => (<div key={index} className="league_item">
+                        <div className="league_item_left">
+                            <img src={league.logo} alt=""/>
+                            <h1>{league.name}</h1>
+                        </div>
+                        <div className="league_item_right">
+                            <img src={arrowRight} alt=""/>
+                        </div>
+                    </div>))}
+                </div>
+
             </div>
         </div>
     );
