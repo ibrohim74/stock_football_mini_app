@@ -1,21 +1,24 @@
-.league-container{
+.league-container {
     width: 100%;
     overflow: hidden;
     height: 100vh;
 }
-.league_box{
+
+.league_box {
     overflow-y: auto;
     width: 100%;
     height: 100%;
 }
-.league_box_container{
+
+.league_box_container {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.league_item{
+
+.league_item {
     background: #378805;
     width: 90%;
 
@@ -25,33 +28,74 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: white;
 }
-.league_item:last-child{
+
+.league_item:last-child {
     margin-bottom: 200px;
 }
-.league_item:first-child{
+
+.league_item:first-child {
     margin-top: 20px;
 }
-.league_item h1{
+
+.league_item h1 {
     font-size: 20px;
 }
-.back_liga{
+
+.back_liga {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 80px;
 }
-.back_liga h1{
-    margin-right: 10px;}
 
-.league_item_left img{
+.back_liga h1 {
+    margin-right: 10px;
+}
+
+.league_item_left img {
     width: 60px;
     height: 60px;
     margin-right: 20px;
     object-fit: contain;
 }
-.league_item_left{
+
+.league_item_left {
     width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.standings_container {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.standings {
+    width: 100%;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.table_standing {
+    width: 100%;
+    margin-bottom: 200px;
+}
+
+.table_standing tbody {
+    width: 100%;
+}
+
+.table_standing tbody tr {
+    width: 100%;
+    border-bottom: #378805 solid 20px;
+
+}
+
+.table_standing tbody tr td:nth-child(2) {
     display: flex;
     justify-content: flex-start;
     align-items: center;

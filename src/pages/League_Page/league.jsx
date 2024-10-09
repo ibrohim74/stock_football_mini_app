@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import LeagueScroll from './component/league_scroll.jsx';
-import {useNavigate, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import BackTab from "../../component/backTab/BackTab.jsx";
 import arrowRight from "../../assets/icon/arrowRight.png"
 import "./component/league_component.css"
@@ -42,7 +42,8 @@ const League = () => {
             </div>
             <div className="league_box">
                 <div className="league_box_container">
-                    {leagues?.map((league, index) => (<div key={index} className="league_item">
+                    {leagues?.map((league, index) => (<Link key={index} className="league_item"
+                                                            to={`/${user_id}/${language}/league/${league.id}`}>
                         <div className="league_item_left">
                             <img src={league.logo} alt=""/>
                             <h1>{league.name}</h1>
@@ -50,7 +51,7 @@ const League = () => {
                         <div className="league_item_right">
                             <img src={arrowRight} alt=""/>
                         </div>
-                    </div>))}
+                    </Link>))}
                 </div>
 
             </div>
