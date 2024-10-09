@@ -80,7 +80,7 @@ const LeagueIdPage = () => {
                         <tbody>
                         {standings.map((team, index) => (
                             <tr key={team.team.id}>
-                                <td>{index + 1}</td>
+                                <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                 <td style={{ textAlign: 'left' }}>
                                     <img
                                         src={team.team.logo}

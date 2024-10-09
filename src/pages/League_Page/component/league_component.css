@@ -83,15 +83,24 @@
 .table_standing {
     width: 100%;
     margin-bottom: 200px;
+    padding: 0 10px;
+    border-collapse: collapse;
+    border: #378805 solid 1px;
 }
-
+.table_standing thead th , .table_standing thead th tr{
+    border-collapse: collapse;
+    border: #378805 solid 1px;
+    padding: 5px;
+}
 .table_standing tbody {
     width: 100%;
+
 }
 
-.table_standing tbody tr {
-    width: 100%;
-    border-bottom: #378805 solid 20px;
+.table_standing tbody tr td{
+    border-collapse: collapse;
+    border: #378805 solid 1px;
+    padding: 10px;
 
 }
 
@@ -99,4 +108,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 100%;
+}
+.table_standing tbody tr td:nth-child(2) img{
+    margin-right: 5px;
 }
