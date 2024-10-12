@@ -29,13 +29,13 @@ const App = () => {
     // Agar isLoading true bo'lsa LoaderFootball ko'rsatiladi, aks holda asosiy componentlar ko'rsatiladi
     if (isLoading) {
         return <>
-            {window.location.host + window.location.pathname + window.location.hash}
+
             <LoaderFootball /></>;
     }
 
     return (
         <HashRouter>
-
+            {window.location.host + window.location.pathname + window.location.hash}
             <Routes>
                 <Route path="/:token/:language" element={<HomePageTap />} />
                 {RouterTapFootballData.map(({ Path, Component }, index) => (
