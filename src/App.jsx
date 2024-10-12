@@ -33,6 +33,7 @@ const App = () => {
 
     return (
         <HashRouter>
+            {window.location.host + window.location.pathname + window.location.hash}
             <Routes>
                 <Route path="/:token/:language" element={<HomePageTap />} />
                 {RouterTapFootballData.map(({ Path, Component }, index) => (
