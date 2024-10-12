@@ -2,7 +2,7 @@ import axios from "axios";
 
 let authToken = null;
 
-const baseURL = "http://192.168.100.149:8000/";
+const baseURL = "https://yengi.mussi.uz/";
 
 const $API = axios.create({
     baseURL: baseURL,
