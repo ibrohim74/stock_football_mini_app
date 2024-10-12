@@ -16,7 +16,7 @@ import youtube from "../../assets/youtube.png"
 import BackTab from "../../component/backTab/BackTab.jsx";
 const Settings = () => {
     const { handleLanguageChange, selectedLanguage } = useLanguage();
-    const { user_id ,language} = useParams();
+    const { token ,language} = useParams();
     const navigate = useNavigate();
 
     const [vibrationEnabled, setVibrationEnabled] = useState(() => {
@@ -38,16 +38,19 @@ const Settings = () => {
     }, [soundEnabled]);
 
     const toggleVibration = () => {
-        setVibrationEnabled(prev => !prev);
-        if (vibrationEnabled){
-            navigator.vibrate(100)
-        }
-    }
+        setVibrationEnabled(prev => {
+            const newState = !prev;
+            if (newState) {
+                navigator.vibrate(100); // Only vibrate when enabling
+            }
+            return newState; // Return the new state
+        });
+    };
 
 
     return (
         <div className='sett'>
-            <BackTab back_url={`/${user_id}/${language}`}/>
+            <BackTab back_url={`/${token}/${language}`}/>
             <div className="settings">
 
                 <div className="settings_box">

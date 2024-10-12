@@ -34,7 +34,7 @@ const LeagueScroll = () => {
     const [loadingImages, setLoadingImages] = useState({}); // Track loading state for images
     const {t} = useTranslation();
     console.log(leagues)
-    const {user_id, language} = useParams();
+    const {token, language} = useParams();
     useEffect(() => {
         const allLeagues = [
             ...uzbekistan_league,
@@ -231,7 +231,7 @@ const LeagueScroll = () => {
     return (
         <div className="league-wrapper">
             <div className="back_liga">
-                <BackTab back_url={`/${user_id}/${language}`}/>
+                <BackTab back_url={`/${token}/${language}`}/>
                 <h1>{t('liga.title')}</h1>
             </div>
 

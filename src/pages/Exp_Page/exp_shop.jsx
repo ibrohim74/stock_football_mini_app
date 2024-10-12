@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { message, Modal } from 'antd';
-import $API from "../../utils/https.jsx";
+import {$API} from "../../utils/https.jsx";
 import { useParams } from "react-router-dom";
 import "./exp_shop.css";
 import imgHeader from "../../assets/imgs/perspective_matte-36-128x128.png";
@@ -8,6 +8,8 @@ import ball from "../../assets/icons/soccer_ball.png";
 import Odometer from 'react-odometerjs';
 import "../../assets/odometer.css";
 import { useTranslation } from "react-i18next";
+import {jwtDecode} from "jwt-decode";
+import BackTab from "../../component/backTab/BackTab.jsx";
 
 const ExpShop = () => {
     const [score, setScore] = useState(0);
@@ -17,13 +19,14 @@ const ExpShop = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const { user_id } = useParams();
+    const { token, language } = useParams();
     const [userExpData, setUserExpData] = useState([]);
     const [hoursBonusCoin, setHoursBonusCoin] = useState(0);
     const [buyBtnDis, setBuyBtnDis] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const { t } = useTranslation();
-
+    const decoded = jwtDecode(token);
+    const user_id = parseInt(decoded.user_id, 10);
     const getCoinData = async () => {
         try {
             const res = await $API.get(`users/experience/${user_id}`);
@@ -178,6 +181,9 @@ const ExpShop = () => {
         <div className="ExpShop">
             {contextHolder}
             <div className="exp_content">
+                <BackTab back_url={`/${token}/${language}`} style={{
+                    width:"7%"
+                }} />
                 <div className="exp_nav_box">
                     <div className="exp_nav">
                         <div className="exp_tap_bonus">

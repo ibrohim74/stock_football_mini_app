@@ -21,7 +21,8 @@
 .league_item {
     background: #378805;
     width: 90%;
-
+    border: 0.1px solid #fff;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.25));
     border-radius: 15px;
     margin-bottom: 20px;
     padding: 10px;
@@ -73,19 +74,27 @@
     height: 100vh;
     overflow: hidden;
 }
-
+.standings_container .rating_tabs{
+    margin-top: 4%;
+}
 .standings {
     width: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     height: 100%;
 }
 
 .table_standing {
     width: 100%;
-    margin-bottom: 200px;
+    margin-bottom: 300px;
     padding: 0 10px;
     border-collapse: collapse;
     border: #378805 solid 1px;
+    position: relative;
+}
+.table_standing thead{
+    position: sticky;
+    top: -2px;
+    background: #378805;
 }
 .table_standing thead th , .table_standing thead th tr{
     border-collapse: collapse;
@@ -112,4 +121,40 @@
 }
 .table_standing tbody tr td:nth-child(2) img{
     margin-right: 5px;
+}
+
+
+.league_data_calendar{
+    overflow-y: auto;
+    height: 100%;
+}
+.fixtures_calendar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 200px;
+}
+.league_collapseChildren_box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.league_collapseChildren_box img{
+    width: 50px;
+    height: 50px;
+}
+.league_collapseChildren_item{
+    width: 48%;
+}
+.league_collapseChildren_item:nth-child(2){
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    margin-right: 35px;
+}
+.info_calendar{
+    width: 100%;
 }

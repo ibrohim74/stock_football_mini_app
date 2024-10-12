@@ -16,7 +16,7 @@ import {
 import {useTranslation} from "react-i18next";
 
 const League = () => {
-    const {user_id, language} = useParams();
+    const {token, language} = useParams();
     const [leagues, setLeagues] = useState([]);
     const {t} = useTranslation();
 
@@ -37,13 +37,13 @@ const League = () => {
     return (
         <div className={"league-container"}>
             <div className="back_liga">
-                <BackTab back_url={`/${user_id}/${language}`}/>
+                <BackTab back_url={`/${token}/${language}`}/>
                 <h1>{t('liga.title')}</h1>
             </div>
             <div className="league_box">
                 <div className="league_box_container">
                     {leagues?.map((league, index) => (<Link key={index} className="league_item"
-                                                            to={`/${user_id}/${language}/league/${league.id}`}>
+                                                            to={`/${token}/${language}/league/${league.id}`}>
                         <div className="league_item_left">
                             <img src={league.logo} alt=""/>
                             <h1>{league.name}</h1>

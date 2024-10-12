@@ -5,9 +5,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import ball from '../../../assets/icons/soccer_ball.png';
 import {useParams} from "react-router-dom";
-import $API from "../../../utils/https.jsx";
+import {$API} from "../../../utils/https.jsx";
 import LoaderFootball from "../../../component/loader/loader_football.jsx";
 import {useTranslation} from "react-i18next";
+import {jwtDecode} from "jwt-decode";
 
 // Helper function to format coins
 const formatCoins = (coins) => {
@@ -29,10 +30,11 @@ const Rating = () => {
     const [selectData, setSelectData] = useState(null);
     const [loading, setLoading] = useState(false); // Manage loading state
     const [currentUserRank, setCurrentUserRank] = useState({});
-    const {user_id} = useParams();
+    const {token} = useParams();
     const {t} = useTranslation();
     const handleSlideClick = (status) => setSelectedStatus(status);
-
+    const decoded = jwtDecode(token);
+    const user_id = parseInt(decoded.user_id, 10);
     // Find selected status data
     const selectedData = selectData ? selectData[selectedStatus] : [];
     const top10Data = selectedData && selectedData.length > 0 ? selectedData[0] : []; // Check for nested data
@@ -70,7 +72,7 @@ const Rating = () => {
     };
     useEffect(() => {
         getUserData();
-    }, [user_id]); // Fetch data when user_id changes
+    }, [token]); // Fetch data when user_id changes
     useEffect(() => {
         if (status.length > 0 && selectedStatus === null) {
             setSelectedStatus(status[0]); // 0-indexdagi statusni avtomatik tanlash

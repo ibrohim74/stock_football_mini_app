@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import $API from "../../../utils/https.jsx";
+import {$API} from "../../../utils/https.jsx";
 import {useParams} from "react-router-dom";
 import "./rating_list.css"
 import LoaderFootball from "../../../component/loader/loader_football.jsx";
+import {jwtDecode} from "jwt-decode";
 
 const RatingsList = () => {
     const [status, setStatus] = useState([]);
     const [userScore, setUserScore] = useState(0);
     const [currentStatus, setCurrentStatus] = useState({});
     const [loading, setLoading] = useState(false);
-    const {user_id} = useParams();
-
+    const {token} = useParams();
+    const decoded = jwtDecode(token);
+    const user_id = parseInt(decoded.user_id, 10);
     const getUserData = async () => {
         setLoading(true); // Start loading
         try {
@@ -42,7 +44,7 @@ const RatingsList = () => {
 
     useEffect(() => {
         getUserData();
-    }, [user_id]); // Fetch data when user_id changes
+    }, [token]); // Fetch data when user_id changes
 
     return (
         <div className="rating_list">

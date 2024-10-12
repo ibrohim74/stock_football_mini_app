@@ -9,19 +9,21 @@ import { Link, useParams } from 'react-router-dom';
 import Collapse_events from '../../component/collapse_events/collapse_events.jsx';
 import { message } from "antd";
 import { useTranslation } from "react-i18next";
-import $API from "../../utils/https.jsx";
+import {$API} from "../../utils/https.jsx";
+import {jwtDecode} from "jwt-decode";
 
 const Events = () => {
-    const { user_id, language } = useParams();
+    const { token, language } = useParams();
     const [messageApi, contextHolder] = message.useMessage();
     const { t } = useTranslation();
     const [quizAvailable, setQuizAvailable] = useState(false);
     const [eventsData, setEventsData] = useState([]);
-
+    const decoded = jwtDecode(token);
+    const user_id = parseInt(decoded.user_id, 10);
     // Timer data-ni localStorage-dan yuklash
     useEffect(() => {
         getEvents();
-        const savedTimers = JSON.parse(localStorage.getItem(`event_timers_${user_id}`)) || {};
+        const savedTimers = JSON.parse(localStorage.getItem(`event_timers_${token}`)) || {};
         const updatedEvents = eventsData.map(event => {
             if (savedTimers[event.event_id]) {
                 return {
@@ -33,7 +35,7 @@ const Events = () => {
             return event;
         });
         setEventsData(updatedEvents);
-    }, [user_id]);
+    }, [token]);
 
     // Eventlarni serverdan olish
     const getEvents = async () => {
@@ -61,7 +63,7 @@ const Events = () => {
 
     // Quiz mavjudligini tekshirish
     useEffect(() => {
-        const lastPlayedTime = localStorage.getItem(`quiz_last_played_${user_id}`);
+        const lastPlayedTime = localStorage.getItem(`quiz_last_played_${token}`);
         const now = new Date().getTime();
         const quizCooldown = 24 * 60 * 60 * 1000;
 
@@ -71,7 +73,7 @@ const Events = () => {
         } else {
             setQuizAvailable(true);
         }
-    }, [user_id]);
+    }, [token]);
 
     const formatTime = (milliseconds) => {
         const totalSeconds = Math.floor(milliseconds / 1000);
@@ -211,7 +213,7 @@ const Events = () => {
                         </div>
 
                         {quizAvailable ? (
-                            <Link className="events_item" to={`/${user_id}/${language}/quiz`}>
+                            <Link className="events_item" to={`/${token}/${language}/quiz`}>
                                 <img src={gift} loading="lazy" alt="logo" className="events_item_logo" />
                                 <div className="events_item_text" style={{marginTop:"18px" , marginLeft:0}}>
                                     <p>{t("events.hero_event")}</p>

@@ -8,10 +8,11 @@ import {CopyOutlined} from "@ant-design/icons";
 import {message} from "antd";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 import {useTranslation} from "react-i18next";
-import $API from "../../utils/https.jsx";
+import {$API} from "../../utils/https.jsx";
 import {useParams} from "react-router-dom";
 import LoaderFootball from "../../component/loader/loader_football.jsx";
-import Odometer from "react-odometerjs"; // LoaderFootball import qilish
+import Odometer from "react-odometerjs";
+import {jwtDecode} from "jwt-decode"; // LoaderFootball import qilish
 
 const Friends = () => {
     const [showAll, setShowAll] = useState(false);
@@ -23,7 +24,9 @@ const Friends = () => {
     const [hoursBonusCoin, setHoursBonusCoin] = useState(null);
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
-    const {user_id} = useParams();
+    const {token} = useParams();
+    const decoded = jwtDecode(token);
+    const user_id = parseInt(decoded.user_id, 10);
 
     const displayedUsers = showAll && friendsData.length > 3 ? friendsData : friendsData.slice(0, 3);
 
@@ -172,7 +175,7 @@ const Friends = () => {
                         <h1>{t("friends.title")}</h1>
                     </div>
 
-                    {loading ? ( // Yuklanayotganda loading ko'rsatish
+                    {loading ? (
                         <LoaderFootball/>
                     ) : (
                         <>
@@ -196,13 +199,12 @@ const Friends = () => {
                                 )}
                             </div>
 
-                            <p className={"friends_title_subTitle"}>{t("friends.sub_title")}</p>
                             <div className="friends_ref">
                                 <div className="friends_ref_title">
                                     <div className="friends_ref_title_top">
                                         <h1>({friendsData.length}) {t("friends.fiends")} </h1>
                                     </div>
-                                    <p>{friendsData.length > 0 ? '' : t("friends.no_friends")}</p>
+                                    <p className={"no_friends"}>{friendsData.length > 0 ? '' : t("friends.no_friends")}</p>
                                 </div>
 
                                 <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>

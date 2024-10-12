@@ -25,7 +25,9 @@
 .events_title {
     text-align: center;
 }
-
+.events_title p{
+    margin-top: 0;
+}
 .events_title h1 {
     margin-bottom: 0;
 }
@@ -44,7 +46,7 @@
 }
 
 .events_box_content_title h1 {
-    font-size: 27px;
+    font-size: 20px;
 }
 .events_item.active{
     box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );

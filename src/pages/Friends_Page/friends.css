@@ -15,6 +15,7 @@
 
 
 .friends_gift_card {
+    margin-top: 35px;
     padding: 15px 0;
     display: flex;
     align-items: center;
@@ -32,6 +33,7 @@
     align-items: center;
     width: 100%;
     font-size: 25px;
+    margin: 0 0 15px;
 }
 .friends_gift_card p img{
     width: 25px;
@@ -91,6 +93,9 @@
     align-items: center;
     width: 100%;
     margin: 0;
+}
+.no_friends{
+    color: #c6c6c2;
 }
 .friends_ref_title_top img:hover{
     transform: rotate(160deg);
@@ -260,7 +265,7 @@
 }
 
 .friends_title{
-    /*margin-top: 20px;*/
+    line-height: 0;
 }
 .friends_title_icon{
     display: flex;

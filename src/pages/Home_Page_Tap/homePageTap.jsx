@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import "./homePage.css";
 import ball from "../../assets/icons/soccer_ball.png";
 import {Link, useParams} from "react-router-dom";
-import $API from "../../utils/https.jsx";
+import {$API} from "../../utils/https.jsx";
 import user_img from "../../assets/icon/xsxxa.webp";
 import AppBar from "../../component/App_bar/app_bar.jsx";
 // import clickSound from "../../assets/mixkit-soccer-ball-quick-kick-2108.wav";
@@ -11,6 +11,7 @@ import {useTranslation} from "react-i18next";
 import {Tour} from "antd";
 import Odometer from "react-odometerjs";
 import LoaderFootball from "../../component/loader/loader_football.jsx";
+import {jwtDecode} from "jwt-decode";
 
 
 const HomePageTap = () => {
@@ -19,7 +20,7 @@ const HomePageTap = () => {
     const [ballPressed, setBallPressed] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     // const [soundEnabled, setSoundEnabled] = useState(true);
-    const {user_id , language} = useParams();
+    const {token , language} = useParams();
     const timerRef = useRef(null);
     const {t} = useTranslation();
     const [openTour, setOpenTour] = useState(false);
@@ -32,11 +33,13 @@ const HomePageTap = () => {
         hour_coin: 0,
     });
     const [loader, setLoader] = useState(false);
-
+    const decoded = jwtDecode(token);
+    const user_id = parseInt(decoded.user_id, 10);
+    console.log(user_id)
     const getCoinData = async () => {
         setLoader(true);  // loaderni ko'rsatish
         try {
-            const res = await $API.get(`/users/${user_id}`);
+            const res = await $API.get(`/users/`);
             console.log(res)
             const user = res.data.user_data;
             const status = res.data.status;
@@ -61,7 +64,7 @@ const HomePageTap = () => {
 
     useEffect(() => {
         getCoinData();
-    }, [user_id]);
+    }, [token]);
 
     useEffect(() => {
         const savedVibration = localStorage.getItem('settings_vibr');
@@ -287,7 +290,7 @@ const HomePageTap = () => {
                     giftRef={giftRef}
                 />
                 <div className="home-page_user_settings">
-                    <Link to={`/${user_id}/${language}/settings`} className="home-page_user" ref={profileRef}>
+                    <Link to={`/${token}/${language}/settings`} className="home-page_user" ref={profileRef}>
                         <h1>{userData.username ? userData.username : userData.first_name}</h1>
                         <span loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
                     </Link>
@@ -295,7 +298,7 @@ const HomePageTap = () => {
                 <div className="ball-content">
                     <div className="ball-score-container">
 
-                        <Link to={`/${user_id}/${language}/rating`}
+                        <Link to={`/${token}/${language}/rating`}
                               onClick={()=>navigator.vibrate(100)}
                               className="ball-score ball-score-status" ref={darajaRef}>
                             <span>
@@ -307,7 +310,7 @@ const HomePageTap = () => {
 
                         <Link
                             onClick={()=>navigator.vibrate(100)}
-                            className="ball-score" to={`/${user_id}/${language}/exp_shop`} ref={tajribaRef}>
+                            className="ball-score" to={`/${token}/${language}/exp_shop`} ref={tajribaRef}>
                             <span>
                                    <p>{t("homePageTap.tajriba")}</p>
                             <h1>{userData.hour_coin ? formatNumber(userData.hour_coin) : 0}</h1>

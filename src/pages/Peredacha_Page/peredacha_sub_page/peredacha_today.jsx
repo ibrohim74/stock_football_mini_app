@@ -12,14 +12,16 @@ const PeredashaToday = ({ activeDate ,leagueList}) => {
     const options = {
         method: 'GET',
         url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
-        params: { date: activeDate ? new Date(new Date().setDate(new Date(activeDate).getDate())).toISOString().split('T')[0] : new Date(activeDate).toISOString().split('T')[0]},
+        params: {
+            date: new Date(new Date(activeDate).setHours(24, 0, 0, 0)).toISOString().split('T')[0],
+        },
 
         headers: {
             'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
             'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
         }
     };
-
+    console.log( )
     const isSameGameData = (newGames, oldGames) => {
         // Ikkala o'yinlar to'plamining idlarini solishtiramiz
         const newGameIds = newGames.map(game => game.fixture.id).sort();
@@ -27,27 +29,33 @@ const PeredashaToday = ({ activeDate ,leagueList}) => {
         return JSON.stringify(newGameIds) === JSON.stringify(oldGameIds);
     };
 
+    const uzbekistanTeamId = 1568; // Use the correct ID for Uzbekistan national team
+
     const getData = async () => {
         setLoading(true);
         try {
             const response = await axios.request(options);
-            console.log(response)
-           const filteredGames =  Array.isArray(leagueList)
+            const filteredGames = Array.isArray(leagueList)
                 ? response?.data?.response.filter(game =>
-                    leagueList.map(Number).includes(Number(game.league.id))
+                    leagueList.map(Number).includes(Number(game.league.id)) ||
+                    game.teams.home.id === uzbekistanTeamId ||
+                    game.teams.away.id === uzbekistanTeamId
                 )
-                : response?.data?.response;
+                : response?.data?.response.filter(game =>
+                    game.teams.home.id === uzbekistanTeamId ||
+                    game.teams.away.id === uzbekistanTeamId
+                );
 
             if (!isSameGameData(filteredGames, todayGames)) {
-                 setTodayGames(filteredGames);
+                setTodayGames(filteredGames);
             }
-
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
     };
+
 
     useEffect(() => {
         getData();

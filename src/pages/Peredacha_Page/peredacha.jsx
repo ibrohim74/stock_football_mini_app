@@ -16,7 +16,7 @@ const Peredacha = () => {
     const [time, setTime] = useState(new Date());
     const [leagues, setLeagues] = useState([]);
     const [activeDate, setActiveDate] = useState(new Date()); // Tanlangan sana
-    const {user_id, language} = useParams();
+    const {token, language} = useParams();
     const {t, i18n} = useTranslation();
 
     useEffect(() => {
@@ -61,7 +61,7 @@ const Peredacha = () => {
         const weekdayNamesRu = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];    // Ruscha qisqa hafta kunlari
         const weekdayNames = i18n.language === 'uz' ? weekdayNamesUz : weekdayNamesRu;  // Tilga qarab hafta kunlari
 
-        for (let i = -3; i <= 3; i++) {  // 3 kun oldin va 3 kun keyin
+        for (let i = -4; i <= 4; i++) {  // 3 kun oldin va 3 kun keyin
             const date = new Date();
             date.setDate(time.getDate() + i);
 
@@ -83,7 +83,7 @@ const Peredacha = () => {
     const handleDateChange = (date) => {
         // Vaqtni 00:00 ga o'rnating
         const newDate = new Date(date);
-        newDate.setHours(0, 0, 0, 0);
+        // newDate.setHours(0, 0, 0, 0);
         setActiveDate(newDate);
     };
 
@@ -95,10 +95,11 @@ const Peredacha = () => {
     // Endi leagueIds string emas, array holatida
     const leagueIds = leagues.map(league => league.id);
 
+
     return (
         <div className="peredacha">
             <div className="peredacha_time">
-                <BackTab back_url={`/${user_id}/${language}`}/>
+                <BackTab back_url={`/${token}/${language}`}/>
                 <div className="peredacha_time_box">
                     <h1>{formattedTime}</h1>
                     <p>{formattedDate}</p>
@@ -107,13 +108,14 @@ const Peredacha = () => {
             <div className="peredacha_tabs">
 
                 <Swiper
-                    slidesPerView={4.5}
-                    spaceBetween={10}
-                    loop={false}
+                    slidesPerView={5}      // 5 ta slaydni ko'rsatish
+                    spaceBetween={10}      // Slaydlar orasidagi masofa
+                    loop={false}           // Slaydlarni qaytadan takrorlamaslik
                     pagination={{ clickable: true }}
                     navigation
+                    centeredSlides={true}  // O‘rtaga joylashtirish
                     className="mySwiperPeredacha"
-                    initialSlide={todayIndex}  // Hozirgi sanani markazga qo'yamiz
+                    initialSlide={todayIndex}   // Hozirgi sanani markazga qo'yamiz
                 >
                     {surroundingDays.map((day, index) => (
                         <SwiperSlide
