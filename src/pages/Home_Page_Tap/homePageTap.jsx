@@ -54,6 +54,7 @@ const HomePageTap = () => {
                 hour_coin: res.data.hour_coin,
             });
         } catch (e) {
+            alert(e)
             console.log(e);
         } finally {
             setLoader(false);  // loaderni yashirish
