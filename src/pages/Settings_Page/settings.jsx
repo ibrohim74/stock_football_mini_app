@@ -56,7 +56,9 @@ const Settings = () => {
                 <div className="settings_box">
                     <div
                         className="settings_vibr settings_item"
-                        onClick={toggleVibration}
+                        onClick={()=> {
+                            toggleVibration()
+                        }}
                         role="button"
                         aria-label={`Vibration is ${vibrationEnabled ? "on" : "off"}`}
                     >
