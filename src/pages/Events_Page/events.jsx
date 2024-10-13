@@ -209,7 +209,7 @@ const Events = () => {
                     </div>
                     <div className="events_box_content">
                         <div className="events_box_content_title">
-                            <h1>{t("events.day_event")}</h1>
+                            <h1>{t("events.day_event")} </h1>
                         </div>
 
                         {quizAvailable ? (
