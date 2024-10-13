@@ -17,10 +17,9 @@ const Quiz = () => {
     const [quizFinished, setQuizFinished] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [answerStatus, setAnswerStatus] = useState(null); // Javob holatini saqlash
-    const {token, language} = useParams();
+    const {user_id, language} = useParams();
     const navigate = useNavigate();
-    const decoded = jwtDecode(token);
-    const user_id = parseInt(decoded.user_id, 10);
+
     const getQuestions = async () => {
         try {
             const res = await $API.get(`/questions/${user_id}`);
@@ -36,7 +35,7 @@ const Quiz = () => {
     }, []);
 
     useEffect(() => {
-        const lastPlayed = localStorage.getItem(`quiz_last_played_${token}`);
+        const lastPlayed = localStorage.getItem(`quiz_last_played_${user_id}`);
         if (lastPlayed) {
             const lastPlayedTime = new Date(lastPlayed).getTime();
             const currentTime = new Date().getTime();
@@ -47,7 +46,7 @@ const Quiz = () => {
                 setQuizAvailable(false);
             }
         }
-    }, [token, messageApi]);
+    }, [user_id, messageApi]);
 
     useEffect(() => {
         if (timeLeft > 0 && quizAvailable && !quizFinished) {
@@ -99,9 +98,9 @@ const Quiz = () => {
 
         if (currentQuestion + 1 >= questions.length) {
             setQuizFinished(true);
-            localStorage.setItem(`quiz_last_played_${token}`, new Date().toISOString());
+            localStorage.setItem(`quiz_last_played_${user_id}`, new Date().toISOString());
             setTimeout(() => {
-                navigate(`/${token}/${language}/Events_Page`);
+                navigate(`/${user_id}/${language}/Events_Page`);
             }, 3000);
         } else {
             setCurrentQuestion(currentQuestion + 1);
@@ -109,11 +108,11 @@ const Quiz = () => {
     };
 
     if (!quizAvailable) {
-        return navigate(`/${token}/${language}/Events_Page`);
+        return navigate(`/${user_id}/${language}/Events_Page`);
     }
 
     if (quizFinished) {
-        return navigate(`/${token}/${language}/Events_Page`);
+        return navigate(`/${user_id}/${language}/Events_Page`);
         ;
     }
 

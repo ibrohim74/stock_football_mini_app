@@ -19,21 +19,20 @@ const ExpShop = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const { token, language } = useParams();
+    const { user_id, language } = useParams();
     const [userExpData, setUserExpData] = useState([]);
     const [hoursBonusCoin, setHoursBonusCoin] = useState(0);
     const [buyBtnDis, setBuyBtnDis] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const { t } = useTranslation();
-    const decoded = jwtDecode(token);
-    const user_id = parseInt(decoded.user_id, 10);
+
     const getCoinData = async () => {
         try {
             const res = await $API.get(`users/experience/${user_id}`);
-            setScore(res.data.user_data.coins);
-            setTapBonus(res.data.user_data.bonus);
+            setScore(res.data.user.coins);
+            setTapBonus(res.data.user.bonus);
             setUserExpData(res.data.experience);
-            setHour_coin(res.data.user_data.hour_coin);
+            setHour_coin(res.data.user.hour_coin);
         } catch (e) {
             messageApi.error(t("exp_shop.status.error"));
         }
@@ -181,7 +180,7 @@ const ExpShop = () => {
         <div className="ExpShop">
             {contextHolder}
             <div className="exp_content">
-                <BackTab back_url={`/${token}/${language}`} style={{
+                <BackTab back_url={`/${user_id}/${language}`} style={{
                     width:"7%"
                 }} />
                 <div className="exp_nav_box">

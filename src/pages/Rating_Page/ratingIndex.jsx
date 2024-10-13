@@ -7,11 +7,11 @@ import BackTab from "../../component/backTab/BackTab.jsx";
 import {useParams} from "react-router-dom";
 const RatingIndex = () => {
     const [activeTab, setActiveTab] = useState('list');
-    const {token,language} = useParams();
+    const {user_id,language} = useParams();
     const {t} = useTranslation();
     return (
         <div className="ratingIndex">
-            <BackTab back_url={`/${token}/${language}`} style={{
+            <BackTab back_url={`/${user_id}/${language}`} style={{
                 position:"absolute",
                 left:0,
             }}/>

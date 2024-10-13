@@ -9,7 +9,7 @@ import {Tour} from "antd";
 
 
 const   AppBarFootball = () => {
-    const { token,language } = useParams();
+    const { user_id,language } = useParams();
     const {t} = useTranslation();
     const location = useLocation();
     const [openTour, setOpenTour] = useState(false);
@@ -49,15 +49,15 @@ const   AppBarFootball = () => {
             <div className="app_bar_content">
                     <>
 
-                        <Link ref={peredachaRef} to={`/${token}/${language}/peredacha`} className={`app_bar_content_item ${location.pathname === `/${token}/${language}/peredacha` ? 'active' : ''}`} style={{ marginRight: 0 }}>
+                        <Link ref={peredachaRef} to={`/${user_id}/${language}/peredacha`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/peredacha` ? 'active' : ''}`} style={{ marginRight: 0 }}>
                             <span><img src={peredacha} alt="Peredacha" loading={"lazy"}/></span>
                             <p>{t("app_bar_football.peredacha")}</p>
                         </Link>
-                        <Link ref={ligaRef} to={`/${token}/${language}/league`} className={`app_bar_content_item ${location.pathname === `/${token}/${language}/league` ? 'active' : ''}`}>
+                        <Link ref={ligaRef} to={`/${user_id}/${language}/league`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/league` ? 'active' : ''}`}>
                             <span><img src={liga} alt="League" loading={"lazy"}/></span>
                             <p>{t("app_bar_football.liga")}</p>
                         </Link>
-                        <Link ref={liveRef} to={`/${token}/${language}/Football`} className={`app_bar_content_item ${location.pathname === `/${token}/${language}/Football` ? 'active' : ''}`}>
+                        <Link ref={liveRef} to={`/${user_id}/${language}/Football`} className={`app_bar_content_item ${location.pathname === `/${user_id}/${language}/Football` ? 'active' : ''}`}>
                             <span><img src={ball} alt="Football" loading={"lazy"}/></span>
                             <p>{t("app_bar_football.live")}</p>
                         </Link>

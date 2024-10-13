@@ -20,7 +20,7 @@ const HomePageTap = () => {
     const [ballPressed, setBallPressed] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     // const [soundEnabled, setSoundEnabled] = useState(true);
-    const {token , language} = useParams();
+    const {user_id , language} = useParams();
     const timerRef = useRef(null);
     const {t} = useTranslation();
     const [openTour, setOpenTour] = useState(false);
@@ -33,15 +33,14 @@ const HomePageTap = () => {
         hour_coin: 0,
     });
     const [loader, setLoader] = useState(false);
-    const decoded = jwtDecode(token);
-    const user_id = parseInt(decoded.user_id, 10);
-    console.log(user_id)
+
+
     const getCoinData = async () => {
         setLoader(true);  // loaderni ko'rsatish
         try {
-            const res = await $API.get(`/users/`);
+            const res = await $API.get(`/users/${user_id}`);
             console.log(res)
-            const user = res.data.user_data;
+            const user = res.data.user;
             const status = res.data.status;
             setUserData({
                 score: user.coins,
@@ -64,7 +63,7 @@ const HomePageTap = () => {
 
     useEffect(() => {
         getCoinData();
-    }, [token]);
+    }, [user_id]);
 
     useEffect(() => {
         const savedVibration = localStorage.getItem('settings_vibr');
@@ -93,7 +92,7 @@ const HomePageTap = () => {
             });
             const res = await $API.get(`/users/${user_id}`);
             console.log(res)
-            const user = res.data.user_data;
+            const user = res.data.user;
             const status = res.data.status;
             setUserData({
                 score: user.coins,
@@ -110,7 +109,7 @@ const HomePageTap = () => {
             if (e.status === 422) {
                 const res = await $API.get(`/users/${user_id}`);
                 console.log(res)
-                const user = res.data.user_data;
+                const user = res.data.user;
                 const status = res.data.status;
                 setUserData({
                     score: user.coins,
@@ -290,15 +289,16 @@ const HomePageTap = () => {
                     giftRef={giftRef}
                 />
                 <div className="home-page_user_settings">
-                    <Link to={`/${token}/${language}/settings`} className="home-page_user" ref={profileRef}>
+                    <Link to={`/${user_id}/${language}/settings`} className="home-page_user" ref={profileRef}>
                         <h1>{userData.username ? userData.username : userData.first_name}</h1>
                         <span loading={"lazy"} className="home-page_user_icon"><img src={user_img} alt=""/></span>
                     </Link>
                 </div>
                 <div className="ball-content">
+
                     <div className="ball-score-container">
 
-                        <Link to={`/${token}/${language}/rating`}
+                        <Link to={`/${user_id}/${language}/rating`}
                               onClick={()=>navigator.vibrate(100)}
                               className="ball-score ball-score-status" ref={darajaRef}>
                             <span>
@@ -310,7 +310,7 @@ const HomePageTap = () => {
 
                         <Link
                             onClick={()=>navigator.vibrate(100)}
-                            className="ball-score" to={`/${token}/${language}/exp_shop`} ref={tajribaRef}>
+                            className="ball-score" to={`/${user_id}/${language}/exp_shop`} ref={tajribaRef}>
                             <span>
                                    <p>{t("homePageTap.tajriba")}</p>
                             <h1>{userData.hour_coin ? formatNumber(userData.hour_coin) : 0}</h1>
@@ -354,6 +354,7 @@ const HomePageTap = () => {
                         <p>{userData.energy}/{userData.maxEnergy}</p>
                     </div>
                 </div>
+
                 <Tour
                     open={openTour}
                     steps={stepsTour}

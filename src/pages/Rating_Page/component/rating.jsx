@@ -30,12 +30,10 @@ const Rating = () => {
     const [selectData, setSelectData] = useState(null);
     const [loading, setLoading] = useState(false); // Manage loading state
     const [currentUserRank, setCurrentUserRank] = useState({});
-    const {token} = useParams();
+    const {user_id} = useParams();
     const {t} = useTranslation();
     const handleSlideClick = (status) => setSelectedStatus(status);
-    const decoded = jwtDecode(token);
-    const user_id = parseInt(decoded.user_id, 10);
-    // Find selected status data
+
     const selectedData = selectData ? selectData[selectedStatus] : [];
     const top10Data = selectedData && selectedData.length > 0 ? selectedData[0] : []; // Check for nested data
 
@@ -60,9 +58,9 @@ const Rating = () => {
             setSelectData(formattedData); // Har bir status uchun ma'lumotlarni saqlash
             setCurrentUserRank({
                 ...resUser.data.rank,
-                username: resUser.data.user_data.username ? resUser.data.user_data.username : resUser.data.user_data.first_name,
-                coin: resUser.data.user_data.coins,
-                id: resUser.data.user_data.id
+                username: resUser.data.user.username ? resUser.data.user.username : resUser.data.user.first_name,
+                coin: resUser.data.user.coins,
+                id: resUser.data.user.id
             });
         } catch (e) {
             console.log(e);
@@ -72,7 +70,7 @@ const Rating = () => {
     };
     useEffect(() => {
         getUserData();
-    }, [token]); // Fetch data when user_id changes
+    }, [user_id]); // Fetch data when user_id changes
     useEffect(() => {
         if (status.length > 0 && selectedStatus === null) {
             setSelectedStatus(status[0]); // 0-indexdagi statusni avtomatik tanlash

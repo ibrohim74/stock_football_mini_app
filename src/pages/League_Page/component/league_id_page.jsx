@@ -8,11 +8,11 @@ import {useParams} from "react-router-dom";
 const LeagueIdPage = () => {
     const [activeTab, setActiveTab] = useState('rating'); // Initialize active tab
     const { t } = useTranslation();
-    const { league_id,token,language } = useParams();
+    const { league_id,user_id,language } = useParams();
     return (
         <div className={"standings_container"}>
             <div className="back_liga">
-                <BackTab back_url={`/${token}/${language}/league`} />
+                <BackTab back_url={`/${user_id}/${language}/league`} />
                 <h1>{t('liga.title')}</h1>
             </div>
             <div className="rating_tabs">

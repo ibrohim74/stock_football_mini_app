@@ -10,9 +10,8 @@ const RatingsList = () => {
     const [userScore, setUserScore] = useState(0);
     const [currentStatus, setCurrentStatus] = useState({});
     const [loading, setLoading] = useState(false);
-    const {token} = useParams();
-    const decoded = jwtDecode(token);
-    const user_id = parseInt(decoded.user_id, 10);
+    const {user_id} = useParams();
+  
     const getUserData = async () => {
         setLoading(true); // Start loading
         try {
@@ -20,7 +19,7 @@ const RatingsList = () => {
             const getUser = await $API.get(`/users/${user_id}`);
             setStatus(res.data);
             setCurrentStatus(getUser.data.status)
-            setUserScore(getUser.data.user_data.coins)
+            setUserScore(getUser.data.user.coins)
             console.log(getUser)
         } catch (e) {
             console.log(e);
@@ -44,7 +43,7 @@ const RatingsList = () => {
 
     useEffect(() => {
         getUserData();
-    }, [token]); // Fetch data when user_id changes
+    }, [user_id]); // Fetch data when user_id changes
 
     return (
         <div className="rating_list">

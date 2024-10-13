@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 const LigaReyting = () => {
-    const { league_id, token, language } = useParams();
+    const { league_id, user_id, language } = useParams();
     const [standings, setStandings] = useState([]);
     const { t } = useTranslation();
     const [loadingStandings, setLoadingStandings] = useState(false);

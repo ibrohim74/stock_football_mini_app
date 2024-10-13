@@ -16,7 +16,7 @@ const Peredacha = () => {
     const [time, setTime] = useState(new Date());
     const [leagues, setLeagues] = useState([]);
     const [activeDate, setActiveDate] = useState(new Date()); // Tanlangan sana
-    const {token, language} = useParams();
+    const {user_id, language} = useParams();
     const {t, i18n} = useTranslation();
 
     useEffect(() => {
@@ -99,7 +99,7 @@ const Peredacha = () => {
     return (
         <div className="peredacha">
             <div className="peredacha_time">
-                <BackTab back_url={`/${token}/${language}`}/>
+                <BackTab back_url={`/${user_id}/${language}`}/>
                 <div className="peredacha_time_box">
                     <h1>{formattedTime}</h1>
                     <p>{formattedDate}</p>

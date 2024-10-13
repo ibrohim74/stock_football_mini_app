@@ -35,9 +35,9 @@ const App = () => {
 
     return (
         <HashRouter>
-            {window.location.host + window.location.pathname + window.location.hash}
+
             <Routes>
-                <Route path="/:token/:language" element={<HomePageTap />} />
+                <Route path="/:user_id/:language" element={<HomePageTap />} />
                 {RouterTapFootballData.map(({ Path, Component }, index) => (
                     <Route path={Path} element={<><AppBar /><Component /></>} key={index} />
                 ))}

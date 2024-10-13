@@ -24,9 +24,7 @@ const Friends = () => {
     const [hoursBonusCoin, setHoursBonusCoin] = useState(null);
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
-    const {token} = useParams();
-    const decoded = jwtDecode(token);
-    const user_id = parseInt(decoded.user_id, 10);
+    const {user_id} = useParams();
 
     const displayedUsers = showAll && friendsData.length > 3 ? friendsData : friendsData.slice(0, 3);
 
@@ -36,7 +34,7 @@ const Friends = () => {
             const res = await $API.get(`/users/friends/${user_id}`);
             console.log(res);
             setFriendsData(res.data.friends);
-            setCurrentUser(res.data.user_data);
+            setCurrentUser(res.data.user);
         } catch (e) {
             console.log(e);
         } finally {

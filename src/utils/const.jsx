@@ -11,19 +11,19 @@ import Gift from "../pages/gift/gift.jsx";
 import RatingIndex from "../pages/Rating_Page/ratingIndex.jsx";
 import League_id_page from "../pages/League_Page/component/league_id_page.jsx";
 
-export const HOME_PAGE_TAP = "/:token/:language";
-export const HOME_PAGE_FOOTBALL = "/:token/:language/Football";
-export const PEREDACHA = "/:token/:language/peredacha";
-export const LEAGUE = "/:token/:language/league";
-export const FRIENDS = "/:token/:language/friends";
-export const RATING = "/:token/:language/rating";
-export const SETTINGS = "/:token/:language/settings";
-export const EVENTS = "/:token/:language/Events_Page";
-export const EXP_SHOP = "/:token/:language/exp_shop";
-export const QUIZ = "/:token/:language/quiz";
-export const GIFT = "/:token/:language/gift";
+export const HOME_PAGE_TAP = "/:user_id/:language";
+export const HOME_PAGE_FOOTBALL = "/:user_id/:language/Football";
+export const PEREDACHA = "/:user_id/:language/peredacha";
+export const LEAGUE = "/:user_id/:language/league";
+export const FRIENDS = "/:user_id/:language/friends";
+export const RATING = "/:user_id/:language/rating";
+export const SETTINGS = "/:user_id/:language/settings";
+export const EVENTS = "/:user_id/:language/Events_Page";
+export const EXP_SHOP = "/:user_id/:language/exp_shop";
+export const QUIZ = "/:user_id/:language/quiz";
+export const GIFT = "/:user_id/:language/gift";
 
-export const LEAGUE_ID_PAGE = "/:token/:language/league/:league_id";
+export const LEAGUE_ID_PAGE = "/:user_id/:language/league/:league_id";
 
 export const RouterTapFootballData = [
     { Path: HOME_PAGE_TAP, Component: HomePageTap },

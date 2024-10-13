@@ -22,7 +22,7 @@ const HomePageFootball = () => {
     const [liveGames, setLiveGames] = useState([]);
     const [loading, setLoading] = useState(true); // Loading holatini qo'shish
     const [openTour, setOpenTour] = useState(false);
-    const {token, language} = useParams();
+    const {user_id, language} = useParams();
     const {t} = useTranslation()
     // Barcha ligalarni bir joyda to'plab olish
     const allLeagues = [
@@ -160,7 +160,7 @@ const HomePageFootball = () => {
     return (
         <div className={"homePageFootball"}>
             <h1 className={"footballTitle"}>
-                <BackTab back_url={`/${token}/${language}`} />
+                <BackTab back_url={`/${user_id}/${language}`} />
 
                 <div className={"jonliEfir"} ref={liveButtonRef}>Jonli Efir <div className="livenow">
                     <div></div>
