@@ -119,10 +119,10 @@
 
     border-radius: 15px;
     background: rgba( 55, 136, 5, 0.55 );
-    box-shadow: 0 0 100px 0 rgba( 255, 255, 255, 0.17 );
+    box-shadow: 0 0 100px 0 rgba( 255, 255, 255, 0.20 );
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid rgba( 255, 255, 255, 1);
 }
 .ball-score:hover{
     border: 1px solid #39FF14;
