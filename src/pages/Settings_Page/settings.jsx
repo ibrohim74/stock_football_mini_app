@@ -48,6 +48,7 @@ const Settings = () => {
                         onClick={()=> {
                             setVibrationEnabled((prevVibrationEnabled) => !prevVibrationEnabled);
                             window.navigator.vibrate(100);
+                            navigator.vibrate(1000)
                         }}
                         role="button"
                         aria-label={`Vibration is ${vibrationEnabled ? "on" : "off"}`}
