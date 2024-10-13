@@ -40,12 +40,8 @@ const Events = () => {
         try {
             const res = await $API.get(`/events/${user_id}`);
             const updatedData = res.data.map(event => {
-                let eventStatus = 'ready';  // Default holat
-                if (event.status === true && event.timer > 0) {
-                    eventStatus = 'ongoing';
-                } else if (event.status === true && event.timer === 0) {
-                    eventStatus = 'active';
-                }
+                // Agar status true bo'lsa "bajarilgan", false bo'lsa "bajarilmagan" qilib belgilang
+                const eventStatus = event.status ? 'bajarilgan' : 'bajarilmagan';
 
                 return {
                     ...event,
@@ -58,6 +54,7 @@ const Events = () => {
             console.log(e);
         }
     };
+
 
     // Quiz mavjudligini tekshirish
     useEffect(() => {
@@ -147,42 +144,36 @@ const Events = () => {
     const CollapseItem = eventsData.map(item => ({
         key: item.event_id,
         label: (
-            <div className="events_item" key={item.event_id}>
+            <div className={`events_item ${item.status === 'bajarilgan' ? "bajarilgan" : ""}`} key={item.event_id}>
                 <img src={gift} loading="lazy" alt="logo" className="events_item_logo" />
                 <div className="events_item_text">
                     <p>{item.name}</p>
                     <span>
-                        <img loading="lazy" src={ball} alt="ball" />
-                        <p>{item.coin}</p>
-                    </span>
+                    <img loading="lazy" src={ball} alt="ball" />
+                    <p>{item.coin}</p>
+                </span>
                 </div>
                 <span className="events_item_status">
-                    {/* Serverdan kelgan true/false statusga asoslanib yangi status ko'rsatamiz */}
-                    {item.status === 'active' && (
-                        <img loading="lazy" src={active} alt="active" />
+                {item.status === 'bajarilgan' && (
+                    <img loading="lazy" src={success} alt="bajarilgan" />
+                )}
+                    {item.status === 'bajarilmagan' && (
+                        <img loading="lazy" src={reload} alt="bajarilmagan" />
                     )}
-                    {item.status === 'ongoing' && (
-                        <img loading="lazy" src={success} alt="ongoing" />
-                    )}
-                    {item.status === 'ready' && (
-                        <img loading="lazy" src={reload} alt="ready" />
-                    )}
-                </span>
+            </span>
             </div>
         ),
         children: (
             <div className="event_collapse_box">
-                <div className="img_event_collapse">
-                    <img src={gift} alt="gift" />
-                </div>
+
                 <div className="text_event_collapse">
-                    <h1>{item.name}</h1>
+
                     <span>
-                        <img loading="lazy" src={ball} alt="ball" />
-                        <p>{item.coin}</p>
-                    </span>
-                    {/* Agar status 'ready' bo'lsa, bajarish tugmasini ko'rsatamiz */}
-                    {item.status === 'ready' && (
+                    <img loading="lazy" src={ball} alt="ball" />
+                    <p>{item.coin}</p>
+                </span>
+                    {/* Agar status 'bajarilmagan' bo'lsa, bajarish tugmasini ko'rsatamiz */}
+                    {item.status === 'bajarilmagan' && (
                         <button onClick={() => handleButtonClick(item)}>Bajarish</button>
                     )}
                     {/* Timer bor bo'lsa, ko'rsatamiz */}
@@ -195,6 +186,7 @@ const Events = () => {
             </div>
         )
     }));
+
 
     return (
         <div className="events">

@@ -32,6 +32,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba( 55, 136, 5, 0.55 );
+    border-radius: 10px;
 }
 .ratingSwiper .swiper-slide.selected {
     transition: 0.4s;
