@@ -54,7 +54,6 @@ const HomePageTap = () => {
                 hour_coin: res.data.hour_coin,
             });
         } catch (e) {
-            alert(e)
             console.log(e);
         } finally {
             setLoader(false);  // loaderni yashirish
@@ -281,7 +280,6 @@ const HomePageTap = () => {
     } else {
         return (
             <div className="home-page">
-                {user_id}
                 <AppBar
                     boshSahifaRef={boshSahifaRef}
                     friendsRef={friendsRef}
