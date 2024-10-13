@@ -202,7 +202,7 @@ const ExpShop = () => {
                         <h1><Odometer value={score} format="(.ddd),dd"/></h1>
                         {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}
                     </div>
-                    <button onClick={postExpHours} disabled={buttonDisabled}>
+                    <button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>
                         {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}
                     </button>
                     <p>{formatTime(remainingTime)}</p>

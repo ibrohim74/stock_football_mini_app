@@ -190,7 +190,7 @@ const Friends = () => {
                                 ) : (<>
                                         {friendsData.length > 0 ? <button onClick={getClaim}>{t("friends.claim")}</button>
                                             :
-                                            <button>{t("friends.claim")}</button>
+                                            <button style={{color:"white"}}>{t("friends.claim")}</button>
                                         }
 
                                     </>
