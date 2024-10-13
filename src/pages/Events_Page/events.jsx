@@ -10,7 +10,7 @@ import Collapse_events from '../../component/collapse_events/collapse_events.jsx
 import { message } from "antd";
 import { useTranslation } from "react-i18next";
 import {$API} from "../../utils/https.jsx";
-import {jwtDecode} from "jwt-decode";
+import calendar from "../../assets/icon/clandar.webp";
 
 const Events = () => {
     const { user_id, language } = useParams();
@@ -202,8 +202,8 @@ const Events = () => {
             <div className="content_events">
                 <div className="events_box">
                     <div className="events_title">
+                        <img src={calendar} alt=""/>
                         <h1>{t("events.title")}</h1>
-                        <p>{t("events.sub_title")}</p>
                     </div>
                     <div className="events_box_content">
                         <div className="events_box_content_title">

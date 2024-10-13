@@ -283,13 +283,21 @@
     height: 50px;
     margin-top: 15px;
 }
-
-.tap_coin img {
+.tap_coin_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.tap_coin_container img {
     width: 20px;
     height: 20px;
     margin-right: 5px;
 }
-
+.tap_coin_container h1{
+    font-size: 25px;
+}
 .tap_ball img {
     pointer-events: auto;
 }

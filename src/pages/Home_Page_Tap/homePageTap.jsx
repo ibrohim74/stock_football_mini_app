@@ -318,8 +318,10 @@ const HomePageTap = () => {
                         </Link>
                     </div>
                     <div className="tap_coin">
-                    <img loading={"lazy"} src={ball} alt=""/>
-                        <h1><Odometer value={userData.score} format="(.ddd),dd"/></h1>
+                        <div className="tap_coin_container">
+                            <img loading={"lazy"} src={ball} alt=""/>
+                            <h1><Odometer value={userData.score} format="(.ddd),dd"/></h1>
+                        </div>
                     </div>
                     {/*<div className="tap_ball_energy">*/}
                     {/*    <div className="energy_line">*/}

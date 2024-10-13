@@ -108,7 +108,7 @@ const Peredacha = () => {
             <div className="peredacha_tabs">
 
                 <Swiper
-                    slidesPerView={5}      // 5 ta slaydni ko'rsatish
+                    slidesPerView={3.9}      // 5 ta slaydni ko'rsatish
                     spaceBetween={10}      // Slaydlar orasidagi masofa
                     loop={false}           // Slaydlarni qaytadan takrorlamaslik
                     pagination={{ clickable: true }}
