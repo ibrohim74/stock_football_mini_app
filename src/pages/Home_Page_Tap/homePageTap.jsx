@@ -280,7 +280,7 @@ const HomePageTap = () => {
     } else {
         return (
             <div className="home-page">
-
+                {user_id}
                 <AppBar
                     boshSahifaRef={boshSahifaRef}
                     friendsRef={friendsRef}
