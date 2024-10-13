@@ -3,7 +3,7 @@ import './events.css';
 import gift from '../../assets/icon/freepik-export-20240923164119B0Nu.webp';
 import ball from '../../assets/icons/soccer_ball.png';
 import active from '../../assets/icon/spark.webp';
-import reload from '../../assets/icon/restart.png';
+import reload from '../../assets/icon/restart.webp';
 import success from '../../assets/icon/success.webp';
 import {Link, useParams} from 'react-router-dom';
 import Collapse_events from '../../component/collapse_events/collapse_events.jsx';
