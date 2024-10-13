@@ -17,7 +17,6 @@ import BackTab from "../../component/backTab/BackTab.jsx";
 const Settings = () => {
     const { handleLanguageChange, selectedLanguage } = useLanguage();
     const { user_id ,language} = useParams();
-    const navigate = useNavigate();
 
     const [vibrationEnabled, setVibrationEnabled] = useState(() => {
         const storedVibration = localStorage.getItem('settings_vibr');
@@ -37,16 +36,6 @@ const Settings = () => {
         localStorage.setItem('settings_mute', soundEnabled);
     }, [soundEnabled]);
 
-    const toggleVibration = () => {
-        setVibrationEnabled(prev => {
-            const newState = !prev;
-            if (newState) {
-                // Only vibrate when enabling
-            }
-            return newState; // Return the new state
-        });
-    };
-
 
     return (
         <div className='sett'>
@@ -57,6 +46,7 @@ const Settings = () => {
                     <div
                         className="settings_vibr settings_item"
                         onClick={()=> {
+                            setVibrationEnabled((prevVibrationEnabled) => !prevVibrationEnabled);
                             window.navigator.vibrate(100);
                         }}
                         role="button"
