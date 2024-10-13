@@ -25,6 +25,7 @@ const CollapseItem = ({ label, children, isOpen, onClick }) => {
                 className="collapse-content"
                 ref={contentRef}
                 style={{ maxHeight: `${maxHeight}px` }}
+                onClick={onClick}
             >
                 <span className="collapse-icon">{isOpen ? <img src={upArrow} alt=""/> : <img src={down} alt=""/>}</span>
                 {children}

@@ -98,7 +98,7 @@
 }
 .table_standing thead th , .table_standing thead th tr{
     border-collapse: collapse;
-    border: #378805 solid 1px;
+    border: #fff solid 1px;
     padding: 5px;
 }
 .table_standing tbody {
@@ -108,7 +108,7 @@
 
 .table_standing tbody tr td{
     border-collapse: collapse;
-    border: #378805 solid 1px;
+    border: #fff solid 1px;
     padding: 10px;
 
 }

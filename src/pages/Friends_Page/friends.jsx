@@ -116,16 +116,18 @@ const Friends = () => {
 
 
     const copyToClipboard = () => {
-        navigator.vibrate(100)
         navigator.clipboard.writeText(`https://t.me/snkrsshoopbot?start=${user_id}`).then(() => {
             messageApi.success("Havola nusxalandi!");
+        }).catch(err => {
+            console.error("Nusxa olishda xato:", err);
         });
     };
 
+
     const openShareLink = () => {
-        navigator.vibrate(100)
         window.open(`https://t.me/share/url?url=https://t.me/snkrsshoopbot?start=${user_id}`, '_blank');
     };
+
 
     const formatNumber = (num) => {
         if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
