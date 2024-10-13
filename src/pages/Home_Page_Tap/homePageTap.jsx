@@ -83,11 +83,12 @@ const HomePageTap = () => {
     const updateServer = async (newScore, newEnergy) => {
         try {
             console.log(parseInt(newScore), parseInt(newEnergy))
-            await $API.patch(`/users/${user_id}`, null, {
+            await $API.patch(`/users/`, null, {
                 params:
                     {
                         coin: newScore,
-                        energy: newEnergy
+                        energy: newEnergy,
+                        user_id:user_id
                     }
             });
             const res = await $API.get(`/users/${user_id}`);
@@ -140,7 +141,7 @@ const HomePageTap = () => {
         // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        const touches = event.touches;
+        const touches = event.touches || [{ clientX: event.clientX, clientY: event.clientY }];
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
@@ -332,8 +333,8 @@ const HomePageTap = () => {
                          ref={ballRef}
                          onTouchStart={handleStart}
                          onTouchEnd={handleEnd}
-                         // onMouseDown={handleStart}
-                         // onMouseUp={handleEnd}
+                         onMouseDown={handleStart}
+                         onMouseUp={handleEnd}
                     >
                         <img
                             draggable={false}
