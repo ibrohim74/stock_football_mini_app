@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import './events.css';
 import gift from '../../assets/icon/freepik-export-20240923164119B0Nu.webp';
 import ball from '../../assets/icons/soccer_ball.png';
 import active from '../../assets/icon/spark.webp';
-import reload from '../../assets/icon/restart.webp';
+import reload from '../../assets/icon/restart.png';
 import success from '../../assets/icon/success.webp';
-import { Link, useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Collapse_events from '../../component/collapse_events/collapse_events.jsx';
-import { message } from "antd";
-import { useTranslation } from "react-i18next";
+import {message} from "antd";
+import {useTranslation} from "react-i18next";
 import {$API} from "../../utils/https.jsx";
 import calendar from "../../assets/icon/clandar.webp";
 
 const Events = () => {
-    const { user_id, language } = useParams();
+    const {user_id, language} = useParams();
     const [messageApi, contextHolder] = message.useMessage();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [quizAvailable, setQuizAvailable] = useState(false);
-    const [eventsData, setEventsData] = useState([]);
+    const [eventsData, setEventsData] = useState([
+        {
+            event_id: 1,
+            status: "ongoing",
+            timer:"",
+            name:"sadasd",
+            coin:"",
+            url:""
+
+        }
+    ]);
 
     useEffect(() => {
         getEvents();
@@ -145,20 +155,20 @@ const Events = () => {
         key: item.event_id,
         label: (
             <div className={`events_item ${item.status === 'bajarilgan' ? "bajarilgan" : ""}`} key={item.event_id}>
-                <img src={gift} loading="lazy" alt="logo" className="events_item_logo" />
+                <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
                 <div className="events_item_text">
                     <p>{item.name}</p>
                     <span>
-                    <img loading="lazy" src={ball} alt="ball" />
+                    <img loading="lazy" src={ball} alt="ball"/>
                     <p>{item.coin}</p>
                 </span>
                 </div>
                 <span className="events_item_status">
                 {item.status === 'bajarilgan' && (
-                    <img loading="lazy" src={success} alt="bajarilgan" />
+                    <img loading="lazy" src={success} alt="bajarilgan"/>
                 )}
                     {item.status === 'bajarilmagan' && (
-                        <img loading="lazy" src={reload} alt="bajarilmagan" />
+                        <img loading="lazy" src={reload} alt="bajarilmagan"/>
                     )}
             </span>
             </div>
@@ -169,7 +179,7 @@ const Events = () => {
                 <div className="text_event_collapse">
 
                     <span>
-                    <img loading="lazy" src={ball} alt="ball" />
+                    <img loading="lazy" src={ball} alt="ball"/>
                     <p>{item.coin}</p>
                 </span>
                     {/* Agar status 'bajarilmagan' bo'lsa, bajarish tugmasini ko'rsatamiz */}
@@ -204,30 +214,30 @@ const Events = () => {
 
                         {quizAvailable ? (
                             <Link className="events_item" to={`/${user_id}/${language}/quiz`}>
-                                <img src={gift} loading="lazy" alt="logo" className="events_item_logo" />
-                                <div className="events_item_text" style={{marginTop:"18px" , marginLeft:0}}>
+                                <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
+                                <div className="events_item_text" style={{marginTop: "18px", marginLeft: 0}}>
                                     <p>{t("events.hero_event")}</p>
-                                    <span style={{marginTop:0}}>
-                                        <img loading="lazy" src={ball} alt="ball" />
-                                        <p>5k</p>
-                                    </span>
-                                </div>
-                                <span className="events_item_status" >
-                                    <img loading="lazy" src={active} alt="active" />
-                                </span>
-                            </Link>
-                        ) : (
-                            <div className="events_item">
-                                <img src={gift} loading="lazy" alt="logo" className="events_item_logo" />
-                                <div className="events_item_text">
-                                    <p>{t("events.hero_event")}</p>
-                                    <span>
-                                        <img loading="lazy" src={ball} alt="ball" />
+                                    <span style={{marginTop: 0}}>
+                                        <img loading="lazy" src={ball} alt="ball"/>
                                         <p>5k</p>
                                     </span>
                                 </div>
                                 <span className="events_item_status">
-                                    <img loading="lazy" src={reload} alt="active" />
+                                    <img loading="lazy" src={active} alt="active"/>
+                                </span>
+                            </Link>
+                        ) : (
+                            <div className="events_item">
+                                <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
+                                <div className="events_item_text">
+                                    <p>{t("events.hero_event")}</p>
+                                    <span>
+                                        <img loading="lazy" src={ball} alt="ball"/>
+                                        <p>5k</p>
+                                    </span>
+                                </div>
+                                <span className="events_item_status">
+                                    <img loading="lazy" src={reload} alt="active"/>
                                 </span>
                             </div>
                         )}
@@ -235,7 +245,7 @@ const Events = () => {
                         <div className="events_box_content_title">
                             <h1>{t("events.event")}</h1>
                         </div>
-                        <Collapse_events items={CollapseItem} />
+                        <Collapse_events items={CollapseItem}/>
                     </div>
                 </div>
             </div>
