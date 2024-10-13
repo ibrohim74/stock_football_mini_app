@@ -41,7 +41,7 @@ const Settings = () => {
         setVibrationEnabled(prev => {
             const newState = !prev;
             if (newState) {
-                navigator.vibrate(100); // Only vibrate when enabling
+                // Only vibrate when enabling
             }
             return newState; // Return the new state
         });
@@ -57,7 +57,7 @@ const Settings = () => {
                     <div
                         className="settings_vibr settings_item"
                         onClick={()=> {
-                            toggleVibration()
+                            window.navigator.vibrate(100);
                         }}
                         role="button"
                         aria-label={`Vibration is ${vibrationEnabled ? "on" : "off"}`}
