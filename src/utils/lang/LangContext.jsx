@@ -1,22 +1,42 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import i18n from "./i18n.jsx";
-import { languages } from "./langs.jsx";
 
 const LangContext = createContext();
 
 const LanguageProvider = ({ children }) => {
-    const validLanguages = ["rus", "uz"]; // Only allow "ru" and "uz"
+    const validLanguages = ["rus", "uz"]; // Faqat "rus" va "uz" tillarini ruxsat beramiz
 
     const [selectedLanguage, setSelectedLanguage] = useState(() => {
-        // Extract the language from the URL
-        const urlParts = window.location.href.split("/");
-        const urlLanguage = urlParts[urlParts.length - 1]; // Get the last part of the URL
+        // URL'dagi tilni olish uchun hashdan ajratib olamiz
+        const hashParts = window.location.hash.split("/"); // Hashni bo'lib olamiz
+        const urlLanguage = hashParts[2]; // Til hashdan keyin 3-chi qismda
 
-        // Check if the language in the URL is valid ("ru" or "uz"), else fallback to a default
-        const initialLanguage = validLanguages.includes(urlLanguage) ? urlLanguage : "uz"; // Default to "uz"
-
+        // URL'dagi til valid bo'lsa, shuni olamiz, aks holda "uz" o'rnatamiz
+        const initialLanguage = validLanguages.includes(urlLanguage) ? urlLanguage : "uz";
         return initialLanguage;
     });
+
+    useEffect(() => {
+        // Tilni o'zgartirish uchun URL'dagi tilni kuzatamiz
+        const checkLanguageInURL = () => {
+            const hashParts = window.location.hash.split("/");
+            const urlLanguage = hashParts[2];
+            if (validLanguages.includes(urlLanguage) && urlLanguage !== selectedLanguage) {
+                setSelectedLanguage(urlLanguage);
+            }
+        };
+
+        // Sahifa yuklanganda yoki URL o'zgarganda tilni tekshiramiz
+        checkLanguageInURL();
+
+        // URL hash o'zgarganda tilni tekshirish uchun event listener qo'shamiz
+        window.addEventListener("hashchange", checkLanguageInURL);
+
+        // Component unmounted bo'lganda listenerni olib tashlaymiz
+        return () => {
+            window.removeEventListener("hashchange", checkLanguageInURL);
+        };
+    }, [selectedLanguage]);
 
     useEffect(() => {
         if (selectedLanguage) {
@@ -29,20 +49,17 @@ const LanguageProvider = ({ children }) => {
             setSelectedLanguage(languageCode);
             i18n.changeLanguage(languageCode);
 
-            // Extract current parts of the URL
-            const urlParts = window.location.href.split("/");
-
-            // Correctly extract the user_id (after the hash symbol and before the language)
+            // Hashdan foydalanuvchi ID ni olish
             const hashParts = window.location.hash.split("/");
-            const userId = hashParts[1]; // user_id should be the first part after "#/"
+            const userId = hashParts[1]; // user_id hashdagi birinchi qism
 
-            // Construct the new URL
-            const currentOrigin = window.location.origin; // Get current origin
+            // Yangi URL ni tuzamiz
+            const currentOrigin = window.location.origin; // Joriy manzilni olamiz
             const newUrl = `${currentOrigin}/#/${userId}/${languageCode}`;
 
-            // Update the URL without reloading the page
+            // URL'ni yangilaymiz va sahifani qayta yuklaymiz
             window.history.replaceState(null, "", newUrl);
-            window.location.reload()
+            window.location.reload(); // Sahifani yangilash
         }
     };
 
