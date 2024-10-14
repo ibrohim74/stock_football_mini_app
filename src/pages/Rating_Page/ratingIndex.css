@@ -18,10 +18,10 @@
 .rating_tabs{
     width: 100%;
 
-    background: rgba( 55, 136, 5, 0.55 );
+
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 55, 136, 5, 0.55 );
+
     border-radius: 20px;
     margin-top: 16%;
     margin-bottom: 4%;
@@ -33,7 +33,11 @@
 .rating_tabs_item{
     padding: 20px 20px;
     border-radius: 20px;
+    width: 100px;
     font-weight: 600;
+    text-align: center;
+    background: rgba( 55, 136, 5, 0.55 );
+    border: 1px solid rgba( 55, 136, 5, 0.55 );
     /*border: 1px solid #39FF14;*/
     /*box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );*/
     /*background: rgba( 55, 136, 5, 0.55 );*/

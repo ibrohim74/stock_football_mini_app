@@ -1,12 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {message, Progress} from 'antd';
-import './quiz.css';
-import {useNavigate, useParams} from "react-router-dom";
-import ball from '../../assets/icons/soccer_ball.png';
-import {$API} from "../../utils/https.jsx";
-import LoaderFootball from "../../component/loader/loader_football.jsx";
-import {jwtDecode} from "jwt-decode";
-
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { message, Progress } from 'antd';
+import { $API } from '../../utils/https.jsx'; // API ni import qiling
+import "./quiz.css"
 const Quiz = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -16,48 +12,40 @@ const Quiz = () => {
     const [quizAvailable, setQuizAvailable] = useState(true);
     const [quizFinished, setQuizFinished] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
-    const [answerStatus, setAnswerStatus] = useState(null); // Javob holatini saqlash
-    const {user_id, language} = useParams();
+    const [answerStatus, setAnswerStatus] = useState(null);
+    const [correctAnswers, setCorrectAnswers] = useState(0); // To'g'ri javoblar soni
+    const { user_id, language } = useParams();
     const navigate = useNavigate();
 
-    const getQuestions = async () => {
-        try {
-            const res = await $API.get(`/questions/${user_id}` , null , {params:{user_id}});
-            setQuestions(res.data);
-            console.log(res)
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     useEffect(() => {
-        getQuestions();
-    }, []);
-
-    useEffect(() => {
-        const lastPlayed = localStorage.getItem(`quiz_last_played_${user_id}`);
-        if (lastPlayed) {
-            const lastPlayedTime = new Date(lastPlayed).getTime();
-            const currentTime = new Date().getTime();
-            const timeDifference = currentTime - lastPlayedTime;
-
-            if (timeDifference < 24 * 60 * 60 * 1000) {
-                messageApi.error('Siz allaqachon viktorinada qatnashgansiz. 24 soatdan keyin qayta qatnashishingiz mumkin.');
-                setQuizAvailable(false);
+        const fetchQuestions = async () => {
+            try {
+                const res = await $API.get(`questions/${user_id}`, { params: { user_id } });
+                setQuestions(res.data);
+            } catch (error) {
+                console.error('Savollarni yuklashda xatolik:', error);
             }
-        }
-    }, [user_id, messageApi]);
+        };
+
+        fetchQuestions();
+    }, [user_id]);
 
     useEffect(() => {
-        if (timeLeft > 0 && quizAvailable && !quizFinished) {
-            const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-            return () => clearTimeout(timerId);
+        if (timeLeft > 0 && !quizFinished) {
+            const timer = setInterval(() => {
+                setTimeLeft(timeLeft - 1);
+            }, 1000);
+            return () => clearInterval(timer);
         } else if (timeLeft === 0) {
             handleNextQuestion();
         }
-    }, [timeLeft, quizAvailable, quizFinished]);
+    }, [timeLeft, quizFinished]);
 
-    // Javobni serverga jo'natish va qaytgan javobga qarab rang berish
+    const handleAnswerSelection = (answer) => {
+        setSelectedAnswer(answer);
+        sendAnswerToServer(questions[currentQuestion]?.id, answer);
+    };
+
     const sendAnswerToServer = async (questionId, answerText) => {
         try {
             const res = await $API.post(`/questions/answer/`, null, {
@@ -70,12 +58,12 @@ const Quiz = () => {
 
             if (res.data.answer) {
                 setAnswerStatus('correct');
-                setScore(score + res.data.ball); // To'g'ri javob bo'lsa ball qo'shish
+                setScore(score + res.data.ball);
+                setCorrectAnswers(correctAnswers + 1); // To'g'ri javob berilganda
             } else {
                 setAnswerStatus('incorrect');
             }
 
-            // 2 soniyadan keyin keyingi savolga o'tish
             setTimeout(() => {
                 handleNextQuestion();
             }, 2000);
@@ -85,48 +73,43 @@ const Quiz = () => {
         }
     };
 
-
-    const handleAnswerSelection = (answerText) => {
-        setSelectedAnswer(answerText);
-        const currentQ = questions[currentQuestion];
-        console.log(currentQ.id, answerText)
-        sendAnswerToServer(currentQ.id, answerText);
-    };
-
     const handleNextQuestion = () => {
         setSelectedAnswer(null);
-        setAnswerStatus(null); // Rangni qayta tiklash
+        setAnswerStatus(null);
         setTimeLeft(15);
 
         if (currentQuestion + 1 >= questions.length) {
             setQuizFinished(true);
             localStorage.setItem(`quiz_last_played_${user_id}`, new Date().toISOString());
-            setTimeout(() => {
-                navigate(`/${user_id}/${language}/Events_Page`);
-            }, 3000);
         } else {
             setCurrentQuestion(currentQuestion + 1);
         }
     };
 
-    if (!quizAvailable) {
-        return navigate(`/${user_id}/${language}/Events_Page`);
-    }
-
+    // Test tugaganda ko'rsatish
     if (quizFinished) {
-        return navigate(`/${user_id}/${language}/Events_Page`);
-        ;
+        return (
+            <div className="quiz-finished">
+                <h1>Test tugadi!</h1>
+                <h3>Savollar soni: {questions.length}</h3>
+                <h3>To'g'ri javoblar: {correctAnswers}</h3>
+                <h3>Yutgan ball: {score}</h3>
+                <button onClick={() => navigate(`/${user_id}/${language}/Events_Page`)}>Orqaga qaytish</button>
+            </div>
+        );
     }
 
+    // Agar savollar yo'q bo'lsa
     if (questions.length === 0) {
-        return <LoaderFootball/>;
+        return <div className="loading">Savollar yuklanmoqda...</div>;
     }
 
     return (
         <div className={`quiz-container`}>
             <div className="quiz_title">
-                <h1>Savollar</h1>
+
                 <h3>Ball: {score}</h3>
+                <h4>Savol: {currentQuestion + 1} / {questions.length}</h4>
             </div>
 
             <div className="quiz_box">
@@ -137,27 +120,32 @@ const Quiz = () => {
                         format={() => `${timeLeft}s`}
                         strokeColor={timeLeft > 5 ? '#1890ff' : '#ff4d4f'}
                     />
-                    <h2>{questions[currentQuestion].description}</h2>
+                    <h2>{questions[currentQuestion]?.description}</h2>
                 </div>
             </div>
 
             {contextHolder}
 
             <form className={'quiz_form'}>
-                {['a', 'b', 'c', 'd'].map((key, index) => (
-                    <div key={index}
-                         className={`quiz_item ${selectedAnswer === questions[currentQuestion][key] && answerStatus ? (answerStatus === 'correct' ? 'correct-answer' : 'incorrect-answer') : ''}`}>
-                        <input
-                            type="radio"
-                            id={`answer-${key}`}
-                            name="quiz-answer"
-                            value={questions[currentQuestion][key]}
-                            checked={selectedAnswer === questions[currentQuestion][key]}
-                            onChange={() => handleAnswerSelection(questions[currentQuestion][key])}
-                        />
-                        <label htmlFor={`answer-${key}`}>{questions[currentQuestion][key]}</label>
-                    </div>
-                ))}
+                {['a', 'b', 'c', 'd'].map((key, index) => {
+                    const answer = questions[currentQuestion]?.[key];
+                    return (
+                        answer && ( // Check if answer exists
+                            <div key={index}
+                                 className={`quiz_item ${selectedAnswer === answer && answerStatus ? (answerStatus === 'correct' ? 'correct-answer' : 'incorrect-answer') : ''}`}>
+                                <input
+                                    type="radio"
+                                    id={`answer-${key}`}
+                                    name="quiz-answer"
+                                    value={answer}
+                                    checked={selectedAnswer === answer}
+                                    onChange={() => handleAnswerSelection(answer)}
+                                />
+                                <label htmlFor={`answer-${key}`}>{answer}</label>
+                            </div>
+                        )
+                    );
+                })}
             </form>
         </div>
     );

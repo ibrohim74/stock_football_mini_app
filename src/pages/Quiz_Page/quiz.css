@@ -66,6 +66,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 }
 .quiz_title h3{
     margin-right: 25px;
@@ -108,4 +109,39 @@
 
 input[type=radio] {
     display: none;
+}
+
+
+.quiz-finished{
+    margin-top: 35px;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba( 55, 136, 5, 0.18 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 20px );
+    border: 1px solid rgba( 55, 136, 5, 0.55 );
+    border-radius: 30px;
+}
+.quiz-finished h1{
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+ .quiz-finished h3{
+    margin: 0;
+}
+
+.quiz-finished button{
+    margin-top: 50px;
+    background: rgba( 55, 136, 5, 0.55 );
+
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 20px );
+    border: 1px solid rgba( 55, 136, 5, 0.55 );
+    border-radius: 10px;
+    height: 50px;
+    width: 200px;
+    font-size: 20px;
 }

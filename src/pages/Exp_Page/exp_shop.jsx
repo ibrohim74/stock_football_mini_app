@@ -34,7 +34,7 @@ const ExpShop = () => {
             setUserExpData(res.data.experience);
             setHour_coin(res.data.user.hour_coin);
         } catch (e) {
-            messageApi.error(t("exp_shop.status.error"));
+            // messageApi.error(t("exp_shop.status.error"));
         }
     };
 
@@ -197,15 +197,15 @@ const ExpShop = () => {
                 </div>
 
                 <div className="exp_ball_score">
-                    <div className="exp_ball">
-                        <img src={ball} alt="" loading={"lazy"} width={25}/>
-                        <h1><Odometer value={score} format="(.ddd),dd"/></h1>
-                        {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}
-                    </div>
-                    <button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>
-                        {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}
-                    </button>
-                    <p>{formatTime(remainingTime)}</p>
+                    {/*<div className="exp_ball">*/}
+                    {/*    <img src={ball} alt="" loading={"lazy"} width={25}/>*/}
+                    {/*    <h1><Odometer value={score} format="(.ddd),dd"/></h1>*/}
+                    {/*    {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}*/}
+                    {/*</div>*/}
+                    {/*<button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>*/}
+                    {/*    {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}*/}
+                    {/*</button>*/}
+                    {/*<p>{formatTime(remainingTime)}</p>*/}
                 </div>
                 <div className="exp_box">
                     {Array.isArray(userExpData) && userExpData.map((item) => (
