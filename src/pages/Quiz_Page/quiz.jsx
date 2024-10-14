@@ -22,7 +22,7 @@ const Quiz = () => {
 
     const getQuestions = async () => {
         try {
-            const res = await $API.get(`/questions/${user_id}`);
+            const res = await $API.get(`/questions/${user_id}` , null , {params:{user_id}});
             setQuestions(res.data);
             console.log(res)
         } catch (error) {
@@ -60,8 +60,9 @@ const Quiz = () => {
     // Javobni serverga jo'natish va qaytgan javobga qarab rang berish
     const sendAnswerToServer = async (questionId, answerText) => {
         try {
-            const res = await $API.post(`/questions/answer/${user_id}`, null, {
+            const res = await $API.post(`/questions/answer/`, null, {
                 params: {
+                    user_id,
                     question_id: questionId,
                     answer: answerText,
                 }
@@ -88,6 +89,7 @@ const Quiz = () => {
     const handleAnswerSelection = (answerText) => {
         setSelectedAnswer(answerText);
         const currentQ = questions[currentQuestion];
+        console.log(currentQ.id, answerText)
         sendAnswerToServer(currentQ.id, answerText);
     };
 
