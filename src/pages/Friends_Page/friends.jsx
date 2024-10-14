@@ -31,7 +31,7 @@ const Friends = () => {
     const getUserData = async () => {
         setLoading(true); // Yuklanish boshlandi
         try {
-            const res = await $API.get(`/users/friends/${user_id}`);
+            const res = await $API.get(`/users/friends/` , null , {params:{user_id}});
             console.log(res);
             setFriendsData(res.data.friends);
             setCurrentUser(res.data.user);

@@ -1,72 +1,33 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './events.css';
 import gift from '../../assets/icon/freepik-export-20240923164119B0Nu.webp';
 import ball from '../../assets/icons/soccer_ball.png';
 import active from '../../assets/icon/spark.webp';
 import reload from '../../assets/icon/restart.webp';
-import success from '../../assets/icon/success.webp';
-import {Link, useParams} from 'react-router-dom';
-import Collapse_events from '../../component/collapse_events/collapse_events.jsx';
-import {message} from "antd";
-import {useTranslation} from "react-i18next";
-import {$API} from "../../utils/https.jsx";
+import { Link, useParams } from 'react-router-dom';
+import { message } from "antd";
+import { useTranslation } from "react-i18next";
+import { $API } from "../../utils/https.jsx";
 import calendar from "../../assets/icon/clandar.webp";
 
 const Events = () => {
-    const {user_id, language} = useParams();
+    const { user_id, language } = useParams();
     const [messageApi, contextHolder] = message.useMessage();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [quizAvailable, setQuizAvailable] = useState(false);
-    const [eventsData, setEventsData] = useState([
-        {
-            event_id: 1,
-            status: "ongoing",
-            timer:"",
-            name:"sadasd",
-            coin:"",
-            url:""
+    const [eventsData, setEventsData] = useState([]);
+    const [loadingEventId, setLoadingEventId] = useState(null);
+    const [remainingTime, setRemainingTime] = useState({});
 
-        }
-    ]);
-
-    useEffect(() => {
-        getEvents();
-        const savedTimers = JSON.parse(localStorage.getItem(`event_timers_${user_id}`)) || {};
-        const updatedEvents = eventsData.map(event => {
-            if (savedTimers[event.event_id]) {
-                return {
-                    ...event,
-                    timer: savedTimers[event.event_id],
-                    status: savedTimers[event.event_id] > 0 ? 'ongoing' : 'completed'
-                };
-            }
-            return event;
-        });
-        setEventsData(updatedEvents);
-    }, [user_id]);
-
-    // Eventlarni serverdan olish
     const getEvents = async () => {
         try {
             const res = await $API.get(`/events/${user_id}`);
-            const updatedData = res.data.map(event => {
-                // Agar status true bo'lsa "bajarilgan", false bo'lsa "bajarilmagan" qilib belgilang
-                const eventStatus = event.status ? 'bajarilgan' : 'bajarilmagan';
-
-                return {
-                    ...event,
-                    status: eventStatus,  // Serverdan kelgan true/false holatini o'zgartiramiz
-                    timer: event.timer || 0  // Timer mavjud bo'lsa, o'rnatamiz
-                };
-            });
-            setEventsData(updatedData);
-        } catch (e) {
-            console.log(e);
+            setEventsData(res.data);
+        } catch (error) {
+            console.error('Error fetching events:', error);
         }
     };
 
-
-    // Quiz mavjudligini tekshirish
     useEffect(() => {
         const lastPlayedTime = localStorage.getItem(`quiz_last_played_${user_id}`);
         const now = new Date().getTime();
@@ -80,123 +41,86 @@ const Events = () => {
         }
     }, [user_id]);
 
-    const formatTime = (milliseconds) => {
-        const totalSeconds = Math.floor(milliseconds / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
+    useEffect(() => {
+        getEvents();
+    }, [user_id]);
 
-        return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
-    };
-
-    // Event tugmasini bosganda
-    const handleButtonClick = async (item) => {
-        console.log(item)
-        window.open(item.url, '_blank');
-        setEventsData((prevEvents) =>
-            prevEvents.map((event) => {
-                if (event.event_id === item.event_id) {
-                    return {
-                        ...event,
-                        status: 'ongoing', // Statusni yangilash
-                        timer: item.timer // Masalan, 1 daqiqa (60,000 ms) timerni o'rnatish
-                    };
+    useEffect(() => {
+        const ongoingTimers = eventsData.reduce((acc, item) => {
+            const timerData = localStorage.getItem(`event_timer_${item.event_id}`);
+            if (timerData) {
+                const { startTime, duration } = JSON.parse(timerData);
+                const now = new Date().getTime();
+                const timePassed = now - startTime;
+                const remainingTime = duration - timePassed;
+                if (remainingTime > 0) {
+                    acc[item.event_id] = remainingTime;
                 }
-                return event;
-            })
-        );
+            }
+            return acc;
+        }, {});
 
-        // Timerni boshlash
-        const interval = setInterval(() => {
-            setEventsData((prevEvents) =>
-                prevEvents.map((event) => {
-                    if (event.event_id === item.event_id && event.timer > 0) {
+        setRemainingTime(ongoingTimers);
+    }, [eventsData]);
 
-                        const newTimer = event.timer - 1000;
-
-                        // Timer 0 ga yetganda post so'rovini jo'natish
-                        if (newTimer <= 0) {
-                            clearInterval(interval);
-                            postEventCompletion(item.event_id);
-                            return {
-                                ...event,
-                                timer: 0, // Timerni 0 ga o'rnatamiz
-                                status: 'active' // Tugallangan statusini yangilash
-                            };
-                        }
-
-                        return {
-                            ...event,
-                            timer: newTimer // Timerni yangilash
-                        };
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setRemainingTime((prevTimes) => {
+                const updatedTimes = { ...prevTimes };
+                for (const eventId in updatedTimes) {
+                    updatedTimes[eventId] -= 1000;
+                    if (updatedTimes[eventId] <= 0) {
+                        completeEvent(eventId);
+                        delete updatedTimes[eventId];
+                        localStorage.removeItem(`event_timer_${eventId}`);
                     }
-                    return event;
-                })
-            );
+                }
+                return updatedTimes;
+            });
         }, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+            setLoadingEventId(null); // Reset loadingEventId when component unmounts
+        };
+    }, []);
+
+    const handleButtonClick = async (item) => {
+        setLoadingEventId(item.event_id);
+        window.open(item.url, '_blank');
+
+        const now = new Date().getTime();
+        const timerDuration = 30 * 1000; // 30 seconds timer
+        localStorage.setItem(`event_timer_${item.event_id}`, JSON.stringify({ startTime: now, duration: timerDuration }));
+
+        // Set remaining time for the timer
+        setRemainingTime((prev) => ({
+            ...prev,
+            [item.event_id]: timerDuration,
+        }));
+
+        // Send event completion to the server
+        await completeEvent(item.event_id); // Call to complete the event on server
+
+        // Set a timeout to complete the event locally after the timer
+        setTimeout(() => {
+            completeEvent(item.event_id);
+            setLoadingEventId(null);
+        }, timerDuration);
     };
 
 
-    // Event tugallangandan so'ng serverga yuborish
-    const postEventCompletion = async (event_id) => {
+    const completeEvent = async (eventId) => {
         try {
             const res = await $API.post(`/events/${user_id}`, null, {
-                params: {
-                    event_id: parseInt(event_id)
-                }
+                params: { event_id: eventId }
             });
-            console.log(res);
-        } catch (e) {
-            console.log(e);
+            getEvents();
+            console.log('Event completed:', res);
+        } catch (error) {
+            console.error('Error completing event:', error);
         }
     };
-
-    const CollapseItem = eventsData.map(item => ({
-        key: item.event_id,
-        label: (
-            <div className={`events_item ${item.status === 'bajarilgan' ? "bajarilgan" : ""}`} key={item.event_id}>
-                <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
-                <div className="events_item_text">
-                    <p>{item.name}</p>
-                    <span>
-                    <img loading="lazy" src={ball} alt="ball"/>
-                    <p>{item.coin}</p>
-                </span>
-                </div>
-                <span className="events_item_status">
-                {item.status === 'bajarilgan' && (
-                    <img loading="lazy" src={success} alt="bajarilgan"/>
-                )}
-                    {item.status === 'bajarilmagan' && (
-                        <img loading="lazy" src={reload} alt="bajarilmagan"/>
-                    )}
-            </span>
-            </div>
-        ),
-        children: (
-            <div className="event_collapse_box">
-
-                <div className="text_event_collapse">
-
-                    <span>
-                    <img loading="lazy" src={ball} alt="ball"/>
-                    <p>{item.coin}</p>
-                </span>
-                    {/* Agar status 'bajarilmagan' bo'lsa, bajarish tugmasini ko'rsatamiz */}
-                    {item.status === 'bajarilmagan' && (
-                        <button onClick={() => handleButtonClick(item)}>Bajarish</button>
-                    )}
-                    {/* Timer bor bo'lsa, ko'rsatamiz */}
-                    {item.timer > 0 && (
-                        <div className="timer">
-                            <p>{formatTime(item.timer)}</p>
-                        </div>
-                    )}
-                </div>
-            </div>
-        )
-    }));
-
 
     return (
         <div className="events">
@@ -204,20 +128,20 @@ const Events = () => {
             <div className="content_events">
                 <div className="events_box">
                     <div className="events_title">
-                        <img src={calendar} alt=""/>
+                        <img src={calendar} alt="calendar"/>
                         <h1>{t("events.title")}</h1>
                     </div>
                     <div className="events_box_content">
                         <div className="events_box_content_title">
-                            <h1>{t("events.day_event")} </h1>
+                            <h1>{t("events.day_event")}</h1>
                         </div>
 
                         {quizAvailable ? (
                             <Link className="events_item" to={`/${user_id}/${language}/quiz`}>
                                 <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
-                                <div className="events_item_text" style={{marginTop: "18px", marginLeft: 0}}>
+                                <div className="events_item_text" style={{ marginTop: "18px", marginLeft: 0 }}>
                                     <p>{t("events.hero_event")}</p>
-                                    <span style={{marginTop: 0}}>
+                                    <span style={{ marginTop: 0 }}>
                                         <img loading="lazy" src={ball} alt="ball"/>
                                         <p>5k</p>
                                     </span>
@@ -237,7 +161,7 @@ const Events = () => {
                                     </span>
                                 </div>
                                 <span className="events_item_status">
-                                    <img loading="lazy" src={reload} alt="active"/>
+                                    <img loading="lazy" src={reload} alt="reload"/>
                                 </span>
                             </div>
                         )}
@@ -245,7 +169,36 @@ const Events = () => {
                         <div className="events_box_content_title">
                             <h1>{t("events.event")}</h1>
                         </div>
-                        <Collapse_events items={CollapseItem}/>
+
+                        <div className="events_events_box">
+                            {eventsData.map(item => (
+                                <div key={item.event_id} className="events_events_item">
+                                    <div className="events_events_item_left">
+                                        <div className="events_events_item_left_icon">
+                                            <img src={item.photo || ball} alt="event"/>
+                                        </div>
+                                        <div className="events_events_item_left_text">
+                                            <h3>{item.name || "Event"}</h3>
+                                            <span>
+                                                <img loading="lazy" src={ball} alt="ball"/>
+                                                <p>{item.coin || "5k"}</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="events_events_item_right">
+                                        {item.status ? (
+                                            <button disabled>Disabled</button>
+                                        ) : (
+                                            <button onClick={() => handleButtonClick(item)} disabled={loadingEventId === item.event_id}>
+                                                {loadingEventId === item.event_id ? remainingTime[item.event_id] && (
+                                                    <span>{Math.ceil(remainingTime[item.event_id] / 1000)}s</span>
+                                                ) : 'Start'}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
