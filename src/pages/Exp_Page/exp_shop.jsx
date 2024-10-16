@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { message, Modal } from 'antd';
+import {message, Modal, Skeleton} from 'antd';
 import {$API} from "../../utils/https.jsx";
 import { useParams } from "react-router-dom";
 import "./exp_shop.css";
@@ -196,63 +196,89 @@ const ExpShop = () => {
                     width: "7%"
                 }}/>
 
-                <div className="gift">
-                    <div className="gift_box">
-                        {items.map((item, index) => (
-                            <div className="gift_item" key={index}>
-                                <span className="gift_blur"><h1>{t("gift.h1")}</h1></span>
-                                <img src={item} alt=""/>
-                            </div>
-                        ))}
 
+                <div className="exp_nav_box">
+                    <div className="exp_nav">
+                        <div className="exp_tap_bonus" >
+                            <h1>{t("homePageTap.tap_bonus")}</h1>
+                            {/*<p>+{tapBonus}</p>*/}
+                        </div>
+                        <div className="exp_exp">
+                            <h1>{t("homePageTap.tajriba")}</h1>
+                            {/*<p>{hour_coin ? formatNumber(hour_coin) : 0}</p>*/}
+                        </div>
                     </div>
                 </div>
 
+                <div className="exp_ball_score">
+                    {/*<div className="exp_ball">*/}
+                    {/*    <img src={ball} alt="" loading={"lazy"} width={25}/>*/}
+                    {/*    <h1><Odometer value={score} format="(.ddd),dd"/></h1>*/}
+                    {/*    {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}*/}
+                    {/*</div>*/}
+                    {/*<button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>*/}
+                    {/*    {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}*/}
+                    {/*</button>*/}
+                    {/*<p>{formatTime(remainingTime)}</p>*/}
+                </div>
+                <h1 style={{textAlign:"center"}}>{t("gift.h1")}</h1>
+                <div className="exp_box">
+                    {/*{Array.isArray(userExpData) && userExpData.map((item) => (*/}
+                    {/*    <div key={item.id} className="exp_item" onClick={() => showModal(item)}>*/}
+                    {/*        <div className="exp_item_header">*/}
+                    {/*            <img src={item?.photo} loading={"lazy"} alt=""/>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="exp_item_body">*/}
+                    {/*            <p>{item.name}</p>*/}
+                    {/*            <p style={{ fontSize: 14 }}>{t('exp_shop.hour_tajriba')} + {formatNumber(item.hour_coin)}</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="item_footer">*/}
+                    {/*            <div className="item_footer_exp">{item.degree}-{t("exp_shop.daraja_short")}</div>*/}
+                    {/*            <div className="item_footer_coin">*/}
+                    {/*                <img src={ball} loading={"lazy"} alt="" width={15}/>*/}
+                    {/*                {formatNumber(item.price)}*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*))}*/}
 
-                {/*<div className="exp_nav_box">*/}
-                {/*    <div className="exp_nav">*/}
-                {/*        <div className="exp_tap_bonus">*/}
-                {/*            <h1>{t("homePageTap.tap_bonus")}</h1>*/}
-                {/*            <p>+{tapBonus}</p>*/}
-                {/*        </div>*/}
-                {/*        <div className="exp_exp">*/}
-                {/*            <h1>{t("homePageTap.tajriba")}</h1>*/}
-                {/*            <p>{hour_coin ? formatNumber(hour_coin) : 0}</p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
-                {/*<div className="exp_ball_score">*/}
-                {/*    /!*<div className="exp_ball">*!/*/}
-                {/*    /!*    <img src={ball} alt="" loading={"lazy"} width={25}/>*!/*/}
-                {/*    /!*    <h1><Odometer value={score} format="(.ddd),dd"/></h1>*!/*/}
-                {/*    /!*    {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}*!/*/}
-                {/*    /!*</div>*!/*/}
-                {/*    /!*<button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>*!/*/}
-                {/*    /!*    {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}*!/*/}
-                {/*    /!*</button>*!/*/}
-                {/*    /!*<p>{formatTime(remainingTime)}</p>*!/*/}
-                {/*</div>*/}
-                {/*<div className="exp_box">*/}
-                {/*    {Array.isArray(userExpData) && userExpData.map((item) => (*/}
-                {/*        <div key={item.id} className="exp_item" onClick={() => showModal(item)}>*/}
-                {/*            <div className="exp_item_header">*/}
-                {/*                <img src={item?.photo} loading={"lazy"} alt=""/>*/}
-                {/*            </div>*/}
-                {/*            <div className="exp_item_body">*/}
-                {/*                <p>{item.name}</p>*/}
-                {/*                <p style={{ fontSize: 14 }}>{t('exp_shop.hour_tajriba')} + {formatNumber(item.hour_coin)}</p>*/}
-                {/*            </div>*/}
-                {/*            <div className="item_footer">*/}
-                {/*                <div className="item_footer_exp">{item.degree}-{t("exp_shop.daraja_short")}</div>*/}
-                {/*                <div className="item_footer_coin">*/}
-                {/*                    <img src={ball} loading={"lazy"} alt="" width={15}/>*/}
-                {/*                    {formatNumber(item.price)}*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    ))}*/}
-                {/*</div>*/}
+                    <div className="exp_item" onClick={() => showModal(item)}>
+                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
+                        <div className="exp_item_header">
+                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
+                        </div>
+                        <div className="exp_item_body">
+                            <Skeleton active={true}/>
+                        </div>
+                    </div>
+                    <div className="exp_item" onClick={() => showModal(item)}>
+                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
+                        <div className="exp_item_header">
+                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
+                        </div>
+                        <div className="exp_item_body">
+                            <Skeleton active={true}/>
+                        </div>
+                    </div>
+                    <div className="exp_item" onClick={() => showModal(item)}>
+                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
+                        <div className="exp_item_header">
+                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
+                        </div>
+                        <div className="exp_item_body">
+                            <Skeleton active={true}/>
+                        </div>
+                    </div>
+                    <div className="exp_item" onClick={() => showModal(item)}>
+                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
+                        <div className="exp_item_header">
+                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
+                        </div>
+                        <div className="exp_item_body">
+                            <Skeleton active={true}/>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <Modal className={"exp_modal"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

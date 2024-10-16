@@ -32,10 +32,10 @@
     text-align: center;
 
 
-    background: rgba( 55, 136, 5, 0.55 );
-    backdrop-filter: blur( 10px );
-    -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 55, 136, 5, 0.55 );
+    background: rgba(55, 136, 5, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(55, 136, 5, 0.55);
 }
 
 .exp_tap_bonus, .exp_exp {
@@ -45,12 +45,14 @@
     align-items: center;
     flex-direction: column;
 }
-.exp_tap_bonus{
-    border-right: 2px solid rgba( 55, 136, 5, 0.55 );
+
+.exp_tap_bonus {
+    border-right: 2px solid rgba(55, 136, 5, 0.55);
 }
+
 .exp_tap_bonus h1, .exp_exp h1 {
     font-size: 20px;
-    margin-bottom: 0;
+    /*margin-bottom: 0;*/
 }
 
 .exp_ball_score {
@@ -68,16 +70,18 @@
 
     outline: none;
     border-radius: 10px;
-    background: rgba( 55, 136, 5, 0.55 );
+    background: rgba(55, 136, 5, 0.55);
 
-    backdrop-filter: blur( 10px );
-    -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 55, 136, 5, 0.55 );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(55, 136, 5, 0.55);
 }
-.exp_ball_score button:hover{
+
+.exp_ball_score button:hover {
     border: 1px solid #39FF14;
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );
+    box-shadow: 0 0 100px 0 rgba(57, 255, 20, 0.47);
 }
+
 .exp_ball h1 {
     margin-top: 0;
 }
@@ -102,15 +106,29 @@
     flex-direction: column;
     position: relative;
     border-radius: 10px;
-    background: rgba( 55, 136, 5, 0.55 );
-
-    backdrop-filter: blur( 10px );
-    -webkit-backdrop-filter: blur( 20px );
-    border: 3px solid rgba( 55, 136, 5, 0.55 );
+    background: rgba(55, 136, 5, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 3px solid rgba(55, 136, 5, 0.55);
 }
-.exp_item:hover{
+
+.exp_item_blur {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(57, 255, 20, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.exp_item:hover {
     border: 3px solid #39FF14;
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.27 );
+    box-shadow: 0 0 100px 0 rgba(57, 255, 20, 0.27);
 }
 
 .exp_item_header {
@@ -121,17 +139,21 @@
     text-align: center;
     height: 50%;
 }
-.exp_item_body{
+
+.exp_item_body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
     width: 100%;
+    height: 55%;
     /*height: 26%;*/
 }
-.exp_item_body p:last-child{
+
+.exp_item_body p:last-child {
     margin: 0;
 }
+
 .exp_item_header img {
     width: 100%;
     height: 100%;
@@ -164,10 +186,12 @@
     align-items: center;
     margin-bottom: 20px;
 }
-.exp_ball p{
+
+.exp_ball p {
     margin: 0;
     padding: 0;
 }
+
 .exp_ball h1 {
     margin: 0;
     margin-left: 5px;
@@ -180,10 +204,10 @@
 }
 
 .exp_modal {
-    background: rgba( 55, 136, 5, 0.55 );
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );
-    backdrop-filter: blur( 10px );
-    -webkit-backdrop-filter: blur( 20px );
+    background: rgba(55, 136, 5, 0.55);
+    box-shadow: 0 0 100px 0 rgba(57, 255, 20, 0.47);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid #39FF14;
     border-radius: 15px;
     color: white;
@@ -201,63 +225,73 @@
 .exp_modal .ant-modal-content .ant-modal-close svg {
     color: white
 }
-.exp_modal_header{
+
+.exp_modal_header {
     margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .exp_modal .exp_modal_header img {
     width: 60%;
-    height:150px;
+    height: 150px;
     object-fit: cover;
 }
-.exp_modal_box h2{
+
+.exp_modal_box h2 {
     text-align: center;
     font-size: 25px;
 }
-.exp_modal_footer{
+
+.exp_modal_footer {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
 }
+
 .exp_modal .ant-modal-footer {
     display: none !important;
 }
 
-.exp_modal button , .exp_modal_btn_buy {
+.exp_modal button, .exp_modal_btn_buy {
     width: 70%;
     padding: 15px 0;
     border-radius: 10px;
-    background: rgba( 55, 136, 5, 0.55 );
+    background: rgba(55, 136, 5, 0.55);
 
-    backdrop-filter: blur( 10px );
-    -webkit-backdrop-filter: blur( 20px );
-    border: 1px solid rgba( 55, 136, 5, 0.55 );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(55, 136, 5, 0.55);
     outline: none;
     color: white;
     font-size: 18px;
 }
-.exp_modal_btn_buy.disabled{
+
+.exp_modal_btn_buy.disabled {
     background: gray;
     border: none;
     color: white;
 }
-.disabled:hover{
+
+.disabled:hover {
     border: none !important;
     box-shadow: none !important;
 }
-.exp_modal .exp_modal_btn_buy:hover{
+
+.exp_modal .exp_modal_btn_buy:hover {
     border: 1px solid #39FF14;
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );
+    box-shadow: 0 0 100px 0 rgba(57, 255, 20, 0.47);
 }
-.exp_modal button:hover{
+
+.exp_modal button:hover {
     border: 1px solid #39FF14;
-    box-shadow: 0 0 100px 0 rgba( 57, 255, 20, 0.47 );
+    box-shadow: 0 0 100px 0 rgba(57, 255, 20, 0.47);
 }
-.exp_modal_box_desc{
+
+.exp_modal_box_desc {
     width: 100%;
     text-align: center;
     font-size: 20px;
@@ -265,12 +299,11 @@
 }
 
 
-
-
-.ant-modal{
+.ant-modal {
     padding-bottom: 0 !important;
 }
-.ant-modal-wrap{
+
+.ant-modal-wrap {
     top: -64px !important;
 }
 
