@@ -116,7 +116,7 @@ const Friends = () => {
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(`https://t.me/snkrsshoopbot?start=${user_id}`).then(() => {
-            messageApi.success("Havola nusxalandi!");
+            messageApi.success(t("copy"));
         }).catch(err => {
             console.error("Nusxa olishda xato:", err);
         });
