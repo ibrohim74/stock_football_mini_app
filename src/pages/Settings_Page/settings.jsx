@@ -43,49 +43,40 @@ const Settings = () => {
             <div className="settings">
 
                 <div className="settings_box">
-                    <div
-                        className="settings_vibr settings_item"
-                        onClick={()=> {
-                            setVibrationEnabled((prevVibrationEnabled) => !prevVibrationEnabled);
-                            window.navigator.vibrate(100);
-                            navigator.vibrate(1000)
-                        }}
-                        role="button"
-                        aria-label={`Vibration is ${vibrationEnabled ? "on" : "off"}`}
-                    >
-                        <img loading="lazy" src={phone} alt="Vibration setting icon"/>
-                        {vibrationEnabled ? "On" : "Off"}
+                    <div className="settings_lang">
+                        <Dropdown
+                            menu={{
+                                items: languages.map(lang => ({
+                                    key: lang.code,
+                                    label: lang.label,
+                                    icon: lang.icon,
+                                    onClick: () => handleLanguageChange(lang.code), // Pass the language code directly
+                                })),
+                            }}
+                            trigger={["click"]}
+                        >
+                            <a onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
+                                <Space>
+                                    {selectedLanguage === "uz" && <><img src={UZ} alt=""/> O'zbekcha </>}
+                                    {selectedLanguage === "rus" && <><img src={RU} alt=""/> Русский </>}
+                                    <DownOutlined/>
+                                </Space>
+                            </a>
+                        </Dropdown>
+
+                    </div>
+                    <div className="settings_footer">
+                        <a href={"https://youtube.com/@stockfootballuz?si=dSzDWnEidN_Niarx"}
+                           className="settings_footer_item"><img src={youtube} alt=""/>YouTube</a>
+                        <a href={"https://www.instagram.com/stockfootball_uz/"} className="settings_footer_item"><img
+                            src={instagram} alt=""/>Instagram</a>
+                        <a href={"https://t.me/+dU0VUUqbfWI0ZWIy "} className="settings_footer_item"><img src={telegram}
+                                                                                                          alt=""/>Telegram</a>
                     </div>
 
                 </div>
 
-                <div className="settings_lang">
-                    <Dropdown
-                        menu={{
-                            items: languages.map(lang => ({
-                                key: lang.code,
-                                label: lang.label,
-                                icon: lang.icon,
-                                onClick: () => handleLanguageChange(lang.code), // Pass the language code directly
-                            })),
-                        }}
-                        trigger={["click"]}
-                    >
-                        <a onClick={(e) => e.preventDefault()} aria-haspopup="true" aria-expanded="false">
-                            <Space>
-                                {selectedLanguage === "uz" && <><img src={UZ} alt=""/> O'zbekcha </>}
-                                {selectedLanguage === "rus" && <><img src={RU} alt=""/> Русский </>}
-                                <DownOutlined/>
-                            </Space>
-                        </a>
-                    </Dropdown>
 
-                </div>
-                <div className="settings_footer">
-                    <a href={"https://youtube.com/@stockfootballuz?si=dSzDWnEidN_Niarx"} className="settings_footer_item"><img src={youtube} alt=""/>YouTube</a>
-                    <a href={"https://www.instagram.com/stockfootball_uz/"} className="settings_footer_item"><img src={instagram} alt=""/>Instagram</a>
-                    <a href={"https://t.me/+dU0VUUqbfWI0ZWIy "} className="settings_footer_item"><img src={telegram} alt=""/>Telegram</a>
-                </div>
             </div>
 
 

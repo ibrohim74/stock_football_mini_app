@@ -65,7 +65,7 @@ i18n
                         },
                         peredacha: {
                             title: "Dastur",
-                            description: "Bu yerda 3 kunlik o'yinlarini kuzatishingiz mumkin",
+                            description: "Bu yerda 9 kunlik o'yinlarini kuzatishingiz mumkin",
                         },
                         liga: {
                             title: "Liga",
@@ -218,7 +218,7 @@ i18n
                         },
                         peredacha: {
                             title: "Программа",
-                            description: "Здесь вы можете следить за играми в течение 3 дней",
+                            description: "Здесь вы можете следить за играми в течение 9 дней",
                         },
                         liga: {
                             title: "Лига",

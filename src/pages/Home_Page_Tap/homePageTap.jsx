@@ -161,9 +161,7 @@ const HomePageTap = () => {
 
 
             // Vibratsiya
-            if (vibrationEnabled && navigator.vibrate) {
-                navigator.vibrate(100);
-            }
+
             setBallPressed(true);
 
             // Ball pressed holatini qayta false holatiga o'zgartirish
@@ -299,7 +297,7 @@ const HomePageTap = () => {
                     <div className="ball-score-container">
 
                         <Link to={`/${user_id}/${language}/rating`}
-                              onClick={()=>navigator.vibrate(100)}
+
                               className="ball-score ball-score-status" ref={darajaRef}>
                             <span>
                                  <p>{t("homePageTap.darajangiz")}</p>
@@ -309,7 +307,6 @@ const HomePageTap = () => {
                         </Link>
 
                         <Link
-                            onClick={()=>navigator.vibrate(100)}
                             className="ball-score" to={`/${user_id}/${language}/exp_shop`} ref={tajribaRef}>
                             <span>
                                    <p>{t("homePageTap.tajriba")}</p>

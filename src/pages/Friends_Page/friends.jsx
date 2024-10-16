@@ -43,7 +43,6 @@ const Friends = () => {
     };
 
     const getClaim = async () => {
-        navigator.vibrate(100)
         try {
             const res = await $API.post(`/referrals/activate/${user_id}`);
             console.log(res);

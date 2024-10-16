@@ -29,11 +29,6 @@ const   AppBarFootball = () => {
 
     const stepsTour = [
         {
-            title: t("tour_fotballApp.live.title"),
-            description: t("tour_fotballApp.live.description"),
-            target: () => liveRef.current,
-        },
-        {
             title: t("tour_fotballApp.peredacha.title"),
             description: t("tour_fotballApp.peredacha.description"),
             target: () => peredachaRef.current,
@@ -43,6 +38,13 @@ const   AppBarFootball = () => {
             description: t("tour_fotballApp.liga.description"),
             target: () => ligaRef.current,
         },
+        {
+            title: t("tour_fotballApp.live.title"),
+            description: t("tour_fotballApp.live.description"),
+            target: () => liveRef.current,
+        },
+
+
     ]
     return (
         <div className="app_bar">
