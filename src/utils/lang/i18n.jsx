@@ -119,8 +119,8 @@ i18n
                         day_event: "Kundalik vazifalar",
                         event: "Vazifalar ro'yxati",
                         hero_event: "Asosiy vazifalar",
-                        completed: "bajarildi",
-                        active: "bajarilmoqda",
+                        completed: "Bajarildi",
+                        active: "Boshlash",
                     },
                     exp_shop: {
                         btn_active: "Tajriba orttirish davom etmoqda...",
@@ -274,7 +274,7 @@ i18n
                         event: "Список заданий",
                         hero_event: "Основные задания",
                         completed: "завершено",
-                        active: "в процессе",
+                        active: "Начать",
                     },
                     exp_shop: {
                         btn_active: "Опыт накапливается...",

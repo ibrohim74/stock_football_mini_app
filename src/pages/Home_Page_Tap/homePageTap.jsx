@@ -317,7 +317,7 @@ const HomePageTap = () => {
                     <div className="tap_coin">
                         <div className="tap_coin_container">
                             <img loading={"lazy"} src={ball} alt=""/>
-                            <h1><Odometer value={userData.score} format="(.ddd),dd"/></h1>
+                            <h1><Odometer value={userData.score} format="( ddd),dd"/></h1>
                         </div>
                     </div>
                     {/*<div className="tap_ball_energy">*/}

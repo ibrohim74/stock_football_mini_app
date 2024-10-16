@@ -181,7 +181,7 @@ const Friends = () => {
 
                             <div className="friends_gift_card">
                                 <p><img src={ball} loading={"lazy"} alt="Ball"/>
-                                    <Odometer value={currentUser.coins} format="(.ddd),dd"/>
+                                    <Odometer value={currentUser.coins} format="( ddd),dd"/>
                                 </p>
                                 {buttonDisabled ? (
                                     <>

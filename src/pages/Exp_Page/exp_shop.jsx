@@ -213,7 +213,7 @@ const ExpShop = () => {
                 <div className="exp_ball_score">
                     {/*<div className="exp_ball">*/}
                     {/*    <img src={ball} alt="" loading={"lazy"} width={25}/>*/}
-                    {/*    <h1><Odometer value={score} format="(.ddd),dd"/></h1>*/}
+                    {/*    <h1><Odometer value={score} format="( ddd),dd"/></h1>*/}
                     {/*    {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}*/}
                     {/*</div>*/}
                     {/*<button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>*/}

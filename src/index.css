@@ -8,6 +8,16 @@
     background: radial-gradient(circle, rgba(55,136,5,0.8) 1%, rgba(3,3,3,1) 100%);
     min-height: 100vh;
 }
+/* Barcha scroll barlarni berkitish */
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+/* Webkit asosidagi brauzerlarda (Chrome, Safari) scroll barlarni yashirish */
+*::-webkit-scrollbar {
+    display: none; /* Webkit uchun */
+}
 
 
 a {

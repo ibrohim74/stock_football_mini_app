@@ -23,6 +23,7 @@ const Events = () => {
         try {
             const res = await $API.get(`/events/${user_id}`);
             setEventsData(res.data);
+            console.log(res)
         } catch (error) {
             console.error('Error fetching events:', error);
         }
@@ -45,6 +46,7 @@ const Events = () => {
         getEvents();
     }, [user_id]);
 
+    // Timerni qayta tiklash uchun `localStorage`dan saqlab qolamiz
     useEffect(() => {
         const ongoingTimers = eventsData.reduce((acc, item) => {
             const timerData = localStorage.getItem(`event_timer_${item.event_id}`);
@@ -63,6 +65,7 @@ const Events = () => {
         setRemainingTime(ongoingTimers);
     }, [eventsData]);
 
+    // 1 soniyada bir marta timerni yangilab turish
     useEffect(() => {
         const intervalId = setInterval(() => {
             setRemainingTime((prevTimes) => {
@@ -81,35 +84,33 @@ const Events = () => {
 
         return () => {
             clearInterval(intervalId);
-            setLoadingEventId(null); // Reset loadingEventId when component unmounts
+            setLoadingEventId(null); // Komponent unmount bo'lganda tozalanadi
         };
     }, []);
 
     const handleButtonClick = async (item) => {
         setLoadingEventId(item.event_id);
-        window.open(item.url, '_blank');
-
+        window.open(item.url)
+        // 20 soniyalik timer boshlanishi
         const now = new Date().getTime();
-        const timerDuration = 30 * 1000; // 30 seconds timer
+        const timerDuration = 20 * 1000; // 20 soniya
         localStorage.setItem(`event_timer_${item.event_id}`, JSON.stringify({ startTime: now, duration: timerDuration }));
 
-        // Set remaining time for the timer
+        // Timer uchun qolgan vaqtni yangilash
         setRemainingTime((prev) => ({
             ...prev,
             [item.event_id]: timerDuration,
         }));
 
-        // Send event completion to the server
-        await completeEvent(item.event_id); // Call to complete the event on server
-
-        // Set a timeout to complete the event locally after the timer
-        setTimeout(() => {
-            completeEvent(item.event_id);
+        // 20 soniyadan keyin serverga zapros
+        setTimeout(async () => {
+            await completeEvent(item.event_id);
             setLoadingEventId(null);
         }, timerDuration);
     };
 
 
+    // Vazifani bajarish funksiyasi
     const completeEvent = async (eventId) => {
         try {
             const res = await $API.post(`/events/${user_id}`, null, {
@@ -120,6 +121,14 @@ const Events = () => {
         } catch (error) {
             console.error('Error completing event:', error);
         }
+    };
+
+    // Sonlarni format qilish funksiyasi
+    const formatNumber = (num) => {
+        if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+        if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+        if (num >= 1e3) return (num / 1e3).toFixed(1) + 'k';
+        return num.toString();
     };
 
     return (
@@ -181,20 +190,31 @@ const Events = () => {
                                             <h3>{item.name || "Event"}</h3>
                                             <span>
                                                 <img loading="lazy" src={ball} alt="ball"/>
-                                                <p>{item.coin || "5k"}</p>
+                                                <p>{formatNumber(item.coin) || "5k"}</p>
                                             </span>
                                         </div>
                                     </div>
                                     <div className="events_events_item_right">
                                         {item.status ? (
-                                            <button disabled>{t("events.completed")}</button>
+                                            <button disabled
+                                                    style={{border: "1px #f9f9f9 solid"}}>{t("events.completed")}</button>
                                         ) : (
-                                            <button onClick={() => handleButtonClick(item)} disabled={loadingEventId === item.event_id}>
-                                                {loadingEventId === item.event_id ? remainingTime[item.event_id] && (
-                                                    <span>{Math.ceil(remainingTime[item.event_id] / 1000)}s</span>
-                                                ) : t("events.active")}
+                                            <button
+                                                onClick={() => handleButtonClick(item)}
+                                                disabled={loadingEventId === item.event_id}
+                                                style={remainingTime[item.event_id] > 0 ? {
+                                                    padding: 0,
+                                                    border: "none",
+                                                    background: "transparent",
+                                                    backdropFilter: "none"
+                                                } : {}}
+                                            >
+                                                {remainingTime[item.event_id] > 0
+                                                    ? <img src={reload} style={{width: "50px", height: "50px"}}/>
+                                                    : t("events.active")}
                                             </button>
                                         )}
+
                                     </div>
                                 </div>
                             ))}

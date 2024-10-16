@@ -44,10 +44,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .events_box_content_title {
-    width: 100%;
+    width: 95%;
     padding-left: 15px;
 }
 
@@ -155,6 +157,8 @@
     align-items: center;
     padding: 10px;
 }
+.events_events_item:last-child{
+    margin-bottom: 100px;}
 .events_events_item_left_icon{
     width: 50px;
     height: 100%;
@@ -217,6 +221,12 @@
     outline: none;
     color: white;
 }
+
+.events_events_item_right button img{
+    width: 50px;
+    height: 50px;
+}
+
 .events_events_item_right button.active{
     border: 1px solid #39FF14;
     box-shadow: 0 0 100px 0 rgba(57, 255, 20, 0.47);
