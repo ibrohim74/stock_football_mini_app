@@ -187,12 +187,12 @@ const Events = () => {
                                     </div>
                                     <div className="events_events_item_right">
                                         {item.status ? (
-                                            <button disabled>Disabled</button>
+                                            <button disabled>{t("events.completed")}</button>
                                         ) : (
                                             <button onClick={() => handleButtonClick(item)} disabled={loadingEventId === item.event_id}>
                                                 {loadingEventId === item.event_id ? remainingTime[item.event_id] && (
                                                     <span>{Math.ceil(remainingTime[item.event_id] / 1000)}s</span>
-                                                ) : 'Start'}
+                                                ) : t("events.active")}
                                             </button>
                                         )}
                                     </div>

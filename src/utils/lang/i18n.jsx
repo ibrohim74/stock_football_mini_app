@@ -1,60 +1,62 @@
 import i18n from "i18next";
-import {initReactI18next} from "react-i18next";
+import { initReactI18next } from "react-i18next";
+
 const urlParts = window.location.href.split("/");
-const urlLanguage = urlParts[urlParts.length - 1]
+const urlLanguage = urlParts[urlParts.length - 1];
+
 i18n
     .use(initReactI18next)
     .init({
-        fallbackLng: urlLanguage, // Default language if the URL does not specify a valid language
+        fallbackLng: urlLanguage, // URL'da ko'rsatilgan tilni qo'llab-quvvatlash
         interpolation: {
-            escapeValue: false,
+            escapeValue: false, // React avtomatik ravishda xavfsiz holga keltiradi
         },
         resources: {
             uz: {
                 translation: {
                     tour: {
                         profile: {
-                            title: "Profile",
+                            title: "Profil",
                             description: "Bu yerda sizning sozlamalaringiz saqlanadi",
                         },
                         tajriba: {
                             title: "Tajriba",
-                            description: 'Bu yerda soatiga qancha tajriba ishlashingiz ko\'rsatiladi, ' +
-                                'ustiga bosib tajriba sotib olishingiz va ko\'paytirishingiz mumkin'
+                            description: 'Bu yerda soatiga qancha tajriba ishlashingiz ko\'rsatiladi. ' +
+                                'Ustiga bosib, tajribani sotib olishingiz va ko\'paytirishingiz mumkin',
                         },
                         daraja: {
                             title: "Daraja",
-                            description: "Bu yerda mavjud barcha darajalarni va reytingni korishingiz mumkin.",
+                            description: "Bu yerda mavjud barcha darajalarni va reytingni ko'rishingiz mumkin.",
                         },
                         Koptok: {
                             title: "Koptok",
-                            description: 'Koptokni bosib ballar ishlang! ' +
-                                'Darajangizga qarab quvvat beriladi va shu quvvat tugamaguncha ballar ishlashingiz mumkin',
+                            description: 'Koptokni bosib ballar oling! ' +
+                                'Darajangizga qarab quvvat beriladi va shu quvvat tugamaguncha ballar to\'plashingiz mumkin',
                         },
                         bosh_sahifa: {
                             title: "Bosh sahifa",
-                            description: "Bu yerda asosiy sahifa ochiladi"
+                            description: "Bu yerda asosiy sahifa ochiladi",
                         },
                         dostlar: {
                             title: "Do'stlar",
-                            description: "Bu yerda siz do'stlaringizni taklif qilishingiz mumkin"
+                            description: "Bu yerda siz do'stlaringizni taklif qilishingiz mumkin",
                         },
                         live: {
                             title: "Live",
-                            description: "Bu yerda futbol o'yinlarini kuzatishingiz mumkin"
+                            description: "Bu yerda futbol o'yinlarini kuzatishingiz mumkin",
                         },
                         events: {
                             title: "Vazifalar",
-                            description: "Bu yerda vazifalar ro'yxatini ko'rishingiz mumkin"
+                            description: "Bu yerda vazifalar ro'yxatini ko'rishingiz mumkin",
                         },
                         Reyting: {
                             title: "Reyting",
-                            description: "Bu yerda reyting sahifasini ochasiz"
+                            description: "Bu yerda reyting sahifasini ochasiz",
                         },
                         Gift: {
                             title: "Sovg'alar",
-                            description: "Tez kunda ..."
-                        }
+                            description: "Tez kunda ...",
+                        },
                     },
                     tour_fotballApp: {
                         live: {
@@ -67,7 +69,7 @@ i18n
                         },
                         liga: {
                             title: "Liga",
-                            description: "Bu yerda ligalarning 1 yillik o'yinlarini kuzatishingiz mumkin va liga bo'yicha oyinlarni qachon bo'lishini bilishingiz mumkun",
+                            description: "Bu yerda ligalarning 1 yillik o'yinlarini kuzatishingiz mumkin va liga bo'yicha o'yinlarni qachon bo'lishini bilishingiz mumkin",
                         },
                     },
                     tour_fotballLive: {
@@ -89,7 +91,7 @@ i18n
                         dostlar: "Do'stlar",
                         live: "Live",
                         vazifalar: "Vazifalar",
-                        reyting: "Reyting"
+                        reyting: "Reyting",
                     },
                     app_bar_football: {
                         live: "Jonli Efir",
@@ -103,21 +105,22 @@ i18n
                     },
                     friends: {
                         title: "Do'stlarni taklif qiling!",
-                        sub_title: "Do'stingi darajasi oshsa darhol +5K va har 8 soatda ballar yegib oling",
+                        sub_title: "Do'stingiz darajasi oshsa darhol +5K va har 8 soatda ballar yig'ib oling",
                         claim: "Ballarni olish",
                         claim_active: "Ballar to'planmoqda",
-                        no_friends: "Do'stalaringizni chaqiring",
+                        no_friends: "Do'stlaringizni chaqiring",
                         fiends: "Do'stlar ro'yxati",
                         show_all: "Barchasini ko'rsatish",
-                        share: "Do'stni taklif qilish"
+                        share: "Do'stni taklif qilish",
                     },
                     events: {
                         title: "Vazifalarni bajaring",
-                        sub_title: "va yanada ko'proq tangalarini qo'lga kiriting",
+                        sub_title: "va yanada ko'proq tangalar qo'lga kiriting",
                         day_event: "Kundalik vazifalar",
                         event: "Vazifalar ro'yxati",
                         hero_event: "Asosiy vazifalar",
-                        completed: "Vazifa bajarildi"
+                        completed: "bajarildi",
+                        active: "bajarilmoqda",
                     },
                     exp_shop: {
                         btn_active: "Tajriba orttirish davom etmoqda...",
@@ -126,36 +129,41 @@ i18n
                         daraja: "Daraja",
                         daraja_short: "dar",
                         price: "Narx",
-                        buy: "Sotb olish",
+                        buy: "Sotib olish",
                         dis_buy: "Mablag' yetarli emas",
                         status: {
                             tajriba_oshdi: "Tajribangiz oshdi !!!",
                             error: "Xatolik yuzaga keldi",
-                            claim: "Ballar olindi"
-                        }
+                            claim: "Ballar olindi",
+                        },
                     },
                     peredacha: {
-                       liga: "Liga",
+                        liga: "Liga",
                         hisob: "Hisob",
-                        oyin_vaqti:"o'yin vaqti",
+                        oyin_vaqti: "O'yin vaqti",
                     },
                     gift: {
                         title: "Sovg'alar",
-                        h1: "Tez Kunda..."
+                        h1: "Tez kunda...",
                     },
-
                     rayting_content: {
                         darajalar: "Darajalar",
                         reyting: "Reyting",
                     },
                     liga: {
                         title: "Liga o'yinlari",
+                        liga_tab_rating: "Turnir jadvali",
+                        liga_tab_calendar: "O'yinlar taqvimi",
+                        jamoa: "Jamoa",
+                        oyin: "O'yin",
                     },
-
-
+                    live: {
+                        live: "Jonli Efir",
+                        goals: "Hozircha gollar yo'q",
+                    },
                     loading: "Kuting...",
-                    no_data: "Ma'lumot yo'q"
-                }
+                    no_data: "Ma'lumot yo'q",
+                },
             },
             rus: {
                 translation: {
@@ -166,43 +174,42 @@ i18n
                         },
                         tajriba: {
                             title: "Опыт",
-                            description: 'Здесь указано сколько опыта в час вы зарабатываете, ' +
-                                'Войдя вы сможете покупать карточки опыта и усиливать его'
+                            description: 'Здесь указано, сколько опыта в час вы зарабатываете. ' +
+                                'Войдя, вы сможете покупать карточки опыта и усиливать его',
                         },
                         daraja: {
                             title: "Уровень",
                             description: "Здесь вы можете увидеть все доступные уровни и рейтинг.",
                         },
-
                         Koptok: {
                             title: "Мяч",
-                            description: 'Тапайте мяч и зарабатывайте баллы!' +
+                            description: 'Тапайте мяч и зарабатывайте баллы! ' +
                                 'Энергия зависит от вашего уровня и вы можете зарабатывать баллы, пока у вас есть энергия',
                         },
                         bosh_sahifa: {
                             title: "Главная страница",
-                            description: "Здесь открывается главная страница"
+                            description: "Здесь открывается главная страница",
                         },
                         dostlar: {
                             title: "Друзья",
-                            description: "Здесь вы сможете приглашать друзей"
+                            description: "Здесь вы сможете приглашать друзей",
                         },
                         live: {
                             title: "Live",
-                            description: "Тут вы сможете следить за футбольными матчами"
+                            description: "Здесь вы сможете следить за футбольными матчами",
                         },
                         events: {
                             title: "Задания",
-                            description: "Здесь вы можете увидеть список заданий"
+                            description: "Здесь вы можете увидеть список заданий",
                         },
                         Reyting: {
                             title: "Рейтинг",
-                            description: "Здесь вы сможете открыть страницу рейтинга"
+                            description: "Здесь вы сможете открыть страницу рейтинга",
                         },
                         Gift: {
                             title: "Подарки",
-                            description: "Скоро..."
-                        }
+                            description: "Скоро...",
+                        },
                     },
                     tour_fotballApp: {
                         live: {
@@ -218,7 +225,6 @@ i18n
                             description: "Здесь вы можете следить за играми лиги на протяжении года и узнать, когда будут проводиться матчи по лиге",
                         },
                     },
-
                     tour_fotballLive: {
                         live: {
                             title: "Прямой эфир",
@@ -233,79 +239,84 @@ i18n
                             description: "Кнопка для возврата на главную страницу",
                         },
                     },
-
                     app_bar: {
-                        bosh_sahifa: "Главная ",
+                        bosh_sahifa: "Главная страница",
                         dostlar: "Друзья",
                         live: "Live",
                         vazifalar: "Задания",
-                        reyting: "Рейтинг"
+                        reyting: "Рейтинг",
                     },
                     app_bar_football: {
-                        live: "Футбол",
+                        live: "Прямой эфир",
                         peredacha: "Программа",
                         liga: "Лига",
                     },
                     homePageTap: {
-                        tap_bonus: "Тап Бонус",
+                        tap_bonus: "Tap Бонус",
                         darajangiz: "Ваш уровень",
                         tajriba: "Опыт",
                     },
                     friends: {
-                        title: "Приглашайте друзей!",
-                        sub_title: "При повышении уровня приглашенного друга вы сразу получаете 5К баллов бонусом , а также будете зарабатывать очки каждые 8 часов.",
+                        title: "Пригласите друзей!",
+                        sub_title: "Если уровень вашего друга увеличится, вы сразу получите +5K и сможете зарабатывать баллы каждые 8 часов",
                         claim: "Получить баллы",
-                        claim_active: "Баллы набираются",
+                        claim_active: "Баллы накапливаются",
+                        no_friends: "Пригласите своих друзей",
                         fiends: "Список друзей",
-                        no_friends: "Вы еще никого не пригласили",
-                        show_all: "Показать все",
-                        share: "Пригласить друзей"
+                        show_all: "Показать всех",
+                        share: "Пригласить друга",
                     },
                     events: {
                         title: "Выполняйте задания",
-                        sub_title: "И получайте больше монет",
+                        sub_title: "и зарабатывайте еще больше монет",
                         day_event: "Ежедневные задания",
                         event: "Список заданий",
-                        hero_event: "Основная задача",
-                        completed: "задача выполнена"
+                        hero_event: "Основные задания",
+                        completed: "завершено",
+                        active: "в процессе",
                     },
-
                     exp_shop: {
-                        btn_active: "Продолжается получение опыта…",
-                        btn_disbl: "Получение опыта",
-                        hour_tajriba: "Часовой опыт",
+                        btn_active: "Опыт накапливается...",
+                        btn_disbl: "Увеличить опыт",
+                        hour_tajriba: "Опыт в час",
                         daraja: "Уровень",
                         daraja_short: "ур.",
                         price: "Цена",
                         buy: "Купить",
                         dis_buy: "Недостаточно средств",
                         status: {
-                            tajriba_oshdi: "Ваш опыт увеличился !!!",
+                            tajriba_oshdi: "Ваш опыт увеличился!!!",
                             error: "Произошла ошибка",
-                            claim: "Баллы получены"
-                        }
+                            claim: "Баллы получены",
+                        },
                     },
-
                     peredacha: {
                         liga: "Лига",
                         hisob: "Счет",
-                        oyin_vaqti: "время игры"
+                        oyin_vaqti: "Время игры",
                     },
                     gift: {
                         title: "Подарки",
-                        h1: "Скоро..."
+                        h1: "Скоро...",
                     },
                     rayting_content: {
                         darajalar: "Уровни",
                         reyting: "Рейтинг",
                     },
                     liga: {
-                        title: "Игры лиги"
+                        title: "Игры лиги",
+                        liga_tab_rating: "Турнирная таблица",
+                        liga_tab_calendar: "Календарь игр",
+                        jamoa: "Команда",
+                        oyin: "Игра",
                     },
-
-                    loading: "Подождите…",
-                    no_data: "Нет информации"
-                }
+                    live: {
+                        live: "Прямой эфир",
+                        goals: "Пока нет голов",
+                    },
+                    loading: "Загрузка...",
+                    no_data: "Нет данных",
+                },
             },
         },
     });

@@ -20,13 +20,13 @@ const LeagueIdPage = () => {
                     className={`rating_tabs_item ${activeTab === 'rating' ? 'active' : ''}`}
                     onClick={() => setActiveTab('rating')}
                 >
-                    League Rating
+                    {t("liga.liga_tab_rating")}
                 </div>
                 <div
                     className={`rating_tabs_item ${activeTab === 'calendar' ? 'active' : ''}`}
                     onClick={() => setActiveTab('calendar')}
                 >
-                    League Calendar
+                    {t("liga.liga_tab_calendar")}
                 </div>
             </div>
 

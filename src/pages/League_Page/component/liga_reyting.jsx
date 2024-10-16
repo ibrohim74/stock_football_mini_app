@@ -63,8 +63,8 @@ const LigaReyting = () => {
                         <thead>
                         <tr>
                             <th></th>
-                            <th style={{textAlign: 'left'}}>Jamoa</th>
-                            <th>O'yin</th>
+                            <th style={{textAlign: 'left'}}>{t("liga.jamoa")}</th>
+                            <th>{t("liga.oyin")}</th>
                             <th>W</th>
                             <th>D</th>
                             <th>L</th>

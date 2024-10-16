@@ -10,6 +10,17 @@ import "../../assets/odometer.css";
 import { useTranslation } from "react-i18next";
 import {jwtDecode} from "jwt-decode";
 import BackTab from "../../component/backTab/BackTab.jsx";
+import naushnik from "../../assets/gift/naushnik.png";
+import airpods from "../../assets/gift/airpods.png";
+import futbolka from "../../assets/gift/futbolka.png";
+import koptok from "../../assets/gift/koptok.png";
+import velosiped from "../../assets/gift/velosiped.png";
+import iphone from "../../assets/gift/iphone.png";
+import powerbank from "../../assets/gift/powebank.png";
+import televizor from "../../assets/gift/televizor.png";
+import ps5 from "../../assets/gift/ps5.png";
+import samakat from "../../assets/gift/samakat.png";
+import sigway from "../../assets/gift/sigway.png";
 
 const ExpShop = () => {
     const [score, setScore] = useState(0);
@@ -25,6 +36,7 @@ const ExpShop = () => {
     const [buyBtnDis, setBuyBtnDis] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const { t } = useTranslation();
+    const items = [ naushnik, airpods, futbolka, koptok, velosiped, iphone, powerbank , televizor, ps5 , samakat, sigway];
 
     const getCoinData = async () => {
         try {
@@ -181,52 +193,66 @@ const ExpShop = () => {
             {contextHolder}
             <div className="exp_content">
                 <BackTab back_url={`/${user_id}/${language}`} style={{
-                    width:"7%"
-                }} />
-                <div className="exp_nav_box">
-                    <div className="exp_nav">
-                        <div className="exp_tap_bonus">
-                            <h1>{t("homePageTap.tap_bonus")}</h1>
-                            <p>+{tapBonus}</p>
-                        </div>
-                        <div className="exp_exp">
-                            <h1>{t("homePageTap.tajriba")}</h1>
-                            <p>{hour_coin ? formatNumber(hour_coin) : 0}</p>
-                        </div>
+                    width: "7%"
+                }}/>
+
+                <div className="gift">
+                    <div className="gift_box">
+                        {items.map((item, index) => (
+                            <div className="gift_item" key={index}>
+                                <span className="gift_blur"><h1>{t("gift.h1")}</h1></span>
+                                <img src={item} alt=""/>
+                            </div>
+                        ))}
+
                     </div>
                 </div>
 
-                <div className="exp_ball_score">
-                    {/*<div className="exp_ball">*/}
-                    {/*    <img src={ball} alt="" loading={"lazy"} width={25}/>*/}
-                    {/*    <h1><Odometer value={score} format="(.ddd),dd"/></h1>*/}
-                    {/*    {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}*/}
-                    {/*</div>*/}
-                    {/*<button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>*/}
-                    {/*    {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}*/}
-                    {/*</button>*/}
-                    {/*<p>{formatTime(remainingTime)}</p>*/}
-                </div>
-                <div className="exp_box">
-                    {Array.isArray(userExpData) && userExpData.map((item) => (
-                        <div key={item.id} className="exp_item" onClick={() => showModal(item)}>
-                            <div className="exp_item_header">
-                                <img src={item?.photo} loading={"lazy"} alt=""/>
-                            </div>
-                            <div className="exp_item_body">
-                                <p>{item.name}</p>
-                                <p style={{ fontSize: 14 }}>{t('exp_shop.hour_tajriba')} + {formatNumber(item.hour_coin)}</p>
-                            </div>
-                            <div className="item_footer">
-                                <div className="item_footer_exp">{item.degree}-{t("exp_shop.daraja_short")}</div>
-                                <div className="item_footer_coin">
-                                    <img src={ball} loading={"lazy"} alt="" width={15}/>
-                                    {formatNumber(item.price)}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+
+                {/*<div className="exp_nav_box">*/}
+                {/*    <div className="exp_nav">*/}
+                {/*        <div className="exp_tap_bonus">*/}
+                {/*            <h1>{t("homePageTap.tap_bonus")}</h1>*/}
+                {/*            <p>+{tapBonus}</p>*/}
+                {/*        </div>*/}
+                {/*        <div className="exp_exp">*/}
+                {/*            <h1>{t("homePageTap.tajriba")}</h1>*/}
+                {/*            <p>{hour_coin ? formatNumber(hour_coin) : 0}</p>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+
+                {/*<div className="exp_ball_score">*/}
+                {/*    /!*<div className="exp_ball">*!/*/}
+                {/*    /!*    <img src={ball} alt="" loading={"lazy"} width={25}/>*!/*/}
+                {/*    /!*    <h1><Odometer value={score} format="(.ddd),dd"/></h1>*!/*/}
+                {/*    /!*    {hoursBonusCoin ? <p>+{formatNumber(hoursBonusCoin)}</p> : ""}*!/*/}
+                {/*    /!*</div>*!/*/}
+                {/*    /!*<button style={{color:"white"}} onClick={postExpHours} disabled={buttonDisabled}>*!/*/}
+                {/*    /!*    {buttonDisabled ? <>{t("exp_shop.btn_active")}</> : <>{t("exp_shop.btn_disbl")}</>}*!/*/}
+                {/*    /!*</button>*!/*/}
+                {/*    /!*<p>{formatTime(remainingTime)}</p>*!/*/}
+                {/*</div>*/}
+                {/*<div className="exp_box">*/}
+                {/*    {Array.isArray(userExpData) && userExpData.map((item) => (*/}
+                {/*        <div key={item.id} className="exp_item" onClick={() => showModal(item)}>*/}
+                {/*            <div className="exp_item_header">*/}
+                {/*                <img src={item?.photo} loading={"lazy"} alt=""/>*/}
+                {/*            </div>*/}
+                {/*            <div className="exp_item_body">*/}
+                {/*                <p>{item.name}</p>*/}
+                {/*                <p style={{ fontSize: 14 }}>{t('exp_shop.hour_tajriba')} + {formatNumber(item.hour_coin)}</p>*/}
+                {/*            </div>*/}
+                {/*            <div className="item_footer">*/}
+                {/*                <div className="item_footer_exp">{item.degree}-{t("exp_shop.daraja_short")}</div>*/}
+                {/*                <div className="item_footer_coin">*/}
+                {/*                    <img src={ball} loading={"lazy"} alt="" width={15}/>*/}
+                {/*                    {formatNumber(item.price)}*/}
+                {/*                </div>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    ))}*/}
+                {/*</div>*/}
             </div>
 
             <Modal className={"exp_modal"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

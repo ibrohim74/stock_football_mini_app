@@ -135,7 +135,7 @@ const HomePageFootball = () => {
                                 </li>
                             ))
                         ) : (
-                            <li>Hozircha gollar yo'q</li>
+                            <li>{t('live.goals')}</li>
                         )}
                     </ul>
                 </div>
@@ -162,7 +162,7 @@ const HomePageFootball = () => {
             <h1 className={"footballTitle"}>
                 <BackTab back_url={`/${user_id}/${language}`} />
 
-                <div className={"jonliEfir"} ref={liveButtonRef}>Jonli Efir <div className="livenow">
+                <div className={"jonliEfir"} ref={liveButtonRef}>{t('live.live')}<div className="livenow">
                     <div></div>
                     <div></div>
                     <div></div>

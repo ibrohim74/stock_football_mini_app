@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const baseURL = "https://yengi.mussi.uz/";
+const baseURL = "https://new.mussi.uz/";
 
 const $API = axios.create({
     baseURL: baseURL,
