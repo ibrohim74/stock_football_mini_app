@@ -14,7 +14,7 @@ const App = () => {
         // 2 soniyadan keyin loaderni o'chirish
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 200);
 
         tg.expand();
         tg.headerColor = "#378805";

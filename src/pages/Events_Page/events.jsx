@@ -9,6 +9,8 @@ import { message } from "antd";
 import { useTranslation } from "react-i18next";
 import { $API } from "../../utils/https.jsx";
 import calendar from "../../assets/icon/clandar.webp";
+import eventSuccess from "../../assets/icon/success.webp"
+
 
 const Events = () => {
     const { user_id, language } = useParams();
@@ -101,12 +103,6 @@ const Events = () => {
             ...prev,
             [item.event_id]: timerDuration,
         }));
-
-        // 20 soniyadan keyin serverga zapros
-        setTimeout(async () => {
-            await completeEvent(item.event_id);
-            setLoadingEventId(null);
-        }, timerDuration);
     };
 
 
@@ -122,6 +118,8 @@ const Events = () => {
             console.error('Error completing event:', error);
         }
     };
+
+
 
     // Sonlarni format qilish funksiyasi
     const formatNumber = (num) => {
@@ -180,8 +178,8 @@ const Events = () => {
                         </div>
 
                         <div className="events_events_box">
-                            {eventsData.map(item => (
-                                <div key={item.event_id} className="events_events_item">
+                            {eventsData.map((item, index) => (
+                                <div key={index} className="events_events_item">
                                     <div className="events_events_item_left">
                                         <div className="events_events_item_left_icon">
                                             <img src={item.photo || ball} alt="event"/>
@@ -196,8 +194,19 @@ const Events = () => {
                                     </div>
                                     <div className="events_events_item_right">
                                         {item.status ? (
-                                            <button disabled
-                                                    style={{border: "1px #f9f9f9 solid"}}>{t("events.completed")}</button>
+                                            <button disabled style={{
+                                                border: "1px #f9f9f9 solid",
+                                                display: 'flex',
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}>
+
+                                                {t("events.completed")}
+                                                <img src={eventSuccess} style={{
+                                                width: "22px",
+                                                height: "22px",
+                                            }} alt=""/>
+                                            </button>
                                         ) : (
                                             <button
                                                 onClick={() => handleButtonClick(item)}
@@ -206,7 +215,8 @@ const Events = () => {
                                                     padding: 0,
                                                     border: "none",
                                                     background: "transparent",
-                                                    backdropFilter: "none"
+                                                    backdropFilter: "none",
+                                                    boxShadow:"none"
                                                 } : {}}
                                             >
                                                 {remainingTime[item.event_id] > 0
