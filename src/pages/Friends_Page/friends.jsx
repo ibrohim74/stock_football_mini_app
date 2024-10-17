@@ -64,9 +64,7 @@ const Friends = () => {
             setRemainingTime(remaining);
 
             setButtonDisabled(true);
-            setTimeout(() => {
-                setHoursBonusCoin(null);
-            }, 3000);
+
         } catch (e) {
             console.log(e);
         } finally {
@@ -158,6 +156,9 @@ const Friends = () => {
             setClaimAvailable(false); // "Claim" tugmasini yana yashirish
             localStorage.removeItem('friendsStartTime');
             localStorage.removeItem('friendsEndTime');
+            setTimeout(() => {
+                setHoursBonusCoin(null);
+            }, 3000);
             getUserData();
         } catch (e) {
             console.log(e);
@@ -167,6 +168,7 @@ const Friends = () => {
     return (
         <div className="friends">
             {contextHolder}
+            <button onClick={()=>{window.localStorage.clear()}}>Claer</button>
             <div className="content_friends">
                 <div className="friends_content">
                     <div className="friends_title">
