@@ -66,7 +66,7 @@ const RatingsList = () => {
                                         {item.name === currentStatus.name ? <>
                                             {formatCoins(userScore)} / {formatCoins(currentStatus.limit_coin)}
                                         </> : <>
-                                        {formatCoins(item.limit_coin)}
+                                        <p></p> {formatCoins(item.limit_coin)}
                                         </>}
                                     </h1>
                                 </div>

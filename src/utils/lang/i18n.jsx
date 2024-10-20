@@ -179,7 +179,8 @@ i18n
                     },
                     loading: "Kuting...",
                     no_data: "Ma'lumot yo'q",
-                    copy:"Havola nusxalandi!"
+                    copy:"Havola nusxalandi!",
+                    dan:"dan"
                 },
             },
             rus: {
@@ -350,7 +351,8 @@ i18n
 
                     loading: "Загрузка...",
                     no_data: "Нет данных",
-                    copy:"Ссылка скопирована!"
+                    copy:"Ссылка скопирована!",
+                    dan:"dan"
                 },
             },
         },

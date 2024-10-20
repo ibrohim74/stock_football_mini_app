@@ -160,7 +160,7 @@ const HomePageTap = () => {
 
 
             // Vibratsiya
-
+            navigator.vibrate(20)
             setBallPressed(true);
 
             // Ball pressed holatini qayta false holatiga o'zgartirish

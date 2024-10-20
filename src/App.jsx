@@ -7,7 +7,7 @@ import AppBarFootball from "./component/App_bar/app_bar_football.jsx";
 import LoaderFootball from "./component/loader/loader_football.jsx";
 
 const App = () => {
-    const [isLoading, setIsLoading] = useState(true); // Loading holatini boshqarish uchun state
+    const [isLoading, setIsLoading] = useState(true);
     const tg = window.Telegram.WebApp;
 
     useEffect(() => {
