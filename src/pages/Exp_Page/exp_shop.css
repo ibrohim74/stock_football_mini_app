@@ -111,7 +111,13 @@
     -webkit-backdrop-filter: blur(20px);
     border: 3px solid rgba(55, 136, 5, 0.55);
 }
-
+.prev{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 44vh;
+}
 .exp_item_blur {
     position: absolute;
     bottom: 0;

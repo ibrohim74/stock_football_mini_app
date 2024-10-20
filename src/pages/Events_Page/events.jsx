@@ -34,21 +34,23 @@ const Events = () => {
     useEffect(() => {
         const lastPlayedTime = localStorage.getItem(`quiz_last_played_${user_id}`);
         const now = new Date().getTime();
-        const quizCooldown = 24 * 60 * 60 * 1000;
+        const quizCooldown = 24 * 60 * 60 * 1000; // 24 soat
 
         if (lastPlayedTime) {
-            const timePassed = now - lastPlayedTime;
+            const lastPlayedDate = new Date(lastPlayedTime).getTime(); // ISO 8601 formatidagi sanani o'zgartirish
+            const timePassed = now - lastPlayedDate;
             setQuizAvailable(timePassed >= quizCooldown);
         } else {
             setQuizAvailable(true);
         }
     }, [user_id]);
 
+
+
     useEffect(() => {
         getEvents();
     }, [user_id]);
 
-    // Timerni qayta tiklash uchun `localStorage`dan saqlab qolamiz
     useEffect(() => {
         const ongoingTimers = eventsData.reduce((acc, item) => {
             const timerData = localStorage.getItem(`event_timer_${item.event_id}`);
@@ -67,7 +69,7 @@ const Events = () => {
         setRemainingTime(ongoingTimers);
     }, [eventsData]);
 
-    // 1 soniyada bir marta timerni yangilab turish
+
     useEffect(() => {
         const intervalId = setInterval(() => {
             setRemainingTime((prevTimes) => {
@@ -86,14 +88,14 @@ const Events = () => {
 
         return () => {
             clearInterval(intervalId);
-            setLoadingEventId(null); // Komponent unmount bo'lganda tozalanadi
+            setLoadingEventId(null);
         };
     }, []);
 
     const handleButtonClick = async (item) => {
         setLoadingEventId(item.event_id);
         window.open(item.url)
-        // 20 soniyalik timer boshlanishi
+
         const now = new Date().getTime();
         const timerDuration = 20 * 1000; // 20 soniya
         localStorage.setItem(`event_timer_${item.event_id}`, JSON.stringify({ startTime: now, duration: timerDuration }));
@@ -141,6 +143,7 @@ const Events = () => {
                     <div className="events_box_content">
                         <div className="events_box_content_title">
                             <h1>{t("events.day_event")}</h1>
+
                         </div>
 
                         {quizAvailable ? (
@@ -148,9 +151,8 @@ const Events = () => {
                                 <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
                                 <div className="events_item_text" style={{ marginTop: "18px", marginLeft: 0 }}>
                                     <p>{t("events.hero_event")}</p>
-                                    <span style={{ marginTop: 0 }}>
-                                        <img loading="lazy" src={ball} alt="ball"/>
-                                        <p>5k</p>
+                                    <span style={{marginTop: 0}}>
+                                       <p>{t("events.events_daly_text")}</p>
                                     </span>
                                 </div>
                                 <span className="events_item_status">
@@ -162,9 +164,8 @@ const Events = () => {
                                 <img src={gift} loading="lazy" alt="logo" className="events_item_logo"/>
                                 <div className="events_item_text">
                                     <p>{t("events.hero_event")}</p>
-                                    <span>
-                                        <img loading="lazy" src={ball} alt="ball"/>
-                                        <p>5k</p>
+                                    <span style={{marginTop: 0}}>
+                                       <p>{t("events.events_daly_text")}</p>
                                     </span>
                                 </div>
                                 <span className="events_item_status">
@@ -186,11 +187,12 @@ const Events = () => {
                                         </div>
                                         <div className="events_events_item_left_text">
                                             <h3>{item.name || "Event"}</h3>
-                                            <span>
+
+                                        </div>
+                                        <span>
                                                 <img loading="lazy" src={ball} alt="ball"/>
                                                 <p>{formatNumber(item.coin) || "5k"}</p>
                                             </span>
-                                        </div>
                                     </div>
                                     <div className="events_events_item_right">
                                         {item.status ? (

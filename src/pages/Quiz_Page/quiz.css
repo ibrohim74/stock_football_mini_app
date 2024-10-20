@@ -81,7 +81,7 @@
     margin-bottom: 10px;
     background: #535bf2;
     color: white;
-    padding: 10px;
+    /*padding: 10px;*/
     border-radius: 10px;
 }
 .quiz_item label{
@@ -90,15 +90,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 .correct-answer {
     background-color: green;
-    transition: background-color 0.2s ease-in;
 }
 
 .incorrect-answer {
     background-color: red;
-    transition: background-color 0.2s ease-in;
 }
 
 

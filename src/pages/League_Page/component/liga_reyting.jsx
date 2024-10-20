@@ -58,44 +58,48 @@ const LigaReyting = () => {
                 <p style={{textAlign: 'center'}}>{t("loading")}</p>
             ) : standings.length > 0 ? (
                 <div className="standings">
-
-                    <table className={"table_standing"}>
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th style={{textAlign: 'left'}}>{t("liga.jamoa")}</th>
-                            <th>{t("liga.oyin")}</th>
-                            <th>W</th>
-                            <th>D</th>
-                            <th>L</th>
-                            <th>GF</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {standings.map((team, index) => (
-                            <tr key={team.team.id}>
-                                <td style={{textAlign: 'center'}}>{index + 1}</td>
-                                <td style={{textAlign: 'left'}}>
-                                    <img
-                                        src={team.team.logo}
-                                        alt={team.team.name}
-                                        width="30"
-                                        height="30"
-                                        onError={retryImage}
-                                        onLoadStart={() => handleImageLoadStart(team.team.id)}
-                                        onLoad={() => handleImageLoadEnd(team.team.id)}
-                                    />
-                                    {team.team.name}
-                                </td>
-                                <td style={{textAlign: 'center'}}>{team.all.played}</td>
-                                <td style={{textAlign: 'center'}}> {team.all.win}</td>
-                                <td style={{textAlign: 'center'}}> {team.all.draw}</td>
-                                <td style={{textAlign: 'center'}}> {team.all.lose}</td>
-                                <td style={{textAlign: 'center'}}> {team.all.goals.for}</td>
+                    <div className="container">
+                        <table className={"table_standing"}>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th style={{textAlign: 'left'}}>{t("liga.jamoa")}</th>
+                                <th>{t("liga.oyin")}</th>
+                                <th>{t("liga.ochko")}</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>GF</th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {standings.map((team, index) => (
+                                <tr key={team.team.id}>
+                                    <td style={{textAlign: 'center'}}>{index + 1}</td>
+                                    <td style={{textAlign: 'left'}}>
+                                        <img
+                                            src={team.team.logo}
+                                            alt={team.team.name}
+                                            width="30"
+                                            height="30"
+                                            onError={retryImage}
+                                            onLoadStart={() => handleImageLoadStart(team.team.id)}
+                                            onLoad={() => handleImageLoadEnd(team.team.id)}
+                                        />
+                                        {team.team.name}
+                                    </td>
+                                    <td style={{textAlign: 'center'}}>{team.all.played}</td>
+                                    <td style={{textAlign: 'center'}}>{team.points}</td>
+                                    <td style={{textAlign: 'center'}}> {team.all.win}</td>
+                                    <td style={{textAlign: 'center'}}> {team.all.draw}</td>
+                                    <td style={{textAlign: 'center'}}> {team.all.lose}</td>
+                                    <td style={{textAlign: 'center'}}> {team.all.goals.for}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             ) : (
                 <p style={{textAlign: 'center'}}>{t("no_data")}</p>

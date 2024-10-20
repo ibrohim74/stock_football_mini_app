@@ -19,19 +19,18 @@ const LigaCalendar = () => {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0'); // Get day with leading zero
-        const monthIndex = date.getMonth(); // Get month index (0-11)
-        const month = monthNames[monthIndex]; // Get month name from monthNames
-        const hour = String(date.getHours()).padStart(2, '0'); // Get hour with leading zero
-        const minute = String(date.getMinutes()).padStart(2, '0'); // Get minute with leading zero
-
-        return <>{day}-{month}  {hour}:{minute}</>; // Combine formatted date and time
+        const day = String(date.getDate()).padStart(2, '0');
+        const monthIndex = date.getMonth();
+        const month = monthNames[monthIndex];
+        const hour = String(date.getHours()).padStart(2, '0');
+        const minute = String(date.getMinutes()).padStart(2, '0');
+        return <>{day}-{month}  {hour}:{minute}</>;
     };
 
 
     const retryImage = (event) => {
         setTimeout(() => {
-            event.target.src = event.target.src; // Retry loading the image
+            event.target.src = event.target.src;
         }, 2000);
     };
 
@@ -44,12 +43,12 @@ const LigaCalendar = () => {
     };
 
     const fetchFixtures = async () => {
-        setLoadingFixtures(true); // Start loading
+        setLoadingFixtures(true);
         const options = {
             method: 'GET',
             url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
             headers: {
-                'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669', // Replace with your actual RapidAPI key
+                'x-rapidapi-key': '666fb3a3f0mshd6f49ac99388165p10de96jsn4e667b43a669',
                 'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
             },
             params: {
@@ -113,7 +112,7 @@ const LigaCalendar = () => {
                 <div className="league_collapseChildren_box">
                     <div className="league_collapseChildren_item">
                         <div className="league_collapseChildren_item_logo">
-                            <h1>HOME</h1>
+                            <h1>{t("liga.home")}</h1>
                             {loadingImages[`${game.teams.home.logo}-${index}`] &&
                                 <div className="image-loader">Loading...</div>}
                             <img
@@ -131,7 +130,7 @@ const LigaCalendar = () => {
                         <div className="league_collapseChildren_item_logo">
                             {loadingImages[`${game.teams.away.logo}-${index}`] &&
                                 <div className="image-loader">Loading...</div>}
-                            <h1>AWAY</h1>
+                            <h1>{t("liga.away")}</h1>
                             <img
                                 loading={"lazy"}
                                 src={game.teams.away.logo || ball}

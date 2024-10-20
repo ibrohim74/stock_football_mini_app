@@ -8,7 +8,6 @@ import {useParams} from "react-router-dom";
 import {$API} from "../../../utils/https.jsx";
 import LoaderFootball from "../../../component/loader/loader_football.jsx";
 import {useTranslation} from "react-i18next";
-import {jwtDecode} from "jwt-decode";
 
 // Helper function to format coins
 const formatCoins = (coins) => {
@@ -42,7 +41,7 @@ const Rating = () => {
         try {
             const res = await $API.get(`/users/top/`);
             const resUser = await $API.get(`/users/${user_id}`);
-
+            console.log(res)
             // Malumotlarni yangi formatda saqlash
             const formattedData = {};
             res.data.top_10.forEach((item) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import './collapse.css'; // Collapse uchun CSS
+import './collapse.css';
 import down from "../../assets/icon/down.png"
 import upArrow from  "../../assets/icon/upload.png"
 const CollapseItem = ({ label, children, isOpen, onClick }) => {

@@ -8,7 +8,6 @@ import ball from "../../assets/icons/soccer_ball.png";
 import Odometer from 'react-odometerjs';
 import "../../assets/odometer.css";
 import { useTranslation } from "react-i18next";
-import {jwtDecode} from "jwt-decode";
 import BackTab from "../../component/backTab/BackTab.jsx";
 import naushnik from "../../assets/gift/naushnik.png";
 import airpods from "../../assets/gift/airpods.png";
@@ -116,7 +115,7 @@ const ExpShop = () => {
 
     const postExpHours = async () => {
 
-        setButtonDisabled(true); // Disable the button to prevent multiple clicks
+        setButtonDisabled(true);
         try {
             const res = await $API.post(`/experience/${user_id}`, null, {
                 params: {
@@ -124,22 +123,21 @@ const ExpShop = () => {
                 },
             });
             console.log(res)
-            // Assuming the response has start_time and end_time fields
+
             const startTime = new Date(res.data.start_time).getTime();
             const endTime = new Date(res.data.end_time).getTime();
 
-            // Store start and end times in localStorage
             localStorage.setItem('expStartTime', startTime.toString());
             localStorage.setItem('expEndTime', endTime.toString());
 
-            // Calculate the remaining time
+
             const currentTime = Date.now();
             const remaining = endTime - currentTime;
 
-            // Set the remaining time in state
-            setRemainingTime(remaining > 0 ? remaining : 0); // Avoid negative values
 
-            // Start a timer to update the remaining time every second
+            setRemainingTime(remaining > 0 ? remaining : 0);
+
+
             const timerId = setInterval(() => {
                 setRemainingTime((prevTime) => {
                     if (prevTime <= 1000) {
@@ -147,14 +145,14 @@ const ExpShop = () => {
                         setButtonDisabled(false);
                         localStorage.removeItem('expStartTime');
                         localStorage.removeItem('expEndTime');
-                        getCoinData(); // Refresh coin data
-                        return 0; // Reset remaining time to 0
+                        getCoinData();
+                        return 0;
                     }
-                    return prevTime - 1000; // Decrease by 1 second
+                    return prevTime - 1000;
                 });
             }, 1000);
 
-            // Cleanup the timer on component unmount
+
             return () => clearInterval(timerId);
         } catch (e) {
             console.log(e);
@@ -221,7 +219,9 @@ const ExpShop = () => {
                     {/*</button>*/}
                     {/*<p>{formatTime(remainingTime)}</p>*/}
                 </div>
-                <h1 style={{textAlign:"center"}}>{t("gift.h1")}</h1>
+
+
+                <h1  className={"prev"} style={{textAlign:"center"}} >{t("gift.h1")}</h1>
                 <div className="exp_box">
                     {/*{Array.isArray(userExpData) && userExpData.map((item) => (*/}
                     {/*    <div key={item.id} className="exp_item" onClick={() => showModal(item)}>*/}
@@ -242,42 +242,6 @@ const ExpShop = () => {
                     {/*    </div>*/}
                     {/*))}*/}
 
-                    <div className="exp_item" onClick={() => showModal(item)}>
-                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
-                        <div className="exp_item_header">
-                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
-                        </div>
-                        <div className="exp_item_body">
-                            <Skeleton active={true}/>
-                        </div>
-                    </div>
-                    <div className="exp_item" onClick={() => showModal(item)}>
-                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
-                        <div className="exp_item_header">
-                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
-                        </div>
-                        <div className="exp_item_body">
-                            <Skeleton active={true}/>
-                        </div>
-                    </div>
-                    <div className="exp_item" onClick={() => showModal(item)}>
-                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
-                        <div className="exp_item_header">
-                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
-                        </div>
-                        <div className="exp_item_body">
-                            <Skeleton active={true}/>
-                        </div>
-                    </div>
-                    <div className="exp_item" onClick={() => showModal(item)}>
-                        {/*<span className={"exp_item_blur"}><Skeleton/></span>*/}
-                        <div className="exp_item_header">
-                            <Skeleton avatar={{shape: 100, size: 100,}} active={true}/>
-                        </div>
-                        <div className="exp_item_body">
-                            <Skeleton active={true}/>
-                        </div>
-                    </div>
                 </div>
             </div>
 

@@ -3,7 +3,6 @@ import {$API} from "../../../utils/https.jsx";
 import {useParams} from "react-router-dom";
 import "./rating_list.css"
 import LoaderFootball from "../../../component/loader/loader_football.jsx";
-import {jwtDecode} from "jwt-decode";
 
 const RatingsList = () => {
     const [status, setStatus] = useState([]);
@@ -24,26 +23,26 @@ const RatingsList = () => {
         } catch (e) {
             console.log(e);
         } finally {
-            setLoading(false); // End loading
+            setLoading(false);
         }
     };
 
     const formatCoins = (coins) => {
-        const num = parseInt(coins, 10); // Make sure it's a number
+        const num = parseInt(coins, 10);
         if (num >= 1000000000) {
-            return (num / 1000000000).toFixed(1) + 'B'; // Billion
+            return (num / 1000000000).toFixed(1) + 'B';
         } else if (num >= 1000000) {
-            return (num / 1000000).toFixed(1) + 'M'; // Million
+            return (num / 1000000).toFixed(1) + 'M';
         } else if (num >= 1000) {
-            return (num / 1000).toFixed(1) + 'k'; // Thousand
+            return (num / 1000).toFixed(1) + 'k';
         } else {
-            return num.toString(); // Less than 1000, show as is
+            return num.toString();
         }
     };
 
     useEffect(() => {
         getUserData();
-    }, [user_id]); // Fetch data when user_id changes
+    }, [user_id]);
 
     return (
         <div className="rating_list">

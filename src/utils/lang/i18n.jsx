@@ -7,9 +7,9 @@ const urlLanguage = urlParts[urlParts.length - 1];
 i18n
     .use(initReactI18next)
     .init({
-        fallbackLng: urlLanguage, // URL'da ko'rsatilgan tilni qo'llab-quvvatlash
+        fallbackLng: urlLanguage,
         interpolation: {
-            escapeValue: false, // React avtomatik ravishda xavfsiz holga keltiradi
+            escapeValue: false,
         },
         resources: {
             uz: {
@@ -121,6 +121,7 @@ i18n
                         hero_event: "Asosiy vazifalar",
                         completed: "Olindi",
                         active: "Boshlash",
+                        events_daly_text:`Har kuni 5 tadan savol beriladi va har bir tog'ri javob uchun 2000 ball oling`
                     },
                     exp_shop: {
                         btn_active: "Tajriba orttirish davom etmoqda...",
@@ -156,10 +157,25 @@ i18n
                         liga_tab_calendar: "O'yinlar taqvimi",
                         jamoa: "Jamoa",
                         oyin: "O'yin",
+                        home:"Uyda",
+                        away:"Mehmonda",
+                        ochko: "Ochko"
                     },
                     live: {
                         live: "Jonli Efir",
                         goals: "Hozircha gollar yo'q",
+                    },
+                    quiz:{
+                        quiz_end:{
+                            text1:"Test tugadi!",
+                            text2:"Savollar soni",
+                            text3:"To'g'ri javoblar",
+                            text4:"Yutgan ball",
+                            text5:"Orqaga qaytish",
+                        },
+                        loading_quiz:"Savollar yuklanmoqda...",
+                        Ball:"Ball",
+                        question:"Savol"
                     },
                     loading: "Kuting...",
                     no_data: "Ma'lumot yo'q",
@@ -275,6 +291,7 @@ i18n
                         hero_event: "Основные задания",
                         completed: "Получено",
                         active: "Начать",
+                        events_daly_text:"Каждый день задаются 5 вопросов, и за каждый правильный ответ вы получаете 2000 очков"
                     },
                     exp_shop: {
                         btn_active: "Опыт накапливается...",
@@ -310,11 +327,27 @@ i18n
                         liga_tab_calendar: "Календарь игр",
                         jamoa: "Команда",
                         oyin: "Игра",
+                        home:"Дома",
+                        away:"В гостях",
+                        ochko: "Очко"
                     },
                     live: {
                         live: "Прямой эфир",
                         goals: "Пока нет голов",
                     },
+                    quiz: {
+                        quiz_end: {
+                            text1: "Тест завершен!",
+                            text2: "Количество вопросов",
+                            text3: "Правильные ответы",
+                            text4: "Набранные баллы",
+                            text5: "Вернуться назад",
+                        },
+                        loading_quiz: "Загрузка вопросов...",
+                        Ball: "Баллы",
+                        question: "Вопрос"
+                    },
+
                     loading: "Загрузка...",
                     no_data: "Нет данных",
                     copy:"Ссылка скопирована!"

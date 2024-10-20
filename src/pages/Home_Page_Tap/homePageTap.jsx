@@ -11,7 +11,6 @@ import {useTranslation} from "react-i18next";
 import {Tour} from "antd";
 import Odometer from "react-odometerjs";
 import LoaderFootball from "../../component/loader/loader_football.jsx";
-import {jwtDecode} from "jwt-decode";
 
 
 const HomePageTap = () => {
@@ -141,7 +140,7 @@ const HomePageTap = () => {
         // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        const touches = event.touches ; // || [{ clientX: event.clientX, clientY: event.clientY }]
+        const touches = event.touches  ; //|| [{ clientX: event.clientX, clientY: event.clientY }]
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
@@ -191,7 +190,7 @@ const HomePageTap = () => {
                 ...prevData,
                 energy: Math.min(prevData.maxEnergy, prevData.energy + 1)
             }));
-        }, 1000);
+        }, 3000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -332,6 +331,7 @@ const HomePageTap = () => {
                          ref={ballRef}
                          onTouchStart={handleStart}
                          onTouchEnd={handleEnd}
+
                     >
                         <img
                             draggable={false}
