@@ -285,6 +285,7 @@ const HomePageTap = () => {
                     eventsRef={eventsRef}
                     giftRef={giftRef}
                 />
+                asdasd
                 <div className="home-page_user_settings">
                     <Link to={`/${user_id}/${language}/settings`} className="home-page_user" ref={profileRef}>
                         <h1>{userData.username ? userData.username : userData.first_name}</h1>
