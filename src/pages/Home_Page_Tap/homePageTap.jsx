@@ -159,7 +159,7 @@ const HomePageTap = () => {
             }, 300);
 
 
-            // Vibratsiya
+
             setBallPressed(true);
 
             // Ball pressed holatini qayta false holatiga o'zgartirish
