@@ -78,13 +78,13 @@ button:focus, a:focus, div:focus, img:focus, *:focus {
 
 
 
-/*@media screen and (max-width: 321px){*/
-/*    body, html{*/
-/*        display: none;*/
-/*    }*/
-/*}*/
-/*@media screen and (orientation: landscape){*/
-/*    body, html{*/
-/*        display: none;*/
-/*    }*/
-/*}*/
+@media screen and (max-width: 321px){
+    body, html{
+        display: none;
+    }
+}
+@media screen and (orientation: landscape){
+    body, html{
+        display: none;
+    }
+}
