@@ -19,7 +19,7 @@ const HomePageTap = () => {
     const [ballPressed, setBallPressed] = useState(false);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     // const [soundEnabled, setSoundEnabled] = useState(true);
-    const {user_id , language} = useParams();
+    const {user_id, language} = useParams();
     const timerRef = useRef(null);
     const {t} = useTranslation();
     const [openTour, setOpenTour] = useState(false);
@@ -32,12 +32,12 @@ const HomePageTap = () => {
         hour_coin: 0,
     });
     const [loader, setLoader] = useState(false);
-
+    const token = localStorage.getItem("access_token");
 
     const getCoinData = async () => {
         setLoader(true);  // loaderni ko'rsatish
         try {
-            const res = await $API.get(`/users/${user_id}`);
+            const res = await $API.get(`/users/`);
             console.log(res)
             const user = res.data.user;
             const status = res.data.status;
@@ -87,10 +87,9 @@ const HomePageTap = () => {
                     {
                         coin: newScore,
                         energy: newEnergy,
-                        user_id:user_id
                     }
             });
-            const res = await $API.get(`/users/${user_id}`);
+            const res = await $API.get(`/users/`);
             console.log(res)
             const user = res.data.user;
             const status = res.data.status;
@@ -107,7 +106,7 @@ const HomePageTap = () => {
             });
         } catch (e) {
             if (e.status === 422) {
-                const res = await $API.get(`/users/${user_id}`);
+                const res = await $API.get(`/users/`);
                 console.log(res)
                 const user = res.data.user;
                 const status = res.data.status;
@@ -140,7 +139,7 @@ const HomePageTap = () => {
         // Energiyani tekshirish
         if (userData.energy <= 0) return;
 
-        const touches = event.touches  ; //|| [{ clientX: event.clientX, clientY: event.clientY }]
+        const touches = event.touches || [{clientX: event.clientX, clientY: event.clientY}]; //
         const allowedTouches = Math.min(touches.length, userData.energy);
         setTouchCount(allowedTouches)
         for (let i = 0; i < allowedTouches; i++) {
@@ -157,7 +156,6 @@ const HomePageTap = () => {
             setTimeout(() => {
                 setAnimations((prev) => prev.filter((a) => a.id !== newAnimation.id));
             }, 300);
-
 
 
             setBallPressed(true);
@@ -331,7 +329,8 @@ const HomePageTap = () => {
                          ref={ballRef}
                          onTouchStart={handleStart}
                          onTouchEnd={handleEnd}
-
+                         onMouseDown={handleEnd}
+                         onMouseUp={handleStart}
                     >
                         <img
                             draggable={false}

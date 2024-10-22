@@ -14,15 +14,13 @@ const Quiz = () => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [quizAvailable, setQuizAvailable] = useState(true);
     const [quizFinished, setQuizFinished] = useState(false);
-    const [messageApi, contextHolder] = message.useMessage();
-    const [answerStatus, setAnswerStatus] = useState(null);
+    const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false); // Javob berilganmi
     const [correctAnswers, setCorrectAnswers] = useState(0); // To'g'ri javoblar soni
     const {user_id, language} = useParams();
     const navigate = useNavigate();
     const {t} = useTranslation();
-    console.log('Current Question:', currentQuestion);
-    console.log('Total Questions:', questions.length);
-    console.log(questions)
+    const [messageApi, contextHolder] = message.useMessage();
+    const [answerStatus, setAnswerStatus] = useState(null);
 
     useEffect(() => {
         const lastPlayedTime = localStorage.getItem(`quiz_last_played_${user_id}`);
@@ -31,10 +29,9 @@ const Quiz = () => {
             const now = new Date();
             const timeDifference = now - lastPlayedDate;
 
-            // Agar oxirgi marta o'ynalganidan beri 24 soat o'tmagan bo'lsa
             if (timeDifference < 24 * 60 * 60 * 1000) {
                 setQuizAvailable(false); // Testni yopamiz
-                messageApi.info(t("quiz.quiz_not_available")); // Userga xabar beramiz
+                messageApi.info(t("quiz.quiz_not_available"));
                 return;
             }
         }
@@ -42,7 +39,8 @@ const Quiz = () => {
         // Agar test mavjud bo'lsa, savollarni yuklash
         const fetchQuestions = async () => {
             try {
-                const res = await $API.get(`questions/${user_id}`, {params: {user_id}});
+                const res = await $API.get(`questions/`);
+                console.log(res)
                 setQuestions(res.data.question);
             } catch (error) {
                 console.error('Savollarni yuklashda xatolik:', error);
@@ -65,16 +63,9 @@ const Quiz = () => {
 
     const handleAnswerSelection = (answer) => {
         setSelectedAnswer(answer);
+        setIsAnswerSubmitted(true); // Javob berilgan holatni o'rnatamiz
 
         // Javobni tanlaganda to'g'ri yoki noto'g'ri ekanligini darhol ko'rsatish
-        const correctAnswer = questions[currentQuestion]?.answer;
-        if (answer === correctAnswer) {
-            setAnswerStatus('correct');
-            setScore(prevScore => prevScore + questions[currentQuestion]?.ball); // Ball qo'shish
-            setCorrectAnswers(prevCorrect => prevCorrect + 1); // To'g'ri javoblar sonini oshirish
-        } else {
-            setAnswerStatus('incorrect');
-        }
         sendAnswerToServer(questions[currentQuestion]?.id, answer);
     };
 
@@ -88,17 +79,28 @@ const Quiz = () => {
                     answer: answerText,
                 }
             });
-            setTimeout(() => {
-                handleNextQuestion(); // Keyingi savolga o'tish
-            }, 1000);
+
+            const correctAnswer = questions[currentQuestion]?.answer;
+            if (answerText === correctAnswer) {
+                setAnswerStatus('correct');
+                setScore(prevScore => prevScore + questions[currentQuestion]?.ball); // Ball qo'shish
+                setCorrectAnswers(prevCorrect => prevCorrect + 1); // To'g'ri javoblar sonini oshirish
+            } else {
+                setAnswerStatus('incorrect');
+            }
         } catch (error) {
             console.error('Javobni jo\'natishda xatolik yuz berdi:', error);
+        } finally {
+            setTimeout(() => {
+                handleNextQuestion();
+            }, 1000); // 1 sekund kutamiz keyingi savolga o'tishdan oldin
         }
     };
 
     const handleNextQuestion = () => {
         setSelectedAnswer(null);
         setAnswerStatus(null);
+        setIsAnswerSubmitted(false); // Yangi savolga o'tganimizda qayta javob berish holatini ochamiz
         setTimeLeft(20);
 
         if (currentQuestion + 1 >= questions.length) {
@@ -158,6 +160,7 @@ const Quiz = () => {
                                     value={answer}
                                     checked={selectedAnswer === answer}
                                     onChange={() => handleAnswerSelection(answer)}
+                                    disabled={isAnswerSubmitted} // Disable buttons if an answer is submitted
                                 />
                                 <label htmlFor={`answer-${key}`}>{answer}</label>
                             </div>

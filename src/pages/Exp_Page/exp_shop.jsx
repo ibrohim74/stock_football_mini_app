@@ -39,7 +39,7 @@ const ExpShop = () => {
 
     const getCoinData = async () => {
         try {
-            const res = await $API.get(`users/experience/${user_id}`);
+            const res = await $API.get(`users/experience/`);
             setScore(res.data.user.coins);
             setTapBonus(res.data.user.bonus);
             setUserExpData(res.data.experience);
@@ -117,7 +117,7 @@ const ExpShop = () => {
 
         setButtonDisabled(true);
         try {
-            const res = await $API.post(`/experience/${user_id}`, null, {
+            const res = await $API.post(`/experience/`, null, {
                 params: {
                     activate: true,
                 },

@@ -112,6 +112,7 @@ i18n
                         fiends: "Do'stlar ro'yxati",
                         show_all: "Barchasini ko'rsatish",
                         share: "Do'stni taklif qilish",
+                        activate:"Ballar ishlash"
                     },
                     events: {
                         title: "Vazifalarni bajaring",
@@ -283,6 +284,7 @@ i18n
                         fiends: "Список друзей",
                         show_all: "Показать всех",
                         share: "Пригласить друга",
+                        activate:"Заработать очки"
                     },
                     events: {
                         title: "Выполняйте задания",
@@ -352,7 +354,8 @@ i18n
                     loading: "Загрузка...",
                     no_data: "Нет данных",
                     copy:"Ссылка скопирована!",
-                    dan:"dan"
+                    dan:"dan",
+
                 },
             },
         },

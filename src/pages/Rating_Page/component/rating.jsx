@@ -40,7 +40,7 @@ const Rating = () => {
         setLoading(true); // Start loading
         try {
             const res = await $API.get(`/users/top/`);
-            const resUser = await $API.get(`/users/${user_id}`);
+            const resUser = await $API.get(`/users/`);
             console.log(res)
             // Malumotlarni yangi formatda saqlash
             const formattedData = {};

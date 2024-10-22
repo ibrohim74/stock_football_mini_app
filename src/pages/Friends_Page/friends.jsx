@@ -25,26 +25,29 @@ const Friends = () => {
     const { t } = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
     const { user_id } = useParams();
-
+    const [resTime, setResTime] = useState({});
     const displayedUsers = showAll && friendsData.length > 3 ? friendsData : friendsData.slice(0, 3);
 
     const getUserData = async () => {
         setLoading(true);
         try {
-            const res = await $API.get(`/users/friends/${user_id}`);
-            console.log(res);
+            const res = await $API.get(`/users/friends/`);
             setFriendsData(res.data.friends);
             setCurrentUser(res.data.user_data);
             setHoursBonusCoin(res.data.friends_price);
-
-            // Start va End Time bilan ishlash
-            const startTime = new Date(res.data.date.start_time).getTime();
-            const endTime = new Date(res.data.date.end_time).getTime();
-            const currentTime = Date.now();
-            const remaining = endTime - currentTime;
-
-            setRemainingTime(remaining); // Qolgan vaqtni hisoblash
-            setButtonDisabled(remaining > 0); // Vaqt tugamagan bo'lsa "Claim" tugmasini o'chirish
+            setResTime(res.data.date);
+            console.log(res)
+            if (res.data.date?.start_time && res.data.date?.end_time) {
+                const startTime = new Date(res.data.date.start_time).getTime();
+                const endTime = new Date(res.data.date.end_time).getTime();
+                const currentTime = Date.now();
+                const remaining = endTime - currentTime;
+                setClaimAvailable(true);
+                setRemainingTime(remaining);
+                setButtonDisabled(remaining > 0);
+            } else {
+                setButtonDisabled(false);
+            }
         } catch (e) {
             console.log(e);
         } finally {
@@ -54,28 +57,40 @@ const Friends = () => {
 
     const getClaim = async () => {
         try {
-            const res = await $API.post(`/referrals/activate/${user_id}`, null, { params: { user_id } });
-            console.log(res);
-
+            const res = await $API.post(`/referrals/activate/`);
             if (res.status === 200) {
                 await getUserData();
             }
-
             const startTime = new Date(res.data.start_time).getTime();
             const endTime = new Date(res.data.end_time).getTime();
-
             localStorage.setItem("friendsStartTime", startTime.toString());
             localStorage.setItem("friendsEndTime", endTime.toString());
 
             const currentTime = Date.now();
             const remaining = endTime - currentTime;
             setRemainingTime(remaining);
-
             setButtonDisabled(true);
         } catch (e) {
             console.log(e);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const getClaimEnd = async () => {
+        try {
+            const res = await $API.post(`referrals/claim/`);
+            console.log(res)
+            setButtonDisabled(false);
+            setClaimAvailable(false);
+            localStorage.removeItem("friendsStartTime");
+            localStorage.removeItem("friendsEndTime");
+            setTimeout(() => {
+                setHoursBonusCoin(null);
+            }, 3000);
+            getUserData();
+        } catch (e) {
+            console.log(e);
         }
     };
 
@@ -86,7 +101,7 @@ const Friends = () => {
                     if (prevTime <= 1000) {
                         clearInterval(intervalId);
                         setButtonDisabled(false);
-                        setClaimAvailable(true); // "Claim" tugmasini ko'rsatish
+                        setClaimAvailable(true);
                         return 0;
                     }
                     return prevTime - 1000;
@@ -97,6 +112,10 @@ const Friends = () => {
         }
     }, [remainingTime]);
 
+    useEffect(() => {
+        getUserData();
+    }, []);
+
     const copyToClipboard = () => {
         navigator.clipboard
             .writeText(`https://t.me/Stockfootball_bot?start=${user_id}`)
@@ -104,7 +123,7 @@ const Friends = () => {
                 messageApi.success(t("copy"));
             })
             .catch((err) => {
-                console.error("Nusxa olishda xato:", err);
+                console.error("Error copying to clipboard:", err);
             });
     };
 
@@ -124,35 +143,13 @@ const Friends = () => {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
-
         return `${String(hours).padStart(2, "0")} : ${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
-    };
-
-    useEffect(() => {
-        getUserData();
-    }, []);
-
-    const getClaimEnd = async () => {
-        try {
-            const res = await $API.post(`referrals/claim/${user_id}`, null, { params: { user_id } });
-            console.log(res);
-            setButtonDisabled(false);
-            setClaimAvailable(false);
-            localStorage.removeItem("friendsStartTime");
-            localStorage.removeItem("friendsEndTime");
-            setTimeout(() => {
-                setHoursBonusCoin(null);
-            }, 3000);
-            getUserData();
-        } catch (e) {
-            console.log(e);
-        }
     };
 
     return (
         <div className="friends">
             {contextHolder}
-
+            <AppBar />
             <div className="content_friends">
                 <div className="friends_content">
                     <div className="friends_title">
@@ -161,7 +158,6 @@ const Friends = () => {
                         </div>
                         <h1>{t("friends.title")}</h1>
                     </div>
-
                     {loading ? (
                         <LoaderFootball />
                     ) : (
@@ -177,28 +173,26 @@ const Friends = () => {
                                         <p>{formatTime(remainingTime)}</p>
                                     </>
                                 ) : claimAvailable ? (
-                                    <button onClick={getClaimEnd}>Ballarni olish</button>
+                                    <button onClick={getClaimEnd}>{t("friends.claim")}</button>
                                 ) : (
                                     <>
                                         {friendsData.length > 0 && (
                                             <button onClick={getClaim} style={{ color: "white" }}>
-                                                {t("friends.claim")}
+                                                {t("friends.activate")}
                                             </button>
                                         )}
                                     </>
                                 )}
                             </div>
-
                             <div className="friends_ref">
                                 <div className="friends_ref_title">
                                     <div className="friends_ref_title_top">
                                         <h1>
-                                            ({friendsData.length}) {t("friends.fiends")}{" "}
+                                            ({friendsData.length}) {t("friends.fiends")}
                                         </h1>
                                     </div>
                                     <p className={"no_friends"}>{friendsData.length > 0 ? "" : t("friends.no_friends")}</p>
                                 </div>
-
                                 <div className={`friends_ref_box ${showAll ? "show_all" : ""}`}>
                                     {displayedUsers.map((user, index) => (
                                         <div key={index} className="friends_ref_item">
@@ -206,7 +200,6 @@ const Friends = () => {
                                                 <img src={user_img} loading={"lazy"} alt="User" />
                                                 <h1>{user.username}</h1>
                                             </div>
-
                                             <div className="friends_ref_item_info">
                                                 <p>{user.status} </p>
                                                 <span>
@@ -216,7 +209,6 @@ const Friends = () => {
                                             </div>
                                         </div>
                                     ))}
-
                                     {!showAll && friendsData.length > 3 && (
                                         <button className={"show_more_button"} onClick={() => setShowAll(true)}>
                                             {t("friends.show_all")}
@@ -224,7 +216,6 @@ const Friends = () => {
                                     )}
                                 </div>
                             </div>
-
                             <div className="ref_link_box">
                                 <div className="ref_button" onClick={openShareLink}>
                                     {t("friends.share")}

@@ -15,7 +15,7 @@ const RatingsList = () => {
         setLoading(true); // Start loading
         try {
             const res = await $API.get(`/status`);
-            const getUser = await $API.get(`/users/${user_id}`);
+            const getUser = await $API.get(`/users/`);
             setStatus(res.data);
             setCurrentStatus(getUser.data.status)
             setUserScore(getUser.data.user.coins)

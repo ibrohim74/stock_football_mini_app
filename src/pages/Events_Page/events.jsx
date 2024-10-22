@@ -11,7 +11,6 @@ import { $API } from "../../utils/https.jsx";
 import calendar from "../../assets/icon/clandar.webp";
 import eventSuccess from "../../assets/icon/success.webp"
 
-
 const Events = () => {
     const { user_id, language } = useParams();
     const [messageApi, contextHolder] = message.useMessage();
@@ -23,7 +22,7 @@ const Events = () => {
 
     const getEvents = async () => {
         try {
-            const res = await $API.get(`/events/${user_id}`);
+            const res = await $API.get(`/events/list/`);
             setEventsData(res.data);
             console.log(res)
         } catch (error) {
@@ -37,7 +36,7 @@ const Events = () => {
         const quizCooldown = 24 * 60 * 60 * 1000; // 24 soat
 
         if (lastPlayedTime) {
-            const lastPlayedDate = new Date(lastPlayedTime).getTime(); // ISO 8601 formatidagi sanani o'zgartirish
+            const lastPlayedDate = new Date(lastPlayedTime).getTime();
             const timePassed = now - lastPlayedDate;
             setQuizAvailable(timePassed >= quizCooldown);
         } else {
@@ -45,60 +44,69 @@ const Events = () => {
         }
     }, [user_id]);
 
-
-
     useEffect(() => {
         getEvents();
     }, [user_id]);
 
+    // Ongoing events vaqti tekshirish
     useEffect(() => {
-        const ongoingTimers = eventsData.reduce((acc, item) => {
-            const timerData = localStorage.getItem(`event_timer_${item.event_id}`);
-            if (timerData) {
-                const { startTime, duration } = JSON.parse(timerData);
+        const checkOngoingEvents = () => {
+            const ongoingEvents = Object.keys(localStorage)
+                .filter(key => key.startsWith('event_'))
+                .map(key => JSON.parse(localStorage.getItem(key)));
+
+            ongoingEvents.forEach(({ eventId, startTime, duration }) => {
                 const now = new Date().getTime();
                 const timePassed = now - startTime;
                 const remainingTime = duration - timePassed;
-                if (remainingTime > 0) {
-                    acc[item.event_id] = remainingTime;
+
+                if (remainingTime <= 0) {
+                    completeEvent(eventId); // Eventni tugatish
+                    localStorage.removeItem(`event_${eventId}`); // LocalStorage'dan o'chirish
+                } else {
+                    setRemainingTime(prev => ({
+                        ...prev,
+                        [eventId]: remainingTime,
+                    }));
                 }
-            }
-            return acc;
-        }, {});
+            });
+        };
 
-        setRemainingTime(ongoingTimers);
-    }, [eventsData]);
+        checkOngoingEvents();
+    }, []);
 
-
+    // Har bir soniyada qolgan vaqtni yangilash
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setRemainingTime((prevTimes) => {
+            setRemainingTime(prevTimes => {
                 const updatedTimes = { ...prevTimes };
                 for (const eventId in updatedTimes) {
-                    updatedTimes[eventId] -= 1000;
+                    updatedTimes[eventId] -= 1000; // Har bir soniyada kamaytirish
                     if (updatedTimes[eventId] <= 0) {
-                        completeEvent(eventId);
+                        completeEvent(eventId); // Eventni tugatish
                         delete updatedTimes[eventId];
-                        localStorage.removeItem(`event_timer_${eventId}`);
+                        localStorage.removeItem(`event_${eventId}`); // LocalStorage'dan o'chirish
                     }
                 }
                 return updatedTimes;
             });
         }, 1000);
 
-        return () => {
-            clearInterval(intervalId);
-            setLoadingEventId(null);
-        };
+        return () => clearInterval(intervalId);
     }, []);
 
     const handleButtonClick = async (item) => {
         setLoadingEventId(item.event_id);
-        window.open(item.url)
+        window.open(item.url);
 
         const now = new Date().getTime();
         const timerDuration = 20 * 1000; // 20 soniya
-        localStorage.setItem(`event_timer_${item.event_id}`, JSON.stringify({ startTime: now, duration: timerDuration }));
+        const eventData = {
+            startTime: now,
+            duration: timerDuration,
+            eventId: item.event_id,
+        };
+        localStorage.setItem(`event_${item.event_id}`, JSON.stringify(eventData));
 
         // Timer uchun qolgan vaqtni yangilash
         setRemainingTime((prev) => ({
@@ -107,21 +115,23 @@ const Events = () => {
         }));
     };
 
-
     // Vazifani bajarish funksiyasi
     const completeEvent = async (eventId) => {
+        console.log(eventId)
         try {
-            const res = await $API.post(`/events/${user_id}`, null, {
-                params: { event_id: eventId }
-            });
+            if (eventId){
+                const res = await $API.post(`/events/`, null, {
+                    params: { event_id: eventId }
+                });
+                console.log('Event completed:', res);
+            }
+
             getEvents();
-            console.log('Event completed:', res);
+
         } catch (error) {
             console.error('Error completing event:', error);
         }
     };
-
-
 
     // Sonlarni format qilish funksiyasi
     const formatNumber = (num) => {
@@ -143,7 +153,6 @@ const Events = () => {
                     <div className="events_box_content">
                         <div className="events_box_content_title">
                             <h1>{t("events.day_event")}</h1>
-
                         </div>
 
                         {quizAvailable ? (
@@ -187,12 +196,11 @@ const Events = () => {
                                         </div>
                                         <div className="events_events_item_left_text">
                                             <h3>{item.name || "Event"}</h3>
-
                                         </div>
                                         <span>
-                                                <img loading="lazy" src={ball} alt="ball"/>
-                                                <p>{formatNumber(item.coin) || "5k"}</p>
-                                            </span>
+                                            <img loading="lazy" src={ball} alt="ball"/>
+                                            <p>{formatNumber(item.coin) || "5k"}</p>
+                                        </span>
                                     </div>
                                     <div className="events_events_item_right">
                                         {item.status ? (
@@ -202,12 +210,11 @@ const Events = () => {
                                                 justifyContent: "center",
                                                 alignItems: "center",
                                             }}>
-
                                                 {t("events.completed")}
                                                 <img src={eventSuccess} style={{
-                                                width: "22px",
-                                                height: "22px",
-                                            }} alt=""/>
+                                                    width: "22px",
+                                                    height: "22px",
+                                                }} alt=""/>
                                             </button>
                                         ) : (
                                             <button
@@ -226,7 +233,6 @@ const Events = () => {
                                                     : t("events.active")}
                                             </button>
                                         )}
-
                                     </div>
                                 </div>
                             ))}
