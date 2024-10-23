@@ -34,7 +34,7 @@ const Friends = () => {
             const res = await $API.get(`/users/friends/`);
             setFriendsData(res.data.friends);
             setCurrentUser(res.data.user_data);
-            setHoursBonusCoin(res.data.friends_price);
+            setHoursBonusCoin(res.data.user_data.hour_coin);
             setResTime(res.data.date);
             console.log(res)
             if (res.data.date?.start_time && res.data.date?.end_time) {
