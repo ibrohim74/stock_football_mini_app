@@ -13,9 +13,8 @@ const App = () => {
 
     const hashParts = window.location.hash.split("/");
     const userId = hashParts[1];
-
+    const isToken = localStorage.getItem("access_token");
     const GetToken = async () => {
-        const isToken = localStorage.getItem("access_token");
         try {
             if (!isToken) {
                 const res = await $API.post("/token", null, { params: { user_id: userId } });
@@ -53,15 +52,15 @@ const App = () => {
 
     return (
         <HashRouter>
-            <Routes>
-                <Route path="/:user_id/:language" element={<HomePageTap />} />
-                {RouterTapFootballData.map(({ Path, Component }, index) => (
-                    <Route path={Path} element={<><AppBar /><Component /></>} key={index} />
-                ))}
-                {RouterFootballData.map(({ Path, Component }, index) => (
-                    <Route path={Path} element={<><AppBarFootball /><Component /></>} key={index} />
-                ))}
-            </Routes>
+                <Routes>
+                    <Route path="/:user_id/:language" element={<HomePageTap />} />
+                    {RouterTapFootballData.map(({ Path, Component }, index) => (
+                        <Route path={Path} element={<><AppBar /><Component /></>} key={index} />
+                    ))}
+                    {RouterFootballData.map(({ Path, Component }, index) => (
+                        <Route path={Path} element={<><AppBarFootball /><Component /></>} key={index} />
+                    ))}
+                </Routes>
         </HashRouter>
     );
 };

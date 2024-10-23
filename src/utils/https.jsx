@@ -1,7 +1,7 @@
 import axios from "axios";
 const hashParts = window.location.hash.split("/");
 const userId = hashParts[1];
-// const baseURL = "https://new.mussi.uz/";
+
 const baseURL = "https://new.mussi.uz/";
 
 let authToken = localStorage.getItem("access_token");
